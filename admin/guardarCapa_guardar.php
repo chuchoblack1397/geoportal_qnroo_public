@@ -127,5 +127,3 @@ else{
 
 
 //mysqli_close($conexion);//cerrando conexion
-
-?>

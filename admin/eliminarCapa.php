@@ -15,4 +15,3 @@ if ($resultado_eliminarCapa) {
     else {
         echo "<script>mostrarAlertas({message: '<strong>ERROR!</strong> al Eliminar La(s) capas(s)', class:'danger'});</script>";
     }//fin else
-?>

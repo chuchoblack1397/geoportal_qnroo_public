@@ -1,13 +1,13 @@
-.baseControlPanel{
+.baseControlPanel {
     width: 100%;
     text-align: center;
 }
-#controlMenuPanel{
-    position:absolute;
+#controlMenuPanel {
+    position: absolute;
     z-index: 110;
     width: 340px;
     height: 100%;
-    background:rgb(255,255,255);
+    background: rgb(255, 255, 255);
     top: 0%;
     border-radius: 0px 10px 10px 0px;
     transition: all 0.3s ease-in-out;
@@ -15,17 +15,16 @@
     -moz-transition: all 0.3s ease-in-out; /** Firefox **/
     -o-transition: all 0.3s ease-in-out; /** Opera **/
 
-    overflow:auto;
+    overflow: auto;
     box-sizing: border-box;
-    
-        /*Estilos estándar experimentales (Principalmente Firefox)*/
-        scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 0);
-        scrollbar-width: thin;
-    
-    -webkit-box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
-            
+
+    /*Estilos estándar experimentales (Principalmente Firefox)*/
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+
+    -webkit-box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.75);
 }
 
 #controlMenuPanel::-webkit-scrollbar {
@@ -33,12 +32,13 @@ box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
 }
 
 #controlMenuPanel::-webkit-scrollbar:vertical {
-    width:10px;
+    width: 10px;
 }
 
-#controlMenuPanel::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+#controlMenuPanel::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
     display: none;
-} 
+}
 
 #controlMenuPanel::-webkit-scrollbar:horizontal {
     height: 10px;
@@ -51,24 +51,24 @@ box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
 }
 
 #controlMenuPanel::-webkit-scrollbar-track {
-    border-radius: 10px;  
+    border-radius: 10px;
 }
 
-#btnEntrarAdmin{
-    position:absolute;
+#btnEntrarAdmin {
+    position: absolute;
     left: 20px;
     top: 10px;
-    background: rgba(0,0,0,0%);
+    background: rgba(0, 0, 0, 0%);
     border-style: none;
     border-radius: 3px;
     color: #aaa;
     width: 30px;
     height: 30px;
-    font-size:30px;
+    font-size: 30px;
 }
 
-#btnCerrarMenu{
-    position:absolute;
+#btnCerrarMenu {
+    position: absolute;
     right: 20px;
     top: 10px;
     background: rgb(255, 77, 77);
@@ -76,10 +76,10 @@ box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
     border-radius: 3px;
     color: white;
     width: 30px;
-    height: 30px;  
+    height: 30px;
 }
 
-#btnAbrirMenu{
+#btnAbrirMenu {
     position: absolute;
     z-index: 101;
     width: 60px;
@@ -88,28 +88,28 @@ box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
     left: 20px;
     border-style: none;
     border-radius: 3px;
-    background:rgb(30, 144, 255);
+    background: rgb(30, 144, 255);
     color: white;
-    -webkit-box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
-    -moz-box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
-    box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
+    box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
 }
-#btnAbrirMenu:hover{
-    -webkit-box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
-    -moz-box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
-    box-shadow: 7px 10px 5px -3px rgba(0,0,0,0.3);
-    background:rgb(23, 108, 194);
+#btnAbrirMenu:hover {
+    -webkit-box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
+    box-shadow: 7px 10px 5px -3px rgba(0, 0, 0, 0.3);
+    background: rgb(23, 108, 194);
 }
 
-#botonCerrarControl{
+#botonCerrarControl {
     display: none;
 }
-#botonCerrarControl_label{
-    position:absolute;
+#botonCerrarControl_label {
+    position: absolute;
     right: -20px;
     width: 20px;
     height: 100%;
-    background:rgba(119, 119, 119, 0.8);
+    background: rgba(119, 119, 119, 0.8);
     border-radius: 0px 10px 10px 0px;
     color: white;
     line-height: 100vh;
@@ -117,38 +117,37 @@ box-shadow: 0px 0px 22px 0px rgba(0,0,0,0.75);
     display: none;
 }
 
-
-#botonCerrarControl_label:hover{
+#botonCerrarControl_label:hover {
     cursor: pointer;
-    background:rgba(119, 119, 119,100%);
+    background: rgba(119, 119, 119, 100%);
 }
 
 /*----------AVATAR----------*/
 
-#avatar img{
+#avatar img {
     margin: 10px;
     width: 25%;
     border-radius: 50%;
     background: #232323;
 }
 
-#avatar a{
-color: rgb(179, 0, 0);
-text-decoration: none;
-margin: 0px;
+#avatar a {
+    color: rgb(179, 0, 0);
+    text-decoration: none;
+    margin: 0px;
 }
 
-#avatar a:hover{
+#avatar a:hover {
     color: rgb(104, 1, 1);
-    }
+}
 /*----------fin AVATAR----------*/
 
 /*------ZOOM------*/
-#zoom{
-width: 70%;
+#zoom {
+    width: 70%;
 }
 
-.btnZoom{
+.btnZoom {
     width: 20px;
     height: 20px;
     margin: 0;
@@ -161,87 +160,83 @@ width: 70%;
     line-height: 20px;
 }
 
-.divZoom{
-    
+.divZoom {
     margin: auto;
     line-height: 25px;
-    text-align: center; 
+    text-align: center;
 }
-#contenedorZoom{
-position: relative;
+#contenedorZoom {
+    position: relative;
 }
-#zoomOut{
+#zoomOut {
     position: absolute;
     left: 10px;
-    top:33px;
+    top: 33px;
 }
-#zoomIn{
+#zoomIn {
     position: absolute;
     right: 10px;
     bottom: 0px;
 }
 /*------fin ZOOM------*/
 
-#contenidoCapas{
+#contenidoCapas {
     margin-left: 20px;
 }
 
 #contenidoMedir {
     width: 95%;
 }
-#contenidoMedir span{
+#contenidoMedir span {
     font-size: 11px;
 }
 
-
-#controlPanel{
-    position:absolute;
+#controlPanel {
+    position: absolute;
     z-index: 100;
     top: 10px;
     right: 10px;
     width: 300px;
     height: 100px;
-    background:rgba(0,0,0,40%);
+    background: rgba(0, 0, 0, 40%);
     border-radius: 10px;
     padding: 3px 20px;
     text-align: center;
     color: white;
 }
 
-#controlPanel input{
+#controlPanel input {
     margin: 15px 0px 20px 10px;
 }
 
-
-.chkBoton{
+.chkBoton {
     display: none;
 }
 
-.chkBoton:checked + .label_chkBoton{
-    background:rgba(76,175,80,80%);
+.chkBoton:checked + .label_chkBoton {
+    background: rgba(76, 175, 80, 80%);
     color: white;
 }
 
-.label_chkBoton{
-    position:absolute;
+.label_chkBoton {
+    position: absolute;
     z-index: 100;
     top: 10px;
     right: 320px;
     width: 100px;
     height: 100px;
-    background:rgba(0,0,0,40%);
+    background: rgba(0, 0, 0, 40%);
     border-radius: 10px;
     padding: 1rem;
-    text-align: center;   
+    text-align: center;
     color: white;
 }
 
-.label_chkBoton:hover{
+.label_chkBoton:hover {
     cursor: pointer;
 }
 
-
-#map{
+#map {
     z-index: 1;
 }
 
@@ -257,74 +252,60 @@ position: relative;
     outline: none;
     font-size: 15px;
     transition: 0.4s;
-  }
-  
-  .active, .accordion:hover {
+}
+
+.active,
+.accordion:hover {
     background-color: #ccc;
-  }
-  
-  .accordion:after {
+}
+
+.accordion:after {
     content: '\002B';
     color: #777;
     font-weight: bold;
     float: right;
     margin-left: 5px;
-  }
-  
-  .active:after {
-    content: "\2212";
-  }
-  
-  .panel {
+}
+
+.active:after {
+    content: '\2212';
+}
+
+.panel {
     padding: 0 18px;
     background-color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-  }
-
-
-  #SwipeOcultar{
-    
-  
-    
-    
-    }
-
-
-
-
-.icono-swipe { 
-   height: 24px;
-   width: 24px;
 }
 
+#SwipeOcultar {
+}
+
+.icono-swipe {
+    height: 24px;
+    width: 24px;
+}
 
 .swipe-icon {
     height: 35px;
     width: 35px;
 }
-.boton-swipe{
-
+.boton-swipe {
     background-color: transparent;
-    border-radius:10px;
-outline:none;
-border:0;
-
-    
-    
-
+    border-radius: 10px;
+    outline: none;
+    border: 0;
 }
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
-
-    #btnAbrirMenu{
-       top:50px;
-   } 
+    #btnAbrirMenu {
+        top: 50px;
+    }
 }
 
 @media only screen and (max-width: 500px) {
-    .label_chkBoton{
+    .label_chkBoton {
         width: 60px;
         height: 60px;
         right: 250px;
@@ -332,27 +313,25 @@ border:0;
         text-align: center;
     }
 
-    #controlPanel{
+    #controlPanel {
         width: 230px;
         height: 60px;
         font-size: 11px;
     }
-    #controlPanel input{
+    #controlPanel input {
         margin: 5px 0px 5px 5px;
     }
 
-    #lineaControlPanel{
+    #lineaControlPanel {
         margin: 0px;
     }
-
 }
 
 @media only screen and (max-width: 360px) {
-    .label_chkBoton{
+    .label_chkBoton {
         top: 80px;
         right: 10px;
         font-size: 11px;
         text-align: center;
     }
 }
-
