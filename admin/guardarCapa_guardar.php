@@ -11,7 +11,7 @@ $versionCapaOK = $_POST['versionCapaOK'];
 $formatoCapa = $_POST['formatoCapa'];
 $transparenciaCapa = $_POST['transparenciaCapa'];
 
-//echo "<script>console.log('Datos recibidos: '+".$idCapa $tituloCapaOK $UrlCapaOK $capaCapaOK $estiloCapaOK $versionCapaOK $formatoCapa $transparenciaCapa.");</script>";
+echo "<script>console.log('Datos recibidos: '+".$idCapa $tituloCapaOK $UrlCapaOK $capaCapaOK $estiloCapaOK $versionCapaOK $formatoCapa $transparenciaCapa.");</script>";
 
 //-funcion para convertir las ACENTOS 
 function agregarAcentosACUTE($cadena){
@@ -72,47 +72,22 @@ else{
     //encontrando el valor de zIndex
     $sql_minValor = "SELECT min(zindex) FROM ordencapas";
     $resultado_minValor = pg_query($conexion,$sql_minValor);
+    
 
-    if(!$resultado_minValor){
-        echo 'Consulta de usuario Fallida';
-        exit();
-    }
+    while ($filaCapaMin = pg_fetch_assoc($resultado_minValor))     
+    {//obteniendo capas de BD
+            if($filaCapaMin['min(zindex)']==0){$valorMinimoZIndex=99;}
+            else{
+                $valorMinimoZIndex = $filaCapaMin['min(zindex)']-1;
+            }
+            
+        }//fin while
+
+
    
     
-        while ($rowMin = pg_fetch_row($resultado_minValor)) {
-            if($rowMin[0]==0)
-            {
-                $valorMinimoZIndex=99;
-            }
-            else
-            {
-                $valorMinimoZIndex = $rowMin[0]-1;
-            }
-          }
-   
-     //encontrando el valor de zIndex
-     $sql_maxValor = "SELECT max(id_orden) FROM ordencapas";
-     $resultado_maxValor = pg_query($conexion,$sql_maxValor);
- 
-     if(!$resultado_maxValor){
-         echo 'Consulta de usuario Fallida';
-         exit();
-     }
-
-     while ($rowMax = pg_fetch_row($resultado_maxValor)) {
-        if($rowMax[0]==0 || $rowMax[0]==null)
-        {
-            $valorIdOrdeCapa=1;
-        }
-        else
-        {
-            $valorIdOrdeCapa = $rowMax[0]+1;
-        }
-      }
-
-
             
-    $sql_InsertarZIndex = "insert into ordencapas(id_orden,idcapa, zindex) values('".$valorIdOrdeCapa."','".$idCapa."','".$valorMinimoZIndex."')";
+    $sql_InsertarZIndex = "insert into ordencapas(idcapa, zindex) values('".$idCapa."','".$valorMinimoZIndex."')";
     $resultado_InsertarZIndex = pg_query($conexion,$sql_InsertarZIndex);
     
     if ($resultado_Insertar && $resultado_InsertarZIndex) {

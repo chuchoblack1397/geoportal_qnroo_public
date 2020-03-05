@@ -23,15 +23,10 @@ btn_guardarCapa.onclick = function(e)
     var estiloCapa = document.getElementById('estiloCapa').value;
     var versionCapa = document.getElementById('versionCapa').value;
     var transparenciaCapa = document.getElementById('transparenciaCapa').checked;
-    var leyenda = document.getElementById('leyendaCapa').value;
-    var chkConsulta = document.getElementById('chk_consultaCapa').checked;
-    var campoConsulta = document.getElementById('consultaCapa').value;
-    
 
     var tituloCapaClass = document.getElementById('tituloCapa');
     var urlCapaClass = document.getElementById('urlCapa');
     var capaCapaClass = document.getElementById('capaCapa');
-    var campoConsultaClass=document.getElementById('consultaCapa');
 
     var formatoCapa='';
 
@@ -82,32 +77,12 @@ btn_guardarCapa.onclick = function(e)
             console.log('Formato de Capa :'+formatoCapa);
         }//fin esle
 
-        //var chkConsulta_ok=''
-        if(chkConsulta){
-            console.log('Consulta :'+chkConsulta);
-            if(campoConsulta != ''){
-                campoConsultaClass.className = "form-control is-valid";
-                console.log('Campo consulta :'+campoConsulta);
-            }//fin if
-            else{
-                console.error('FALTA Campo de consulta');
-                campoConsultaClass.className = "form-control is-invalid";
-                return;
-            }//fin else
-            
-        }//fin if
-        else{
-            console.log('Consulta :'+chkConsulta);
-            campoConsulta = '';
-            console.log('Campo consulta :'+campoConsulta);
-        }//fin else
-
         console.log('***');
         
         //---creando cadena de ruta de conexion
         var Ruta = "idCapa="+idCapaOK+"&tituloCapaOK="+tituloCapa+"&UrlCapaOK="+UrlCapaOK+"&capaCapaOK="+capaCapaOK+
         "&estiloCapaOK="+estiloCapaOK+"&versionCapaOK="+versionCapaOK+"&formatoCapa="+formatoCapa+
-        "&transparenciaCapa="+transparenciaCapa+"&leyenda="+leyenda+"&chkConsulta="+chkConsulta+"&campoConsulta="+campoConsulta;
+        "&transparenciaCapa="+transparenciaCapa;
         
         console.log('Ruta a post :'+Ruta);
         //enviando los datos optenidos
@@ -198,7 +173,7 @@ function reemplazarAcentosHTML(cadena){//funcion POSIBLE!!!! NO ESTOY EJECUTANDO
 function enviarDatosGuardar_guardar(ruta){
     console.log('Dentro de AJAX');
     $.ajax({
-        url:'php_guardarCapa.php',
+        url:'guardarCapa_guardar.php',
         type:'POST',
         data: ruta,
         success: function(res){
@@ -223,21 +198,4 @@ function mostrarAlertas(obj){
 
     $('#alert').append(html);
 }
-
-//--metodo obtener chek de consulta
-var checkboxConsulta = document.getElementById('chk_consultaCapa');
-checkboxConsulta.addEventListener("change", validaCheckboxConsulta, false);
-
-function validaCheckboxConsulta(){
-  var checkedConsulta = checkboxConsulta.checked;
-  if(checkedConsulta){
-    console.log("Consulta ON");
-    document.getElementById("consultaCapa").removeAttribute('disabled');
-  }
-  else{
-    console.log("Consulta OFF");
-    document.getElementById("consultaCapa").setAttribute('disabled', 'disabled');
-  }
-}
-//--fin metodo obtener chek de consulta
 
