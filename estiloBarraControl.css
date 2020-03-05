@@ -1,0 +1,22 @@
+html, body{
+    background: #454545;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+.menuControl{
+    background: rgba(255,255,255,50%);
+    width: 250px;
+    height: 95%;
+    border-radius: 0px 10px 10px 0px;
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    top: 2%;
+    z-index: 100;
+}
+
+#mapa{
+    background: #454545;
+}

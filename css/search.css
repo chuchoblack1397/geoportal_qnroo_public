@@ -1,0 +1,30 @@
+#contenedorBuscador{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 100;
+    background:none !important;
+    height:0px;
+}
+
+#buscador{
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 0.3s ease-in-out; /** Firefox **/
+    -o-transition: all 0.3s ease-in-out; /** Opera **/
+    opacity:0.5;
+}
+
+#buscador:hover{
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 0.3s ease-in-out; /** Firefox **/
+    -o-transition: all 0.3s ease-in-out; /** Opera **/
+    opacity:1;
+}
+
+#buscador:focus-within{
+    opacity:1;
+}

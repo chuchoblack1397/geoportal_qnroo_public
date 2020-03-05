@@ -1,0 +1,12 @@
+#barraFiltro{
+    position: absolute;
+    padding:0;
+    right:50px;
+    bottom:50px;
+    width: 250px; 
+    height:150px;
+    overflow: auto;
+    background:#fff;
+	border-radius:10px;
+    z-index:101;
+}
