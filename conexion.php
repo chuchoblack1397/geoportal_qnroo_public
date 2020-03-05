@@ -2,8 +2,7 @@
 	
 	echo "<script>console.log('Dentro archivo conexion');</script>";
 
-	//$host        = "host = localhost";144.91.126.153
-	$host        = "host = 144.91.126.153";
+	$host        = "host = localhost";
 	$port        = "port = 5432";
 	$dbname      = "dbname = opb_geoportal_00";
 	$credentials = "user = geoadmin password = Overkill23004";
