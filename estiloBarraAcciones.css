@@ -1,0 +1,13 @@
+#contenedorBotonesAcciones{
+    width:100%;
+    height:auto;
+    margin: auto;
+    margin-top:5px;
+    text-align:center;
+}
+
+.btn-group{
+    height:auto;
+    vertical-align: middle;
+}
+

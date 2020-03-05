@@ -1,0 +1,26 @@
+
+#contenedorIframeLeyendasNuevo{
+    position: absolute;
+    padding:0;
+    right:0px;
+    width: 360px; 
+    height:auto;
+    overflow: auto;
+    max-height: 100%;
+    z-index:101;
+}
+
+.contenedorImg{
+    right:10px;
+	width:340px;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	background:#fff;
+	border-radius:10px;
+	overflow:auto;
+	-webkit-box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.3);
+    -moz-box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.3);
+    box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.3);
+    
+}

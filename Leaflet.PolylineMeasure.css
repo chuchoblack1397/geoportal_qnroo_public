@@ -1,0 +1,63 @@
+.leaflet-control {
+    cursor: pointer;
+}
+
+a.polyline-measure-unicode-icon,a.polyline-measure-clearControl{
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    /*float: left;*/
+    margin: 10px;
+    border-radius: 100% !important;
+}
+
+.leaflet-bar , .leaflet-control{
+    border: none !important;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+a.polyline-measure-controlOnBgColor, a.polyline-measure-controlOnBgColor:hover {
+    background-color: #8f8;
+}
+
+.polyline-measure-unicode-icon {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+a.polyline-measure-clearControl:active {
+    background-color: #f88;
+}
+
+.polyline-measure-tooltip {
+    font: 11px Arial, Helvetica, sans-serif;
+    line-height: 10px;
+    background-color: rgba(255, 255, 170, 0.7);
+    border-radius: 3px;
+    box-shadow: 1px 1px 4px #888;
+    margin: 0;
+    padding: 2px;
+    width: 80px !important;
+    height: auto !important;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.polyline-measure-tooltip-end {
+    background-color: rgba(255, 255, 40, 0.7);
+}
+
+.polyline-measure-tooltip-total {
+    color: #006;
+    font-weight: bold;
+}
+
+.polyline-measure-tooltip-difference {
+    color: #060;
+    font-style: italic;
+}
+
+.polyline-measure-popupTooltip {
+    font: 11px Arial, Helvetica, sans-serif;
+    line-height: 11px;
+}

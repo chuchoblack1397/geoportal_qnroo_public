@@ -1,0 +1,138 @@
+[20-Dec-2019 18:07:04 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:07:04 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:07:04 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:07:42 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:07:42 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:07:42 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:08:31 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:08:31 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:08:31 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:08:37 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:08:37 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:08:37 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:09:01 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:09:01 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:09:01 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:09:44 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:09:44 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:09:44 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:10:17 America/Chicago] PHP Notice:  Undefined index: name in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 37
+[20-Dec-2019 18:10:17 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:10:17 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:11:08 America/Chicago] PHP Notice:  Undefined index: datetime in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 38
+[20-Dec-2019 18:11:08 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[20-Dec-2019 18:11:49 America/Chicago] PHP Notice:  Undefined index: direction in /home/geoportal/public_html/develop/fragmentos/editarPunto.php on line 39
+[23-Dec-2019 11:59:50 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;sdg2112.softether.net&quot; and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Network is unreachable
+	Is the server running on host &quot;sdg2112.softether.net&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 11:59:50 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 12:56:25 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 12:56:25 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 12:56:49 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 12:56:49 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 13:21:45 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 13:21:45 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 13:22:19 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not translate host name &quot;74.208.210.103:8990&quot; to address: Name or service not known in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[23-Dec-2019 13:22:19 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[07-Jan-2020 16:18:05 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not translate host name &quot;74.208.210.103:8990&quot; to address: Name or service not known in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[07-Jan-2020 16:18:05 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 4
+[07-Jan-2020 16:18:45 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not translate host name &quot;74.208.210.103:5432&quot; to address: Name or service not known in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:18:45 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:18:47 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not translate host name &quot;74.208.210.103:5432&quot; to address: Name or service not known in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:18:47 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:29:34 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:29:34 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 5
+[07-Jan-2020 16:32:15 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 6
+[07-Jan-2020 16:32:15 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 6
+[07-Jan-2020 16:32:56 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 6
+[07-Jan-2020 16:32:56 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 6
+[07-Jan-2020 16:42:08 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:42:08 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:43:21 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:43:21 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:43:26 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:43:26 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:44:24 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:44:24 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:44:55 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:44:55 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:47:05 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:47:05 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:47:23 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:47:23 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:58:28 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:58:28 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 16:58:31 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 16
+[07-Jan-2020 16:58:31 America/Chicago] PHP Warning:  pg_last_error(): No PostgreSQL link opened yet in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 17
+[07-Jan-2020 17:00:58 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...', 'bigsgeoadmin', '4b#Jitas')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:01:00 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...', 'bigsgeoadmin', '4b#Jitas')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:01:36 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...', 'bigsgeoadmin', '4b#Jitas')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:05:27 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:05:29 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:05:29 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[07-Jan-2020 17:05:29 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] invalid connection option "'dbname"' in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php:20
+Stack trace:
+#0 /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php(20): PDO->__construct('pgsql:'dbname=b...')
+#1 {main}
+  thrown in /home/geoportal/public_html/develop/fragmentos/conexionPostgres.php on line 20
+[08-Jan-2020 00:09:10 America/Chicago] PHP Warning:  pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: Connection refused
+	Is the server running on host &quot;74.208.210.103&quot; and accepting
+	TCP/IP connections on port 5432? in /home/geoportal/public_html/develop/fragmentos/pgconnect.php on line 7
+[08-Jan-2020 00:09:10 America/Chicago] PHP Warning:  pg_close() expects parameter 1 to be resource, boolean given in /home/geoportal/public_html/develop/fragmentos/pgconnect.php on line 31
