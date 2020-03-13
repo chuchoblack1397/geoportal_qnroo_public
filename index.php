@@ -1,6 +1,11 @@
 <?php
     session_start();
-    $varSession = $_SESSION['usuarioSession'];
+    if(isset($_SESSION['usuarioSession'])){
+      $varSession = $_SESSION['usuarioSession'];
+    }//fin if
+    else{
+      $varSession = "";
+    }//fin else
     if($varSession == null || $varSession = ""){
 ?>
 <!doctype html>

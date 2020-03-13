@@ -36,8 +36,8 @@
 					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
                             $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
 					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-					        $aPaterno = $datoUsuarioPrivilegio['apellidouaternousuario'];
-					        $aMaterno = $datoUsuarioPrivilegio['apellidouaternousuario'];
+					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
 					        
 					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
 					        
@@ -234,7 +234,7 @@ if(!$resultadoCapas) {
 					        <li id="<?php echo $campo['idcapa'];?>">
                                       <div class="custom-control custom-checkbox">
                                         <input type="checkbox" id="chk_<?php echo $campo['idcapa'];?>" class="custom-control-input" name="chkGrupo" value="<?php echo $campo['idcapa'];?>">
-                                        <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['tituloCapa'];?></label><br>
+                                        <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
                                             <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
@@ -267,7 +267,7 @@ if(!$resultadoCapas) {
                     <?php 
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['tituloCapa'];?></option>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
             		<?php
             		    }//fin foreach
             		?>
