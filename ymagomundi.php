@@ -112,6 +112,9 @@ if(!$resultadoCapas) {
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
         <script src="js/leaflet-geoman.min.js"></script>
+
+        <!--links Side para dividir pantalla-->
+        <script src="js/side/leaflet-side-by-side.js"></script>
         
         <!--draw-->
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
@@ -359,7 +362,11 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
         minZoom : 5,
         zoomControl: false,
     	layers: [osm]
+        //layers: [osm,googleSat]
 	});
+
+    /*var control_side = L.control.sideBySide(osm,googleSat);
+    control_side.addTo(map);*/
 	
 //---fin MAPA---
 
@@ -801,7 +808,7 @@ function showPolygonArea(e) {
 						echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
 						
 					}//fin else
-					mysqli_close($conexion);
+					pg_close($conexion);
         }//fin if
         else
         {
