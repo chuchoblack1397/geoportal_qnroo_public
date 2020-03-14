@@ -655,11 +655,21 @@
 		center: [18.5276, -88.2963],
         zoom: 13,
         minZoom : 5,
+<<<<<<< HEAD
         zoomControl: false
         //layers: [osm,googleSat]
 	});
 
     
+=======
+        zoomControl: false,
+    	layers: [osm]
+        //layers: [osm,googleSat]
+	});
+
+    /*var control_side = L.control.sideBySide(osm,googleSat);
+    control_side.addTo(map);*/
+>>>>>>> Agregar capas y eliminar
 	
 //---fin MAPA---
 
