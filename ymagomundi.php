@@ -37,8 +37,8 @@
 					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
                             $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
 					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-					        $aPaterno = $datoUsuarioPrivilegio['apellidouaternousuario'];
-					        $aMaterno = $datoUsuarioPrivilegio['apellidouaternousuario'];
+					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
 					        
 					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
 					        
@@ -119,6 +119,8 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="Leaflet.PolylineMeasure.js"></script>
+        <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+<       <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -131,9 +133,13 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="css/css_barraFiltro.css">
         <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
         
+        
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
         <script src="js/leaflet-geoman.min.js"></script>
+
+        <!--links Side para dividir pantalla-->
+        <script src="js/side/leaflet-side-by-side.js"></script>
         
         <!--draw-->
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
@@ -200,6 +206,7 @@ if(!$resultadoCapas) {
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
+                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="icon-images text-secondary small" id="btnActivarSwipe2"></span></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                               <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
@@ -244,7 +251,41 @@ if(!$resultadoCapas) {
             </div>
           </li>
         </ul>
+
+
       </div><!--fin div contenidoRadios-->
+
+     <!-- <button id= "SwipeOcultar" class="accordion">Mapas de Referencia</button>
+      <div  id="swipeOption" class="panel">
+        <ul class="list-unstyled">
+          <li>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio_csm1" class="custom-control-input" name="radioGrupo1" value="csm1" checked>
+              <label for="radio_csm1" class="custom-control-label">OSM</label>
+            </div>
+          </li>
+          <li>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio_calles1" class="custom-control-input" name="radioGrupo1" value="calles1">
+              <label for="radio_calles1" class="custom-control-label">OSM Topo</label>
+            </div>
+          </li>
+          <li>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio_grises1" class="custom-control-input" name="radioGrupo1" value="grises1">
+              <label for="radio_grises1" class="custom-control-label">OSM Grises</label>
+            </div>
+          </li>
+          <li>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
+              <label for="radio_google1" class="custom-control-label">Google Sat</label>
+            </div>
+          </li>
+        </ul>
+        </div>ocultare esto-->
+
+     
 
       <!--contenidoCapaz-->
       <button class="accordion">Capas</button>
@@ -256,11 +297,12 @@ if(!$resultadoCapas) {
 					        <li id="<?php echo $campo['idcapa'];?>">
                                       <div class="custom-control custom-checkbox">
                                         <input type="checkbox" id="chk_<?php echo $campo['idcapa'];?>" class="custom-control-input" name="chkGrupo" value="<?php echo $campo['idcapa'];?>">
-                                        <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['tituloCapa'];?></label><br>
+                                        <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
                                             <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
-                                                <!--<button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
+                                                <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
+                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
+                                                
                                             </div>
                                       </div>
  
@@ -294,7 +336,7 @@ if(!$resultadoCapas) {
                                 $value_capa = $campo['layer'];
                                 $value_filtro=$campo['campo_consulta'];
             		?>
-            		    <option value="<?php echo $value_idcapa."|".$value_url."|".$value_capa."|".$value_filtro;?>"><?php echo $campo['campo_consulta'].' --- '.$campo['titulocapa'];?></option>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
             		<?php
                                 }//fin if
             		    }//fin foreach
@@ -366,6 +408,14 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 
 //-----------------CAPAS
     //----Mapas de referencia----
+
+    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
+      minZoom: 1,
+      maxZoom: 22,
+      attribution: osmAttrib
+      });
+
+
 	var grayscale   = L.tileLayer(mbUrl, {
         id: 'mapbox.light', 
         attribution: atribuciones
@@ -380,12 +430,24 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
-    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
-      minZoom: 1,
-      maxZoom: 22,
-      attribution: osmAttrib
-      });
+    	
+    
+
+
+    var grayscale1   = L.tileLayer(mbUrl, {
+        id: 'mapbox.light', 
+        attribution: atribuciones
+    });
+    
+
+   
     //----fin Mapas de referencia----
+
+
+
+
+
+
     
     //---MAPA---
     
@@ -393,9 +455,11 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 		center: [18.5276, -88.2963],
         zoom: 13,
         minZoom : 5,
-        zoomControl: false,
-    	layers: [osm]
+        zoomControl: false
+        //layers: [osm,googleSat]
 	});
+
+    
 	
 //---fin MAPA---
 
@@ -533,6 +597,18 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
+
+//var control_side = L.control.sideBySide(osm,googleSat);
+ 
+
+
+
+
+
+
+
+
+
 //FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
 var activoInformacion = false;//inicializando variable
@@ -540,9 +616,13 @@ var activoBusqueda = false;//inicializando variable
 var activoLeyenda = false;//inicializando variable 
 var activoMedicion = false;//inicializando variable 
 var activoAreaTrazo= false;//inicializando variable
+var activoSwipe=false;
+
+
 
 function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick 
     switch(opcionBtn){
+        
         case "informacion":
                 if(activoInformacion == false){
                     activoInformacion = true;//cambiando el valor de la variable
@@ -563,6 +643,10 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("btnActivarBusqueda2").className = "icon-filter text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarBusqueda1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
                     document.getElementById("contenedorBuscador").style.display="block";
+                    console.log(mapa1);
+                    console.log(mapa2);
+                    
+                    
                     
                 }//fin if
                 else{
@@ -573,12 +657,50 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     
                 }//fin else
             break;
+
+
+        case "swipe": //activamos y desactivamos swipe
+            
+                if(activoSwipe == false){
+                    
+                    activoSwipe=true;
+                    document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
+                   // document.getElementById("SwipeOcultar").style.display="block";
+                   // document.getElementById("swipeOption").style.display="block";
+                        document.getElementById("radio_csm").disabled = true;
+                        document.getElementById("radio_grises").disabled = true;
+                        document.getElementById("radio_calles").disabled = true;
+                        document.getElementById("radio_google").disabled = true;
+                    
+                    mapas1();
+
+                    
+                    
+                }
+                else{
+                    activoSwipe = false;//cambiando el valor de la variable
+                    document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
+                   // document.getElementById("SwipeOcultar").style.display="none";
+                    //document.getElementById("swipeOption").style.display="none";
+                    document.getElementById("radio_csm").disabled = false;
+                        document.getElementById("radio_grises").disabled = false;
+                        document.getElementById("radio_calles").disabled = false;
+                        document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    removMapa();
+                   
+
+                    
+                    
+                }
+            break;
         case "leyenda":
                 if(activoLeyenda == false){
                     activoLeyenda = true;//cambiando el valor de la variable
                     document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarLeyenda1").className = "btn btn-danger";//alterando las propiedades del span dentro del boton
-                    document.getElementById("contenedorIframeLeyendasNuevo").style.display="none";
+                    
                     //subFuncionactivarInformacion();
                 }//fin if
                 else{
@@ -650,6 +772,9 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
 }//fin funcion
 
+
+
+
 function subFuncionactivarInformacion(){//esta funcion cambia el icono dependiendo de su seleccion con los otros botones
     if(activoMedicion!=false || activoAreaTrazo!=false){
         
@@ -668,6 +793,13 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
         }//fin else
     }//fin if
     
+
+
+
+
+
+
+
 }//fin subfuncion
 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
@@ -867,7 +999,7 @@ function showPolygonArea(e) {
 						echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
 						
 					}//fin else
-					mysqli_close($conexion);
+					pg_close($conexion);
         }//fin if
         else
         {

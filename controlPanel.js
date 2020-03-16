@@ -15,6 +15,7 @@ $("#btnCerrarMenu").click(function(){
 
 $("#btnAbrirMenu").click(function(){
   checked = true;
+  document.getElementById("SwipeOcultar").style.display="none";
   validaBotonControlPanel();
 });
 
@@ -24,6 +25,7 @@ function validaBotonControlPanel(){//funcion para evaluar el boton chkbox
   
   if(checked){
     console.log("ABRIENDO MENU");
+    
     document.getElementById('controlMenuPanel').style.left='0px';
     document.getElementById('btnAbrirMenu').style.display='none';
     //textoBoton.innerHTML = "<";
