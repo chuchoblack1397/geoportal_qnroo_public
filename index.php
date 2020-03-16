@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 session_start();
 if (isset($_SESSION['usuarioSession'])) {
   $varSession = $_SESSION['usuarioSession'];
@@ -7,6 +8,16 @@ else {
   $varSession = "";
 } //fin else
 if ($varSession == null || $varSession = "") {
+=======
+    session_start();
+    if(isset($_SESSION['usuarioSession'])){
+      $varSession = $_SESSION['usuarioSession'];
+    }//fin if
+    else{
+      $varSession = "";
+    }//fin else
+    if($varSession == null || $varSession = ""){
+>>>>>>> swipe1
 ?>
   <!doctype html>
   <html lang="es">

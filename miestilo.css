@@ -277,6 +277,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+<<<<<<< HEAD
 }
 
 #SwipeOcultar {
@@ -297,6 +298,17 @@
     outline: none;
     border: 0;
 }
+=======
+  }
+
+
+  #SwipeOcultar{
+    
+   
+    
+    
+    }
+>>>>>>> swipe1
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
     #btnAbrirMenu {
