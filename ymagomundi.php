@@ -1,81 +1,4 @@
 <?php
-<<<<<<< HEAD
-session_start();
-
-if (isset($_POST['campUsuario']) && isset($_POST['campoContra'])) { //asignando los valores obtenidos del login para las variables de session
-    echo "<script>console.log('Recibiendo datos de POST');</script>";
-
-    $_SESSION['usuarioSession'] = $_POST['campUsuario'];
-    $_SESSION['usuarioPass'] = $_POST['campoContra'];
-    echo "<script>console.log('Asignando datos a SESSION');</script>";
-}
-
-if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //verificando si existe una session iniciada
-    echo "<script>console.log('Validando SESSION');</script>";
-
-    include 'conexion.php';
-
-    $miUsuario = $_SESSION['usuarioSession'];
-    $miContra = $_SESSION['usuarioPass'];
-
-    //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
-    $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
-    $resultado = pg_query($conexion, $consulta);
-    if (!$resultado) {
-        echo 'Consulta de usuario Fallida';
-        exit();
-    } else {
-        echo "<script>console.log('Consulta de usuario correcta');</script>";
-    } //fin if error resultado
-
-    if ($row = pg_num_rows($resultado) > 0) { //comprueba si existe el usuario
-        echo "<script>console.log('Se encontro Usuario');</script>";
-
-        while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado)) { //obteniendo el dato del privilegio
-            echo "<script>console.log('DENTRO DEL WHILE');</script>";
-            $privilegio = $datoUsuarioPrivilegio['privilegio']; //asigna el valor del campo 'privilegio' a una variable normal
-            $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-            $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-            $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
-
-            $nombreCompleto = $nombre . ' ' . $aPaterno . ' ' . $aMaterno;
-
-            $_SESSION['usuarioPrivilegio'] = $privilegio; //asignando el privilegio a la variable de session
-            echo "<script>console.log('Hola " . $nombre . ", eres: " . $privilegio . "');</script>";
-
-            //asignacion de los roles a variables de session para mayor accesibilidad
-            $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear']; //agregar
-            $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver']; //ver
-            $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar']; //editar
-            $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar']; //eliminar
-
-            $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear']; //agregar
-            $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver']; //ver
-            $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar']; //editar
-            $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar']; //eliminar
-
-            $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear']; //agregar
-            $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver']; //ver
-            $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar']; //editar
-            $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar']; //eliminar
-
-            $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear']; //agregar
-            $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver']; //ver
-            $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar']; //editar
-            $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar']; //eliminar
-
-        } //fin while
-
-
-
-
-
-
-
-        //--ARREGLO PARA LOS DATOS DE LAS CAPAS
-        /*
- # Este metodo que se emplea aquí solamente sirve para
-=======
     session_start();
     
         if(isset($_POST['campUsuario']) && isset($_POST['campoContra'])){//asignando los valores obtenidos del login para las variables de session
@@ -128,7 +51,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
  //--ARREGLO PARA LOS DATOS DE LAS CAPAS
  /*
  # Este metodo que se emplea aquí solamente sirve para 
->>>>>>> swipe1
  # realizar una sola vez la consulta a la base de datos
  # de los datos completos de las capas, ya que en este
  # codigo constantemente se estan rellenando etiquetas y
@@ -572,6 +494,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -592,13 +515,19 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 } //fin foreach
                 ?>
 =======
+=======
+           
+>>>>>>> Swipe completo v1
           </li>
         </ul>
 
 
       </div><!--fin div contenidoRadios-->
 
-     <!-- <button id= "SwipeOcultar" class="accordion">Mapas de Referencia</button>
+    
+    
+    
+     <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
       <div  id="swipeOption" class="panel">
         <ul class="list-unstyled">
           <li>
@@ -624,9 +553,18 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
               <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
               <label for="radio_google1" class="custom-control-label">Google Sat</label>
             </div>
+            <div class="btn btn-light">
+              <input type="button" id="boton-inicio" value="Iniciar" onclick="mapas1()">
+             
+            </div>
+
+            <div class="btn btn-light">
+              <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
+             
+            </div>
           </li>
         </ul>
-        </div>ocultare esto-->
+        </div>
 
      
 
@@ -753,11 +691,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
     
 
 
-    var grayscale1   = L.tileLayer(mbUrl, {
-        id: 'mapbox.light', 
-        attribution: atribuciones
-    });
-    
 
    
     //----fin Mapas de referencia----
@@ -1342,7 +1275,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-
+document.getElementById("SwipeOcultar").style.display="none";
+document.getElementById("swipeOption").style.display="none";
 
 
 
@@ -1403,14 +1337,15 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe=true;
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                   // document.getElementById("SwipeOcultar").style.display="block";
-                   // document.getElementById("swipeOption").style.display="block";
-                        document.getElementById("radio_csm").disabled = true;
-                        document.getElementById("radio_grises").disabled = true;
-                        document.getElementById("radio_calles").disabled = true;
-                        document.getElementById("radio_google").disabled = true;
+                    document.getElementById("SwipeOcultar").style.display="block";
+                    document.getElementById("swipeOption").style.display="block";
+                    document.getElementById("radio_csm").disabled = true;
+                    document.getElementById("radio_grises").disabled = true;
+                    document.getElementById("radio_calles").disabled = true;
+                    document.getElementById("radio_google").disabled = true;
+                    document.getElementById("boton-fin").disabled=true;
                     
-                    mapas1();
+                   
 
                     
                     
@@ -1419,12 +1354,13 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe = false;//cambiando el valor de la variable
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                   // document.getElementById("SwipeOcultar").style.display="none";
-                    //document.getElementById("swipeOption").style.display="none";
+                    document.getElementById("SwipeOcultar").style.display="none";
+                    document.getElementById("swipeOption").style.display="none";
                     document.getElementById("radio_csm").disabled = false;
-                        document.getElementById("radio_grises").disabled = false;
-                        document.getElementById("radio_calles").disabled = false;
-                        document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    document.getElementById("radio_grises").disabled = false;
+                    document.getElementById("radio_calles").disabled = false;
+                    document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    
                     removMapa();
                    
 
