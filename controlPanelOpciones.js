@@ -77,6 +77,22 @@ for (i = 0; i < acc.length; i++) {
         radioButtonControl_google.addEventListener("change", validaRadioButtonControl, false);
 
 
+        //segundo radion button
+        var radioButtonControl_csm1 = document.getElementById('radio_csm1');
+        radioButtonControl_csm1.addEventListener("change", validaRadioButtonControl, false);
+        
+        var radioButtonControl_calles1 = document.getElementById('radio_calles1');
+        radioButtonControl_calles1.addEventListener("change", validaRadioButtonControl, false);
+        
+        var radioButtonControl_grises1 = document.getElementById('radio_grises1');
+        radioButtonControl_grises1.addEventListener("change", validaRadioButtonControl, false);
+        
+        var radioButtonControl_google1 = document.getElementById('radio_google1');
+        radioButtonControl_google1.addEventListener("change", validaRadioButtonControl, false);
+
+        var boton1 = document.getElementById('boton-inicio');
+        var boton2 = document.getElementById("boton-fin");
+
        
 
         
@@ -88,6 +104,12 @@ for (i = 0; i < acc.length; i++) {
             var checked_calles = radioButtonControl_calles.checked;
             var checked_grises = radioButtonControl_grises.checked;
             var checked_google = radioButtonControl_google.checked;
+
+            //segunda lista
+            var checked_csm1 = radioButtonControl_csm1.checked;
+            var checked_calles1 = radioButtonControl_calles1.checked;
+            var checked_grises1 = radioButtonControl_grises1.checked;
+            var checked_google1 = radioButtonControl_google1.checked;
 
 
 
@@ -154,8 +176,73 @@ for (i = 0; i < acc.length; i++) {
 
 
 
+              //segundo if para la comparacion derecha
+            if(checked_csm1){
+              console.log("OMS1");
+              mapa2=osm;
+           
+
+              }//fin if
+              else{
+                  if(checked_calles1){
+                      console.log("Calle1");
+                     
+                      mapa2=streets;
+                      
+                     
+                  }//fin if
+                  else{
+                        if(checked_grises1){
+                          console.log("Grises1");
+
+                          mapa2=grayscale;
+                     
+                         
+                        }//fin if
+                        else{
+                             if(checked_google1){
+                                  console.log("GoogleSat1");
+                                 
+                                  mapa2=googleSat;                               
+
+                                  
+                                }//fin if
+                                else{
+                                    console.log("Nada");
+                                }//fin else
+                        }//fin else
+                  }//fin else
+              }//fin else
 
 
+
+             
+
+
+            if(checked_csm && checked_csm1){
+              boton1.disabled=true;
+            }else{
+            if(checked_calles && checked_calles1){
+              console.log("esteeeeeeeeeeeeeeeeeeeeeeee");
+              boton1.disabled=true;
+            }
+            else{
+              if(checked_grises && checked_grises1){
+                boton1.disabled=true;
+              }
+            else{
+              if(checked_google && checked_google1){
+                boton1.disabled=true;
+              }
+              else{
+                boton1.disabled=false;
+              }
+            }
+            }
+            }
+              
+            
+             
 
 
 
@@ -549,25 +636,97 @@ for (i = 0; i < acc.length; i++) {
 
 
 
+
+
+
+
+
 var mapa1, validar =true;
 
-var mapa2 =googleSat ;
-var control_side = L.control.sideBySide(mapa1,mapa2); // control de side, variable mapa1 y mapa 2 son los mapas a mostrarse
+var mapa2=googleSat;
+
+var control_sideO = L.control.sideBySide(mapa1,osm);
+var control_sideS = L.control.sideBySide(mapa1,streets);
+var control_sideGR = L.control.sideBySide(mapa1,grayscale);
+var control_sideGS = L.control.sideBySide(mapa1,googleSat);
+function mostrarOpciones(){
 
 
-
-function mapas1(){ //aactiva el swipe
   
-  if(mapa1== osm){
+
+
+}
+function mapas1(){ //aactiva el swipe
+   // control de side, variable mapa1 y mapa 2 son los mapas a mostrarse
+  /*if(mapa1== osm){
     map.addLayer(osm);  //validamos para osm
     map.addLayer(googleSat);
     control_side.addTo(map);
   }else{
-  map.addLayer(googleSat);
+  map.addLayer(mapac);
   
   control_side.addTo(map);
+
+
+  }*/
+
+
+
+    radioButtonControl_csm1.disabled=true;
+    radioButtonControl_calles1.disabled=true;
+    radioButtonControl_grises1.disabled=true;
+    radioButtonControl_google1.disabled=true;
+    boton1.disabled = true;
+    boton2.disabled = false
+
+  if(mapa2==osm){
+   
+   
+   map.addLayer(osm);
+ 
+    
+    
+    
+    
+
+    control_sideO.addTo(map);
+  }
+  else{
+    if(mapa2==streets){
+      
+      
+      map.addLayer(streets);
+      control_sideS.addTo(map);
+    
+    }
+  else{
+    if(mapa2==grayscale){
+      
+      
+      map.addLayer(grayscale);
+      control_sideGR.addTo(map);
+      
+    }
+  else{
+    if(mapa2== googleSat){
+     
+
+      
+      
+      map.addLayer(googleSat);
+      control_sideGS.addTo(map);
+       
+       
+      
+    }
+  else{
+
+  }
+  }
+  }
   }
 
+  
  
   
 
@@ -577,7 +736,7 @@ function mapas1(){ //aactiva el swipe
 
 function removMapa(){ //funcion para desactivar el swipe
  
-  if(validar == false){
+  /*if(validar == false){
     map.removeLayer(osm); //validamos para google sat
     
     control_side.remove(map);
@@ -585,9 +744,77 @@ function removMapa(){ //funcion para desactivar el swipe
     
   map.removeLayer(googleSat);
   control_side.remove(map);
-  }
+  }*/
+
+
+
+
+
+  if(mapa2==osm){
+    
+    
+    map.removeLayer(osm);
+  
+     
+     
+     
+     
  
+     control_sideO.remove(map);
+   }
+   else{
+     if(mapa2==streets){
+      
+       
+       map.removeLayer(streets);
+       control_sideS.remove(map);
+     
+     }
+   else{
+     if(mapa2==grayscale){
+       
+       map.removeLayer(grayscale);
+       control_sideGR.remove(map);
+       
+     }
+   else{
+     if(mapa2== googleSat){
+      
+ 
+      
+       
+       map.removeLayer(googleSat);
+       control_sideGS.remove(map);
+        
+        
+       
+     }
+   else{
+ 
+   }
+   }
+   }
+   }
+
+  
+    radioButtonControl_csm1.disabled=false;
+    radioButtonControl_calles1.disabled=false;
+    radioButtonControl_grises1.disabled=false;
+    radioButtonControl_google1.disabled=false;
+    boton1.disabled =false;
+    boton2.disabled =true;
+    
+  
+  
+
 }
+
+
+
+
+
+
+
 
 
 
