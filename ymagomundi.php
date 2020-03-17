@@ -227,13 +227,17 @@ if(!$resultadoCapas) {
               <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
               <label for="radio_google" class="custom-control-label">Google Sat</label>
             </div>
+           
           </li>
         </ul>
 
 
       </div><!--fin div contenidoRadios-->
 
-     <!-- <button id= "SwipeOcultar" class="accordion">Mapas de Referencia</button>
+    
+    
+    
+     <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
       <div  id="swipeOption" class="panel">
         <ul class="list-unstyled">
           <li>
@@ -259,9 +263,18 @@ if(!$resultadoCapas) {
               <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
               <label for="radio_google1" class="custom-control-label">Google Sat</label>
             </div>
+            <div class="btn btn-light">
+              <input type="button" id="boton-inicio" value="Iniciar" onclick="mapas1()">
+             
+            </div>
+
+            <div class="btn btn-light">
+              <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
+             
+            </div>
           </li>
         </ul>
-        </div>ocultare esto-->
+        </div>
 
      
 
@@ -398,11 +411,6 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
     
 
 
-    var grayscale1   = L.tileLayer(mbUrl, {
-        id: 'mapbox.light', 
-        attribution: atribuciones
-    });
-    
 
    
     //----fin Mapas de referencia----
@@ -569,7 +577,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-
+document.getElementById("SwipeOcultar").style.display="none";
+document.getElementById("swipeOption").style.display="none";
 
 
 
@@ -630,14 +639,15 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe=true;
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                   // document.getElementById("SwipeOcultar").style.display="block";
-                   // document.getElementById("swipeOption").style.display="block";
-                        document.getElementById("radio_csm").disabled = true;
-                        document.getElementById("radio_grises").disabled = true;
-                        document.getElementById("radio_calles").disabled = true;
-                        document.getElementById("radio_google").disabled = true;
+                    document.getElementById("SwipeOcultar").style.display="block";
+                    document.getElementById("swipeOption").style.display="block";
+                    document.getElementById("radio_csm").disabled = true;
+                    document.getElementById("radio_grises").disabled = true;
+                    document.getElementById("radio_calles").disabled = true;
+                    document.getElementById("radio_google").disabled = true;
+                    document.getElementById("boton-fin").disabled=true;
                     
-                    mapas1();
+                   
 
                     
                     
@@ -646,12 +656,13 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe = false;//cambiando el valor de la variable
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                   // document.getElementById("SwipeOcultar").style.display="none";
-                    //document.getElementById("swipeOption").style.display="none";
+                    document.getElementById("SwipeOcultar").style.display="none";
+                    document.getElementById("swipeOption").style.display="none";
                     document.getElementById("radio_csm").disabled = false;
-                        document.getElementById("radio_grises").disabled = false;
-                        document.getElementById("radio_calles").disabled = false;
-                        document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    document.getElementById("radio_grises").disabled = false;
+                    document.getElementById("radio_calles").disabled = false;
+                    document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    
                     removMapa();
                    
 
