@@ -1,6 +1,7 @@
 <?php
+include "../conexion.php";
 echo "<script>console.log('PHP guardar capa');</script>";
-include '../conexion.php';
+
 
 $idCapa = $_POST['idCapa'];
 $tituloCapaOK =  $_POST['tituloCapaOK'];
@@ -62,7 +63,8 @@ $resultado_existencia = pg_query($conexion,$existenciaTitulo);
 
 if(pg_num_rows($resultado_existencia) > 0){
     //revisa si existe la clave principal Titulo
-    echo "<script>mostrarAlertas({message: '<strong>ATENCIÓN!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> ya existe. Intenta de nuevo', class:'warning'});</script>";
+    echo "<script>swal('ATENCIÓN!', 'La capa ".$tituloCapaOK." ya existe', 'warning');</script>";
+    //echo "<script>mostrarAlertas({message: '<strong>ATENCIÓN!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> ya existe. Intenta de nuevo', class:'warning'});</script>";
 }//fin if
 else{
     //Si no existe el titulo entonces la inserta 
@@ -116,10 +118,12 @@ else{
     $resultado_InsertarZIndex = pg_query($conexion,$sql_InsertarZIndex);
     
     if ($resultado_Insertar && $resultado_InsertarZIndex) {
-        echo "<script>mostrarAlertas({message: '<strong>COMPLETADO!</strong> La capa <strong>".$tituloCapaOK."</strong> ha sido agregada con éxito', class:'success'});</script>";
+        echo "<script>swal('Excelente!', 'La capa ".$tituloCapaOK." ha sido agregada con éxito', 'success');</script>";
+        //echo "<script>mostrarAlertas({message: '<strong>COMPLETADO!</strong> La capa <strong>".$tituloCapaOK."</strong> ha sido agregada con éxito', class:'success'});</script>";
     }//fin if
     else {
-        echo "<script>mostrarAlertas({message: '<strong>ERROR!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> no pudo ser agregada', class:'danger'});</script>";
+        echo "<script>swal('ERROR!', 'La capa ".$tituloCapaOK." no pudo ser agregada', 'error');</script>";
+        //echo "<script>mostrarAlertas({message: '<strong>ERROR!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> no pudo ser agregada', class:'danger'});</script>";
     }//fin else
 }//fin else
 
