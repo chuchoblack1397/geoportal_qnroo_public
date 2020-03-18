@@ -125,7 +125,11 @@ function enviarDatosGuardar_user(ruta){
         type:'POST',
         data: ruta,
         success: function(res){
+<<<<<<< HEAD
           $('#respuestaUsuario').html(res);
+=======
+          $('#respuesta').html(res);
+>>>>>>> Admin Usuario
       },
       error: function(){
         alert( "Error con el servidor" );
