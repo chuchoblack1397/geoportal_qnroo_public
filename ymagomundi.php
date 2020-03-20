@@ -543,7 +543,7 @@
                     <option value="osm">OSM</option>
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
-                    <option value="googlesat">Google Sat</option>
+                    <option value="googleSat">Google Sat</option>
                     <?php 
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
@@ -555,7 +555,7 @@
                    
                 </select>
                <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
-               <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
+               <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Borrar filtro"><i class="icon-bin2"></i></button>
             </div>
           </div>
        

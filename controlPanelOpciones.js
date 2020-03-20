@@ -82,6 +82,8 @@ for (i = 0; i < acc.length; i++) {
         var selector = document.getElementById('selectTipoS');
         var selector2 = document.getElementById('selectTipoS1');
         var boton1= document.getElementById("botonSwipeA");
+        var boton2 = document.getElementById("btn_borrar");
+  
 /*
         //segundo radion button
         var radioButtonControl_csm1 = document.getElementById('radio_csm1');
@@ -143,12 +145,12 @@ for (i = 0; i < acc.length; i++) {
               else{
                   if(checked_calles){
                       console.log("Calle");
-                      map.addLayer(capa_Predios);
+                      
                       map.removeLayer(osm);
-                      map.removeLayer(streets);
+                      map.addLayer(streets);
                       map.removeLayer(grayscale);
                       map.removeLayer(googleSat);
-                      mapa1=capa_Predios;
+                     
                       validar=true;
                      
                   }//fin if
@@ -633,61 +635,12 @@ function removMapa(){ //funcion para desactivar el swipe
 
 
 
-
-
-  if(mapa2==osm){
-    
-    
-    map.removeLayer(osm);
-  
-     
-     
-     
-     
- 
-     control_sideO.remove(map);
-   }
-   else{
-     if(mapa2==streets){
-      
-       
-       map.removeLayer(streets);
-       control_sideS.remove(map);
-     
-     }
-   else{
-     if(mapa2==grayscale){
-       
-       map.removeLayer(grayscale);
-       control_sideGR.remove(map);
-       
-     }
-   else{
-     if(mapa2== googleSat){
-      
- 
-      
-       
-       map.removeLayer(googleSat);
-       control_sideGS.remove(map);
-        
-        
-       
-     }
-   else{
- 
-   }
-   }
-   }
-   }
+control_side.remove(map);
 
   
-    //radioButtonControl_csm1.disabled=false;
-    //radioButtonControl_calles1.disabled=false;
-    //radioButtonControl_grises1.disabled=false;
-    //radioButtonControl_google1.disabled=false;
-    //boton1.disabled =false;
-    //boton2.disabled =true;
+    
+    
+   
     
   
   
@@ -699,29 +652,68 @@ function removMapa(){ //funcion para desactivar el swipe
 
 
 
+var activo ;
+var control;
 
 function RecogerDatos(){
-
-  console.log(selector.value);
-  console.log(selector2.value);
-  var capa1 = selector.value;
-  var capa2 = selector2.value;
-  var parte1,parte2;
+  var capa1 = eval(selector.value);
+  var capa2 = eval(selector2.value); 
+  var control_side = L.control.sideBySide(capa1,capa2);
+   
+  
+  
+  
+  
+  
   
 
-  map.removeLayer(osm);
-  map.removeLayer(streets);
-  map.removeLayer(grayscale);
-  map.removeLayer(googleSat);
   
-  var control_side = L.control.sideBySide(parte1,parte2);
+  
+  
+  if(activo== true){
+    
+    activo = false;
+    map.removeLayer(capa1);
+    map.removeLayer(capa2);
+    control.remove(map);
+    console.log("si estoy entrando");
+    boton1.disabled =false;
+    boton2.disabled =true;
+    
+   
+ 
+    
+  }else{
+    map.addLayer(capa1);
+  map.addLayer(capa2);
+    control_side.addTo(map);
+    activo=true;
+    control = control_side;
+    boton2.disabled = false;
+    boton1.disabled = true;
+  }
+  
+  
+  
+
+  
+ 
+
+
+console.log(activo);
 
 
 
-  if(capa1 == "osm"){
+
+ 
+
+  
+
+
+  /*if(capa1 == "osm"){
     
    parte1=osm;
-
+  
   }else{
     if(capa1 == "streets"){
      parte1=streets;
@@ -746,7 +738,8 @@ function RecogerDatos(){
 
     if(capa2 == "osm"){
 
-     parte2=osm
+     parte2=osm;
+     control_side.addTo(map);
   
     }else{
       if(capa2 == "streets"){
@@ -767,12 +760,10 @@ function RecogerDatos(){
       }
   }
 
+*/
 
 
-
-  map.addLayer(parte1);
-  map.addLayer(parte2);
-  control_side.addTo(map);
+  
     
   
 /*if(selector.value == selector2.value){
@@ -785,13 +776,26 @@ else{
 
 }
 
+
+
 function repetido(){
   if(selector.value == selector2.value){
     console.log("esta repetido ");
     boton1.disabled=true;
+    boton2.disabled=true;
   }
-  else{ 
-    boton1.disabled=false;
+  else{
+    if(selector2.value == "ninguno" || selector.value == "ninguno"){
+      boton1.disabled=true;
+      boton2.disabled = true;
+
+    }
+    else{
+      boton1.disabled=false;
+      boton2.disabled= false;
+
+    }
+   
   
   }
   
