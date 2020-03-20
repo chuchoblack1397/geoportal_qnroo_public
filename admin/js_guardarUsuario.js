@@ -125,7 +125,7 @@ function enviarDatosGuardar_user(ruta){
         type:'POST',
         data: ruta,
         success: function(res){
-          $('#respuesta').html(res);
+          $('#respuestaUsuario').html(res);
       },
       error: function(){
         alert( "Error con el servidor" );

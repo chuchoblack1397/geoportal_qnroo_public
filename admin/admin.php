@@ -76,6 +76,7 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
         <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
         <a class="nav-item nav-link" id="nav-mapas_referencia-tab" data-toggle="tab" href="#nav-mapas_referencia" role="tab" aria-controls="nav-mapas_referencia" aria-selected="false">Mapas de referencia</a>
         <a class="nav-item nav-link" id="nav-usuarios-tab" data-toggle="tab" href="#nav-usuarios" role="tab" aria-controls="nav-usuarios" aria-selected="false">Usuarios</a>
+        <a class="nav-item nav-link" id="nav-roles-tab" data-toggle="tab" href="#nav-roles" role="tab" aria-controls="nav-roles" aria-selected="false">Privilegios/Roles</a>
       </div>
     </nav>
     <!--fin menu de administracion-->
@@ -118,6 +119,34 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
       </div><!--fin opcion CAPAS-->
       <div class="tab-pane fade" id="nav-mapas_referencia" role="tabpanel" aria-labelledby="nav-mapas_referencia-tab">
         <h2 class="h2">Mapas de referencia</h2>
+         <!--FORMULARIO-->
+         <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarMapa" data-toggle="pill" href="#AgregarMapa" role="tab" aria-controls="AgregarMapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agrega Mapa</a>
+                      <a class="nav-link" id="opcion_verMapa" data-toggle="pill" href="#verMapa" role="tab" aria-controls="verMapa" aria-selected="false" onclick="ajax_ver_mapas();"><span class="icon-list2 mr-3"></span>Ver Mapa</a>
+                      <a class="nav-link" id="opcion_ordenarMapa" data-toggle="pill" href="#ordenarMapa" role="tab" aria-controls="ordenarMapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Mapa</a>
+                      <a class="nav-link" id="opcion_papeleraMapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarMapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarMapa">
+                        <?php include 'seccion_formAgregarMapa.php';?>
+                      </div><!--fin div opcionAgregarCapa-->
+                      <div id="verMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerMapa">
+                        <?php include 'seccion_verMapa.php';?>
+                      </div><!--fin div verCapas-->
+                      <div id="ordenarMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarMapa">
+                        <?php include 'seccion_ordenarMapa.php';?>
+                      </div><!--fin div verCapas-->
+                      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuesta">
+                </div>
+                <!--fin FORMULARIO-->
       </div>
       <div class="tab-pane fade" id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">
         <h2 class="h2">Usuarios</h2>
@@ -142,7 +171,34 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-9-->
                </div><!--fin div row-->
-                <div id="respuesta">
+                <div id="respuestaUsuario">
+                </div>
+                <!--fin FORMULARIO-->
+      </div>
+      <div class="tab-pane fade" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab">
+        <h2 class="h2">Privilegios/Roles</h2>
+                      <!--FORMULARIO-->
+                      <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarRol" data-toggle="pill" href="#AgregarRol" role="tab" aria-controls="AgregarRol" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Privilegio/Rol</a>
+                      <a class="nav-link" id="opcion_verRol" data-toggle="pill" href="#verRol" role="tab" aria-controls="verRol" aria-selected="false" onclick="ajax_ver_privilegios();"><span class="icon-list2 mr-3"></span>Ver Privilegios/Roles</a>
+                      <a class="nav-link" id="opcion_papeleraRol" data-toggle="pill" href="#papeleraRol" role="tab" aria-controls="papeleraRol" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera de Privilegios/Roles</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarRol" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarRol">
+                        <?php include 'seccion_formAgregarPrivilegio.php';?>
+                      </div><!--fin div opcionAgregarRol-->
+                      <div id="verRol" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerRol">
+                        <?php include 'seccion_verPrivilegios.php';?>
+                      </div><!--fin div verRol-->
+                      <div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuestaRoles">
                 </div>
                 <!--fin FORMULARIO-->
       </div>
