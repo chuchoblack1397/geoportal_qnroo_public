@@ -99,7 +99,7 @@ if(!$resultadoCapas) {
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="Leaflet.PolylineMeasure.js"></script>
         <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-<       <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
+        <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -236,7 +236,11 @@ if(!$resultadoCapas) {
 
     
     
-    
+    <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
+
+
+
+
      <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
       <div  id="swipeOption" class="panel">
         <ul class="list-unstyled">
@@ -276,7 +280,7 @@ if(!$resultadoCapas) {
         </ul>
         </div>
 
-     
+    -->
 
       <!--contenidoCapaz-->
       <button class="accordion">Capas</button>
@@ -335,6 +339,58 @@ if(!$resultadoCapas) {
       </div>
 
 <!--fin BARRA BUSCADOR-->
+
+
+<!--Inicio Selector de capas para el swipe -->
+
+        <div class="bg-light" id="contenedorSwipe" style="width:35%; display:none">
+          <div class="input-group mt-2" id="buscadorS">
+          <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
+                    <option  value="ninguno">NINGUNO</option>
+                    <option value="osm">OSM</option>
+                    <option value="streets">OSM Topo</option>
+                    <option value="grayscale">OSM Grises</option>
+                    <option value="googleSat">Google Sat</option>
+                    <?php 
+            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+            		?>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
+            		<?php
+            		    }//fin foreach
+                    ?>
+                    
+                </select>
+            <div class="input-group-append">
+                <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
+                    <option value="ninguno">NINGUNO</option>
+                    <option value="osm">OSM</option>
+                    <option value="streets">OSM Topo</option>
+                    <option value="grayscale">OSM Grises</option>
+                    <option value="googlesat">Google Sat</option>
+                    <?php 
+            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+            		?>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
+            		<?php
+            		    }//fin foreach
+                    ?>
+                    
+                   
+                </select>
+               <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
+               <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
+            </div>
+          </div>
+       
+        </div>
+    
+
+
+<!--Fin selector de capas para el swipe -->
+
+
+
+
 <!--contenedor iframes LEYENDAS NUEVO-->
  <div id="contenedorIframeLeyendasNuevo">
         <?php 
@@ -577,8 +633,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-document.getElementById("SwipeOcultar").style.display="none";
-document.getElementById("swipeOption").style.display="none";
+//document.getElementById("SwipeOcultar").style.display="none";
+//document.getElementById("swipeOption").style.display="none";
 
 
 
@@ -639,14 +695,15 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe=true;
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                    document.getElementById("SwipeOcultar").style.display="block";
-                    document.getElementById("swipeOption").style.display="block";
-                    document.getElementById("radio_csm").disabled = true;
-                    document.getElementById("radio_grises").disabled = true;
-                    document.getElementById("radio_calles").disabled = true;
-                    document.getElementById("radio_google").disabled = true;
-                    document.getElementById("boton-fin").disabled=true;
-                    
+                    //document.getElementById("SwipeOcultar").style.display="block";
+                    //document.getElementById("swipeOption").style.display="block";
+                    document.getElementById("contenedorSwipe").style.display="block";
+                    //document.getElementById("radio_csm").disabled = true;
+                    //document.getElementById("radio_grises").disabled = true;
+                    //document.getElementById("radio_calles").disabled = true;
+                    //document.getElementById("radio_google").disabled = true;
+                    //document.getElementById("boton-fin").disabled=true;
+                    repetido();
                    
 
                     
@@ -656,12 +713,13 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe = false;//cambiando el valor de la variable
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                    document.getElementById("SwipeOcultar").style.display="none";
-                    document.getElementById("swipeOption").style.display="none";
-                    document.getElementById("radio_csm").disabled = false;
-                    document.getElementById("radio_grises").disabled = false;
-                    document.getElementById("radio_calles").disabled = false;
-                    document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    //document.getElementById("SwipeOcultar").style.display="none";
+                    //document.getElementById("swipeOption").style.display="none";
+                    document.getElementById("contenedorSwipe").style.display="none";
+                    //document.getElementById("radio_csm").disabled = false;
+                    //document.getElementById("radio_grises").disabled = false;
+                    //document.getElementById("radio_calles").disabled = false;
+                    //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
                     
                     removMapa();
                    
@@ -781,8 +839,10 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
 //FUNCION VER LEYENDA DE CAPA
     function activarLeyendas(idLeyenda){
         var divImg = document.getElementById('img_leyenda_'+idLeyenda);
+        
         if(divImg.style.display == "block"){
             divImg.style.display="none";
+            
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-secondary small";
         }
         else{

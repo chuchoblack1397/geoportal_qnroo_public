@@ -77,6 +77,10 @@ for (i = 0; i < acc.length; i++) {
         radioButtonControl_google.addEventListener("change", validaRadioButtonControl, false);
 
 
+        var selector = document.getElementById('selectTipoS');
+        var selector2 = document.getElementById('selectTipoS1');
+        var boton1= document.getElementById("botonSwipeA");
+/*
         //segundo radion button
         var radioButtonControl_csm1 = document.getElementById('radio_csm1');
         radioButtonControl_csm1.addEventListener("change", validaRadioButtonControl, false);
@@ -90,10 +94,10 @@ for (i = 0; i < acc.length; i++) {
         var radioButtonControl_google1 = document.getElementById('radio_google1');
         radioButtonControl_google1.addEventListener("change", validaRadioButtonControl, false);
 
-        var boton1 = document.getElementById('boton-inicio');
-        var boton2 = document.getElementById("boton-fin");
+       var boton1 = document.getElementById('boton-inicio');
+       var boton2 = document.getElementById("boton-fin");
 
-       
+  */     
 
         
         window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
@@ -106,10 +110,10 @@ for (i = 0; i < acc.length; i++) {
             var checked_google = radioButtonControl_google.checked;
 
             //segunda lista
-            var checked_csm1 = radioButtonControl_csm1.checked;
-            var checked_calles1 = radioButtonControl_calles1.checked;
-            var checked_grises1 = radioButtonControl_grises1.checked;
-            var checked_google1 = radioButtonControl_google1.checked;
+         //   var checked_csm1 = radioButtonControl_csm1.checked;
+          //  var checked_calles1 = radioButtonControl_calles1.checked;
+           // var checked_grises1 = radioButtonControl_grises1.checked;
+            //var checked_google1 = radioButtonControl_google1.checked;
 
 
 
@@ -122,6 +126,7 @@ for (i = 0; i < acc.length; i++) {
 
             if(checked_csm){
               console.log("OMS");
+              
               map.addLayer(osm);
               map.removeLayer(streets);
               map.removeLayer(grayscale);
@@ -136,11 +141,12 @@ for (i = 0; i < acc.length; i++) {
               else{
                   if(checked_calles){
                       console.log("Calle");
+                      map.addLayer(capa_Predios);
                       map.removeLayer(osm);
-                      map.addLayer(streets);
+                      map.removeLayer(streets);
                       map.removeLayer(grayscale);
                       map.removeLayer(googleSat);
-                      mapa1=streets;
+                      mapa1=capa_Predios;
                       validar=true;
                      
                   }//fin if
@@ -174,9 +180,9 @@ for (i = 0; i < acc.length; i++) {
                   }//fin else
               }//fin else
 
+              // no olvidar est, esto solo es importante para mis pruebas
 
-
-              //segundo if para la comparacion derecha
+        /*      //segundo if para la comparacion derecha
             if(checked_csm1){
               console.log("OMS1");
               mapa2=osm;
@@ -645,10 +651,10 @@ var mapa1, validar =true;
 
 var mapa2=googleSat;
 
-var control_sideO = L.control.sideBySide(mapa1,osm);
-var control_sideS = L.control.sideBySide(mapa1,streets);
-var control_sideGR = L.control.sideBySide(mapa1,grayscale);
-var control_sideGS = L.control.sideBySide(mapa1,googleSat);
+//var control_sideO = L.control.sideBySide(mapa1,osm);
+//var control_sideS = L.control.sideBySide(mapa1,streets);
+//var control_sideGR = L.control.sideBySide(capa_Predios,grayscale);
+//var control_sideGS = L.control.sideBySide(mapa1,googleSat);
 function mostrarOpciones(){
 
 
@@ -672,12 +678,12 @@ function mapas1(){ //aactiva el swipe
 
 
 
-    radioButtonControl_csm1.disabled=true;
-    radioButtonControl_calles1.disabled=true;
-    radioButtonControl_grises1.disabled=true;
-    radioButtonControl_google1.disabled=true;
-    boton1.disabled = true;
-    boton2.disabled = false
+    //radioButtonControl_csm1.disabled=true;
+    //radioButtonControl_calles1.disabled=true;
+    //radioButtonControl_grises1.disabled=true;
+    //radioButtonControl_google1.disabled=true;
+    //boton1.disabled = true;
+    //boton2.disabled = false
 
   if(mapa2==osm){
    
@@ -704,6 +710,7 @@ function mapas1(){ //aactiva el swipe
       
       
       map.addLayer(grayscale);
+      
       control_sideGR.addTo(map);
       
     }
@@ -797,12 +804,12 @@ function removMapa(){ //funcion para desactivar el swipe
    }
 
   
-    radioButtonControl_csm1.disabled=false;
-    radioButtonControl_calles1.disabled=false;
-    radioButtonControl_grises1.disabled=false;
-    radioButtonControl_google1.disabled=false;
-    boton1.disabled =false;
-    boton2.disabled =true;
+    //radioButtonControl_csm1.disabled=false;
+    //radioButtonControl_calles1.disabled=false;
+    //radioButtonControl_grises1.disabled=false;
+    //radioButtonControl_google1.disabled=false;
+    //boton1.disabled =false;
+    //boton2.disabled =true;
     
   
   
@@ -815,6 +822,99 @@ function removMapa(){ //funcion para desactivar el swipe
 
 
 
+function RecogerDatos(){
+
+  console.log(selector.value);
+  console.log(selector2.value);
+  var capa1 = selector.value;
+  var capa2 = selector2.value;
+  var parte1,parte2;
+  
+
+  map.removeLayer(osm);
+  map.removeLayer(streets);
+  map.removeLayer(grayscale);
+  map.removeLayer(googleSat);
+  
+  var control_side = L.control.sideBySide(parte1,parte2);
 
 
 
+  if(capa1 == "osm"){
+    
+   parte1=osm;
+
+  }else{
+    if(capa1 == "streets"){
+     parte1=streets;
+    }
+    else{
+      if(capa1 == "grayscale"){
+        parte1=grayscale
+      }
+    else{
+      if(capa1 == "googleSat"){
+        parte2=googleSat;
+      }
+      else{
+
+      }
+    }
+  }
+
+  }
+
+
+
+    if(capa2 == "osm"){
+
+     parte2=osm
+  
+    }else{
+      if(capa2 == "streets"){
+        parte2=streets;
+      }
+      else{
+        if(capa2 == "grayscale"){
+          parte2=grayscale;
+        }
+      else{
+        if(capa2 == "googleSat"){
+          parte2=googleSat;
+        }
+        else{
+          
+        }
+      }
+      }
+  }
+
+
+
+
+  map.addLayer(parte1);
+  map.addLayer(parte2);
+  control_side.addTo(map);
+    
+  
+/*if(selector.value == selector2.value){
+  console.log("esta repetido ")
+}
+else{
+
+}
+*/
+
+}
+
+function repetido(){
+  if(selector.value == selector2.value){
+    console.log("esta repetido ");
+    boton1.disabled=true;
+  }
+  else{ 
+    boton1.disabled=false;
+  
+  }
+  
+}
