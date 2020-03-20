@@ -126,10 +126,14 @@ function enviarDatosGuardar_user(ruta){
         data: ruta,
         success: function(res){
 <<<<<<< HEAD
+<<<<<<< HEAD
           $('#respuestaUsuario').html(res);
 =======
           $('#respuesta').html(res);
 >>>>>>> Admin Usuario
+=======
+          $('#respuestaUsuario').html(res);
+>>>>>>> Admin Privilegios/Roles
       },
       error: function(){
         alert( "Error con el servidor" );
