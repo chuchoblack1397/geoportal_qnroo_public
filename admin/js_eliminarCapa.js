@@ -32,7 +32,6 @@ function eliminarCapa() {
     if (size !== 0) {
         //comprueba si existen ckeckbox selecccionados
         //---creando cadena de ruta de conexion
-<<<<<<< HEAD
         var Ruta = 'cadenaCapa=' + cadenaCapas;
         enviarDatosEliminar(Ruta);
     } //fin if
@@ -67,42 +66,5 @@ function enviarDatosEliminar(ruta) {
             });
         }
     });
-=======
-        var Ruta = "cadenaCapa="+cadenaCapas;
-            enviarDatosEliminar(Ruta);
-        }//fin if
-        else{
-            swal("No hay capas seleccionadas", "Debes seleccionar por lo menos una capa para eliminar.", "info");
-        }//fin else
-
-        return false;
-}
-
-////////////////////// FUNCION AJAX PARA ENVIAR DATOS ///////////////////////////
-function enviarDatosEliminar(ruta){
-
-    swal({
-        title: "Espera!",
-        text: "¿Estas seguro que deseas eliminar la(s) capa(s)?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-            $.ajax({
-                url:'php_eliminarCapa.php',
-                type:'POST',
-                data: ruta,
-                success: function(res){
-                  $('#respuesta').html(res);
-              }
-              });
-        } 
-        
-      });
-
-    
->>>>>>> Admin Usuario
 }
 ////////////////////// fin FUNCION AJAX PARA ENVIAR DATOS ////////////////////////

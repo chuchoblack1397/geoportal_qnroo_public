@@ -1,10 +1,6 @@
 <?php
 include "../conexion.php";
-<<<<<<< HEAD
 /*       $consultaUsuarioVER = "SELECT * FROM usuarios ORDER BY usuario ASC ";//consulta general
-=======
- /*       $consultaUsuarioVER = "SELECT * FROM usuarios ORDER BY usuario ASC ";//consulta general
->>>>>>> Admin Privilegios/Roles
         $resultadoUsuarioVER = pg_query($conexion,$consultaUsuarioVER);
         
         $i=1;
@@ -23,7 +19,6 @@ include "../conexion.php";
 <tr>
       <th scope="row">
           <div class="custom-control custom-checkbox">
-<<<<<<< HEAD
             <input type="checkbox" class="custom-control-input" id="<?php echo $usuario; ?>" name="inputEditarUsuario[]" value="<?php echo $usuario; ?>">
             <label class="custom-control-label" for="<?php echo $usuario; ?>"><?php echo $i; ?></label>
           </div>
@@ -35,24 +30,10 @@ include "../conexion.php";
       <td><?php echo $amUser; ?></td>
       <td><?php echo $puestoUser; ?></td>
       <td><?php echo $privilegioUser; ?></td>
-=======
-            <input type="checkbox" class="custom-control-input" id="<?php echo $usuario;?>" name="inputEditarUsuario[]" value="<?php echo $usuario;?>">
-            <label class="custom-control-label" for="<?php echo $usuario;?>"><?php echo $i;?></label>
-          </div>
-      </th>
-      <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario;?>','<?php echo $nombreUser;?>','<?php echo $apUser;?>','<?php echo $amUser;?>','<?php echo $puestoUser;?>','<?php echo $privilegioUser;?>')"><span class="icon-pencil2 text-info"></span></button></td>
-      <td><?php echo $usuario;?></td>
-      <td><?php echo $nombreUser;?></td>
-      <td><?php echo $apUser;?></td>
-      <td><?php echo $amUser;?></td>
-      <td><?php echo $puestoUser;?></td>
-      <td><?php echo $privilegioUser;?></td>
->>>>>>> Admin Privilegios/Roles
 </tr>
 -->
 
 <tr>
-<<<<<<< HEAD
   <th scope="row">
     <div class="custom-control custom-checkbox">
       <input type="checkbox" class="custom-control-input" id="x" name="inputEditarUsuario[]" value="x">
@@ -110,74 +91,11 @@ include "../conexion.php";
       </div>
     </div>
   </td>
-=======
-      <th scope="row">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="x" name="inputEditarUsuario[]" value="x">
-            <label class="custom-control-label" for="x">1</label>
-          </div>
-      </th>
-      <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="y" type="button" class="btn btn-light botonEditarCapas" ><span class="icon-pencil2 text-info"></span></button></td>
-      <td>Administrador</td>
-      <td>
-              <div class="accordion" id="acordionCaracteristicasPrivilegios">
-                  <div>
-                    <div id="cabezaAcordion">
-                        <p><a href="#" class="text-info" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Ver características</a></p>
-                    </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="cabezaAcordion" data-parent="#acordionCaracteristicasPrivilegios">
-                      <div class="row">
-                          <div class="col">
-                            <span class="font-italic">Usuarios</span>
-                              <ul>
-                                <li>Agregar Usuarios</li>
-                                <li>Ver Usuarios</li>
-                                <li>Editar Usuarios</li>
-                                <li>Eliminar Usuarios</li>
-                              </ul>
-                          </div>
-                          <div class="col">
-                            <span class="font-italic">Capas</span>
-                              <ul>
-                                <li>Agregar Capas</li>
-                                <li>Ver Capas</li>
-                                <li>Editar Capas</li>
-                                <li>Eliminar Capas</li>
-                              </ul>
-                          </div>
-                          <div class="col">
-                            <span class="font-italic">Mapas de referencia</span>
-                              <ul>
-                                <li>Agregar Mapas</li>
-                                <li>Ver Mapas</li>
-                                <li>Editar Mapas</li>
-                                <li>Eliminar Mapas</li>
-                              </ul>
-                          </div>
-                          <div class="col">
-                            <span class="font-italic">Roles</span>
-                              <ul>
-                                <li>Agregar Roles</li>
-                                <li>Ver Roles</li>
-                                <li>Editar Roles</li>
-                                <li>Eliminar Roles</li>
-                              </ul>
-                          </div>
-                      </div>
-                    </div>
-                </div>
-              </div>
-      </td>
->>>>>>> Admin Privilegios/Roles
 
 </tr>
 
 <?php
-<<<<<<< HEAD
 /* $i=$i+1;
-=======
-   /* $i=$i+1;
->>>>>>> Admin Privilegios/Roles
     }//fin while*/
 ?>
 <!-- Modal -->

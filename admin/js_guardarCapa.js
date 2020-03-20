@@ -251,13 +251,8 @@ function reemplazarAcentosHTML(cadena) {
 function enviarDatosGuardar_guardar(ruta) {
     console.log('Dentro de AJAX');
     $.ajax({
-<<<<<<< HEAD
         url: 'php_guardarCapa.php',
         type: 'POST',
-=======
-        url:'php_guardarCapa.php',
-        type:'POST',
->>>>>>> Admin Usuario
         data: ruta,
         success: function (res) {
             $('#respuesta').html(res);
