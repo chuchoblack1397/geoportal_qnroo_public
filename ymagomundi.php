@@ -95,128 +95,6 @@
 
         //----fin ARREGLO PARA LOS DATOS DE LAS CAPAS
 ?>
-<<<<<<< HEAD
-        <!DOCTYPE html>
-        <html>
-
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</title>
-            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-            <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
-            <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-            <script src="Leaflet.PolylineMeasure.js"></script>
-            <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-            <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
-
-            <link rel="stylesheet" href="css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-            <link rel="stylesheet" href="miestilo.css">
-            <link rel="stylesheet" href="fonts/style.css">
-            <link rel="stylesheet" href="estiloPopup.css">
-            <link rel="stylesheet" href="css/search.css">
-            <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
-            <link rel="stylesheet" href="css/css_barraFiltro.css">
-            <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
-
-
-
-            <link rel="stylesheet" href="css/side/side.css">
-
-            <!--links editBar-->
-            <link rel="stylesheet" href="css/leaflet-geoman.css" />
-            <script src="js/leaflet-geoman.min.js"></script>
-
-            <!--links Side para dividir pantalla-->
-            <script src="js/side/leaflet-side-by-side.js"></script>
-
-            <!-- Coordenadas mouse -->
-            <link rel="stylesheet" href="css/L.Control.MousePosition.css">
-            <script src="js/L.Control.MousePosition.js"></script>
-
-            <!--draw-->
-            <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
-            <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
-            <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
-
-
-
-            <!--links estilo leyendas wms-->
-            <link rel="stylesheet" href="estiloLeyendas.css" />
-
-            <!--links estilo barra Acciones-->
-            <link rel="stylesheet" href="estiloBarraAcciones.css" />
-
-            <style>
-                body {
-                    padding: 0;
-                    margin: 0;
-                }
-
-                html,
-                body,
-                #map {
-                    height: 100%;
-                }
-            </style>
-        </head>
-
-        <body>
-
-            <!------ENCABEZADO DE LA PAGINA-->
-
-
-            <div class="bg-light" id="controlMenuPanel">
-                <!--btnAdmin-->
-                <?php
-                if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
-                ?>
-                    <button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">
-                        <span class="icon-cog"></span>
-                    </button>
-                <?php
-                }
-                ?>
-                <!--fin btnAdmin-->
-                <button id="btnCerrarMenu">
-                    <span class="icon-cross"></span>
-                </button>
-                <input type="checkbox" name="" id="botonCerrarControl" checked>
-                <label for="botonCerrarControl" id="botonCerrarControl_label">
-                    <</label> <div id="avatar" class="baseControlPanel">
-                        <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
-                        <p><?php echo $nombreCompleto; ?></p>
-                        <a href="cerrarSesion.php">Cerrar sesión</a>
-            </div>
-            <!--fin div avatar-->
-            <hr>
-            <!--linea-->
-            <div id="contenedorZoom" class="baseControlPanel">
-                <label for="zoom">Zoom</label>
-                <div class="divZoom">
-                    <button id="zoomOut" class="btnZoom"><span class="icon-minus"></span></button>
-                </div>
-                <div class="divZoom">
-                    <input type="range" class="custom-range" min="5" max="20" id="zoom">
-                </div>
-                <div class="divZoom">
-                    <button id="zoomIn" class="btnZoom"><span class="icon-plus"></span></button>
-                </div>
-            </div>
-            <!--fin div contenedorZoom-->
-            <hr>
-            <!--linea-->
-            <div id="contendorControles">
-
-                <div id="contenedorBotonesAcciones">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
-                        <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                        <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
-=======
 <!DOCTYPE html>
 <html>
     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -228,7 +106,7 @@
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="Leaflet.PolylineMeasure.js"></script>
         <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-<       <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
+        <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -319,7 +197,6 @@
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
                         </div>
->>>>>>> swipe1
                         <span class="text-secondary mr-1 ml-1">|</span>
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
@@ -526,7 +403,11 @@
 
     
     
-    
+    <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
+
+
+
+
      <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
       <div  id="swipeOption" class="panel">
         <ul class="list-unstyled">
@@ -566,7 +447,7 @@
         </ul>
         </div>
 
-     
+    -->
 
       <!--contenidoCapaz-->
       <button class="accordion">Capas</button>
@@ -621,6 +502,7 @@
                <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
 >>>>>>> swipe1
             </div>
+<<<<<<< HEAD
             <!--fin contenedor iframes LEYENDAS -->
 
             <!--Contenedor resultados de filtro-->
@@ -628,6 +510,72 @@
                 <div class="contenedorResultado" id="contenedorResultado">
                     Resultado
                 </div>
+=======
+          </div>
+       
+      </div>
+
+<!--fin BARRA BUSCADOR-->
+
+
+<!--Inicio Selector de capas para el swipe -->
+
+        <div class="bg-light" id="contenedorSwipe" style="width:35%; display:none">
+          <div class="input-group mt-2" id="buscadorS">
+          <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
+                    <option  value="ninguno">NINGUNO</option>
+                    <option value="osm">OSM</option>
+                    <option value="streets">OSM Topo</option>
+                    <option value="grayscale">OSM Grises</option>
+                    <option value="googleSat">Google Sat</option>
+                    <?php 
+            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+            		?>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
+            		<?php
+            		    }//fin foreach
+                    ?>
+                    
+                </select>
+            <div class="input-group-append">
+                <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
+                    <option value="ninguno">NINGUNO</option>
+                    <option value="osm">OSM</option>
+                    <option value="streets">OSM Topo</option>
+                    <option value="grayscale">OSM Grises</option>
+                    <option value="googlesat">Google Sat</option>
+                    <?php 
+            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+            		?>
+            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
+            		<?php
+            		    }//fin foreach
+                    ?>
+                    
+                   
+                </select>
+               <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
+               <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
+            </div>
+          </div>
+       
+        </div>
+    
+
+
+<!--Fin selector de capas para el swipe -->
+
+
+
+
+<!--contenedor iframes LEYENDAS NUEVO-->
+ <div id="contenedorIframeLeyendasNuevo">
+        <?php 
+		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+		?>
+		    <div id="img_leyenda_<?php echo $campo['idcapa'];?>" class="contenedorImg" style="display:none">
+                <img src="<?php echo $campo['leyenda'];?>">
+>>>>>>> swipe
             </div>
             <!--fin Contenedor resultados de filtro-->
 
@@ -1275,8 +1223,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-document.getElementById("SwipeOcultar").style.display="none";
-document.getElementById("swipeOption").style.display="none";
+//document.getElementById("SwipeOcultar").style.display="none";
+//document.getElementById("swipeOption").style.display="none";
 
 
 
@@ -1337,14 +1285,15 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe=true;
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                    document.getElementById("SwipeOcultar").style.display="block";
-                    document.getElementById("swipeOption").style.display="block";
-                    document.getElementById("radio_csm").disabled = true;
-                    document.getElementById("radio_grises").disabled = true;
-                    document.getElementById("radio_calles").disabled = true;
-                    document.getElementById("radio_google").disabled = true;
-                    document.getElementById("boton-fin").disabled=true;
-                    
+                    //document.getElementById("SwipeOcultar").style.display="block";
+                    //document.getElementById("swipeOption").style.display="block";
+                    document.getElementById("contenedorSwipe").style.display="block";
+                    //document.getElementById("radio_csm").disabled = true;
+                    //document.getElementById("radio_grises").disabled = true;
+                    //document.getElementById("radio_calles").disabled = true;
+                    //document.getElementById("radio_google").disabled = true;
+                    //document.getElementById("boton-fin").disabled=true;
+                    repetido();
                    
 
                     
@@ -1354,12 +1303,13 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoSwipe = false;//cambiando el valor de la variable
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                    document.getElementById("SwipeOcultar").style.display="none";
-                    document.getElementById("swipeOption").style.display="none";
-                    document.getElementById("radio_csm").disabled = false;
-                    document.getElementById("radio_grises").disabled = false;
-                    document.getElementById("radio_calles").disabled = false;
-                    document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
+                    //document.getElementById("SwipeOcultar").style.display="none";
+                    //document.getElementById("swipeOption").style.display="none";
+                    document.getElementById("contenedorSwipe").style.display="none";
+                    //document.getElementById("radio_csm").disabled = false;
+                    //document.getElementById("radio_grises").disabled = false;
+                    //document.getElementById("radio_calles").disabled = false;
+                    //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
                     
                     removMapa();
                    
@@ -1479,8 +1429,10 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
 //FUNCION VER LEYENDA DE CAPA
     function activarLeyendas(idLeyenda){
         var divImg = document.getElementById('img_leyenda_'+idLeyenda);
+        
         if(divImg.style.display == "block"){
             divImg.style.display="none";
+            
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-secondary small";
         }
         else{
