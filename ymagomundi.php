@@ -687,11 +687,12 @@ map.on('mouseup', function (e) {
 //---fin cambiar el cursor en el mapa
 
     <?php
-
+    
      ///////////////////////////////////////////////////////////////////////////
-
+     
     foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-    ?>   
+	?>
+	       
 	       var <?php echo $campo['idcapa'];?>= L.tileLayer.wms("<?php echo $campo['urlcapa'];?>", {
             layers: '<?php echo $campo['layer'];?>',
             format: '<?php echo $campo['formato'];?>',
@@ -701,14 +702,6 @@ map.on('mouseup', function (e) {
             <?php
             include "modals_Acciones.php"; //INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCIONES
             ?>
-<<<<<<< HEAD
-=======
-            zIndex: <?php echo $campo['zindex'];?> // orden de la capa ((mayor numero mas arriba)
-	       });
-	          
-    <?php
-    }//fin foreach
->>>>>>> WMS desde bd
 
             <div id='contenedorIframe' style="display:none"></div>
             <div id="map"></div>
@@ -1466,24 +1459,6 @@ function onMapClick(e) {
 
     //if(document.getElementById('chkBoton').checked){//verifica solo si cuando se da click en el mapa esta activado el boton chkboton
     if(activoInformacion==true && activoMedicion==false && activoAreaTrazo==false){//verifica solo si cuando se da click en el mapa esta activado el boton btnActivarInfo
-        
-        var cadenaLayers=[];
-        var i=0;
-        <?php
-        
-        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-        ?>
-            var ck_layer_<?php echo $campo['idcapa'];?> = document.getElementById('chk_<?php echo $campo['idcapa'];?>');
-            if(ck_layer_<?php echo $campo['idcapa'];?>.checked == true)
-            {
-                cadenaLayers[i] = '<?php echo $campo['layer'];?>';
-                i=i+1;
-            }
-        <?php
-        }//fin foreach
-        ?>
-        
-        console.log('CADENA: '+cadenaLayers);
     
         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
         var latitud = e.latlng.lat.toFixed(4);
@@ -1493,18 +1468,17 @@ function onMapClick(e) {
         var HEIGHT = map.getSize().y;
         var X = map.layerPointToContainerPoint(e.layerPoint).x;
         var Y = map.layerPointToContainerPoint(e.layerPoint).y;
-        var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+        var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=bigsdemo:demo_bigs_ctm&QUERY_LAYERS=bigsdemo:demo_bigs_ctm&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         
     //-----------FIN PRUEBAS---------------------------------------------------------    
-        if(cadenaLayers!=""){
-
+    
         var htmlPopup = "<div class='tituloPopup'><b>Titulo</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
         popup.setLatLng(e.latlng);
         popup.setContent(htmlPopup);
         map.openPopup(popup);
 
-        }//fin if cadena
+    
     }//fin if
     }//fin onMapClick
 
