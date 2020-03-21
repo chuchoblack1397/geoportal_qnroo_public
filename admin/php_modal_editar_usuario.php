@@ -1,0 +1,69 @@
+<?php
+include "../conexion.php";
+$usuarioR = $_POST['usuario'];
+$nombreUserR = $_POST['nombre'];
+$apUserR = $_POST['ap'];
+$amUserR = $_POST['am'];
+$puestoUserR = $_POST['puesto'];
+$privilegioUserR = $_POST['privilegio'];
+?>
+<div class="container">
+    <div class="form-group">
+            <h4 class="h-4">Usuario: <?php echo $usuarioR; ?></h4>
+            <div class="form-row">
+                <label for="nombreViolentado" class="small">Nombre</label>
+                <input type="text" class="form-control mb-3" id="nombreUser" value="<?php echo $nombreUserR; ?>">
+            </div>
+            <div class="form-row">
+                <label for="nombreViolentado" class="small">Apellido Paterno</label>
+                <input type="text" class="form-control mb-3" id="apUser"  value="<?php echo $apUserR; ?>">
+            </div>
+            <div class="form-row">
+                <label for="nombreViolentado" class="small">Apellido Materno</label>
+                <input type="text" class="form-control mb-3" id="amUser"  value="<?php echo $amUserR; ?>">
+            </div>
+            <div class="form-row">
+                <label for="nombreViolentado" class="small">Puesto</label>
+                <select name="userPuesto" id="puestoUser" class="custom-select my-1 mr-sm-2  mb-3">
+                              <option value="NA">Selecciona...</option>
+                              <?php
+                                $consultaPuesto = "SELECT * FROM cat_puestos ORDER BY puesto ASC";//consulta general
+                                $resultadoPuesto = pg_query($conexion,$consultaPuesto);
+
+                                if(!$resultadoPuesto){
+                                  echo "<script>console.log('ERROR');</script>";
+                                }
+
+                                while ($filaPuesto = pg_fetch_assoc($resultadoPuesto))
+                                {//obteniendo capas de BD
+                              ?>
+                                <option value="<?php echo $filaPuesto['puesto'];?>" <?php if($filaPuesto['puesto'] == $puestoUserR){?>selected<?php } ?>><?php echo $filaPuesto['puesto'];?></option>
+                              <?php
+                                }//fin while
+                              ?>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="nombreViolentado" class="small">Privilegios</label>
+                <select name="userPrivilegio" id="privilegioUser" class="custom-select my-1 mr-sm-2">
+                              <option value="NA" selected>Selecciona...</option>
+                              <?php
+                                $consultaPrivilegio = "SELECT * FROM cat_privilegios ORDER BY privilegio ASC";//consulta general
+                                $resultadoPrivilegio = pg_query($conexion,$consultaPrivilegio);
+
+                                if(!$resultadoPrivilegio){
+                                  echo "Error";
+                                  exit();
+                                }
+
+                                while ($filaPrivilegio = pg_fetch_assoc($resultadoPrivilegio))
+                                {//obteniendo capas de BD
+                              ?>
+                                <option value="<?php echo $filaPrivilegio['privilegio'];?>" <?php if($filaPrivilegio['privilegio'] == $privilegioUserR){?>selected<?php } ?>><?php echo $filaPrivilegio['privilegio'];?></option>
+                              <?php
+                                }//fin while
+                              ?>
+                            </select>
+            </div>
+    </div>
+</div>

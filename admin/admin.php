@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../conexion.php';
 if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){//verificando si existe una session iniciada
     if($_SESSION['usuarioPrivilegio'] == "administrador"){
         
@@ -51,7 +52,7 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             
-           
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         
     </head>
     
@@ -67,38 +68,144 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <div id="alert"></div>
     <!--fin alertas--> 
     
-    <!--FORMULARIO-->
-    <div class="row p-2">
-        
-      <div class="col-3">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link active" id="opcion_agregarCapa" data-toggle="pill" href="#AgregarCapa" role="tab" aria-controls="AgregarCapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Capa</a>
-          <a class="nav-link" id="opcion_verCapa" data-toggle="pill" href="#verCapa" role="tab" aria-controls="verCapa" aria-selected="false"><span class="icon-list2 mr-3"></span>Ver Capas</a>
-          <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
-          <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
-        </div><!--fin div tab-content-->
-      </div><!--fin div col-3-->
-      <div class="col-9">
-        <div class="tab-content" id="v-pills-tabContent">
-          <div id="AgregarCapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarCapa">
-            <?php include 'formAgregarCapa.php';?>
-          </div><!--fin div opcionAgregarCapa-->
-          <div id="verCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerCapa">
-            <?php include 'verCapas.php';?>
-          </div><!--fin div verCapas-->
-          <div id="ordenarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarCapa">
-            <?php include 'ordenarCapas.php';?>
-          </div><!--fin div verCapas-->
-          <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-        </div><!--fin div tab-content-->
-      </div><!--fin div col-9-->
-      
-</div><!--fin div row-->
+    <!--Menu de administradcion-->
     
-
-    <div id="respuesta">
+    <nav class="m-3">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="true">Estadísticas</a>
+        <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
+        <a class="nav-item nav-link" id="nav-mapas_referencia-tab" data-toggle="tab" href="#nav-mapas_referencia" role="tab" aria-controls="nav-mapas_referencia" aria-selected="false">Mapas de referencia</a>
+        <a class="nav-item nav-link" id="nav-usuarios-tab" data-toggle="tab" href="#nav-usuarios" role="tab" aria-controls="nav-usuarios" aria-selected="false">Usuarios</a>
+        <a class="nav-item nav-link" id="nav-roles-tab" data-toggle="tab" href="#nav-roles" role="tab" aria-controls="nav-roles" aria-selected="false">Privilegios/Roles</a>
+      </div>
+    </nav>
+    <!--fin menu de administracion-->
+    <!--Opciones de menu-->
+    <div class="tab-content m-3" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-estadisticas" role="tabpanel" aria-labelledby="nav-estadisticas-tab">
+        <h2 class="h2">Estadísticas</h2>
+      </div>
+      <!--Opcion CAPAS-->
+      <div class="tab-pane fade" id="nav-capas" role="tabpanel" aria-labelledby="nav-capas-tab">
+        <h2 class="h2">Capas</h2>
+                <!--FORMULARIO-->
+                <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarCapa" data-toggle="pill" href="#AgregarCapa" role="tab" aria-controls="AgregarCapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Capa</a>
+                      <a class="nav-link" id="opcion_verCapa" data-toggle="pill" href="#verCapa" role="tab" aria-controls="verCapa" aria-selected="false" onclick="ajax_ver_capas();"><span class="icon-list2 mr-3"></span>Ver Capas</a>
+                      <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
+                      <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarCapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarCapa">
+                        <?php include 'seccion_formAgregarCapa.php';?>
+                      </div><!--fin div opcionAgregarCapa-->
+                      <div id="verCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerCapa">
+                        <?php include 'seccion_verCapas.php';?>
+                      </div><!--fin div verCapas-->
+                      <div id="ordenarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarCapa">
+                        <?php include 'seccion_ordenarCapas.php';?>
+                      </div><!--fin div verCapas-->
+                      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuesta">
+                </div>
+                <!--fin FORMULARIO-->
+      </div><!--fin opcion CAPAS-->
+      <div class="tab-pane fade" id="nav-mapas_referencia" role="tabpanel" aria-labelledby="nav-mapas_referencia-tab">
+        <h2 class="h2">Mapas de referencia</h2>
+         <!--FORMULARIO-->
+         <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarMapa" data-toggle="pill" href="#AgregarMapa" role="tab" aria-controls="AgregarMapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agrega Mapa</a>
+                      <a class="nav-link" id="opcion_verMapa" data-toggle="pill" href="#verMapa" role="tab" aria-controls="verMapa" aria-selected="false" onclick="ajax_ver_mapas();"><span class="icon-list2 mr-3"></span>Ver Mapa</a>
+                      <a class="nav-link" id="opcion_ordenarMapa" data-toggle="pill" href="#ordenarMapa" role="tab" aria-controls="ordenarMapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Mapa</a>
+                      <a class="nav-link" id="opcion_papeleraMapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarMapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarMapa">
+                        <?php include 'seccion_formAgregarMapa.php';?>
+                      </div><!--fin div opcionAgregarCapa-->
+                      <div id="verMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerMapa">
+                        <?php include 'seccion_verMapa.php';?>
+                      </div><!--fin div verCapas-->
+                      <div id="ordenarMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarMapa">
+                        <?php include 'seccion_ordenarMapa.php';?>
+                      </div><!--fin div verCapas-->
+                      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuesta">
+                </div>
+                <!--fin FORMULARIO-->
+      </div>
+      <div class="tab-pane fade" id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">
+        <h2 class="h2">Usuarios</h2>
+                      <!--FORMULARIO-->
+                      <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarUsuario" data-toggle="pill" href="#AgregarUsuario" role="tab" aria-controls="AgregarUsuario" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Usuario</a>
+                      <a class="nav-link" id="opcion_verUsuario" data-toggle="pill" href="#verUsuario" role="tab" aria-controls="verUsuario" aria-selected="false" onclick="ajax_ver_usuarios();"><span class="icon-list2 mr-3"></span>Listar Usuarios</a>
+                      <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#papeleraUsuario" role="tab" aria-controls="papeleraUsuario" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarUsuario" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarUsuario">
+                        <?php include 'seccion_formAgregarUsuario.php';?>
+                      </div><!--fin div opcionAgregarUsuario-->
+                      <div id="verUsuario" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerUsuario">
+                        <?php include 'seccion_verUsuario.php';?>
+                      </div><!--fin div verUsuario-->
+                      <div id="papeleraUsuario" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de usuarios eliminados</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuestaUsuario">
+                </div>
+                <!--fin FORMULARIO-->
+      </div>
+      <div class="tab-pane fade" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab">
+        <h2 class="h2">Privilegios/Roles</h2>
+                      <!--FORMULARIO-->
+                      <div class="row p-2">
+                  <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <a class="nav-link active" id="opcion_agregarRol" data-toggle="pill" href="#AgregarRol" role="tab" aria-controls="AgregarRol" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Privilegio/Rol</a>
+                      <a class="nav-link" id="opcion_verRol" data-toggle="pill" href="#verRol" role="tab" aria-controls="verRol" aria-selected="false" onclick="ajax_ver_privilegios();"><span class="icon-list2 mr-3"></span>Ver Privilegios/Roles</a>
+                      <a class="nav-link" id="opcion_papeleraRol" data-toggle="pill" href="#papeleraRol" role="tab" aria-controls="papeleraRol" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera de Privilegios/Roles</a>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-3-->
+                  <div class="col-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div id="AgregarRol" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarRol">
+                        <?php include 'seccion_formAgregarPrivilegio.php';?>
+                      </div><!--fin div opcionAgregarRol-->
+                      <div id="verRol" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerRol">
+                        <?php include 'seccion_verPrivilegios.php';?>
+                      </div><!--fin div verRol-->
+                      <div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>
+                    </div><!--fin div tab-content-->
+                  </div><!--fin div col-9-->
+               </div><!--fin div row-->
+                <div id="respuestaRoles">
+                </div>
+                <!--fin FORMULARIO-->
+      </div>
     </div>
-    <!--fin FORMULARIO-->
+    <!--fin Opciones de menu-->
+
+
     
     <!--fin codigo de la ventana emergente-->
     <script src="../js/bootstrap.min.js"></script>
@@ -110,10 +217,17 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <script src="js_guardarCapa.js"></script><!--Archivo js para guardar la capa en bd-->
     <script src="js_eliminarCapa.js"></script><!--Archivo js para eliminar la capa en bd-->
     <script src="js_editarCapa.js"></script><!--Archivo js para editar la capa en bd-->
+    <script src="js_guardarUsuario.js"></script><!--Archivo js para guardar la capa en bd-->
+    <script src="js_eliminarUsuario.js"></script><!--Archivo js para eliminar la capa en bd-->
+    <script src="js_editarUsuario.js"></script><!--Archivo js para editar la capa en bd-->
     
     </body>
     
 </html>
+
+<script>
+//document.getElementById("verCapa").onclick = function() {myFunction()};
+</script>
 <?php
     }//fin if
     else

@@ -15,7 +15,7 @@ $("#btnCerrarMenu").click(function(){
 
 $("#btnAbrirMenu").click(function(){
   checked = true;
-  document.getElementById("SwipeOcultar").style.display="none";
+  
   validaBotonControlPanel();
 });
 
