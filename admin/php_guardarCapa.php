@@ -11,9 +11,6 @@ $estiloCapaOK = $_POST['estiloCapaOK'];
 $versionCapaOK = $_POST['versionCapaOK'];
 $formatoCapa = $_POST['formatoCapa'];
 $transparenciaCapa = $_POST['transparenciaCapa'];
-$leyendaCapa = $_POST['leyenda'];
-$chkConsultaCapa = $_POST['chkConsulta'];
-$campoConsultaCapa = $_POST['campoConsulta'];
 
 //echo "<script>console.log('Datos recibidos: '+".$idCapa $tituloCapaOK $UrlCapaOK $capaCapaOK $estiloCapaOK $versionCapaOK $formatoCapa $transparenciaCapa.");</script>";
 
@@ -71,7 +68,7 @@ if(pg_num_rows($resultado_existencia) > 0){
 }//fin if
 else{
     //Si no existe el titulo entonces la inserta 
-    $sql_Insertar = "insert into capas(idcapa, titulocapa, urlcapa, layer, estilo, version, formato, transparencia, leyenda, activo_consulta, campo_consulta) values ('".$idCapa."','".$tituloCapaACUTE."','".$UrlCapaOK."','".$capaCapaOK."','".$estiloCapaOK."','".$versionCapaOK."','".$formatoCapa."','".$transparenciaCapa."','".$leyendaCapa."','".$chkConsultaCapa."','".$campoConsultaCapa."')";
+    $sql_Insertar = "insert into capas(idcapa, titulocapa, urlcapa, layer, estilo, version, formato, transparencia, leyenda) values ('".$idCapa."','".$tituloCapaACUTE."','".$UrlCapaOK."','".$capaCapaOK."','".$estiloCapaOK."','".$versionCapaOK."','".$formatoCapa."','".$transparenciaCapa."','-')";
     $resultado_Insertar = pg_query($conexion,$sql_Insertar);
     
     //encontrando el valor de zIndex
@@ -134,5 +131,3 @@ else{
 
 
 //mysqli_close($conexion);//cerrando conexion
-
-?>

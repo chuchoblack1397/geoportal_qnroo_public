@@ -66,24 +66,39 @@ for (i = 0; i < acc.length; i++) {
 /* var radioButtonControl_ninguno = document.getElementById('radio_ninguno');
         radioButtonControl_ninguno.addEventListener("change", validaRadioButtonControl, false);*/
 
-        var radioButtonControl_csm = document.getElementById('radio_csm');
-        radioButtonControl_csm.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_calles = document.getElementById('radio_calles');
-        radioButtonControl_calles.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_grises = document.getElementById('radio_grises');
-        radioButtonControl_grises.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_google = document.getElementById('radio_google');
-        radioButtonControl_google.addEventListener("change", validaRadioButtonControl, false);
+var radioButtonControl_csm = document.getElementById('radio_csm');
+radioButtonControl_csm.addEventListener(
+    'change',
+    validaRadioButtonControl,
+    false
+);
 
+var radioButtonControl_calles = document.getElementById('radio_calles');
+radioButtonControl_calles.addEventListener(
+    'change',
+    validaRadioButtonControl,
+    false
+);
 
-        var selector = document.getElementById('selectTipoS');
-        var selector2 = document.getElementById('selectTipoS1');
-        var boton1= document.getElementById("botonSwipeA");
-        var boton2 = document.getElementById("btn_borrar");
-  
+var radioButtonControl_grises = document.getElementById('radio_grises');
+radioButtonControl_grises.addEventListener(
+    'change',
+    validaRadioButtonControl,
+    false
+);
+
+var radioButtonControl_google = document.getElementById('radio_google');
+radioButtonControl_google.addEventListener(
+    'change',
+    validaRadioButtonControl,
+    false
+);
+
+var selector = document.getElementById('selectTipoS');
+var selector2 = document.getElementById('selectTipoS1');
+var boton1 = document.getElementById('botonSwipeA');
+var boton2 = document.getElementById('btn_borrar');
+
 /*
         //segundo radion button
         var radioButtonControl_csm1 = document.getElementById('radio_csm1');
@@ -101,246 +116,45 @@ for (i = 0; i < acc.length; i++) {
        var boton1 = document.getElementById('boton-inicio');
        var boton2 = document.getElementById("boton-fin");
 
-  */     
+  */
 
-        
-        window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
+window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
 
-        function validaRadioButtonControl(){//funcion para evaluar el boton chkbox
-           // var checked_ninguno = radioButtonControl_ninguno.checked;
-            var checked_csm = radioButtonControl_csm.checked;
-            var checked_calles = radioButtonControl_calles.checked;
-            var checked_grises = radioButtonControl_grises.checked;
-            var checked_google = radioButtonControl_google.checked;
+function validaRadioButtonControl() {
+    //funcion para evaluar el boton chkbox
+    // var checked_ninguno = radioButtonControl_ninguno.checked;
+    var checked_csm = radioButtonControl_csm.checked;
+    var checked_calles = radioButtonControl_calles.checked;
+    var checked_grises = radioButtonControl_grises.checked;
+    var checked_google = radioButtonControl_google.checked;
 
-            //segunda lista
-         //   var checked_csm1 = radioButtonControl_csm1.checked;
-          //  var checked_calles1 = radioButtonControl_calles1.checked;
-           // var checked_grises1 = radioButtonControl_grises1.checked;
-            //var checked_google1 = radioButtonControl_google1.checked;
+    //segunda lista
+    //   var checked_csm1 = radioButtonControl_csm1.checked;
+    //  var checked_calles1 = radioButtonControl_calles1.checked;
+    // var checked_grises1 = radioButtonControl_grises1.checked;
+    //var checked_google1 = radioButtonControl_google1.checked;
 
+    if (checked_csm) {
+        console.log('OMS');
 
+        map.addLayer(osm);
+        map.removeLayer(streets);
+        map.removeLayer(grayscale);
+        map.removeLayer(googleSat);
+    } //fin if
+    else {
+        if (checked_calles) {
+            console.log('Calle');
+            map.removeLayer(osm);
+            map.addLayer(streets);
+            map.removeLayer(grayscale);
+            map.removeLayer(googleSat);
 
-            
-
-           
-
-
-
-
-            if(checked_csm){
-              console.log("OMS");
-              
-              map.addLayer(osm);
-              map.removeLayer(streets);
-              map.removeLayer(grayscale);
-              map.removeLayer(googleSat);
-              mapa1=osm;
-             validar=true;
-              
-             
-              
-
-              }//fin if
-              else{
-                  if(checked_calles){
-                      console.log("Calle");
-                      
-                      map.removeLayer(osm);
-                      map.addLayer(streets);
-                      map.removeLayer(grayscale);
-                      map.removeLayer(googleSat);
-                     
-                      validar=true;
-                     
-                  }//fin if
-                  else{
-                        if(checked_grises){
-                          console.log("Grises");
-
-                      map.removeLayer(osm);
-                      map.removeLayer(streets);
-                      map.addLayer(grayscale);
-                      map.removeLayer(googleSat);
-                      mapa1=grayscale;
-                      validar=true;
-                         
-                        }//fin if
-                        else{
-                             if(checked_google){
-                                  console.log("GoogleSat");
-                                  map.removeLayer(osm);
-                                  map.removeLayer(streets);
-                                  map.removeLayer(grayscale);
-                                  map.addLayer(googleSat);  
-                                  mapa1=osm;                               
-
-                                  validar=false;
-                                }//fin if
-                                else{
-                                    console.log("Nada");
-                                }//fin else
-                        }//fin else
-                  }//fin else
-              }//fin else
-
-              // no olvidar est, esto solo es importante para mis pruebas
-
-        /*      //segundo if para la comparacion derecha
-            if(checked_csm1){
-              console.log("OMS1");
-              mapa2=osm;
-           
-
-              }//fin if
-              else{
-                  if(checked_calles1){
-                      console.log("Calle1");
-                     
-                      mapa2=streets;
-                      
-                     
-                  }//fin if
-                  else{
-                        if(checked_grises1){
-                          console.log("Grises1");
-
-                          mapa2=grayscale;
-                     
-                         
-                        }//fin if
-                        else{
-                             if(checked_google1){
-                                  console.log("GoogleSat1");
-                                 
-                                  mapa2=googleSat;                               
-
-                                  
-                                }//fin if
-                                else{
-                                    console.log("Nada");
-                                }//fin else
-                        }//fin else
-                  }//fin else
-              }//fin else
-
-
-
-             
-
-
-            if(checked_csm && checked_csm1){
-              boton1.disabled=true;
-            }else{
-            if(checked_calles && checked_calles1){
-              console.log("esteeeeeeeeeeeeeeeeeeeeeeee");
-              boton1.disabled=true;
-            }
-            else{
-              if(checked_grises && checked_grises1){
-                boton1.disabled=true;
-              }
-            else{
-              if(checked_google && checked_google1){
-                boton1.disabled=true;
-              }
-              else{
-                boton1.disabled=false;
-              }
-            }
-            }
-            }
-              
-            
-             
-
-
-
-
-
-
-
-
-
-            /*if(checked_csm&& checked_csm1){
-             
-
-              mapa1=osm;
-              mapa2=osm1;
-            }
-            else{
-            if(checked_csm&& checked_calles1){
-              
-              
-              map.removeLayer(grayscale);
-              map.addLayer(osm);
-              map.removeLayer(streets);
-              map.removeLayer(googleSat);
-
-              map.removeLayer(grayscale1);
-            map.removeLayer(osm1);
-            map.addLayer(streets1);
-            map.removeLayer(googleSat1);
-              mapa1=osm;
-              mapa2=streets1;
-
-            }
-            else{
-            if(checked_csm && checked_grises1){
-             
-
-              map.addLayer(grayscale1);
-              map.removeLayer(osm1);
-              map.removeLayer(streets1);
-              map.removeLayer(googleSat1);
-
-              mapa1=osm;
-              mapa2=grayscale1;
-
-
-
-            }else{
-            if(checked_csm  && checked_google1){
-              map.removeLayer(grayscale);
-              map.addLayer(osm);
-              map.removeLayer(streets);
-              map.removeLayer(googleSat);
-
-              map.addLayer(grayscale1);
-              map.removeLayer(osm1);
-              map.removeLayer(streets1);
-              map.addLayer(googleSat1);
-              mapa1=osm;
-              mapa2=googleSat1;
-
-            }
-            else{
-              if(checked_calles && checked_csm1)
-              {
-                map.removeLayer(grayscale);
-                map.removeLayer(osm);
-                map.addLayer(streets);
-                map.removeLayer(googleSat);
-
-                map.removeLayer(grayscale1);
-              map.addLayer(osm1);
-              map.removeLayer(streets1);
-              map.removeLayer(googleSat1);
-              mapa1=streets;
-              mapa2=osm1;
-
-              console.log("ffffffff");
-              }
-            if(checked_calles&& checked_calles1){
-              map.removeLayer(grayscale);
-              map.removeLayer(osm);
-              map.addLayer(streets);
-              map.removeLayer(googleSat);
-
-              map.removeLayer(grayscale1);
-              map.removeLayer(osm1);
-              map.addLayer(streets1);
-              map.removeLayer(googleSat1);
+            validar = true;
+        } //fin if
+        else {
+            if (checked_grises) {
+                console.log('Grises');
 
                 map.removeLayer(osm);
                 map.removeLayer(streets);
@@ -355,238 +169,17 @@ for (i = 0; i < acc.length; i++) {
                     map.removeLayer(osm);
                     map.removeLayer(streets);
                     map.removeLayer(grayscale);
-                    map.removeLayer(googleSat);
-                    
-                    mapa2=osm;
-                   
-                    
-                    
-                  }else{
+                    map.addLayer(googleSat);
+                    mapa1 = osm;
 
-                  if(checked_calles1){
-                    map.addLayer(streets);
-                    map.removeLayer(grayscale);
-                    map.removeLayer(googleSat);
-                    mapa2=streets;
-                    
-                  }else {
-                  if(checked_grises1){
-                    map.addLayer(grayscale);
-                    map.removeLayer(streets);
-                    map.removeLayer(googleSat);
-                    mapa2=grayscale;
-                  }
-                  else{
-                    if(checked_google1){
-                      map.addLayer(googleSat);
-                      map.removeLayer(grayscale);
-                      map.removeLayer(streets);
-                      mapa2=googleSat;
-
-                     
-                    }
-                    else{}
-                  }
-                  
-                  }
-                
-              }
-            
-              // map.removeLayer(streets);
-                    //map.removeLayer(grayscale);
-                    //map.addLayer(googleSat);
-                    }//fin if
-                    else{
-                      if(checked_calles){
-                        console.log("OMS");
-                        map.addLayer(streets);
-                      if(checked_csm1){
-                        map.addLayer(osm);
-
-                      }else{
-    
-                      if(checked_calles1){
-                        map.addLayer(streets);
-                      }else {
-                      if(checked_grises1){
-                        map.addLayer(grayscale);
-                      }
-                      else{
-                        if(checked_google1){
-                          map.addLayer(googleSat);
-                          
-                        }
-                        else{}
-                      }
-                      
-                      }
-                    
-                  }
-                      }//fin if
-                      else{
-                            if(checked_grises){
-                              console.log("Grises");
-                              map.addLayer(grayscale);
-                              map.removeLayer(osm);
-                              map.removeLayer(streets);
-                              map.removeLayer(googleSat);
-                            }//fin if
-                            else{
-                                 if(checked_google){
-                                      console.log("GoogleSat");
-                                      map.addLayer(googleSat);
-                                      map.removeLayer(osm);
-                                      map.removeLayer(streets);
-                                      map.removeLayer(grayscale);
-                                    }//fin if
-                                    else{
-                                        console.log("Nada");
-                                    }//fin else
-                            }//fin else
-                      }//fin else
-                  }//fin else
-
-
-
-                  /* // map.removeLayer(streets);
-                    //map.removeLayer(grayscale);
-                    //map.addLayer(googleSat);
-                    }//fin if
-                    else{
-                        if(checked_calles){
-                            console.log("Calle");
-                            map.addLayer(streets);
-                            map.removeLayer(osm); 
-                            map.removeLayer(grayscale);
-                            map.removeLayer(googleSat);
-                        }//fin if
-                        else{
-                              if(checked_grises){
-                                console.log("Grises");
-                                map.addLayer(grayscale);
-                                map.removeLayer(osm);
-                                map.removeLayer(streets);
-                                map.removeLayer(googleSat);
-                              }//fin if
-                              else{
-                                   if(checked_google){
-                                        console.log("GoogleSat");
-                                        map.addLayer(googleSat);
-                                        map.removeLayer(osm);
-                                        map.removeLayer(streets);
-                                        map.removeLayer(grayscale);
-                                      }//fin if
-                                      else{
-                                          console.log("Nada");
-                                      }//fin else
-                              }//fin else
-                        }//fin else
-                    }//fin else
-      */
-            
-
-        }//fin funcion validaRadioButtonControl
-//fin radiobuttons
-
-//--fin codigo ControlPanel
-
-
-
-
-
-
-
-
-var mapa1, validar =true;
-
-var mapa2=googleSat;
-
-//var control_sideO = L.control.sideBySide(mapa1,osm);
-//var control_sideS = L.control.sideBySide(mapa1,streets);
-//var control_sideGR = L.control.sideBySide(capa_Predios,grayscale);
-//var control_sideGS = L.control.sideBySide(mapa1,googleSat);
-function mostrarOpciones(){
-
-
-  
-
-
-}
-function mapas1(){ //aactiva el swipe
-   // control de side, variable mapa1 y mapa 2 son los mapas a mostrarse
-  /*if(mapa1== osm){
-    map.addLayer(osm);  //validamos para osm
-    map.addLayer(googleSat);
-    control_side.addTo(map);
-  }else{
-  map.addLayer(mapac);
-  
-  control_side.addTo(map);
-
-
-  }*/
-
-
-
-    //radioButtonControl_csm1.disabled=true;
-    //radioButtonControl_calles1.disabled=true;
-    //radioButtonControl_grises1.disabled=true;
-    //radioButtonControl_google1.disabled=true;
-    //boton1.disabled = true;
-    //boton2.disabled = false
-
-  if(mapa2==osm){
-   
-   
-   map.addLayer(osm);
- 
-    
-    
-    
-    
-
-    control_sideO.addTo(map);
-  }
-  else{
-    if(mapa2==streets){
-      
-      
-      map.addLayer(streets);
-      control_sideS.addTo(map);
-    
-    }
-  else{
-    if(mapa2==grayscale){
-      
-      
-      map.addLayer(grayscale);
-      
-      control_sideGR.addTo(map);
-      
-    }
-  else{
-    if(mapa2== googleSat){
-     
-
-      
-      
-      map.addLayer(googleSat);
-      control_sideGS.addTo(map);
-       
-       
-      
-    }
-  else{
-
-  }
-  }
-  }
-  }
-
-  
- 
-  
-
+                    validar = false;
+                } //fin if
+                else {
+                    console.log('Nada');
+                } //fin else
+            } //fin else
+        } //fin else
+    } //fin else
 }
 
 var activo;
@@ -606,197 +199,31 @@ function RecogerDatos() {
         console.log('si estoy entrando');
         boton1.disabled = false;
         boton2.disabled = true;
-        selector.disabled = false;
-        selector2.disabled = false;
     } else {
         map.addLayer(capa1);
         map.addLayer(capa2);
         control_side.addTo(map);
         activo = true;
-        control = control_side; //agregamos el mapa anterior
+        control = control_side; //agregamos el mapa
         boton2.disabled = false;
         boton1.disabled = true;
-        selector.disabled = true;
-        selector2.disabled = true;
     }
 
-
-function removMapa(){ //funcion para desactivar el swipe
- 
-  /*if(validar == false){
-    map.removeLayer(osm); //validamos para google sat
-    
-    control_side.remove(map);
-  }else{
-    
-  map.removeLayer(googleSat);
-  control_side.remove(map);
-  }*/
-
-
-
-control_side.remove(map);
-
-  
-    
-    
-   
-    
-  
-  
-
+    console.log(activo);
 }
 
-
-
-
-
-
-var activo ;
-var control;
-
-function RecogerDatos(){
-  var capa1 = eval(selector.value);
-  var capa2 = eval(selector2.value); 
-  var control_side = L.control.sideBySide(capa1,capa2);
-   
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  if(activo== true){
-    
-    activo = false;
-    map.removeLayer(capa1);
-    map.removeLayer(capa2);
-    control.remove(map);
-    console.log("si estoy entrando");
-    boton1.disabled =false;
-    boton2.disabled =true;
-    
-   
- 
-    
-  }else{
-    map.addLayer(capa1);
-  map.addLayer(capa2);
-    control_side.addTo(map);
-    activo=true;
-    control = control_side;
-    boton2.disabled = false;
-    boton1.disabled = true;
-  }
-  
-  
-  
-
-  
- 
-
-
-console.log(activo);
-
-
-
-
- 
-
-  
-
-
-  /*if(capa1 == "osm"){
-    
-   parte1=osm;
-  
-  }else{
-    if(capa1 == "streets"){
-     parte1=streets;
-    }
-    else{
-      if(capa1 == "grayscale"){
-        parte1=grayscale
-      }
-    else{
-      if(capa1 == "googleSat"){
-        parte2=googleSat;
-      }
-      else{
-
-      }
-    }
-  }
-
-  }
-
-
-
-    if(capa2 == "osm"){
-
-     parte2=osm;
-     control_side.addTo(map);
-  
-    }else{
-      if(capa2 == "streets"){
-        parte2=streets;
-      }
-      else{
-        if(capa2 == "grayscale"){
-          parte2=grayscale;
+function repetido() {
+    if (selector.value == selector2.value) {
+        console.log('esta repetido ');
+        boton1.disabled = true;
+        boton2.disabled = true;
+    } else {
+        if (selector2.value == 'ninguno' || selector.value == 'ninguno') {
+            boton1.disabled = true;
+            boton2.disabled = true;
+        } else {
+            boton1.disabled = false;
+            boton2.disabled = false;
         }
-      else{
-        if(capa2 == "googleSat"){
-          parte2=googleSat;
-        }
-        else{
-          
-        }
-      }
-      }
-  }
-
-*/
-
-
-  
-    
-  
-/*if(selector.value == selector2.value){
-  console.log("esta repetido ")
-}
-else{
-
-}
-*/
-
-}
-
-
-
-function repetido(){
-  if(selector.value == selector2.value){
-    console.log("esta repetido ");
-    boton1.disabled=true;
-    boton2.disabled=true;
-  }
-  else{
-    if(selector2.value == "ninguno" || selector.value == "ninguno"){
-      boton1.disabled=true;
-      boton2.disabled = true;
-
     }
-    else{
-      boton1.disabled=false;
-      boton2.disabled= false;
-
-    }
-   
-  
-  }
-  
 }
