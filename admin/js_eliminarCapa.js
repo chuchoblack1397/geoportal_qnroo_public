@@ -36,7 +36,7 @@ function eliminarCapa(){//funcion para obtener valores de campos y eliminarlos
             enviarDatosEliminar(Ruta);
         }//fin if
         else{
-            alert('Debes seleccionar al menos una opción.');
+            swal("No hay capas seleccionadas", "Debes seleccionar por lo menos una capa para eliminar.", "info");
         }//fin else
 
         return false;
@@ -44,13 +44,28 @@ function eliminarCapa(){//funcion para obtener valores de campos y eliminarlos
 
 ////////////////////// FUNCION AJAX PARA ENVIAR DATOS ///////////////////////////
 function enviarDatosEliminar(ruta){
-    $.ajax({
-        url:'eliminarCapa.php',
-        type:'POST',
-        data: ruta,
-        success: function(res){
-          $('#respuesta').html(res);
-      }
+
+    swal({
+        title: "Espera!",
+        text: "¿Estas seguro que deseas eliminar la(s) capa(s)?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:'php_eliminarCapa.php',
+                type:'POST',
+                data: ruta,
+                success: function(res){
+                  $('#respuesta').html(res);
+              }
+              });
+        } 
+        
       });
+
+    
 }
 ////////////////////// fin FUNCION AJAX PARA ENVIAR DATOS ////////////////////////
