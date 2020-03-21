@@ -1,36 +1,36 @@
 <?php
     session_start();
-    
+
         if(isset($_POST['campUsuario']) && isset($_POST['campoContra'])){//asignando los valores obtenidos del login para las variables de session
             echo "<script>console.log('Recibiendo datos de POST');</script>";
-            
+
             $_SESSION['usuarioSession'] = $_POST['campUsuario'];
             $_SESSION['usuarioPass'] = $_POST['campoContra'];
             echo "<script>console.log('Asignando datos a SESSION');</script>";
         }
-        
+
          if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])){//verificando si existe una session iniciada
             echo "<script>console.log('Validando SESSION');</script>";
-            
+
             include 'conexion.php';
-            
+
             $miUsuario = $_SESSION['usuarioSession'];
             $miContra = $_SESSION['usuarioPass'];
 
-            
+
             $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
             $resultado = pg_query($conexion,$consulta);
             if(!$resultado) {
                 echo 'Consulta de usuario Fallida';
                 exit();
-               } 
+               }
                else {
                   echo "<script>console.log('Consulta de usuario correcta');</script>";
                }//fin if error resultado
 
 					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
 					    echo "<script>console.log('Se encontro Usuario');</script>";
-					    
+
                         while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
                         {//obteniendo el dato del privilegio
 					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
@@ -38,19 +38,19 @@
 					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
 					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
 					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        
+
 					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
-					        
+
 					        $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-					        
+
 					        echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
-					        
+
 					    }//fin while
-                        
- 
+
+
  //--ARREGLO PARA LOS DATOS DE LAS CAPAS
  /*
- # Este metodo que se emplea aquí solamente sirve para 
+ # Este metodo que se emplea aquí solamente sirve para
  # realizar una sola vez la consulta a la base de datos
  # de los datos completos de las capas, ya que en este
  # codigo constantemente se estan rellenando etiquetas y
@@ -63,15 +63,15 @@ $resultadoCapas = pg_query($conexion,$consultaCapas);
 if(!$resultadoCapas) {
    echo 'Consulta de resultadoCapas Fallida';
    exit();
-  } 
+  }
   else {
      echo "<script>console.log('Consulta de resultadoCapas correcta');</script>";
-  }//fin if error resultadoCapas   
+  }//fin if error resultadoCapas
 
-  
+
        while ($filaCapa = pg_fetch_assoc($resultadoCapas))
        {//obteniendo capas de BD
-         echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";  
+         echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";
         $arregloCapas[]=$filaCapa;//agregando los valores de la BD al arreglo
        }//fin while
 /*
@@ -81,17 +81,17 @@ if(!$resultadoCapas) {
     foreach ($arregloCapas as $clave => $campo) {
         echo $campo['idcapa'];
     }//fin foreach
-    
-# en donde $campo[''] es donde se pone el nombre del 
+
+# en donde $campo[''] es donde se pone el nombre del
 # campo a obtener los valores de BD ahora en el ARREGLO
-*/	    
-	    
+*/
+
 //----fin ARREGLO PARA LOS DATOS DE LAS CAPAS
 ?>
 <!DOCTYPE html>
 <html>
     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Geoportal</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -103,41 +103,41 @@ if(!$resultadoCapas) {
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        
+
         <link rel="stylesheet" href="miestilo.css">
         <link rel="stylesheet" href="fonts/style.css">
         <link rel="stylesheet" href="estiloPopup.css">
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
-        
-        
+
+
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
         <script src="js/leaflet-geoman.min.js"></script>
 
         <!--links Side para dividir pantalla-->
         <script src="js/side/leaflet-side-by-side.js"></script>
-        
+
         <!--draw-->
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
-        
-    
-        
+
+
+
           <!--links estilo leyendas wms-->
         <link rel="stylesheet" href="estiloLeyendas.css" />
-        
+
          <!--links estilo barra Acciones-->
         <link rel="stylesheet" href="estiloBarraAcciones.css" />
-        
+
         <style>
             body {padding: 0; margin: 0;}
             html, body, #map {height: 100%;}
         </style>
     </head>
-    
+
     <body>
 
 <!------ENCABEZADO DE LA PAGINA-->
@@ -179,7 +179,7 @@ if(!$resultadoCapas) {
   </div><!--fin div contenedorZoom-->
   <hr><!--linea-->
   <div id="contendorControles" >
-     
+
         <div id="contenedorBotonesAcciones">
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
@@ -197,11 +197,11 @@ if(!$resultadoCapas) {
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
                         </div>
         </div><!--fin contenedorBotonesAcciones-->
-        
+
     <hr><!--linea-->
-    
+
     <button class="accordion">Mapas de Referencia</button>
-    
+
       <div id="contenidoRadios" class="panel">
         <ul class="list-unstyled">
           <li>
@@ -227,15 +227,15 @@ if(!$resultadoCapas) {
               <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
               <label for="radio_google" class="custom-control-label">Google Sat</label>
             </div>
-           
+
           </li>
         </ul>
 
 
       </div><!--fin div contenidoRadios-->
 
-    
-    
+
+
     <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
 
 
@@ -269,12 +269,12 @@ if(!$resultadoCapas) {
             </div>
             <div class="btn btn-light">
               <input type="button" id="boton-inicio" value="Iniciar" onclick="mapas1()">
-             
+
             </div>
 
             <div class="btn btn-light">
               <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
-             
+
             </div>
           </li>
         </ul>
@@ -286,7 +286,7 @@ if(!$resultadoCapas) {
       <button class="accordion">Capas</button>
         <div id="contenidoCapas" class="panel">
           <ul class="list-unstyled" id="listaCapa">
-              <?php 
+              <?php
 					    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
 					       ?>
 					        <li id="<?php echo $campo['idcapa'];?>">
@@ -297,25 +297,25 @@ if(!$resultadoCapas) {
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
-                                                
+
                                             </div>
                                       </div>
- 
+
                             </li>
-                            
+
 					       <?php
 					    }//fin foreach
-					    
+
               ?>
           </ul><!--fin ul capaz-->
       </div><!--fin div capaz-->
 
   </div><!--fin div contendorControles-->
   <hr><!--linea-->
-  
+
 </div><!--fin div controlMenuPanel-->
 
-<!--BARRA BUSCADOR--> 
+<!--BARRA BUSCADOR-->
 
       <div class="bg-light" id="contenedorBuscador" style="width:35%; display:none">
           <div class="input-group mt-2" id="buscador">
@@ -323,7 +323,7 @@ if(!$resultadoCapas) {
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
                     <option selected value="ninguno">NINGUNO</option>
-                    <?php 
+                    <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
             		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
@@ -335,7 +335,7 @@ if(!$resultadoCapas) {
                <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
             </div>
           </div>
-       
+
       </div>
 
 <!--fin BARRA BUSCADOR-->
@@ -351,14 +351,14 @@ if(!$resultadoCapas) {
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
                     <option value="googleSat">Google Sat</option>
-                    <?php 
+                    <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
             		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
             		<?php
             		    }//fin foreach
                     ?>
-                    
+
                 </select>
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
@@ -367,23 +367,23 @@ if(!$resultadoCapas) {
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
                     <option value="googleSat">Google Sat</option>
-                    <?php 
+                    <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
             		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
             		<?php
             		    }//fin foreach
                     ?>
-                    
-                   
+
+
                 </select>
                <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
                <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Borrar filtro"><i class="icon-bin2"></i></button>
             </div>
           </div>
-       
+
         </div>
-    
+
 
 
 <!--Fin selector de capas para el swipe -->
@@ -393,7 +393,7 @@ if(!$resultadoCapas) {
 
 <!--contenedor iframes LEYENDAS NUEVO-->
  <div id="contenedorIframeLeyendasNuevo">
-        <?php 
+        <?php
 		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
 		?>
 		    <div id="img_leyenda_<?php echo $campo['idcapa'];?>" class="contenedorImg" style="display:none">
@@ -413,23 +413,23 @@ if(!$resultadoCapas) {
 <span class="icon-menu"></span>
 </button>
 <!--fin boton para CERRAR MENU-->
-       
+
 <?php
 include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCIONES
 ?>
 
         <div id='contenedorIframe' style="display:none"></div>
         <div id="map"></div>
-        
-        
-        
-        
+
+
+
+
 
     <!--fin codigo de la ventana emergente-->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-input-spinner.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  
+
 <script>
 
 	var atribuciones = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -450,25 +450,25 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 
 
 	var grayscale   = L.tileLayer(mbUrl, {
-        id: 'mapbox.light', 
+        id: 'mapbox.light',
         attribution: atribuciones
     });
     var	streets  = L.tileLayer(mbUrl, {
-        id: 'mapbox.streets',   
+        id: 'mapbox.streets',
         attribution: atribuciones
     });
-    
+
     var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
-    	
-    
 
 
 
-   
+
+
+
     //----fin Mapas de referencia----
 
 
@@ -476,25 +476,27 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 
 
 
-    
+
     //---MAPA---
-    
+
 	var map = new L.Map('map', {
 		center: [18.5276, -88.2963],
         zoom: 13,
         minZoom : 5,
-        zoomControl: false
+        zoomControl: false,
+    	layers: [osm]
         //layers: [osm,googleSat]
 	});
 
-    
-	
+    /*var control_side = L.control.sideBySide(osm,googleSat);
+    control_side.addTo(map);*/
+
 //---fin MAPA---
 
 
 
 //---cambiar el cursor en el mapa
-document.getElementById('map').style.cursor = 'default'; // auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress 
+document.getElementById('map').style.cursor = 'default'; // auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress
 
 map.on('mousedown', function (e) {
     document.getElementById('map').style.cursor = 'move';
@@ -505,12 +507,11 @@ map.on('mouseup', function (e) {
 //---fin cambiar el cursor en el mapa
 
     <?php
-    
+
      ///////////////////////////////////////////////////////////////////////////
-     
+
     foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-	?>
-	       
+    ?>
 	       var <?php echo $campo['idcapa'];?>= L.tileLayer.wms("<?php echo $campo['urlcapa'];?>", {
             layers: '<?php echo $campo['layer'];?>',
             format: '<?php echo $campo['formato'];?>',
@@ -519,22 +520,20 @@ map.on('mouseup', function (e) {
             <?php
             if($campo['version'] != null){
             ?>
-            version: '<?php echo $campo['version'];?>', 
+            version: '<?php echo $campo['version'];?>',
             <?php
 	            }//fin if
             ?>
             <?php
             if($campo['estilo'] != null){
             ?>
-            style: '<?php echo $campo['estilo'];?>', 
+            style: '<?php echo $campo['estilo'];?>',
             <?php
 	            }//fin if
             ?>
             zIndex: <?php echo $campo['zindex'];?> // orden de la capa ((mayor numero mas arriba)
 	       });
-	       
-	      
-          
+
     <?php
     }//fin foreach
 
@@ -545,7 +544,7 @@ map.on('mouseup', function (e) {
     	   <?php
         	        }//fin foreach
     	   ?>
-	       
+
 	       function validaChkBoxControl(){//funcion para evaluar el boton chkbox
     	        <?php
         	        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
@@ -569,27 +568,27 @@ map.on('mouseup', function (e) {
                             document.getElementById('btn_leyenda_<?php echo $campo['idcapa'];?>').disabled = true;
                             document.getElementById('img_leyenda_<?php echo $campo['idcapa'];?>').style.display="none";
                             document.getElementById('icon_btn_leyenda_<?php echo $campo['idcapa'];?>').className = "icon-eye text-secondary small";
-                            
+
                         }//fin else
                         <?php
     	       }//fin foreach
     	        ?>
-    	        
-    	      
-    	        
+
+
+
 	        }//fin funcion validaChkBoxControl
-    
+
     window.onload = validaChkBoxControl(); //al cargar la pagina va a validar el boton chekbox
-    
+
     //----fin Capaz----
-//-------------fin Capas-------------  
+//-------------fin Capas-------------
 
             //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
             L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
 
             //control para poliniea calculo de metrica de puntos
             var myControl= L.control.polylineMeasure ({position:'topright', unit:'metres', showBearings:true, clearMeasurementsOnStop: false, showClearControl: true, showUnitControl: false});
-            
+
             map.addEventListener('click', onMapClick);//llama al evento click dentro del MAPA
 
 
@@ -627,7 +626,7 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 //var control_side = L.control.sideBySide(osm,googleSat);
- 
+
 
 
 
@@ -642,16 +641,16 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 var activoInformacion = false;//inicializando variable
 var activoBusqueda = false;//inicializando variable
-var activoLeyenda = false;//inicializando variable 
-var activoMedicion = false;//inicializando variable 
+var activoLeyenda = false;//inicializando variable
+var activoMedicion = false;//inicializando variable
 var activoAreaTrazo= false;//inicializando variable
 var activoSwipe=false;
 
 
 
-function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick 
+function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick
     switch(opcionBtn){
-        
+
         case "informacion":
                 if(activoInformacion == false){
                     activoInformacion = true;//cambiando el valor de la variable
@@ -674,24 +673,24 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("contenedorBuscador").style.display="block";
                     console.log(mapa1);
                     console.log(mapa2);
-                    
-                    
-                    
+
+
+
                 }//fin if
                 else{
                     activoBusqueda = false;//cambiando el valor de la variable
                     document.getElementById("btnActivarBusqueda2").className = "icon-filter text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarBusqueda1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
                     document.getElementById("contenedorBuscador").style.display="none";
-                    
+
                 }//fin else
             break;
 
 
         case "swipe": //activamos y desactivamos swipe
-            
+
                 if(activoSwipe == false){
-                    
+
                     activoSwipe=true;
                     document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
@@ -704,10 +703,10 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     //document.getElementById("radio_google").disabled = true;
                     //document.getElementById("boton-fin").disabled=true;
                     repetido();
-                   
 
-                    
-                    
+
+
+
                 }
                 else{
                     activoSwipe = false;//cambiando el valor de la variable
@@ -720,12 +719,12 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     //document.getElementById("radio_grises").disabled = false;
                     //document.getElementById("radio_calles").disabled = false;
                     //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
-                    
-                    removMapa();
-                   
 
-                    
-                    
+                    removMapa();
+
+
+
+
                 }
             break;
         case "leyenda":
@@ -733,7 +732,7 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     activoLeyenda = true;//cambiando el valor de la variable
                     document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarLeyenda1").className = "btn btn-danger";//alterando las propiedades del span dentro del boton
-                    
+
                     //subFuncionactivarInformacion();
                 }//fin if
                 else{
@@ -757,17 +756,17 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("btnActivarMedi2").className = "icon-wrench text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarMedi1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
                     map.removeControl(myControl);// quitar o eliminar control del mapa
-                    
+
                     //if para evaluar si las opciones estan activadas, realizar un espaciado en las leyendas
                     if(activoMedicion == false || activoAreaTrazo == false){
                         document.getElementById("contenedorIframeLeyendasNuevo").style.right="0px";
                     }else{
                         document.getElementById("contenedorIframeLeyendasNuevo").style.right="50px";
                     }//fin else
-                    
+
                     activoMedicion=false;
                     subFuncionactivarInformacion();
-                    
+
                   }//fin else
             break;
         case "areaTrazo":
@@ -784,18 +783,18 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("btnActivarArea2").className = "icon-paint-format text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarArea1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
                     map.removeControl(drawControl);//quitar edit control figuras
-                    map.removeLayer(featureGroup); //quitar CAPA de figuras 
-                    
+                    map.removeLayer(featureGroup); //quitar CAPA de figuras
+
                     //if para evaluar si las opciones estan activadas, realizar un espaciado en las leyendas
                     if(activoMedicion == false || activoAreaTrazo == false){
                         document.getElementById("contenedorIframeLeyendasNuevo").style.right="0px";
                     }else{
                         document.getElementById("contenedorIframeLeyendasNuevo").style.right="50px";
                     }//fin else
-                    
+
                     activoAreaTrazo=false;
                     subFuncionactivarInformacion();
-                    
+
                   }//fin else
             break;
         default:
@@ -810,11 +809,11 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
 function subFuncionactivarInformacion(){//esta funcion cambia el icono dependiendo de su seleccion con los otros botones
     if(activoMedicion!=false || activoAreaTrazo!=false){
-        
+
         document.getElementById("btnActivarInfo1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
         document.getElementById("btnActivarInfo2").className = "icon-info text-danger small";//alterando las propiedades del span dentro del boton
     }//fin if
-    
+
     if(activoMedicion==false && activoAreaTrazo==false){
         if(activoInformacion==true){
             document.getElementById("btnActivarInfo1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
@@ -825,7 +824,7 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
             document.getElementById("btnActivarInfo1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
         }//fin else
     }//fin if
-    
+
 
 
 
@@ -839,27 +838,47 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
 //FUNCION VER LEYENDA DE CAPA
     function activarLeyendas(idLeyenda){
         var divImg = document.getElementById('img_leyenda_'+idLeyenda);
-        
+
         if(divImg.style.display == "block"){
             divImg.style.display="none";
-            
+
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-secondary small";
         }
         else{
             divImg.style.display="block";
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-primary small";
         }
-        
+
     }
-//fin FUNCION VER LEYENDA DE CAPA 
-    
+//fin FUNCION VER LEYENDA DE CAPA
+
 var popup = L.popup({maxWidth: 1000,className:'popup'});//variable de popup de click sobre el mapa
 
 function onMapClick(e) {
 
     //if(document.getElementById('chkBoton').checked){//verifica solo si cuando se da click en el mapa esta activado el boton chkboton
     if(activoInformacion==true && activoMedicion==false && activoAreaTrazo==false){//verifica solo si cuando se da click en el mapa esta activado el boton btnActivarInfo
-    
+
+        var cadenaLayers=[];
+        var i=0;
+        var urlWMS="";
+        <?php
+
+        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+        ?>
+            var ck_layer_<?php echo $campo['idcapa'];?> = document.getElementById('chk_<?php echo $campo['idcapa'];?>');
+            if(ck_layer_<?php echo $campo['idcapa'];?>.checked == true)
+            {
+                cadenaLayers[i] = '<?php echo $campo['layer'];?>';
+                urlWMS='<?php echo $campo['urlcapa'];?>';
+                i=i+1;
+            }
+        <?php
+        }//fin foreach
+        ?>
+
+        console.log('CADENA: '+cadenaLayers);
+
         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
         var latitud = e.latlng.lat.toFixed(4);
         var longitud = e.latlng.lng.toFixed(4);
@@ -868,17 +887,19 @@ function onMapClick(e) {
         var HEIGHT = map.getSize().y;
         var X = map.layerPointToContainerPoint(e.layerPoint).x;
         var Y = map.layerPointToContainerPoint(e.layerPoint).y;
-        var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=bigsdemo:demo_bigs_ctm&QUERY_LAYERS=bigsdemo:demo_bigs_ctm&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+        //var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+        var URL = urlWMS+'?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
-        
-    //-----------FIN PRUEBAS---------------------------------------------------------    
-    
+
+    //-----------FIN PRUEBAS---------------------------------------------------------
+        if(cadenaLayers!=""){
+
         var htmlPopup = "<div class='tituloPopup'><b>Titulo</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
         popup.setLatLng(e.latlng);
         popup.setContent(htmlPopup);
         map.openPopup(popup);
 
-    
+        }//fin if cadena
     }//fin if
     }//fin onMapClick
 
@@ -896,8 +917,8 @@ function recargarPopup(){
 }//fin function
 
  //---cambiar el cursor en el link
-             // auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress 
-            
+             // auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize | text | wait | help | progress
+
            function hover(){
                 document.getElementById('btnActualizar').style.cursor = 'pointer';
             }
@@ -905,11 +926,11 @@ function recargarPopup(){
                 document.getElementById('btnActualizar').style.cursor = 'default';
             }
 //---fin cambiar el cursor en el link
- 
-    
+
+
 //-fin sub-funcion
-    
-//METODO PARA CONTROL DE FIGURAS Y SU AREA/////    
+
+//METODO PARA CONTROL DE FIGURAS Y SU AREA/////
 //-----------MAS ARRIBA ESTAN LOS OBJETOS DEL CONTROL Y LA CAPA DE FIGURAS -----------------
 
 map.on('draw:created', showPolygonArea);
@@ -987,11 +1008,11 @@ function showPolygonArea(e) {
                 }
             });
         });
-  //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////  
-        </script> 
-    
+  //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////
+        </script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script src="controlPanelOpciones.js"></script>  
+        <script src="controlPanelOpciones.js"></script>
         <script src="controlPanel.js"></script>
         <script src="busquedaDatosCapas.js"></script>
     </body>
@@ -1002,7 +1023,7 @@ function showPolygonArea(e) {
 					else{
                         //Si el usuario no existe me mandara un mensaje
 						echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
-						
+
 					}//fin else
 					pg_close($conexion);
         }//fin if
