@@ -300,6 +300,7 @@
 }
 =======
   }
+<<<<<<< HEAD
 
 
   #SwipeOcultar{
@@ -309,6 +310,8 @@
     
     }
 >>>>>>> swipe1
+=======
+>>>>>>> Correccion
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
     #btnAbrirMenu {

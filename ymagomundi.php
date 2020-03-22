@@ -21,7 +21,7 @@
             $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
             $resultado = pg_query($conexion,$consulta);
             if(!$resultado) {
-                echo 'Consulta de usuario Fallida';
+                echo 'Consulta de usuario fallida';
                 exit();
                } 
                else {
@@ -29,8 +29,8 @@
                }//fin if error resultado
 
 					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-					    echo "<script>console.log('Se encontro Usuario');</script>";
-					    
+					    echo "<script>console.log('Se encontro usuario');</script>";
+
                         while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
                         {//obteniendo el dato del privilegio
 					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
@@ -105,8 +105,6 @@
         <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="Leaflet.PolylineMeasure.js"></script>
-        <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-        <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -117,8 +115,6 @@
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
-        
-        
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
         <script src="js/leaflet-geoman.min.js"></script>
@@ -169,7 +165,7 @@
   <div id="avatar" class="baseControlPanel">
     <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
     <p><?php echo $nombreCompleto;?></p>
-    <a href="cerrarSesion.php">Cerrar Sesión</a>
+    <a href="cerrarSesion.php">Cerrar sesi&oacute;n</a>
   </div><!--fin div avatar-->
   <hr><!--linea-->
   <div id="contenedorZoom" class="baseControlPanel">
@@ -191,7 +187,6 @@
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="icon-images text-secondary small" id="btnActivarSwipe2"></span></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                               <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
@@ -271,19 +266,7 @@
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
 
 
-                                    </div>
-                                </div>
-
-                            </li>
-
-                        <?php
-                        } //fin foreach
-
-                        ?>
-                    </ul>
-                    <!--fin ul capaz-->
-                </div>
-                <!--fin div capaz-->
+    <button class="accordion">Mapas de referencia:</button>
 
             </div>
             <!--fin div contendorControles-->
@@ -372,6 +355,7 @@
             </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
@@ -395,12 +379,13 @@
 =======
            
 >>>>>>> Swipe completo v1
+=======
+>>>>>>> Correccion
           </li>
         </ul>
-
-
       </div><!--fin div contenidoRadios-->
 
+<<<<<<< HEAD
     
     
     <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
@@ -449,8 +434,10 @@
 
     -->
 
+=======
+>>>>>>> Correccion
       <!--contenidoCapaz-->
-      <button class="accordion">Capas</button>
+      <button class="accordion">Capas de datos territoriales:</button>
         <div id="contenidoCapas" class="panel">
           <ul class="list-unstyled" id="listaCapa">
               <?php 
@@ -464,7 +451,10 @@
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
+<<<<<<< HEAD
                                                 
+=======
+>>>>>>> Correccion
                                             </div>
                                       </div>
  
@@ -516,6 +506,7 @@
       </div>
 
 <!--fin BARRA BUSCADOR-->
+<<<<<<< HEAD
 
 
 <!--Inicio Selector de capas para el swipe -->
@@ -568,6 +559,8 @@
 
 
 
+=======
+>>>>>>> Correccion
 <!--contenedor iframes LEYENDAS NUEVO-->
  <div id="contenedorIframeLeyendasNuevo">
         <?php 
@@ -613,14 +606,6 @@
 
 //-----------------CAPAS
     //----Mapas de referencia----
-
-    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
-      minZoom: 1,
-      maxZoom: 22,
-      attribution: osmAttrib
-      });
-
-
 	var grayscale   = L.tileLayer(mbUrl, {
         id: 'mapbox.light', 
         attribution: atribuciones
@@ -635,6 +620,7 @@
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
+<<<<<<< HEAD
     	
     
 
@@ -649,6 +635,15 @@
 
 
     
+=======
+    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
+      minZoom: 1,
+      maxZoom: 22,
+      attribution: osmAttrib
+      });
+    //----fin Mapas de referencia----
+
+>>>>>>> Correccion
     //---MAPA---
     
 	var map = new L.Map('map', {
@@ -1225,6 +1220,7 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
+<<<<<<< HEAD
 
 //var control_side = L.control.sideBySide(osm,googleSat);
  
@@ -1238,6 +1234,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
+=======
+>>>>>>> Correccion
 //FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
 var activoInformacion = false;//inicializando variable
@@ -1245,13 +1243,13 @@ var activoBusqueda = false;//inicializando variable
 var activoLeyenda = false;//inicializando variable 
 var activoMedicion = false;//inicializando variable 
 var activoAreaTrazo= false;//inicializando variable
-var activoSwipe=false;
-
-
 
 function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick 
     switch(opcionBtn){
+<<<<<<< HEAD
         
+=======
+>>>>>>> Correccion
         case "informacion":
                 if(activoInformacion == false){
                     activoInformacion = true;//cambiando el valor de la variable
@@ -1272,11 +1270,15 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("btnActivarBusqueda2").className = "icon-filter text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarBusqueda1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
                     document.getElementById("contenedorBuscador").style.display="block";
+<<<<<<< HEAD
                     console.log(mapa1);
                     console.log(mapa2);
                     
                     
                     
+=======
+
+>>>>>>> Correccion
                 }//fin if
                 else{
                     activoBusqueda = false;//cambiando el valor de la variable
@@ -1286,6 +1288,7 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     
                 }//fin else
             break;
+<<<<<<< HEAD
 
 
         case "swipe": //activamos y desactivamos swipe
@@ -1328,12 +1331,18 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     
                 }
             break;
+=======
+>>>>>>> Correccion
         case "leyenda":
                 if(activoLeyenda == false){
                     activoLeyenda = true;//cambiando el valor de la variable
                     document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarLeyenda1").className = "btn btn-danger";//alterando las propiedades del span dentro del boton
+<<<<<<< HEAD
                     
+=======
+                    document.getElementById("contenedorIframeLeyendasNuevo").style.display="none";
+>>>>>>> Correccion
                     //subFuncionactivarInformacion();
                 }//fin if
                 else{
@@ -1405,9 +1414,6 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
 }//fin funcion
 
-
-
-
 function subFuncionactivarInformacion(){//esta funcion cambia el icono dependiendo de su seleccion con los otros botones
     if(activoMedicion!=false || activoAreaTrazo!=false){
         
@@ -1425,6 +1431,7 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
             document.getElementById("btnActivarInfo1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
         }//fin else
     }//fin if
+<<<<<<< HEAD
     
 
 
@@ -1432,6 +1439,8 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
 
 
 
+=======
+>>>>>>> Correccion
 
 }//fin subfuncion
 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
@@ -1439,10 +1448,15 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
 //FUNCION VER LEYENDA DE CAPA
     function activarLeyendas(idLeyenda){
         var divImg = document.getElementById('img_leyenda_'+idLeyenda);
+<<<<<<< HEAD
         
         if(divImg.style.display == "block"){
             divImg.style.display="none";
             
+=======
+        if(divImg.style.display == "block"){
+            divImg.style.display="none";
+>>>>>>> Correccion
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-secondary small";
         }
         else{
@@ -1459,7 +1473,29 @@ function onMapClick(e) {
 
     //if(document.getElementById('chkBoton').checked){//verifica solo si cuando se da click en el mapa esta activado el boton chkboton
     if(activoInformacion==true && activoMedicion==false && activoAreaTrazo==false){//verifica solo si cuando se da click en el mapa esta activado el boton btnActivarInfo
+<<<<<<< HEAD
     
+=======
+
+        var cadenaLayers=[];
+        var i=0;
+        <?php
+
+        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+        ?>
+            var ck_layer_<?php echo $campo['idcapa'];?> = document.getElementById('chk_<?php echo $campo['idcapa'];?>');
+            if(ck_layer_<?php echo $campo['idcapa'];?>.checked == true)
+            {
+                cadenaLayers[i] = '<?php echo $campo['layer'];?>';
+                i=i+1;
+            }
+        <?php
+        }//fin foreach
+        ?>
+
+        console.log('CADENA: '+cadenaLayers);
+
+>>>>>>> Correccion
         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
         var latitud = e.latlng.lat.toFixed(4);
         var longitud = e.latlng.lng.toFixed(4);
@@ -1468,12 +1504,22 @@ function onMapClick(e) {
         var HEIGHT = map.getSize().y;
         var X = map.layerPointToContainerPoint(e.layerPoint).x;
         var Y = map.layerPointToContainerPoint(e.layerPoint).y;
+<<<<<<< HEAD
         var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=bigsdemo:demo_bigs_ctm&QUERY_LAYERS=bigsdemo:demo_bigs_ctm&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         
     //-----------FIN PRUEBAS---------------------------------------------------------    
     
         var htmlPopup = "<div class='tituloPopup'><b>Titulo</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
+=======
+        var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+        //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+
+    //-----------FIN PRUEBAS---------------------------------------------------------
+        if(cadenaLayers!=""){
+
+        var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
+>>>>>>> Correccion
         popup.setLatLng(e.latlng);
         popup.setContent(htmlPopup);
         map.openPopup(popup);

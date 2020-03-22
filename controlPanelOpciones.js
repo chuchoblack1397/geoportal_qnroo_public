@@ -94,30 +94,6 @@ radioButtonControl_google.addEventListener(
     false
 );
 
-var selector = document.getElementById('selectTipoS');
-var selector2 = document.getElementById('selectTipoS1');
-var boton1 = document.getElementById('botonSwipeA');
-var boton2 = document.getElementById('btn_borrar');
-
-/*
-        //segundo radion button
-        var radioButtonControl_csm1 = document.getElementById('radio_csm1');
-        radioButtonControl_csm1.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_calles1 = document.getElementById('radio_calles1');
-        radioButtonControl_calles1.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_grises1 = document.getElementById('radio_grises1');
-        radioButtonControl_grises1.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_google1 = document.getElementById('radio_google1');
-        radioButtonControl_google1.addEventListener("change", validaRadioButtonControl, false);
-
-       var boton1 = document.getElementById('boton-inicio');
-       var boton2 = document.getElementById("boton-fin");
-
-  */
-
 window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
 
 function validaRadioButtonControl() {
@@ -128,15 +104,8 @@ function validaRadioButtonControl() {
     var checked_grises = radioButtonControl_grises.checked;
     var checked_google = radioButtonControl_google.checked;
 
-    //segunda lista
-    //   var checked_csm1 = radioButtonControl_csm1.checked;
-    //  var checked_calles1 = radioButtonControl_calles1.checked;
-    // var checked_grises1 = radioButtonControl_grises1.checked;
-    //var checked_google1 = radioButtonControl_google1.checked;
-
     if (checked_csm) {
         console.log('OMS');
-
         map.addLayer(osm);
         map.removeLayer(streets);
         map.removeLayer(grayscale);
@@ -145,34 +114,26 @@ function validaRadioButtonControl() {
     else {
         if (checked_calles) {
             console.log('Calle');
-            map.removeLayer(osm);
             map.addLayer(streets);
+            map.removeLayer(osm);
             map.removeLayer(grayscale);
             map.removeLayer(googleSat);
-
-            validar = true;
         } //fin if
         else {
             if (checked_grises) {
                 console.log('Grises');
-
+                map.addLayer(grayscale);
                 map.removeLayer(osm);
                 map.removeLayer(streets);
-                map.addLayer(grayscale);
                 map.removeLayer(googleSat);
-                mapa1 = grayscale;
-                validar = true;
             } //fin if
             else {
                 if (checked_google) {
                     console.log('GoogleSat');
+                    map.addLayer(googleSat);
                     map.removeLayer(osm);
                     map.removeLayer(streets);
                     map.removeLayer(grayscale);
-                    map.addLayer(googleSat);
-                    mapa1 = osm;
-
-                    validar = false;
                 } //fin if
                 else {
                     console.log('Nada');
@@ -180,50 +141,7 @@ function validaRadioButtonControl() {
             } //fin else
         } //fin else
     } //fin else
-}
+} //fin funcion validaRadioButtonControl
+//fin radiobuttons
 
-var activo;
-var control;
-
-function RecogerDatos() {
-    //activa el el swipe
-    var capa1 = eval(selector.value);
-    var capa2 = eval(selector2.value);
-    var control_side = L.control.sideBySide(capa1, capa2);
-
-    if (activo == true) {
-        activo = false;
-        map.removeLayer(capa1);
-        map.removeLayer(capa2); //removemos el swipe
-        control.remove(map);
-        console.log('si estoy entrando');
-        boton1.disabled = false;
-        boton2.disabled = true;
-    } else {
-        map.addLayer(capa1);
-        map.addLayer(capa2);
-        control_side.addTo(map);
-        activo = true;
-        control = control_side; //agregamos el mapa
-        boton2.disabled = false;
-        boton1.disabled = true;
-    }
-
-    console.log(activo);
-}
-
-function repetido() {
-    if (selector.value == selector2.value) {
-        console.log('esta repetido ');
-        boton1.disabled = true;
-        boton2.disabled = true;
-    } else {
-        if (selector2.value == 'ninguno' || selector.value == 'ninguno') {
-            boton1.disabled = true;
-            boton2.disabled = true;
-        } else {
-            boton1.disabled = false;
-            boton2.disabled = false;
-        }
-    }
-}
+//--fin codigo ControlPanel
