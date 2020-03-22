@@ -21,7 +21,7 @@
             $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
             $resultado = pg_query($conexion,$consulta);
             if(!$resultado) {
-                echo 'Consulta de usuario Fallida';
+                echo 'Consulta de usuario fallida';
                 exit();
                }
                else {
@@ -29,7 +29,7 @@
                }//fin if error resultado
 
 					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-					    echo "<script>console.log('Se encontro Usuario');</script>";
+					    echo "<script>console.log('Se encontro usuario');</script>";
 
                         while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
                         {//obteniendo el dato del privilegio
@@ -98,8 +98,6 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="Leaflet.PolylineMeasure.js"></script>
-        <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-        <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -110,7 +108,6 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
-
 
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -162,7 +159,7 @@ if(!$resultadoCapas) {
   <div id="avatar" class="baseControlPanel">
     <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
     <p><?php echo $nombreCompleto;?></p>
-    <a href="cerrarSesion.php">Cerrar Sesión</a>
+    <a href="cerrarSesion.php">Cerrar sesi&oacute;n</a>
   </div><!--fin div avatar-->
   <hr><!--linea-->
   <div id="contenedorZoom" class="baseControlPanel">
@@ -184,7 +181,6 @@ if(!$resultadoCapas) {
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="icon-images text-secondary small" id="btnActivarSwipe2"></span></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                               <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
@@ -200,7 +196,7 @@ if(!$resultadoCapas) {
 
     <hr><!--linea-->
 
-    <button class="accordion">Mapas de Referencia</button>
+    <button class="accordion">Mapas de referencia:</button>
 
       <div id="contenidoRadios" class="panel">
         <ul class="list-unstyled">
@@ -227,63 +223,12 @@ if(!$resultadoCapas) {
               <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
               <label for="radio_google" class="custom-control-label">Google Sat</label>
             </div>
-
           </li>
         </ul>
-
-
       </div><!--fin div contenidoRadios-->
 
-
-
-    <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
-
-
-
-
-     <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
-      <div  id="swipeOption" class="panel">
-        <ul class="list-unstyled">
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_csm1" class="custom-control-input" name="radioGrupo1" value="csm1" checked>
-              <label for="radio_csm1" class="custom-control-label">OSM</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_calles1" class="custom-control-input" name="radioGrupo1" value="calles1">
-              <label for="radio_calles1" class="custom-control-label">OSM Topo</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_grises1" class="custom-control-input" name="radioGrupo1" value="grises1">
-              <label for="radio_grises1" class="custom-control-label">OSM Grises</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
-              <label for="radio_google1" class="custom-control-label">Google Sat</label>
-            </div>
-            <div class="btn btn-light">
-              <input type="button" id="boton-inicio" value="Iniciar" onclick="mapas1()">
-
-            </div>
-
-            <div class="btn btn-light">
-              <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
-
-            </div>
-          </li>
-        </ul>
-        </div>
-
-    -->
-
       <!--contenidoCapaz-->
-      <button class="accordion">Capas</button>
+      <button class="accordion">Capas de datos territoriales:</button>
         <div id="contenidoCapas" class="panel">
           <ul class="list-unstyled" id="listaCapa">
               <?php
@@ -297,7 +242,6 @@ if(!$resultadoCapas) {
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
-
                                             </div>
                                       </div>
 
@@ -339,58 +283,6 @@ if(!$resultadoCapas) {
       </div>
 
 <!--fin BARRA BUSCADOR-->
-
-
-<!--Inicio Selector de capas para el swipe -->
-
-        <div class="bg-light" id="contenedorSwipe" style="width:35%; display:none">
-          <div class="input-group mt-2" id="buscadorS">
-          <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
-                    <option  value="ninguno">NINGUNO</option>
-                    <option value="osm">OSM</option>
-                    <option value="streets">OSM Topo</option>
-                    <option value="grayscale">OSM Grises</option>
-                    <option value="googleSat">Google Sat</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-            		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
-            		<?php
-            		    }//fin foreach
-                    ?>
-
-                </select>
-            <div class="input-group-append">
-                <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
-                    <option value="ninguno">NINGUNO</option>
-                    <option value="osm">OSM</option>
-                    <option value="streets">OSM Topo</option>
-                    <option value="grayscale">OSM Grises</option>
-                    <option value="googleSat">Google Sat</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-            		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
-            		<?php
-            		    }//fin foreach
-                    ?>
-
-
-                </select>
-               <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
-               <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Borrar filtro"><i class="icon-bin2"></i></button>
-            </div>
-          </div>
-
-        </div>
-
-
-
-<!--Fin selector de capas para el swipe -->
-
-
-
-
 <!--contenedor iframes LEYENDAS NUEVO-->
  <div id="contenedorIframeLeyendasNuevo">
         <?php
@@ -441,14 +333,6 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 
 //-----------------CAPAS
     //----Mapas de referencia----
-
-    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
-      minZoom: 1,
-      maxZoom: 22,
-      attribution: osmAttrib
-      });
-
-
 	var grayscale   = L.tileLayer(mbUrl, {
         id: 'mapbox.light',
         attribution: atribuciones
@@ -463,19 +347,12 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
-
-
-
-
-
-
+    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
+      minZoom: 1,
+      maxZoom: 22,
+      attribution: osmAttrib
+      });
     //----fin Mapas de referencia----
-
-
-
-
-
-
 
     //---MAPA---
 
@@ -624,19 +501,6 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-
-//var control_side = L.control.sideBySide(osm,googleSat);
-
-
-
-
-
-
-//document.getElementById("SwipeOcultar").style.display="none";
-//document.getElementById("swipeOption").style.display="none";
-
-
-
 //FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
 var activoInformacion = false;//inicializando variable
@@ -644,13 +508,9 @@ var activoBusqueda = false;//inicializando variable
 var activoLeyenda = false;//inicializando variable
 var activoMedicion = false;//inicializando variable
 var activoAreaTrazo= false;//inicializando variable
-var activoSwipe=false;
-
-
 
 function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick
     switch(opcionBtn){
-
         case "informacion":
                 if(activoInformacion == false){
                     activoInformacion = true;//cambiando el valor de la variable
@@ -671,10 +531,6 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     document.getElementById("btnActivarBusqueda2").className = "icon-filter text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarBusqueda1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
                     document.getElementById("contenedorBuscador").style.display="block";
-                    console.log(mapa1);
-                    console.log(mapa2);
-
-
 
                 }//fin if
                 else{
@@ -685,54 +541,12 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
                 }//fin else
             break;
-
-
-        case "swipe": //activamos y desactivamos swipe
-
-                if(activoSwipe == false){
-
-                    activoSwipe=true;
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
-                    document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                    //document.getElementById("SwipeOcultar").style.display="block";
-                    //document.getElementById("swipeOption").style.display="block";
-                    document.getElementById("contenedorSwipe").style.display="block";
-                    //document.getElementById("radio_csm").disabled = true;
-                    //document.getElementById("radio_grises").disabled = true;
-                    //document.getElementById("radio_calles").disabled = true;
-                    //document.getElementById("radio_google").disabled = true;
-                    //document.getElementById("boton-fin").disabled=true;
-                    repetido();
-
-
-
-
-                }
-                else{
-                    activoSwipe = false;//cambiando el valor de la variable
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
-                    document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                    //document.getElementById("SwipeOcultar").style.display="none";
-                    //document.getElementById("swipeOption").style.display="none";
-                    document.getElementById("contenedorSwipe").style.display="none";
-                    //document.getElementById("radio_csm").disabled = false;
-                    //document.getElementById("radio_grises").disabled = false;
-                    //document.getElementById("radio_calles").disabled = false;
-                    //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
-
-                    removMapa();
-
-
-
-
-                }
-            break;
         case "leyenda":
                 if(activoLeyenda == false){
                     activoLeyenda = true;//cambiando el valor de la variable
                     document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarLeyenda1").className = "btn btn-danger";//alterando las propiedades del span dentro del boton
-
+                    document.getElementById("contenedorIframeLeyendasNuevo").style.display="none";
                     //subFuncionactivarInformacion();
                 }//fin if
                 else{
@@ -804,9 +618,6 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
 }//fin funcion
 
-
-
-
 function subFuncionactivarInformacion(){//esta funcion cambia el icono dependiendo de su seleccion con los otros botones
     if(activoMedicion!=false || activoAreaTrazo!=false){
 
@@ -825,23 +636,14 @@ function subFuncionactivarInformacion(){//esta funcion cambia el icono dependien
         }//fin else
     }//fin if
 
-
-
-
-
-
-
-
 }//fin subfuncion
 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
 //FUNCION VER LEYENDA DE CAPA
     function activarLeyendas(idLeyenda){
         var divImg = document.getElementById('img_leyenda_'+idLeyenda);
-
         if(divImg.style.display == "block"){
             divImg.style.display="none";
-
             document.getElementById('icon_btn_leyenda_'+idLeyenda).className = "icon-eye text-secondary small";
         }
         else{
@@ -861,7 +663,6 @@ function onMapClick(e) {
 
         var cadenaLayers=[];
         var i=0;
-        var urlWMS="";
         <?php
 
         foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
@@ -870,7 +671,6 @@ function onMapClick(e) {
             if(ck_layer_<?php echo $campo['idcapa'];?>.checked == true)
             {
                 cadenaLayers[i] = '<?php echo $campo['layer'];?>';
-                urlWMS='<?php echo $campo['urlcapa'];?>';
                 i=i+1;
             }
         <?php
@@ -887,14 +687,13 @@ function onMapClick(e) {
         var HEIGHT = map.getSize().y;
         var X = map.layerPointToContainerPoint(e.layerPoint).x;
         var Y = map.layerPointToContainerPoint(e.layerPoint).y;
-        //var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
-        var URL = urlWMS+'?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+        var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 
     //-----------FIN PRUEBAS---------------------------------------------------------
         if(cadenaLayers!=""){
 
-        var htmlPopup = "<div class='tituloPopup'><b>Titulo</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
+        var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
         popup.setLatLng(e.latlng);
         popup.setContent(htmlPopup);
         map.openPopup(popup);

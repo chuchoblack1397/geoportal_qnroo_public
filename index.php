@@ -42,18 +42,18 @@
             <br>
           <form method="POST" action="ymagomundi.php">
           <div class="form-group" style="width:100%">
-            <label for="campUsuario">Usuario</label>
+            <label for="campUsuario">Usuario:</label>
             <input type="text" class="form-control" name="campUsuario" id="campUsuario" aria-describedby="emailHelp" required>
           </div>
           <div class="form-group">
-            <label for="campoContra">Contrase&ntildea</label>
+            <label for="campoContra">Contrase&ntildea:</label>
             <input type="password" class="form-control" name="campoContra" id="campoContra" required>
           </div>
           <button type="submit" class="btn btn-primary">Entrar</button>
         </form>
         <br>
         <center>
-           <h6>Ver. 0.9.1253</h6>
+           <h6>Ver. 0.9.1255</h6>
         </center>
 
 

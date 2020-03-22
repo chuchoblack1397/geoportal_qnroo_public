@@ -282,14 +282,6 @@ position: relative;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
   }
-
-
-  #SwipeOcultar{
-    
-   
-    
-    
-    }
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
 
