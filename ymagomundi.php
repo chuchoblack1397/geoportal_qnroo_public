@@ -494,7 +494,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     showUnitControl: false
                 });
 
-                L.control.mousePosition().addTo(map); //Muestra en pantalla posicion del mouse
+                L.control.mousePosition().addTo(map); //Muestra en pantalla posicion del mouse para modificar posicion ver archivo js en carpeta /js
                 map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
 
                 //Escala
