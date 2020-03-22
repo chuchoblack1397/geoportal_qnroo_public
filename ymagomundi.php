@@ -162,7 +162,7 @@ if(!$resultadoCapas) {
   <div id="avatar" class="baseControlPanel">
     <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
     <p><?php echo $nombreCompleto;?></p>
-    <a href="cerrarSesion.php">Cerrar Sesión</a>
+    <a href="cerrarSesion.php">Cerrar sesión</a>
   </div><!--fin div avatar-->
   <hr><!--linea-->
   <div id="contenedorZoom" class="baseControlPanel">
@@ -200,7 +200,7 @@ if(!$resultadoCapas) {
 
     <hr><!--linea-->
 
-    <button class="accordion">Mapas de Referencia</button>
+    <button class="accordion">Mapas de referencia: </button>
 
       <div id="contenidoRadios" class="panel">
         <ul class="list-unstyled">
@@ -236,54 +236,8 @@ if(!$resultadoCapas) {
 
 
 
-    <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
-
-
-
-
-     <button id= "SwipeOcultar" class="accordion">Mapas a comparar</button>
-      <div  id="swipeOption" class="panel">
-        <ul class="list-unstyled">
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_csm1" class="custom-control-input" name="radioGrupo1" value="csm1" checked>
-              <label for="radio_csm1" class="custom-control-label">OSM</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_calles1" class="custom-control-input" name="radioGrupo1" value="calles1">
-              <label for="radio_calles1" class="custom-control-label">OSM Topo</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_grises1" class="custom-control-input" name="radioGrupo1" value="grises1">
-              <label for="radio_grises1" class="custom-control-label">OSM Grises</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
-              <label for="radio_google1" class="custom-control-label">Google Sat</label>
-            </div>
-            <div class="btn btn-light">
-              <input type="button" id="boton-inicio" value="Iniciar" onclick="mapas1()">
-
-            </div>
-
-            <div class="btn btn-light">
-              <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
-
-            </div>
-          </li>
-        </ul>
-        </div>
-
-    -->
-
       <!--contenidoCapaz-->
-      <button class="accordion">Capas</button>
+      <button class="accordion">Capas de datos territoriales: </button>
         <div id="contenidoCapas" class="panel">
           <ul class="list-unstyled" id="listaCapa">
               <?php
