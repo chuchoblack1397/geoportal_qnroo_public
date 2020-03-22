@@ -82,24 +82,8 @@ for (i = 0; i < acc.length; i++) {
         var boton1= document.getElementById("botonSwipeA");
         var boton2 = document.getElementById("btn_borrar");
   
-/*
-        //segundo radion button
-        var radioButtonControl_csm1 = document.getElementById('radio_csm1');
-        radioButtonControl_csm1.addEventListener("change", validaRadioButtonControl, false);
         
-        var radioButtonControl_calles1 = document.getElementById('radio_calles1');
-        radioButtonControl_calles1.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_grises1 = document.getElementById('radio_grises1');
-        radioButtonControl_grises1.addEventListener("change", validaRadioButtonControl, false);
-        
-        var radioButtonControl_google1 = document.getElementById('radio_google1');
-        radioButtonControl_google1.addEventListener("change", validaRadioButtonControl, false);
 
-       var boton1 = document.getElementById('boton-inicio');
-       var boton2 = document.getElementById("boton-fin");
-
-  */     
 
         
         window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
@@ -239,7 +223,7 @@ function RecogerDatos(){ //activa el el swipe
   map.addLayer(capa2);
     control_side.addTo(map);
     activo=true;
-    control = control_side;   //agregamos el mapa
+    control = control_side;   //agregamos el mapa anterior
     boton2.disabled = false;
     boton1.disabled = true;
   }
