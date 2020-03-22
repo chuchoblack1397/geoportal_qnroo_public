@@ -169,7 +169,7 @@
   <div id="avatar" class="baseControlPanel">
     <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
     <p><?php echo $nombreCompleto;?></p>
-    <a href="cerrarSesion.php">Cerrar Sesión</a>
+    <a href="cerrarSesion.php">Cerrar sesión</a>
   </div><!--fin div avatar-->
   <hr><!--linea-->
   <div id="contenedorZoom" class="baseControlPanel">
@@ -271,7 +271,7 @@
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
 
 
-    <button class="accordion">Mapas de Referencia</button>
+    <button class="accordion">Mapas de referencia: </button>
 
             </div>
             <!--fin div contendorControles-->
@@ -450,6 +450,7 @@
 
 
 
+<<<<<<< HEAD
     <!-- Esto era la primera forma en la que seleccionaba las capas a comparar.
 
 
@@ -497,8 +498,10 @@
     -->
 
 >>>>>>> Regreso a la version anterior
+=======
+>>>>>>> Actualizacion errores
       <!--contenidoCapaz-->
-      <button class="accordion">Capas</button>
+      <button class="accordion">Capas de datos territoriales: </button>
         <div id="contenidoCapas" class="panel">
           <ul class="list-unstyled" id="listaCapa">
               <?php 
