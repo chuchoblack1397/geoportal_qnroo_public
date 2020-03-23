@@ -582,10 +582,10 @@
 
 <!--Inicio Selector de capas para el swipe -->
 
-        <div class="bg-light" id="contenedorSwipe" style="width:35%; display:none">
-          <div class="input-group mt-2" id="buscadorS">
+        <div class="bg-light" id="contenedorSwipe" style="width:30%; display:none">
+          <div class="input-group mt-4" id="buscadorS">
           <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
-                    <option  value="ninguno">NINGUNO</option>
+                    <option  value="ninguno">Seleccionar</option>
                     <option value="osm">OSM</option>
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
@@ -607,9 +607,9 @@
 
 >>>>>>> Regreso a la version anterior
                 </select>
-            <div class="input-group-append">
+
                 <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
-                    <option value="ninguno">NINGUNO</option>
+                    <option value="ninguno">Seleccionar</option>
                     <option value="osm">OSM</option>
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
@@ -633,8 +633,10 @@
 
 >>>>>>> Regreso a la version anterior
                 </select>
-               <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Aplicar filtro"><i class="icon-filter"></i></button>
-               <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Borrar filtro"><i class="icon-bin2"></i></button>
+            <div class="input-group-append">
+               
+               <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon"src="img/swipe.png" alt=""></button>
+               <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Desactivar swipe"><i class="icon-cross"></i></button>
             </div>
           </div>
 <<<<<<< HEAD
@@ -1498,7 +1500,7 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 >>>>>>> Correccion
 =======
 
-                    removMapa();
+                    
 
 
 
@@ -1720,11 +1722,15 @@ function onMapClick(e) {
         if(cadenaLayers!=""){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
 >>>>>>> Correccion
 =======
         var htmlPopup = "<div class='tituloPopup'><b>Titulo</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
 >>>>>>> Regreso a la version anterior
+=======
+        var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:"+latitud+"</span><span>Longitud:"+longitud+"</span></div><div class='contenidoPopup'> <iframe class='mb-2' src="+URL+" id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
+>>>>>>> cambios icono
         popup.setLatLng(e.latlng);
         popup.setContent(htmlPopup);
         map.openPopup(popup);

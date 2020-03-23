@@ -313,11 +313,31 @@
     
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> swipe1
 =======
 >>>>>>> Correccion
 =======
 >>>>>>> Regreso a la version anterior
+=======
+
+
+.swipe-icon {
+    height: 35px;
+    width: 35px;
+}
+.boton-swipe{
+
+    background-color: transparent;
+    border-radius:10px;
+outline:none;
+border:0;
+
+    
+    
+
+}
+>>>>>>> cambios icono
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
     #btnAbrirMenu {
