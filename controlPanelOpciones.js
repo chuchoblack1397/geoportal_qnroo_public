@@ -214,6 +214,8 @@ function RecogerDatos(){ //activa el el swipe
     console.log("si estoy entrando");
     boton1.disabled =false;
     boton2.disabled =true;
+    selector.disabled=false;
+    selector2.disabled=false;
     
    
  
@@ -226,6 +228,8 @@ function RecogerDatos(){ //activa el el swipe
     control = control_side;   //agregamos el mapa anterior
     boton2.disabled = false;
     boton1.disabled = true;
+    selector.disabled=true;
+    selector2.disabled=true;
   }
   
   
