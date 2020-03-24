@@ -125,7 +125,11 @@
 
         <!--links Side para dividir pantalla-->
         <script src="js/side/leaflet-side-by-side.js"></script>
-        
+
+        <!-- Coordenadas mouse -->
+        <link rel="stylesheet" href="css/L.Control.MousePosition.css">
+        <script src="js/L.Control.MousePosition.js"></script>
+
         <!--draw-->
         <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
@@ -1313,6 +1317,37 @@ map.on('mouseup', function (e) {
 
 
 
+//Agregado de miguel
+
+
+  //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
+  L.control.scale({
+                    maxWidth: 240,
+                    metric: true,
+                    imperial: false,
+                    position: 'bottomright'
+                }).addTo(map);
+
+                //control para poliniea calculo de metrica de puntos
+                var myControl = L.control.polylineMeasure({
+                    position: 'topright',
+                    unit: 'metres',
+                    showBearings: true,
+                    clearMeasurementsOnStop: false,
+                    showClearControl: true,
+                    showUnitControl: false
+                });
+
+                L.control.mousePosition().addTo(map); //Muestra en pantalla posicion del mouse para modificar posicion ver archivo js en carpeta /js
+                map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
+
+                //Escala
+                L.control.scale().addTo(map);
+
+
+//fin miguel
+
+
 
 //-------capa de figuras y control de figuras-----------------
 var featureGroup = L.featureGroup();//.addTo(map); //crendo la capa de figuras
@@ -1688,7 +1723,7 @@ function onMapClick(e) {
                 i=i+1;
             }
         <?php
-        }//fin foreach
+        }//fin foreach //
         ?>
 
         console.log('CADENA: '+cadenaLayers);
@@ -1698,8 +1733,9 @@ function onMapClick(e) {
         var latitud = e.latlng.lat.toFixed(4);
         var longitud = e.latlng.lng.toFixed(4);
         var BBOX = map.getBounds()._southWest.lng+","+map.getBounds()._southWest.lat+","+map.getBounds()._northEast.lng+","+map.getBounds()._northEast.lat;
-        var WIDTH= map.getSize().x;
+        var WIDTH= map.getSize().x; 
         var HEIGHT = map.getSize().y;
+<<<<<<< HEAD
         var X = map.layerPointToContainerPoint(e.layerPoint).x;
         var Y = map.layerPointToContainerPoint(e.layerPoint).y;
 <<<<<<< HEAD
@@ -1713,6 +1749,10 @@ function onMapClick(e) {
 =======
         var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 =======
+=======
+        var X = Math.round(map.layerPointToContainerPoint(e.layerPoint).x);
+        var Y = Math.round(map.layerPointToContainerPoint(e.layerPoint).y);
+>>>>>>> integracion miguel
         //var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
         var URL = urlWMS+'?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 >>>>>>> Regreso a la version anterior
