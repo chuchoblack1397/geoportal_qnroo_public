@@ -477,6 +477,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 //-------------fin Capas-------------  
 
                 //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
+                //Control para mostrar la escala
                 L.control.scale({
                     maxWidth: 240,
                     metric: true,
