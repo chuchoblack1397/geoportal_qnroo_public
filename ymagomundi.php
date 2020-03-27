@@ -480,7 +480,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 L.control.scale({
                     maxWidth: 240,
                     metric: true,
-                    imperial: false,
+                    imperial: true,
                     position: 'bottomright'
                 }).addTo(map);
 
@@ -497,8 +497,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 L.control.mousePosition().addTo(map); //Muestra en pantalla posicion del mouse para modificar posicion ver archivo js en carpeta /js
                 map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
 
-                //Escala
-                L.control.scale().addTo(map);
 
 
                 //-------capa de figuras y control de figuras-----------------
