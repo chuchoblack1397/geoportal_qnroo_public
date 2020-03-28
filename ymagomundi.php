@@ -240,8 +240,8 @@ if(!$resultadoCapas) {
                                         <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
                                             <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
+                                                <!--<button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
+                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
                                             </div>
                                       </div>
  
@@ -263,19 +263,25 @@ if(!$resultadoCapas) {
 
       <div class="bg-light" id="contenedorBuscador" style="width:35%; display:none">
           <div class="input-group mt-2" id="buscador">
-                <input id="campoBuscar" type="search" placeholder="Escribe tu filtro" aria-describedby="button-addon5" class="form-control">
+                <input id="campoBuscar" type="search" placeholder="Escribe tu filtro de ->" aria-describedby="button-addon5" class="form-control">
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
                     <option selected value="ninguno">NINGUNO</option>
                     <?php 
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+                        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+                            if($campo['activo_consulta']=='true'){
+                                $value_idcapa = $campo['idcapa'];
+                                $value_url = $campo['urlcapa'];
+                                $value_capa = $campo['layer'];
+                                $value_filtro=$campo['campo_consulta'];
             		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
+            		    <option value="<?php echo $value_idcapa."|".$value_url."|".$value_capa."|".$value_filtro;?>"><?php echo $campo['campo_consulta'].' --- '.$campo['titulocapa'];?></option>
             		<?php
+                                }//fin if
             		    }//fin foreach
             		?>
                 </select>
-               <button id="btn_buscar" class="btn btn-primary" title="Aplicar filtro"><i class="icon-filter"></i></button>
+               <button id="btn_buscar" class="btn btn-primary" title="Aplicar filtro" onclick="buscarFiltro()"><i class="icon-filter"></i></button>
                <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
             </div>
           </div>
@@ -674,11 +680,21 @@ function onMapClick(e) {
                 cadenaLayers[i] = '<?php echo $campo['layer'];?>';
                 urlWMS='<?php echo $campo['urlcapa'];?>';
                 i=i+1;
-            }
+            }//fin if
+            urlWMS='<?php echo $campo['urlcapa'];?>';
         <?php
         }//fin foreach
         ?>
-        
+                // *** esto está enteramente relacionado con el archivo "busquedaDatosCapas.js"
+                // *** en el cual se obtienen los datos desdel el value del select
+                if(cadenaLayers=='' && resultadoWMSlayer){
+
+                    var valueRecibido_click = document.getElementById('selectTipo').value;//asignacion de la variable
+                    var valueRecibidoArreglo_click = valueRecibido_click.split("|");//una vez obtenido el valor del campo, lo secciono en 4 partes
+                    var capa_click = valueRecibidoArreglo_click[2];//esta parte obtendra el tipo (osea la capa de donde se consultará)
+                        cadenaLayers[0] = capa_click;//se agrega la capa de filtro para hacer la consulta por wms de "FANTASIA"
+                    }//fin if
+                //-------------------
         console.log('CADENA: '+cadenaLayers);
     
         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';

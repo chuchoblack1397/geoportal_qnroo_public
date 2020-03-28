@@ -18,6 +18,8 @@
       <th scope="col">Versi&oacute;n</th>
       <th scope="col">Transparencia</th>
       <th scope="col">Formato</th>
+      <th scope="col">Leyenda</th>
+      <th scope="col">Consulta</th>
       <th scope="col">zindex</th>
     </tr>
   </thead>

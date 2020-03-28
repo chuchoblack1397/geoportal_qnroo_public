@@ -21,8 +21,10 @@ include "../conexion.php";
       <td><?php echo $filaCapaVER['layer'];?></td>
       <td><?php echo $filaCapaVER['estilo'];?></td>
       <td><?php echo $filaCapaVER['version'];?></td>
-      <td><?php echo $filaCapaVER['formato'];?></td>
       <td><?php echo $filaCapaVER['transparencia'];?></td>
+      <td><?php echo $filaCapaVER['formato'];?></td>
+      <td><?php echo $filaCapaVER['leyenda'];?></td>
+      <td><?php echo $filaCapaVER['campo_consulta'];?></td>
       <td><?php echo $filaCapaVER['zindex'];?></td>
 </tr>
 <?php
