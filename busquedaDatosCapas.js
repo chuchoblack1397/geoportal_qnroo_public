@@ -9,12 +9,23 @@ document.getElementById("campoBuscar").onkeyup = function(event) {
 var resultadoWMSlayer;
 
 //---- metodo de Click para buscar dato del input campoBuscar-------
-$("#btn_buscar").click(function(){
+//$("#btn_buscar").click(function(){
+function buscarFiltro(){
     console.log("Buscando...");
     var variable_clave_catastral = document.getElementById('campoBuscar').value;//asignacion de la variable
     console.log("Valor de Busqueda: "+variable_clave_catastral);
-    var selectTipo = document.getElementById('selectTipo').value;//asignacion de la variable
+    var valueRecibido = document.getElementById('selectTipo').value;//asignacion de la variable
+
+    var valueRecibidoArreglo = valueRecibido.split("|");//una vez obtenido el valor del campo, lo secciono en 4 partes
+    var selectTipo = valueRecibidoArreglo[0];//esta parte obtendra el tipo (osea la capa de donde se consultará)
+    var url = valueRecibidoArreglo[1];//esta parte obtendra la url
+    var layer = valueRecibidoArreglo[2];//esta parte obtendra la capa
+    var campoFiltro = valueRecibidoArreglo[3];//esta parte obtiene el filtro 
+
     console.log("Tipo de Busqueda: "+selectTipo);
+    console.log("URL de Busqueda: "+url);
+    console.log("Capa de Busqueda: "+layer);
+    console.log("Filtro de Busqueda: "+campoFiltro);
     
     if(variable_clave_catastral !== ''){//detecta si tiene datos el campo
         console.log("Hay datos en la variable de busqueda.");
@@ -26,35 +37,21 @@ $("#btn_buscar").click(function(){
         
         
         
-        if(selectTipo=='nombre'){
+
             // capa de busqueda de predio
-            resultadoWMSlayer= L.tileLayer.wms("http://74.208.210.103:8990/geos/pievi/wms",
+            resultadoWMSlayer= L.tileLayer.wms(url,
             {
-                layers: 'pievi:vap_e12_partido',
+                layers: layer,
                 format: 'image/png',
                 transparent: true,
                 zIndex:101,
-                CQL_FILTER:'nombre='+variable_clave_catastral
+                CQL_FILTER:campoFiltro+'='+variable_clave_catastral
             });//fin capa
             
             window.map.addLayer(resultadoWMSlayer);//agregando capa
-        }//fin if
+       
         
-        
-        
-        if(selectTipo=='partido'){// capa de busqueda de predio
-            console.log("Dentro del tipo PARTIDO.");
-            resultadoWMSlayer= L.tileLayer.wms("http://74.208.210.103:8990/geos/pievi/wms",
-            {
-                layers: 'pievi:vap_e12_partido',
-                format: 'image/png',
-                transparent: true,
-                maxZoom: 22,
-                zIndex:101,
-                CQL_FILTER:'partido='+variable_clave_catastral
-            });//fin capa
-            
-            window.map.addLayer(resultadoWMSlayer);
+ 
             
             if(window.map.addLayer(resultadoWMSlayer)){
                 console.log("Agregada");
@@ -63,27 +60,8 @@ $("#btn_buscar").click(function(){
                 console.log("Error.");
             }
             //agregando capa
-        }//fin if
-        
-        
-        
-        if(selectTipo=='metodo'){
-            // capa de busqueda de predio
-            resultadoWMSlayer= L.tileLayer.wms("http://74.208.210.103:8990/geos/pievi/wms",
-            {
-                layers: 'pievi:vap_e12_partido',
-                format: 'image/png',
-                transparent: true,
-                zIndex:101,
-                CQL_FILTER:'metodo='+variable_clave_catastral
-            });//fin capa
-            
-            window.map.addLayer(resultadoWMSlayer);//agregando capa
-        }//fin if
-        
-       
-        
-        
+   
+
            /* 
             var latitud = 17.5546;
             var longitud = -99.4995;
@@ -105,4 +83,4 @@ $("#btn_buscar").click(function(){
             window.map.removeLayer(predioWMSlayer);//quitando la capa
         }
     }//fin else
-});//fin metodo
+}//fin metodo
