@@ -93,7 +93,7 @@ if(!$resultadoCapas) {
     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Geoportal</title>
+        <title>Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -110,7 +110,10 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
+        
 
+
+        <link rel="stylesheet" href="css/side/side.css">
 
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -188,14 +191,14 @@ if(!$resultadoCapas) {
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="icon-images text-secondary small" id="btnActivarSwipe2"></span></button>
+                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                               <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
                         </div>
-                        <span class="text-secondary mr-1 ml-1">|</span>
-                        <div class="btn-group" role="group">
+                       
+                        <div class="btn-group grupo1" role="group">
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
@@ -211,25 +214,25 @@ if(!$resultadoCapas) {
           <li>
             <div class="custom-control custom-radio">
               <input type="radio" id="radio_csm" class="custom-control-input" name="radioGrupo" value="csm" checked>
-              <label for="radio_csm" class="custom-control-label">OSM</label>
+              <label for="radio_csm" class="custom-control-label">Calles (OpenStreetMap)</label>
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
               <input type="radio" id="radio_calles" class="custom-control-input" name="radioGrupo" value="calles">
-              <label for="radio_calles" class="custom-control-label">OSM Topo</label>
+              <label for="radio_calles" class="custom-control-label">OpenStreetMap Topogr&aacute;fico</label>
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
               <input type="radio" id="radio_grises" class="custom-control-input" name="radioGrupo" value="grises">
-              <label for="radio_grises" class="custom-control-label">OSM Grises</label>
+              <label for="radio_grises" class="custom-control-label">OpenStreetMap Grises</label>
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
               <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
-              <label for="radio_google" class="custom-control-label">Google Sat</label>
+              <label for="radio_google" class="custom-control-label">Google Sat&eacute;lite</label>
             </div>
 
           </li>
@@ -280,7 +283,7 @@ if(!$resultadoCapas) {
                 <input id="campoBuscar" type="search" placeholder="Escribe tu filtro" aria-describedby="button-addon5" class="form-control">
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
-                    <option selected value="ninguno">NINGUNO</option>
+                    <option selected value="ninguno">Seleccionar</option>
                     <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
@@ -305,10 +308,10 @@ if(!$resultadoCapas) {
           <div class="input-group mt-4" id="buscadorS">
           <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
                     <option  value="ninguno">Seleccionar</option>
-                    <option value="osm">OSM</option>
-                    <option value="streets">OSM Topo</option>
-                    <option value="grayscale">OSM Grises</option>
-                    <option value="googleSat">Google Sat</option>
+                    <option value="osm">Calles (OpenStreetMap)</option>
+                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
+                    <option value="grayscale">OpenStreetMap Grises</option>
+                    <option value="googleSat">Google Sat&eacute;lite</option>
                     <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
@@ -321,10 +324,10 @@ if(!$resultadoCapas) {
 
                 <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
                     <option value="ninguno">Seleccionar</option>
-                    <option value="osm">OSM</option>
-                    <option value="streets">OSM Topo</option>
-                    <option value="grayscale">OSM Grises</option>
-                    <option value="googleSat">Google Sat</option>
+                    <option value="osm">Calles (OpenStreetMap)</option>
+                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
+                    <option value="grayscale">OpenStreetMap Grises</option>
+                    <option value="googleSat">Google Sat&eacute;lite</option>
                     <?php
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
@@ -336,7 +339,7 @@ if(!$resultadoCapas) {
 
                 </select>
             <div class="input-group-append">
-               
+
                <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon"src="img/swipe.png" alt=""></button>
                <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Desactivar swipe"><i class="icon-cross"></i></button>
             </div>
@@ -404,7 +407,7 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
 
     var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
       minZoom: 1,
-      maxZoom: 22,
+      maxZoom: 25,
       attribution: osmAttrib
       });
 
@@ -419,7 +422,7 @@ include "modals_Acciones.php";//INSERCION DE CODIGO PARA MODALES Y BARRA DE ACCI
     });
 
     var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
+    maxZoom: 25,
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
@@ -544,7 +547,7 @@ map.on('mouseup', function (e) {
 //-------------fin Capas-------------
 
             //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
-            L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
+           // L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
 
             //control para poliniea calculo de metrica de puntos
             var myControl= L.control.polylineMeasure ({position:'topright', unit:'metres', showBearings:true, clearMeasurementsOnStop: false, showClearControl: true, showUnitControl: false});
@@ -578,7 +581,7 @@ map.on('mouseup', function (e) {
                 map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
 
                 //Escala
-                L.control.scale().addTo(map);
+                //L.control.scale().addTo(map);
 
 
 //fin miguel
@@ -683,8 +686,10 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                 if(activoSwipe == false){
 
                     activoSwipe=true;
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-light small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").style.color= "white";
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
+                    document.getElementById("cambio-swipe").src="css/side/Recurso2_blanco.png";
                     //document.getElementById("SwipeOcultar").style.display="block";
                     //document.getElementById("swipeOption").style.display="block";
                     document.getElementById("contenedorSwipe").style.display="block";
@@ -701,17 +706,18 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                 }
                 else{
                     activoSwipe = false;//cambiando el valor de la variable
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
                     //document.getElementById("SwipeOcultar").style.display="none";
                     //document.getElementById("swipeOption").style.display="none";
                     document.getElementById("contenedorSwipe").style.display="none";
+                    document.getElementById("cambio-swipe").src="css/side/Recurso1.png";
                     //document.getElementById("radio_csm").disabled = false;
                     //document.getElementById("radio_grises").disabled = false;
                     //document.getElementById("radio_calles").disabled = false;
                     //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
 
-                    
+
 
 
 
@@ -874,7 +880,7 @@ function onMapClick(e) {
         var latitud = e.latlng.lat.toFixed(4);
         var longitud = e.latlng.lng.toFixed(4);
         var BBOX = map.getBounds()._southWest.lng+","+map.getBounds()._southWest.lat+","+map.getBounds()._northEast.lng+","+map.getBounds()._northEast.lat;
-        var WIDTH= map.getSize().x; 
+        var WIDTH= map.getSize().x;
         var HEIGHT = map.getSize().y;
         var X = Math.round(map.layerPointToContainerPoint(e.layerPoint).x);
         var Y = Math.round(map.layerPointToContainerPoint(e.layerPoint).y);

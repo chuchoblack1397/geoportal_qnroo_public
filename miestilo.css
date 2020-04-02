@@ -286,10 +286,18 @@ position: relative;
 
   #SwipeOcultar{
     
-   
+  
     
     
     }
+
+
+
+
+.icono-swipe { 
+   height: 24px;
+   width: 24px;
+}
 
 
 .swipe-icon {
