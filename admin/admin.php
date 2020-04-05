@@ -2,7 +2,7 @@
 session_start();
 include '../conexion.php';
 if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){//verificando si existe una session iniciada
-    if($_SESSION['usuarioPrivilegio'] == "administrador"){
+    #if($_SESSION['usuarioPrivilegio'] == "administrador"){
         
         //--ARREGLO PARA LOS DATOS DE LAS CAPAS
          /*
@@ -101,13 +101,26 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                   <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarCapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarCapa">
-                        <?php include 'seccion_formAgregarCapa.php';?>
+                        <?php
+
+                        if($_SESSION['CapaCrear'] =='true' ){
+                         include 'seccion_formAgregarCapa.php';
+                        }
+                        ?>
                       </div><!--fin div opcionAgregarCapa-->
                       <div id="verCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerCapa">
-                        <?php include 'seccion_verCapas.php';?>
+                        <?php
+                        if($_SESSION['CapaVer'] =='true' ){
+                        include 'seccion_verCapas.php';
+                        }?>
                       </div><!--fin div verCapas-->
+                     
                       <div id="ordenarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarCapa">
-                        <?php include 'seccion_ordenarCapas.php';?>
+                     
+                        <?php
+                        if($_SESSION['CapaEditar'] =='true' ){
+                        include 'seccion_ordenarCapas.php';
+                        }?>
                       </div><!--fin div verCapas-->
                       <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                     </div><!--fin div tab-content-->
@@ -132,13 +145,28 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                   <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarMapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarMapa">
-                        <?php include 'seccion_formAgregarMapa.php';?>
+                        <?php
+                        
+                        if($_SESSION['MapaCrear'] =='true' ){
+                        
+                        include 'seccion_formAgregarMapa.php';
+                        }
+                        ?>
                       </div><!--fin div opcionAgregarCapa-->
                       <div id="verMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerMapa">
-                        <?php include 'seccion_verMapa.php';?>
+                        <?php 
+                         if($_SESSION['MapaVer'] =='true' ){
+                        include 'seccion_verMapa.php';
+                         }?>
+
                       </div><!--fin div verCapas-->
                       <div id="ordenarMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarMapa">
-                        <?php include 'seccion_ordenarMapa.php';?>
+                         
+                        <?php
+                         if($_SESSION['MapaEditar'] =='true' ){
+                        
+                        include 'seccion_ordenarMapa.php';}?>
+                        
                       </div><!--fin div verCapas-->
                       <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                     </div><!--fin div tab-content-->
@@ -162,10 +190,14 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                   <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarUsuario" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarUsuario">
-                        <?php include 'seccion_formAgregarUsuario.php';?>
+                        <?php 
+                         if($_SESSION['UsuarioCrear'] =='true' ){
+                        include 'seccion_formAgregarUsuario.php';}?>
                       </div><!--fin div opcionAgregarUsuario-->
                       <div id="verUsuario" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerUsuario">
-                        <?php include 'seccion_verUsuario.php';?>
+                        <?php 
+                         if($_SESSION['UsuarioVer'] =='true' ){
+                        include 'seccion_verUsuario.php';}?>
                       </div><!--fin div verUsuario-->
                       <div id="papeleraUsuario" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de usuarios eliminados</div>
                     </div><!--fin div tab-content-->
@@ -189,10 +221,15 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                   <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarRol" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarRol">
-                        <?php include 'seccion_formAgregarPrivilegio.php';?>
+                        <?php
+                         if($_SESSION['RolCrear'] =='true' ){
+
+                         include 'seccion_formAgregarPrivilegio.php';
+                         }?>
                       </div><!--fin div opcionAgregarRol-->
                       <div id="verRol" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerRol">
-                        <?php include 'seccion_verPrivilegios.php';?>
+                        <?php  if($_SESSION['RolVer'] =='true' ){
+                          include 'seccion_verPrivilegios.php';}?>
                       </div><!--fin div verRol-->
                       <div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>
                     </div><!--fin div tab-content-->
@@ -234,9 +271,9 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
         {
             header("Location: ../index.php");
         }//fin else
- }//fin if
-        else
-        {
-            header("Location: ../index.php");
-        }//fin else
+ #}//fin if
+  #      else
+   #     {
+    #        header("Location: ../index.php");
+     #   }//fin else
 ?>

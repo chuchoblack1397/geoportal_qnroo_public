@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../conexion.php";
  /*       $consultaUsuarioVER = "SELECT * FROM usuarios ORDER BY usuario ASC ";//consulta general
         $resultadoUsuarioVER = pg_query($conexion,$consultaUsuarioVER);
@@ -40,7 +41,13 @@ include "../conexion.php";
             <label class="custom-control-label" for="x">1</label>
           </div>
       </th>
+      <?php
+       if($_SESSION['RolEditar'] =='true' ){
+      ?>
       <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="y" type="button" class="btn btn-light botonEditarCapas" ><span class="icon-pencil2 text-info"></span></button></td>
+      <?php
+       }
+      ?>
       <td>Administrador</td>
       <td>
               <div class="accordion" id="acordionCaracteristicasPrivilegios">

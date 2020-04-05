@@ -1,16 +1,29 @@
 
 <input type="text" class="form-control" id="buscadorUser" placeholder="Buscar capa">
 <br>
+<?php
+ if($_SESSION['UsuarioEliminar'] =='true' ){
+   ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarUsuario()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar usuario(s)</strong></button>
 </div>
+<?php
+ }
+ ?>
 <div class="table-responsive">
 <form id="formid_users">
 <table class="table table-condensed">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <?php
+       if($_SESSION['UsuarioEliminar'] =='true' ){
+       ?>
+       
       <th scope="col"></th>
+      <?php
+       }
+      ?>
       <th scope="col">Usuario</th>
       <th scope="col">Nombre(s)</th>
       <th scope="col">Apellido Paterno</th>
@@ -24,10 +37,15 @@
 </table>
 </form>
 </div>
+<?php
+ if($_SESSION['UsuarioEliminar'] =='true' ){
+   ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas"  onclick="eliminarUsuario()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar usuario(s)</strong></button>
 </div>
-
+<?php
+ }
+ ?>
 <script>
 
 //$(document).ready(ajax_ver_usuarios());

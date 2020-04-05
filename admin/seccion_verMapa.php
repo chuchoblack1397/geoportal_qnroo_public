@@ -1,9 +1,15 @@
 
 <input type="text" class="form-control" id="buscadorCapas" placeholder="Buscar capa">
 <br>
+<?php  
+if($_SESSION['MapaEliminar'] =='true' ){
+  ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar mapa(s)</strong></button>
 </div>
+<?php
+}
+?>
 <div class="table-responsive">
 <form id="formid">
 <table class="table table-condensed">
@@ -26,10 +32,16 @@
 </table>
 </form>
 </div>
+
+<?php  
+if($_SESSION['MapaEliminar'] =='true' ){
+  ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas"  onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar mapa(s)</strong></button>
 </div>
-
+<?php
+}
+?>
 <script>
 
 //$(document).ready(ajax_ver_capas());
