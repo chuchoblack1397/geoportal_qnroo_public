@@ -25,7 +25,7 @@ include "../conexion.php";
       </th>
 
       <?php
-       if($_SESSION['UsuarioEditar'] =='true' ){
+       if($_SESSION['rol_usuario_u'] =='true' ){
          ?>
 
       <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario;?>','<?php echo $nombreUser;?>','<?php echo $apUser;?>','<?php echo $amUser;?>','<?php echo $puestoUser;?>','<?php echo $privilegioUser;?>')"><span class="icon-pencil2 text-info"></span></button></td>

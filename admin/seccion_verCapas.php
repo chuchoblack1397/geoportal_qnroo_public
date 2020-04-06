@@ -4,7 +4,7 @@ include "../conexion.php";
 <input type="text" class="form-control" id="buscadorCapas" placeholder="Buscar capa">
 <br>
 <?php
-if($_SESSION['CapaEliminar'] =='true' ){
+if($_SESSION['rol_capa_d'] =='true' ){
   ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar capa(s)</strong></button>
@@ -18,7 +18,7 @@ if($_SESSION['CapaEliminar'] =='true' ){
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-     <?php if($_SESSION['CapaEditar'] =='true' ){
+     <?php if($_SESSION['rol_capa_u'] =='true' ){
        ?>
       <th scope="col"></th>
     <?php
@@ -39,7 +39,7 @@ if($_SESSION['CapaEliminar'] =='true' ){
 </form>
 </div>
 <?php
-if($_SESSION['CapaEliminar'] =='true' ){
+if($_SESSION['rol_capa_d'] =='true' ){
   ?>
 
 <div>

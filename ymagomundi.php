@@ -17,103 +17,58 @@
             $miUsuario = $_SESSION['usuarioSession'];
             $miContra = $_SESSION['usuarioPass'];
 
+ //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+ $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
+ $resultado = pg_query($conexion,$consulta);
+ if(!$resultado) {
+     echo 'Consulta de usuario Fallida';
+     exit();
+    } 
+    else {
+       echo "<script>console.log('Consulta de usuario correcta');</script>";
+    }//fin if error resultado
 
-            $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
-            $resultado = pg_query($conexion,$consulta);
-            if(!$resultado) {
-                echo 'Consulta de usuario Fallida';
-                exit();
-               }
-               else {
-                  echo "<script>console.log('Consulta de usuario correcta');</script>";
-               }//fin if error resultado
+         if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
+             echo "<script>console.log('Se encontro Usuario');</script>";
+             
+             while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
+             {//obteniendo el dato del privilegio
+                 echo "<script>console.log('DENTRO DEL WHILE');</script>";
+                 $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
+                 $nombre = $datoUsuarioPrivilegio['nombreusuario'];
+                 $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 
+                 $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
+                 
+                 $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
+                 echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
+                 
+                 //asignacion de los roles a variables de session para mayor accesibilidad
+                 $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
+                 $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
+                 $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
+                 $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
 
-					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-					    echo "<script>console.log('Se encontro Usuario');</script>";
+                 $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
+                 $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
+                 $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
+                 $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
 
-                        while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
-                        {//obteniendo el dato del privilegio
-					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                            $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
-					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
+                 $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
+                 $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
+                 $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
 
-					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
-
-                            $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-                            
-                           
-                        }//fin while
+                 $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
+                 $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
+                 $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
+                 $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
+                 
+             }//fin while
                    
                         
-            //validaciones de roles y asignacion a variables de usuarios.            
-            $consultaRol =  "SELECT * FROM cat_privilegios where privilegio = '$privilegio'";
-            $resultadoRol = pg_query($conexion,$consultaRol);
-            if(!$consultaRol){
-                echo 'Consulta de roles fallida';
-                exit();
-            }
-            else{
-                echo "<script>console.log('consulta de roles correcta');</script>";
-
-
-            }//fin if error rol
-
-            if($row=pg_num_rows($resultadoRol) > 0){//comprueba si existe el usuario
-                echo "<script>console.log('Se encontro rol');</script>";
-
-                while ($datoRolPrivilegio = pg_fetch_assoc($resultadoRol))
-                {//obteniendo el dato del privilegio
-                    echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                  
-                    $usuario_crear = $datoRolPrivilegio['usuario_crear'];
-                    $usuario_ver = $datoRolPrivilegio['usuario_ver'];
-                    $usuario_editar = $datoRolPrivilegio['usuario_editar'];
-                    $usuario_eliminar = $datoRolPrivilegio['usuario_eliminar']; 
-                    $capa_crear = $datoRolPrivilegio['capa_crear'];
-                    $capa_ver = $datoRolPrivilegio['capa_ver'];
-                    $capa_editar = $datoRolPrivilegio['capa_editar'];
-                    $capa_eliminar = $datoRolPrivilegio['capa_eliminar'];
-                    $mapa_crear = $datoRolPrivilegio['mapa_crear'];
-                    $mapa_ver = $datoRolPrivilegio['mapa_ver'];
-                    $mapa_editar = $datoRolPrivilegio['mapa_editar'];
-                    $mapa_eliminar = $datoRolPrivilegio['mapa_eliminar'];
-                    $rol_crear = $datoRolPrivilegio['rol_crear'];
-                    $rol_ver = $datoRolPrivilegio ['rol_ver'];
-                    $rol_editar = $datoRolPrivilegio['rol_editar'];
-                    $rol_eliminar = $datoRolPrivilegio['rol_eliminar'];
-
-                   $_SESSION['UsuarioCrear'] = $usuario_crear;//asignando el privilegio a la variable de session
-                   $_SESSION['UsuarioVer'] = $usuario_ver;//asignando el privilegio a la variable de session
-                   $_SESSION['UsuarioEditar'] = $usuario_editar;//asignando el privilegio a la variable de session
-                   $_SESSION['UsuarioEliminar'] = $usuario_eliminar;//asignando el privilegio a la variable de session
-                   $_SESSION['CapaCrear'] = $capa_crear;//asignando el privilegio a la variable de session
-                   $_SESSION['CapaVer'] = $capa_ver;//asignando el privilegio a la variable de session
-                   $_SESSION['CapaEditar'] = $capa_editar;//asignando el privilegio a la variable de session
-                   $_SESSION['CapaEliminar'] = $capa_eliminar;//asignando el privilegio a la variable de session
-                   $_SESSION['MapaCrear'] = $mapa_crear;//asignando el privilegio a la variable de session
-                   $_SESSION['MapaVer'] = $mapa_ver;//asignando el privilegio a la variable de session
-                   $_SESSION['MapaEditar'] = $mapa_editar;//asignando el privilegio a la variable de session
-                   $_SESSION['MapaEliminar'] = $mapa_eliminar;//asignando el privilegio a la variable de session
-                   $_SESSION['RolCrear'] = $rol_crear;//asignando el privilegio a la variable de session
-                   $_SESSION['RolVer'] = $rol_ver;//asignando el privilegio a la variable de session
-                   $_SESSION['RolEditar'] = $rol_editar;//asignando el privilegio a la variable de session
-                   $_SESSION['RolEliminar'] = $rol_eliminar;//asignando el privilegio a la variable de session
-                  
-
-                  echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."tu permiso UsuarioCrear: ".$rol_eliminar." ');</script>";
-                  
-
-
-
-                    
-                  
-
-                }//fin while
-                
-
-            }
+           
 
 
 
@@ -128,7 +83,16 @@
  # muchas veces la conexion y dejamos todo dentro de un
  # ARREGLO el cual se reutiliza.
  */
-$consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
+
+if($privilegio == 'administrador'){
+    echo 'que onda peggo';
+    $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
+  
+}else{
+    $consultaCapas = "select capas.*, ordencapas.zindex from relacion_usuario_capas inner join capas on relacion_usuario_capas.idcapa = capas.idcapa and relacion_usuario_capas.usuario = '".$miUsuario."' inner join ordencapas on capas.idcapa = ordencapas.idcapa order by ordencapas.zindex desc";//consulta general
+}
+
+
 $resultadoCapas = pg_query($conexion,$consultaCapas);
 if(!$resultadoCapas) {
    echo 'Consulta de resultadoCapas Fallida';
@@ -219,13 +183,19 @@ if(!$resultadoCapas) {
 
 <!------ENCABEZADO DE LA PAGINA-->
 
+
 <div class="bg-light" id="controlMenuPanel">
     <!--btnAdmin-->
-  
+  <?php
+if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true"   ){
+    ?>
     <button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">
         <span class="icon-cog"></span>
     </button>
-    
+    <?php
+
+}
+?>
     <!--fin btnAdmin-->
 <button id="btnCerrarMenu">
 <span class="icon-cross"></span>
@@ -322,8 +292,7 @@ if(!$resultadoCapas) {
                                         <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
                                             <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
+                                              
 
                                             </div>
                                       </div>

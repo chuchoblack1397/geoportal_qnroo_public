@@ -2,7 +2,7 @@
 session_start();
 include '../conexion.php';
 if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){//verificando si existe una session iniciada
-    #if($_SESSION['usuarioPrivilegio'] == "administrador"){
+    if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true"   ){
         
         //--ARREGLO PARA LOS DATOS DE LAS CAPAS
          /*
@@ -72,11 +72,38 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     
     <nav class="m-3">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="true">Estadísticas</a>
-        <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
+        <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="false">Estadísticas</a>
+        <?php if($_SESSION['rol_capa_c'] == 'false' && $_SESSION['rol_capa_r'] == 'false' && $_SESSION['rol_capa_u']== 'false' && $_SESSION['rol_capa_d'] == 'false')  {
+
+        }else{?>
+          <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
+        <?php
+        }//fin if
+        ?>
+         <?php if($_SESSION['rol_mapa_c'] == 'false' && $_SESSION['rol_mapa_r'] == 'false' && $_SESSION['rol_mapa_u']== 'false' && $_SESSION['rol_mapa_d'] == 'false') {
+
+         }
+         else{?>
         <a class="nav-item nav-link" id="nav-mapas_referencia-tab" data-toggle="tab" href="#nav-mapas_referencia" role="tab" aria-controls="nav-mapas_referencia" aria-selected="false">Mapas de referencia</a>
+        <?php
+         }
+         ?>
+
+        <?php if($_SESSION['rol_usuario_c'] == 'false' && $_SESSION['rol_usuario_r'] == 'false' && $_SESSION['rol_usuario_u']== 'false' && $_SESSION['rol_usuario_d'] == 'false')  {
+          }else{?>
         <a class="nav-item nav-link" id="nav-usuarios-tab" data-toggle="tab" href="#nav-usuarios" role="tab" aria-controls="nav-usuarios" aria-selected="false">Usuarios</a>
+
+        <?php
+        }
+        ?>
+        <?php if($_SESSION['rol_rol_c'] == 'false' && $_SESSION['rol_rol_r'] == 'false' && $_SESSION['rol_rol_u']== 'false' && $_SESSION['rol_rol_d'] == 'false')  {
+          }else{
+            ?>
         <a class="nav-item nav-link" id="nav-roles-tab" data-toggle="tab" href="#nav-roles" role="tab" aria-controls="nav-roles" aria-selected="false">Privilegios/Roles</a>
+
+        <?php
+        }
+        ?>
       </div>
     </nav>
     <!--fin menu de administracion-->
@@ -84,17 +111,39 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <div class="tab-content m-3" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-estadisticas" role="tabpanel" aria-labelledby="nav-estadisticas-tab">
         <h2 class="h2">Estadísticas</h2>
+        <?php include 'seccion_formEstadisticas.php';?>
       </div>
       <!--Opcion CAPAS-->
+      <?php if($_SESSION['rol_capa_c']=='false' && $_SESSION['rol_capa_r'] == 'false' && $_SESSION['rol_capa_u'] =='false' && $_SESSION['rol_capa_d'] == 'false') {}
+      else{?>
       <div class="tab-pane fade" id="nav-capas" role="tabpanel" aria-labelledby="nav-capas-tab">
         <h2 class="h2">Capas</h2>
                 <!--FORMULARIO-->
                 <div class="row p-2">
                   <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <?php
+                      if($_SESSION['rol_capa_c']=='true') {
+                        ?>
                       <a class="nav-link active" id="opcion_agregarCapa" data-toggle="pill" href="#AgregarCapa" role="tab" aria-controls="AgregarCapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Capa</a>
+                      <?php
+                      }
+                      ?>
+                       <?php
+                      if($_SESSION['rol_capa_r']=='true') {
+                        ?>
                       <a class="nav-link" id="opcion_verCapa" data-toggle="pill" href="#verCapa" role="tab" aria-controls="verCapa" aria-selected="false" onclick="ajax_ver_capas();"><span class="icon-list2 mr-3"></span>Ver Capas</a>
+                      <?php
+                      }
+                      ?>
+                       <?php
+                      if($_SESSION['rol_capa_c']=='true') {
+                        ?>
                       <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
+                      <?php
+                      }
+                      ?>
+
                       <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-3-->
@@ -102,25 +151,14 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarCapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarCapa">
                         <?php
-
-                        if($_SESSION['CapaCrear'] =='true' ){
-                         include 'seccion_formAgregarCapa.php';
-                        }
-                        ?>
+                        if($_SESSION['rol_capa_c']=='true') {
+                         include 'seccion_formAgregarCapa.php';}?>
                       </div><!--fin div opcionAgregarCapa-->
                       <div id="verCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerCapa">
-                        <?php
-                        if($_SESSION['CapaVer'] =='true' ){
-                        include 'seccion_verCapas.php';
-                        }?>
+                        <?php include 'seccion_verCapas.php';?>
                       </div><!--fin div verCapas-->
-                     
                       <div id="ordenarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarCapa">
-                     
-                        <?php
-                        if($_SESSION['CapaEditar'] =='true' ){
-                        include 'seccion_ordenarCapas.php';
-                        }?>
+                        <?php include 'seccion_ordenarCapas.php';?>
                       </div><!--fin div verCapas-->
                       <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                     </div><!--fin div tab-content-->
@@ -130,15 +168,41 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                 </div>
                 <!--fin FORMULARIO-->
       </div><!--fin opcion CAPAS-->
+      <?php
+      }//fin if
+      ?>
+      <?php if($_SESSION['rol_mapa_c']=='false' && $_SESSION['rol_mapa_r']=='false' && $_SESSION['rol_mapa_u']=='false' && $_SESSION['rol_mapa_d'] == 'false') {}
+      else{?>
       <div class="tab-pane fade" id="nav-mapas_referencia" role="tabpanel" aria-labelledby="nav-mapas_referencia-tab">
         <h2 class="h2">Mapas de referencia</h2>
          <!--FORMULARIO-->
          <div class="row p-2">
                   <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <?php
+                if($_SESSION['rol_mapa_c']=='true'){
+                      ?>
                       <a class="nav-link active" id="opcion_agregarMapa" data-toggle="pill" href="#AgregarMapa" role="tab" aria-controls="AgregarMapa" aria-selected="true"><span class="icon-plus mr-3"></span>Agrega Mapa</a>
+
+                      <?php
+                        }
+                      ?>
+
+                          <?php
+                         if($_SESSION['rol_mapa_r']=='true'){
+                      ?>
                       <a class="nav-link" id="opcion_verMapa" data-toggle="pill" href="#verMapa" role="tab" aria-controls="verMapa" aria-selected="false" onclick="ajax_ver_mapas();"><span class="icon-list2 mr-3"></span>Ver Mapa</a>
+                      <?php
+                         }
+
+                         ?>
+                         <?php
+                        if($_SESSION['rol_mapa_u']=='true'){
+                          ?>
                       <a class="nav-link" id="opcion_ordenarMapa" data-toggle="pill" href="#ordenarMapa" role="tab" aria-controls="ordenarMapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Mapa</a>
+                      <?php
+                        }
+                        ?>
                       <a class="nav-link" id="opcion_papeleraMapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-3-->
@@ -146,27 +210,14 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarMapa" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarMapa">
                         <?php
-                        
-                        if($_SESSION['MapaCrear'] =='true' ){
-                        
-                        include 'seccion_formAgregarMapa.php';
-                        }
-                        ?>
+                        if($_SESSION['rol_mapa_c'] =='true'){
+                         include 'seccion_formAgregarMapa.php';}?>
                       </div><!--fin div opcionAgregarCapa-->
                       <div id="verMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerMapa">
-                        <?php 
-                         if($_SESSION['MapaVer'] =='true' ){
-                        include 'seccion_verMapa.php';
-                         }?>
-
+                        <?php include 'seccion_verMapa.php';?>
                       </div><!--fin div verCapas-->
                       <div id="ordenarMapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarMapa">
-                         
-                        <?php
-                         if($_SESSION['MapaEditar'] =='true' ){
-                        
-                        include 'seccion_ordenarMapa.php';}?>
-                        
+                        <?php include 'seccion_ordenarMapa.php';?>
                       </div><!--fin div verCapas-->
                       <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                     </div><!--fin div tab-content-->
@@ -176,28 +227,45 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                 </div>
                 <!--fin FORMULARIO-->
       </div>
+      <?php
+      }
+      ?>
+      <?php if($_SESSION['rol_usuario_c']=='false' && $_SESSION['rol_usuario_r']=='false' && $_SESSION['rol_usuario_u']=='false' && $_SESSION['rol_usuario_d'] == 'false') {}
+      else{?>
       <div class="tab-pane fade" id="nav-usuarios" role="tabpanel" aria-labelledby="nav-usuarios-tab">
         <h2 class="h2">Usuarios</h2>
                       <!--FORMULARIO-->
                       <div class="row p-2">
                   <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <?php
+                        if($_SESSION['rol_usuario_c']=='true'){
+                          ?>
                       <a class="nav-link active" id="opcion_agregarUsuario" data-toggle="pill" href="#AgregarUsuario" role="tab" aria-controls="AgregarUsuario" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Usuario</a>
+
+                      <?php 
+                        }
+                        ?>
+                         <?php
+                        if($_SESSION['rol_usuario_r']=='true'){
+                          ?>
                       <a class="nav-link" id="opcion_verUsuario" data-toggle="pill" href="#verUsuario" role="tab" aria-controls="verUsuario" aria-selected="false" onclick="ajax_ver_usuarios();"><span class="icon-list2 mr-3"></span>Listar Usuarios</a>
+                      <?php
+                        }
+
+                        ?>
                       <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#papeleraUsuario" role="tab" aria-controls="papeleraUsuario" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-3-->
                   <div class="col-9">
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarUsuario" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarUsuario">
-                        <?php 
-                         if($_SESSION['UsuarioCrear'] =='true' ){
+                        <?php
+                        if($_SESSION['rol_usuario_c']=='true'){
                         include 'seccion_formAgregarUsuario.php';}?>
                       </div><!--fin div opcionAgregarUsuario-->
                       <div id="verUsuario" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerUsuario">
-                        <?php 
-                         if($_SESSION['UsuarioVer'] =='true' ){
-                        include 'seccion_verUsuario.php';}?>
+                        <?php include 'seccion_verUsuario.php';?>
                       </div><!--fin div verUsuario-->
                       <div id="papeleraUsuario" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de usuarios eliminados</div>
                     </div><!--fin div tab-content-->
@@ -207,14 +275,33 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                 </div>
                 <!--fin FORMULARIO-->
       </div>
+        <?php
+      }
+        ?>
+
+<?php if($_SESSION['rol_rol_c']=='false' && $_SESSION['rol_rol_r']=='false' && $_SESSION['rol_rol_u'] == 'false' && $_SESSION['rol_rol_d'] == 'false') {}
+else{?>
+        
       <div class="tab-pane fade" id="nav-roles" role="tabpanel" aria-labelledby="nav-roles-tab">
         <h2 class="h2">Privilegios/Roles</h2>
                       <!--FORMULARIO-->
                       <div class="row p-2">
                   <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <?php
+                        if($_SESSION['rol_rol_c']=='true'){
+                          ?>
                       <a class="nav-link active" id="opcion_agregarRol" data-toggle="pill" href="#AgregarRol" role="tab" aria-controls="AgregarRol" aria-selected="true"><span class="icon-plus mr-3"></span>Agregar Privilegio/Rol</a>
+                      <?php
+                        }
+                      ?>
+                      <?php
+                        if($_SESSION['rol_rol_r']=='true'){
+                          ?>
                       <a class="nav-link" id="opcion_verRol" data-toggle="pill" href="#verRol" role="tab" aria-controls="verRol" aria-selected="false" onclick="ajax_ver_privilegios();"><span class="icon-list2 mr-3"></span>Ver Privilegios/Roles</a>
+                      <?php
+                       }
+                          ?>
                       <a class="nav-link" id="opcion_papeleraRol" data-toggle="pill" href="#papeleraRol" role="tab" aria-controls="papeleraRol" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera de Privilegios/Roles</a>
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-3-->
@@ -222,14 +309,11 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                     <div class="tab-content" id="v-pills-tabContent">
                       <div id="AgregarRol" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionAgregarRol">
                         <?php
-                         if($_SESSION['RolCrear'] =='true' ){
-
-                         include 'seccion_formAgregarPrivilegio.php';
-                         }?>
+                        if($_SESSION['rol_rol_c']=='true'){
+                         include 'seccion_formAgregarPrivilegio.php';}?>
                       </div><!--fin div opcionAgregarRol-->
                       <div id="verRol" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerRol">
-                        <?php  if($_SESSION['RolVer'] =='true' ){
-                          include 'seccion_verPrivilegios.php';}?>
+                        <?php include 'seccion_verPrivilegios.php';?>
                       </div><!--fin div verRol-->
                       <div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>
                     </div><!--fin div tab-content-->
@@ -240,6 +324,9 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                 <!--fin FORMULARIO-->
       </div>
     </div>
+    <?php
+      }
+    ?>
     <!--fin Opciones de menu-->
 
 
@@ -257,6 +344,8 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <script src="js_guardarUsuario.js"></script><!--Archivo js para guardar la capa en bd-->
     <script src="js_eliminarUsuario.js"></script><!--Archivo js para eliminar la capa en bd-->
     <script src="js_editarUsuario.js"></script><!--Archivo js para editar la capa en bd-->
+    <script src="js_guardarPrivilegio.js"></script><!--Archivo js para editar la capa en bd-->
+    <script src="js_eliminarPrivilegio.js"></script><!--Archivo js para eliminar la capa en bd-->
     
     </body>
     
@@ -271,9 +360,9 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
         {
             header("Location: ../index.php");
         }//fin else
- #}//fin if
-  #      else
-   #     {
-    #        header("Location: ../index.php");
-     #   }//fin else
+}//fin if
+        else
+        {
+            header("Location: ../index.php");
+        }//fin else
 ?>

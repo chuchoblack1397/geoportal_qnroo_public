@@ -3,10 +3,10 @@
                         Añadir nuevo privilegio/rol
                       </h3>
                         <div class="form-group row">
-                          <label for="userNickname" class="col-sm-2 col-form-label">Título</label>
+                          <label for="campo_privilegio" class="col-sm-2 col-form-label">Título</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="userNickname" placeholder="" required>
-                            <span id="info_userNickname" class="small text-info">Evita usar espacios en blanco al inicio, en medio y al final.</span>
+                            <input type="text" class="form-control" id="campo_privilegio" placeholder="" required>
+                            <span id="info_campo_privilegio" class="small text-info">Evita usar espacios en blanco al inicio, en medio y al final.</span>
                           </div>
                         </div><!--fin row-->
                         <div class="form-group row">
@@ -120,7 +120,7 @@
                         </div><!--fin row-->
                         <div class="form-group row">
                           <div class="col-sm-10">
-                            <button type="button" class="btn btn-success" id="btn_guardarUsuario"><span class="icon-checkmark mr-2"></span>Guardar</button>
+                            <button type="button" class="btn btn-success" id="btn_guardarPrivilegio"><span class="icon-checkmark mr-2"></span>Guardar</button>
                             <button type="Reset" class="btn btn-secondary">Limpiar</button>
                           </div>
                         </div><!--fin row-->

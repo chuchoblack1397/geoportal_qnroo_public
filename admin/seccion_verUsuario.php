@@ -2,7 +2,7 @@
 <input type="text" class="form-control" id="buscadorUser" placeholder="Buscar capa">
 <br>
 <?php
- if($_SESSION['UsuarioEliminar'] =='true' ){
+ if($_SESSION['rol_usuario_d'] =='true' ){
    ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarUsuario()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar usuario(s)</strong></button>
@@ -17,7 +17,7 @@
     <tr>
       <th scope="col">#</th>
       <?php
-       if($_SESSION['UsuarioEliminar'] =='true' ){
+       if($_SESSION['rol_usuario_d'] =='true' ){
        ?>
        
       <th scope="col"></th>
@@ -38,7 +38,7 @@
 </form>
 </div>
 <?php
- if($_SESSION['UsuarioEliminar'] =='true' ){
+ if($_SESSION['rol_usuario_d'] =='true' ){
    ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas"  onclick="eliminarUsuario()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar usuario(s)</strong></button>

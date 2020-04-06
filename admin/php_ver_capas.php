@@ -8,7 +8,6 @@ include "../conexion.php";
     
         while ($filaCapaVER = pg_fetch_assoc($resultadoCapasVER))
         {//obteniendo capas de BD
-  
 ?>
 <tr>
       <th scope="row">
@@ -18,9 +17,9 @@ include "../conexion.php";
           </div>
       </th>
       <?php
-      if($_SESSION['CapaEditar'] =='true' ){
-      ?>
-       <td><button id="btn_<?php echo $filaCapaVER['idcapa'];?>" type="button" class="btn btn-light botonEditarCapas" onClick="editarCapa(this)"><span class="icon-pencil2 text-info"></span></button></td>
+       if($_SESSION['rol_capa_u']=='true') {
+                        ?>
+      <td><button id="btn_<?php echo $filaCapaVER['idcapa'];?>" type="button" class="btn btn-light botonEditarCapas" onClick="editarCapa(this)"><span class="icon-pencil2 text-info"></span></button></td>
       <?php
       }
       ?>
@@ -29,8 +28,10 @@ include "../conexion.php";
       <td><?php echo $filaCapaVER['layer'];?></td>
       <td><?php echo $filaCapaVER['estilo'];?></td>
       <td><?php echo $filaCapaVER['version'];?></td>
-      <td><?php echo $filaCapaVER['formato'];?></td>
       <td><?php echo $filaCapaVER['transparencia'];?></td>
+      <td><?php echo $filaCapaVER['formato'];?></td>
+      <td><?php echo $filaCapaVER['leyenda'];?></td>
+      <td><?php echo $filaCapaVER['campo_consulta'];?></td>
       <td><?php echo $filaCapaVER['zindex'];?></td>
 </tr>
 <?php
