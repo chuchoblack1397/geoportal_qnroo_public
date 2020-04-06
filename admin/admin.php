@@ -73,7 +73,11 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <nav class="m-3">
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="true">Estadísticas</a>
-        <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
+        <?php if($_SESSION['rol_usuario_c'] == 'true') {?>
+          <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
+        <?php
+        }//fin if
+        ?>
         <a class="nav-item nav-link" id="nav-mapas_referencia-tab" data-toggle="tab" href="#nav-mapas_referencia" role="tab" aria-controls="nav-mapas_referencia" aria-selected="false">Mapas de referencia</a>
         <a class="nav-item nav-link" id="nav-usuarios-tab" data-toggle="tab" href="#nav-usuarios" role="tab" aria-controls="nav-usuarios" aria-selected="false">Usuarios</a>
         <a class="nav-item nav-link" id="nav-roles-tab" data-toggle="tab" href="#nav-roles" role="tab" aria-controls="nav-roles" aria-selected="false">Privilegios/Roles</a>
@@ -84,8 +88,10 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <div class="tab-content m-3" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-estadisticas" role="tabpanel" aria-labelledby="nav-estadisticas-tab">
         <h2 class="h2">Estadísticas</h2>
+        <?php include 'seccion_formEstadisticas.php';?>
       </div>
       <!--Opcion CAPAS-->
+      <?php if($_SESSION['rol_usuario_c'] == 'true') {?>
       <div class="tab-pane fade" id="nav-capas" role="tabpanel" aria-labelledby="nav-capas-tab">
         <h2 class="h2">Capas</h2>
                 <!--FORMULARIO-->
@@ -117,6 +123,9 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                 </div>
                 <!--fin FORMULARIO-->
       </div><!--fin opcion CAPAS-->
+      <?php
+      }//fin if
+      ?>
       <div class="tab-pane fade" id="nav-mapas_referencia" role="tabpanel" aria-labelledby="nav-mapas_referencia-tab">
         <h2 class="h2">Mapas de referencia</h2>
          <!--FORMULARIO-->
@@ -220,6 +229,8 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
     <script src="js_guardarUsuario.js"></script><!--Archivo js para guardar la capa en bd-->
     <script src="js_eliminarUsuario.js"></script><!--Archivo js para eliminar la capa en bd-->
     <script src="js_editarUsuario.js"></script><!--Archivo js para editar la capa en bd-->
+    <script src="js_guardarPrivilegio.js"></script><!--Archivo js para editar la capa en bd-->
+    <script src="js_eliminarPrivilegio.js"></script><!--Archivo js para eliminar la capa en bd-->
     
     </body>
     

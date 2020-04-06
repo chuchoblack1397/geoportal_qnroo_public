@@ -5,7 +5,7 @@
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarPrivilegio()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar privilegios/roles(s)</strong></button>
 </div>
 <div class="table-responsive">
-<form id="formid_users">
+<form id="formid_privilegios">
 <table class="table table-condensed">
   <thead class="thead-dark">
     <tr>
@@ -31,7 +31,7 @@ window.onload = ajax_ver_privilegios();
 ajax_ver_privilegios();
 
     function ajax_ver_privilegios(){
-        console.log('Dentro de AJAX ver Usuarios');
+        console.log('Dentro de AJAX ver Privilegios');
         $.ajax({
               url:'php_ver_privilegio.php',
               

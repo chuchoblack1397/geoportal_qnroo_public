@@ -12,8 +12,8 @@ var resultadoWMSlayer;
 //$("#btn_buscar").click(function(){
 function buscarFiltro(){
     console.log("Buscando...");
-    var variable_clave_catastral = document.getElementById('campoBuscar').value;//asignacion de la variable
-    console.log("Valor de Busqueda: "+variable_clave_catastral);
+    var variable_consulta_filtro = document.getElementById('campoBuscar').value;//asignacion de la variable
+    console.log("Valor de Busqueda: "+variable_consulta_filtro);
     var valueRecibido = document.getElementById('selectTipo').value;//asignacion de la variable
 
     var valueRecibidoArreglo = valueRecibido.split("|");//una vez obtenido el valor del campo, lo secciono en 4 partes
@@ -27,17 +27,26 @@ function buscarFiltro(){
     console.log("Capa de Busqueda: "+layer);
     console.log("Filtro de Busqueda: "+campoFiltro);
     
-    if(variable_clave_catastral !== ''){//detecta si tiene datos el campo
+    if(variable_consulta_filtro !== ''){//detecta si tiene datos el campo
         console.log("Hay datos en la variable de busqueda.");
-        
+        var ruta="variable_consulta_filtro="+variable_consulta_filtro;
+        $.ajax({
+                url:'php_busquedaDatosCapas.php',
+                type:'POST',
+                data: ruta,
+                success: function(res){
+                $('#contenedorResultado').html(res);
+            },
+            error: function(){
+                alert( "Error al realizar la busqueda" );
+            } 
+        });
+  
+/*
         if(resultadoWMSlayer){//evaluando si existe la capa
             console.log("Existe una capa, Borrando...");
             window.map.removeLayer(resultadoWMSlayer);//quitando la capa
         }
-        
-        
-        
-
             // capa de busqueda de predio
             resultadoWMSlayer= L.tileLayer.wms(url,
             {
@@ -45,42 +54,72 @@ function buscarFiltro(){
                 format: 'image/png',
                 transparent: true,
                 zIndex:101,
-                CQL_FILTER:campoFiltro+'='+variable_clave_catastral
+                CQL_FILTER:campoFiltro+'='+variable_consulta_filtro
             });//fin capa
             
             window.map.addLayer(resultadoWMSlayer);//agregando capa
-       
-        
- 
-            
+
             if(window.map.addLayer(resultadoWMSlayer)){
                 console.log("Agregada");
             }
             else{
                 console.log("Error.");
             }
-            //agregando capa
-   
-
+*/
            /* 
             var latitud = 17.5546;
             var longitud = -99.4995;
-            
-            var zoom = 18;
-            
+            var zoom = 18;  
             map.setView({lat: latitud, lng: longitud},zoom);
             */
-            
+
             //map.setView({lat: latitud, lng: longitud}, zoom);//funcion para mover el mapa hasta el predio
             
             //map.panTo({lat: latitud, lng: longitud}); // otra funcion para mover el mapa hasta el predio
-            
-            //PROBAR PROBAR PROBAR PROBAR
         
     }//fin if
     else{
-        if(predioWMSlayer){//evaluando si existe la capa
+        /*if(predioWMSlayer){//evaluando si existe la capa
             window.map.removeLayer(predioWMSlayer);//quitando la capa
-        }
+        }*/
     }//fin else
+}//fin metodo
+
+function buscarUbicacionFiltro(latitud, longitud, identificador){
+   
+        
+        if(resultadoWMSlayer){//evaluando si existe la capa
+            console.log("Existe una capa, Borrando...");
+            window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+        }
+            // capa de busqueda de predio
+            resultadoWMSlayer= L.tileLayer.wms('http://144.91.126.153:8990/gs216/opb/wms',
+            {
+                layers: 'opb:bigs_opb_20201q_aoi_w_4326u',
+                format: 'image/png',
+                transparent: true,
+                zIndex:101,
+                CQL_FILTER:'__gid='+identificador
+            });//fin capa
+            
+            window.map.addLayer(resultadoWMSlayer);//agregando capa
+
+            if(window.map.addLayer(resultadoWMSlayer)){
+                console.log("Agregada");
+            }
+            else{
+                console.log("Error.");
+            }
+
+           
+            //var latitud = 17.5546;
+            //var longitud = -99.4995;
+            var zoom = 18;  
+            map.setView({lat: latitud, lng: longitud},zoom);
+            
+
+            //map.setView({lat: latitud, lng: longitud}, zoom);//funcion para mover el mapa hasta el predio
+            
+            //map.panTo({lat: latitud, lng: longitud}); // otra funcion para mover el mapa hasta el predio
+        
 }//fin metodo

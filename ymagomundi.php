@@ -18,7 +18,8 @@
             $miContra = $_SESSION['usuarioPass'];
 
             
-            $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+            //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+            $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
             $resultado = pg_query($conexion,$consulta);
             if(!$resultado) {
                 echo 'Consulta de usuario Fallida';
@@ -42,8 +43,28 @@
 					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
 					        
 					        $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-					        
-					        echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
+                            echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
+                            
+                            //asignacion de los roles a variables de session para mayor accesibilidad
+                            $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
+                            $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
+                            $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
+                            $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
+
+                            $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
+                            $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
+                            $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
+                            $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
+
+                            $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
+                            $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
+                            $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
+                            $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
+
+                            $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
+                            $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
+                            $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
+                            $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
 					        
 					    }//fin while
                         
@@ -108,6 +129,7 @@ if(!$resultadoCapas) {
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
+        <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
         
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -302,6 +324,14 @@ if(!$resultadoCapas) {
 		?>
  </div>
 <!--fin contenedor iframes LEYENDAS -->
+
+<!--Contenedor resultados de filtro-->
+<div id="contenedorResultadoFiltro">
+   <div class="contenedorResultado" id="contenedorResultado">
+            Resultado
+   </div>
+</div>
+<!--fin Contenedor resultados de filtro-->
 
 
 <!-- fin ENCABEZADO DE LA PAGINA-->
