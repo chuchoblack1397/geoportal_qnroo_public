@@ -19,7 +19,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <!--
+        <!--
             <form>
                 <div class="form-group">
                      <label for="categoriaViolencia" class="small">Categor&iacute;a</label>
@@ -199,3 +199,27 @@
   </div>
 </div>
 <!--fin modal-->
+
+<div class="modal fade" id="actualizarCapa" tabindex="-1" role="dialog" aria-labelledby="actualizarCapaTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <form action="/excel.php" enctype="multipart/form-data" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="actualizarCapaTitle">Actualizar capa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Selecciona un archivo de Excel (.xlsx ó .xls) para actualizar una capa.</p>
+          <label for="archivoExcel">Archivo: </label>
+          <input id="archivoExcel" name="archivoExcel" class="mb-2" type="file">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <input type="submit" class="btn btn-danger" value="Actualizar" />
+        </div>
+    </div>
+    </form>
+  </div>
+</div>

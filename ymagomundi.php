@@ -248,6 +248,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
+                        <span class="text-secondary mr-1 ml-1">|</span>
+                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#actualizarCapa" title="Actualizar capa"><span class="icon-plus text-secondary small"></span></button>
                         </div>
                         -->
                 </div>
