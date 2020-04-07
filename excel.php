@@ -5,95 +5,63 @@ include './conexion.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-session_start();
-
 $base_url = "http://" . $_SERVER['SERVER_NAME'];
-var_dump($_SESSION['usuarioSession'], '</br>');
-if (!isset($_SESSION)) { //Validar si hay sesion activa
+var_dump($base_url, '</br>');
+if (isset($_SESSION)) {
     header('Location: ' . $base_url);
 }
 
-$file = $_FILES['archivoExcel']; //Obtiene archivo excel uploaded
-$FileExtension = pathinfo($file['name']); //Obtiene extension del archivo para verificar
-var_dump($file, '</br>');
-var_dump($FileExtension['extension'], '</br>');
-$path = "uploads/";
+$file = $_POST['archivoExcel'];
+var_dump($file);
 
-if ($FileExtension['extension'] == 'xlsx') { // Valida extension
-    if (file_exists($path . $file['name'])) { //Borra archivo si existe en proyecto
-        echo "Deleting old file.</br>";
-        unlink($path . $file['name']);
-    }
-
-    if (move_uploaded_file($file['tmp_name'], $path . $file['name'])) { //Guarda en carpeta uploads archivos xlsx
-        echo "The file " . basename($file["name"]) . " has been uploaded.";
-    } else {
-        echo "Lo sentimos, hay un error en el archivo.";
-    }
-
-    try { // Inicio funcion para leer excel
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path . $file['name']);
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($path . $file['name']);
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        //Obtencion de columnas y filas
-        $highestRow = $worksheet->getHighestRow();
-        $highestColumn = $worksheet->getHighestColumn();
-        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-    } catch (Exception $e) {
-        echo "Fallo en encontrar archivo xlsx\n" . $e;
-    }
-
-    var_dump($highestColumnIndex, $highestRow, '</br>');
-    $arrayData = array(); //Inicializacion de array para guardar datos
-    for ($r = 1; $r <= $highestRow; $r++) { //Filas
-        for ($c = 2; $c <= $highestColumnIndex; $c++) { //Columnas
-            $value = $worksheet->getCellByColumnAndRow($c, $r)->getValue(); //Obtiene valor de la celda en columna y fila
-            if (isset($value)) { //Guarda valores de celdas que no sean nulas de lo contrario salta a siguiente fila
-                if ($c == 2) $datos["clave_cata"] = $value;
-                if ($c == 3) $datos["nombre_loc"] = $value;
-                if ($c == 4) $datos["direccion"] = $value;
-                if ($c == 5) $datos["documento_estatus"] = $value;
-                if ($c == $highestColumnIndex) {
-                    array_push($arrayData, $datos); //Array donde se guardan los datos del excel
-                }
-            } else {
-                break; //Suigiente fila
-            }
-        }
-    }
-
-    unlink($path . $file['name']); //Borra archivo xlsx despues de leer su contenido
-    unset($arrayData[0]); //Borra valores del primera posicion de array (Nombres de columnas)
-
-    var_dump("Deleting file already readed", '</br>');
-    var_dump(count($arrayData), '</br>');
-
-    //Debug
-    echo '<h3>Data</h3>';
-    echo '<table>';
-    foreach ($arrayData as $row) {
-        echo '<tr>';
-        foreach ($row as $key => $value) {
-            echo '<td>' . $value . '</td>';
-        }
-        echo '</tr>';
-    }
-    echo '</table>';
-
-    echo '<script>
-    setTimeout(function () {
-        window.location.href = "' . $base_url . '";
-    }, 5000);
-</script>';
-
-    //return header('Location: ' . $base_url);
-} else {
-    echo 'Extensión del archivo incorrecta';
-    echo '<script>
-    setTimeout(function () {
-        window.location.href = "' . $base_url . '";
-    }, 2);
-</script>';
+try {
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("ORDEN DE DOCUMENTOS.xlsx");
+    $reader->setReadDataOnly(true);
+    $spreadsheet = $reader->load("ORDEN DE DOCUMENTOS.xlsx");
+    $worksheet = $spreadsheet->getActiveSheet();
+    $rows = $worksheet->toArray();
+    $highestRow = $worksheet->getHighestRow();
+    $highestColumn = $worksheet->getHighestColumn();
+    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+} catch (Exception $e) {
+    echo "Fallo en encontrar archivo xlsx\n" . $e;
 }
+
+var_dump($highestColumnIndex, $highestRow, '</br>');
+$arrayData = array();
+for ($r = 1; $r <= $highestRow; $r++) {
+    for ($c = 2; $c <= $highestColumnIndex; $c++) {
+        $value = $worksheet->getCellByColumnAndRow($c, $r)->getValue();
+        if (isset($value)) {
+            if ($c == 2) $datos["clave_cata"] = $value;
+            if ($c == 3) $datos["nombre_loc"] = $value;
+            if ($c == 4) $datos["direccion"] = $value;
+            if ($c == 5) $datos["documento_estatus"] = $value;
+            if ($c == $highestColumnIndex) {
+                array_push($arrayData, $datos);
+            }
+        } else {
+            break;
+        }
+    }
+}
+
+unset($arrayData[0]);
+
+// var_dump($arrayData[0], '</br>');
+var_dump(count($arrayData), '</br>');
+
+echo '<h3>Data</h3>';
+echo '<table>';
+foreach ($arrayData as $row) {
+    echo '<tr>';
+    foreach ($row as $key => $value) {
+        echo '<td>' . $value . '</td>';
+    }
+    echo '</tr>';
+}
+echo '</table>';
+
+
+
+return header('Location: ');

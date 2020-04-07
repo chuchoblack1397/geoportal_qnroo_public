@@ -85,7 +85,7 @@
  */
 
 if($privilegio == 'administrador'){
-    echo 'que onda peggo';
+    //echo 'que onda peggo';
     $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
   
 }else{
