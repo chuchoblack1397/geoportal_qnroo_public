@@ -308,7 +308,7 @@
 
   #SwipeOcultar{
     
-   
+  
     
     
     }
@@ -320,6 +320,14 @@
 =======
 >>>>>>> Regreso a la version anterior
 =======
+
+
+
+
+.icono-swipe { 
+   height: 24px;
+   width: 24px;
+}
 
 
 .swipe-icon {

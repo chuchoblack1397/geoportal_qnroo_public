@@ -1,102 +1,192 @@
 <?php
+session_start();
 include "../conexion.php";
-/*       $consultaUsuarioVER = "SELECT * FROM usuarios ORDER BY usuario ASC ";//consulta general
-        $resultadoUsuarioVER = pg_query($conexion,$consultaUsuarioVER);
-        
-        $i=1;
-    
-        while ($filaUserVer = pg_fetch_assoc($resultadoUsuarioVER))
-        {//obteniendo capas de BD
-          $usuario=$filaUserVer['usuario'];
-          $nombreUser=$filaUserVer['nombreusuario'];
-          $apUser=$filaUserVer['apellidopaternousuario'];
-          $amUser=$filaUserVer['apellidomaternousuario'];
-          $puestoUser=$filaUserVer['puesto'];
-          $privilegioUser=$filaUserVer['privilegio'];
-          */
-?>
-<!--
-<tr>
-      <th scope="row">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="<?php echo $usuario; ?>" name="inputEditarUsuario[]" value="<?php echo $usuario; ?>">
-            <label class="custom-control-label" for="<?php echo $usuario; ?>"><?php echo $i; ?></label>
-          </div>
-      </th>
-      <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario; ?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario; ?>','<?php echo $nombreUser; ?>','<?php echo $apUser; ?>','<?php echo $amUser; ?>','<?php echo $puestoUser; ?>','<?php echo $privilegioUser; ?>')"><span class="icon-pencil2 text-info"></span></button></td>
-      <td><?php echo $usuario; ?></td>
-      <td><?php echo $nombreUser; ?></td>
-      <td><?php echo $apUser; ?></td>
-      <td><?php echo $amUser; ?></td>
-      <td><?php echo $puestoUser; ?></td>
-      <td><?php echo $privilegioUser; ?></td>
-</tr>
--->
+$consultaPrivilegioVER = "SELECT * FROM cat_privilegios ORDER BY privilegio ASC "; //consulta general
+$resultadoPrivilegioVER = pg_query($conexion, $consultaPrivilegioVER);
 
-<tr>
-  <th scope="row">
-    <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input" id="x" name="inputEditarUsuario[]" value="x">
-      <label class="custom-control-label" for="x">1</label>
-    </div>
-  </th>
-  <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="y" type="button" class="btn btn-light botonEditarCapas"><span class="icon-pencil2 text-info"></span></button></td>
-  <td>Administrador</td>
-  <td>
-    <div class="accordion" id="acordionCaracteristicasPrivilegios">
-      <div>
-        <div id="cabezaAcordion">
-          <p><a href="#" class="text-info" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Ver características</a></p>
-        </div>
-        <div id="collapseOne" class="collapse" aria-labelledby="cabezaAcordion" data-parent="#acordionCaracteristicasPrivilegios">
-          <div class="row">
-            <div class="col">
-              <span class="font-italic">Usuarios</span>
-              <ul>
-                <li>Agregar Usuarios</li>
-                <li>Ver Usuarios</li>
-                <li>Editar Usuarios</li>
-                <li>Eliminar Usuarios</li>
-              </ul>
-            </div>
-            <div class="col">
-              <span class="font-italic">Capas</span>
-              <ul>
-                <li>Agregar Capas</li>
-                <li>Ver Capas</li>
-                <li>Editar Capas</li>
-                <li>Eliminar Capas</li>
-              </ul>
-            </div>
-            <div class="col">
-              <span class="font-italic">Mapas de referencia</span>
-              <ul>
-                <li>Agregar Mapas</li>
-                <li>Ver Mapas</li>
-                <li>Editar Mapas</li>
-                <li>Eliminar Mapas</li>
-              </ul>
-            </div>
-            <div class="col">
-              <span class="font-italic">Roles</span>
-              <ul>
-                <li>Agregar Roles</li>
-                <li>Ver Roles</li>
-                <li>Editar Roles</li>
-                <li>Eliminar Roles</li>
-              </ul>
+$i = 1;
+
+$mns_sin_permisos = 'TOTALMENTE DENEGADO';
+
+while ($filaPrivilegioVer = pg_fetch_assoc($resultadoPrivilegioVER)) { //obteniendo capas de BD
+  $privilegio = $filaPrivilegioVer['privilegio'];
+
+  $usuario_c = $filaPrivilegioVer['usuario_crear'];
+  $usuario_r = $filaPrivilegioVer['usuario_ver'];
+  $usuario_u = $filaPrivilegioVer['usuario_editar'];
+  $usuario_d = $filaPrivilegioVer['usuario_eliminar'];
+
+  $capa_c = $filaPrivilegioVer['capa_crear'];
+  $capa_r = $filaPrivilegioVer['capa_ver'];
+  $capa_u = $filaPrivilegioVer['capa_editar'];
+  $capa_d = $filaPrivilegioVer['capa_eliminar'];
+
+  $mapa_c = $filaPrivilegioVer['mapa_crear'];
+  $mapa_r = $filaPrivilegioVer['mapa_ver'];
+  $mapa_u = $filaPrivilegioVer['mapa_editar'];
+  $mapa_d = $filaPrivilegioVer['mapa_eliminar'];
+
+  $rol_c = $filaPrivilegioVer['rol_crear'];
+  $rol_r = $filaPrivilegioVer['rol_ver'];
+  $rol_u = $filaPrivilegioVer['rol_editar'];
+  $rol_d = $filaPrivilegioVer['rol_eliminar'];
+
+
+?>
+
+  <tr>
+    <th scope="row">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="btn_edit_<?php echo $privilegio ?>" name="inputEditarUsuario[]" value="<?php echo $privilegio ?>">
+        <label class="custom-control-label" for="btn_edit_<?php echo $privilegio ?>"><?php echo $i; ?></label>
+      </div>
+    </th>
+    <?php
+    if ($_SESSION['rol_rol_d'] == 'true') {
+    ?>
+      <td><button data-toggle="modal" data-target="#modalEditarPrivilegios" id="y" type="button" class="btn btn-light botonEditarCapas"><span class="icon-pencil2 text-info"></span></button></td>
+    <?php
+    }
+    ?>
+    <td><?php echo $privilegio; ?></td>
+    <td>
+      <div class="accordion" id="acordionCaracteristicasPrivilegios">
+        <div>
+          <div id="cabezaAcordion_<?php echo $privilegio; ?>">
+            <p><a href="#" class="text-info" data-toggle="collapse" data-target="#collapseOne_<?php echo $privilegio; ?>" aria-expanded="true" aria-controls="collapseOne">Ver características</a></p>
+          </div>
+          <div id="collapseOne_<?php echo $privilegio; ?>" class="collapse" aria-labelledby="cabezaAcordion_<?php echo $privilegio; ?>" data-parent="#acordionCaracteristicasPrivilegios">
+            <div class="row">
+
+              <div class="col">
+                <span class="font-italic">Usuarios</span>
+                <?php if ($usuario_c == 'true' || $usuario_r == 'true' || $usuario_u == 'true' || $usuario_d == 'true') {
+                ?>
+                  <ul>
+                    <?php if ($usuario_c == 'true') { ?>
+                      <li>Agregar Usuarios</li>
+                    <?php } //fin if 
+                    if ($usuario_r == 'true') { ?>
+                      <li>Ver Usuarios</li>
+                    <?php } //fin if 
+                    if ($usuario_u == 'true') { ?>
+                      <li>Editar Usuarios</li>
+                    <?php } //fin if 
+                    if ($usuario_d == 'true') { ?>
+                      <li>Eliminar Usuarios</li>
+                    <?php } //fin if 
+                    ?>
+                  </ul>
+                <?php
+                } //fin if
+                else {
+                ?>
+                  <br><span class="text-warning"><?php echo $mns_sin_permisos; ?></span>
+                <?php
+                } //fin else
+                ?>
+              </div>
+
+              <div class="col">
+                <span class="font-italic">Capas</span>
+                <?php
+                if ($capa_c == 'true' || $capa_r == 'true' || $capa_u == 'true' || $capa_d == 'true') {
+                ?>
+                  <ul>
+                    <?php if ($capa_c == 'true') { ?>
+                      <li>Agregar Capas</li>
+                    <?php } //fin if 
+                    if ($capa_r == 'true') { ?>
+                      <li>Ver Capas</li>
+                    <?php } //fin if 
+                    if ($capa_u == 'true') { ?>
+                      <li>Editar Capas</li>
+                    <?php } //fin if 
+                    if ($capa_d == 'true') { ?>
+                      <li>Eliminar Capas</li>
+                    <?php } //fin if 
+                    ?>
+                  </ul>
+                <?php
+                } //fin if
+                else {
+                ?>
+                  <br><span class="text-warning"><?php echo $mns_sin_permisos; ?></span>
+                <?php
+                } //fin else
+                ?>
+              </div>
+
+              <div class="col">
+                <span class="font-italic">Mapas de referencia</span>
+                <?php
+                if ($mapa_c == 'true' || $mapa_r == 'true' || $mapa_u == 'true' || $mapa_d == 'true') {
+                ?>
+                  <ul>
+                    <?php if ($mapa_c == 'true') { ?>
+                      <li>Agregar Mapas</li>
+                    <?php } //fin if 
+                    if ($mapa_r == 'true') { ?>
+                      <li>Ver Mapas</li>
+                    <?php } //fin if 
+                    if ($mapa_u == 'true') { ?>
+                      <li>Editar Mapas</li>
+                    <?php } //fin if 
+                    if ($mapa_d == 'true') { ?>
+                      <li>Eliminar Mapas</li>
+                    <?php } //fin if 
+                    ?>
+                  </ul>
+                <?php
+                } //fin if
+                else {
+                ?>
+                  <br><span class="text-warning"><?php echo $mns_sin_permisos; ?></span>
+                <?php
+                } //fin else
+                ?>
+              </div>
+
+              <div class="col">
+                <span class="font-italic">Roles</span>
+                <?php
+                if ($rol_c == 'true' || $rol_r == 'true' || $rol_u == 'true' || $rol_d == 'true') {
+                ?>
+                  <ul>
+                    <?php if ($rol_c == 'true') { ?>
+                      <li>Agregar Roles</li>
+                    <?php } //fin if 
+                    if ($rol_r == 'true') { ?>
+                      <li>Ver Roles</li>
+                    <?php } //fin if 
+                    if ($rol_u == 'true') { ?>
+                      <li>Editar Roles</li>
+                    <?php } //fin if 
+                    if ($rol_d == 'true') { ?>
+                      <li>Eliminar Roles</li>
+                    <?php } //fin if 
+                    ?>
+                  </ul>
+                <?php
+                } //fin if
+                else {
+                ?>
+                  <br><span class="text-warning"><?php echo $mns_sin_permisos; ?></span>
+                <?php
+                } //fin else
+                ?>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </td>
+    </td>
 
-</tr>
+  </tr>
 
 <?php
-/* $i=$i+1;
-    }//fin while*/
+  $i = $i + 1;
+} //fin while
 ?>
 <!-- Modal -->
 <div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEditarUsuarioTitle" aria-hidden="true">

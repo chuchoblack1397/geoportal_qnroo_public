@@ -17,37 +17,62 @@
             $miUsuario = $_SESSION['usuarioSession'];
             $miContra = $_SESSION['usuarioPass'];
 
-            
-            $consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
-            $resultado = pg_query($conexion,$consulta);
-            if(!$resultado) {
-                echo 'Consulta de usuario Fallida';
-                exit();
-               } 
-               else {
-                  echo "<script>console.log('Consulta de usuario correcta');</script>";
-               }//fin if error resultado
+ //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+ $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
+ $resultado = pg_query($conexion,$consulta);
+ if(!$resultado) {
+     echo 'Consulta de usuario Fallida';
+     exit();
+    } 
+    else {
+       echo "<script>console.log('Consulta de usuario correcta');</script>";
+    }//fin if error resultado
 
-					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-					    echo "<script>console.log('Se encontro Usuario');</script>";
+         if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
+             echo "<script>console.log('Se encontro Usuario');</script>";
+             
+             while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
+             {//obteniendo el dato del privilegio
+                 echo "<script>console.log('DENTRO DEL WHILE');</script>";
+                 $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
+                 $nombre = $datoUsuarioPrivilegio['nombreusuario'];
+                 $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 
+                 $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
+                 
+                 $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
+                 echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
+                 
+                 //asignacion de los roles a variables de session para mayor accesibilidad
+                 $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
+                 $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
+                 $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
+                 $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
 
-                        while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
-                        {//obteniendo el dato del privilegio
-					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                            $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
-					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        
-					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
-					        
-					        $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-					        
-					        echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
-					        
-					    }//fin while
+                 $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
+                 $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
+                 $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
+                 $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
+
+                 $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
+                 $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
+                 $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
+                 $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
+
+                 $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
+                 $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
+                 $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
+                 $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
+                 
+             }//fin while
+                   
                         
- 
+           
+
+
+
+
  //--ARREGLO PARA LOS DATOS DE LAS CAPAS
  /*
  # Este metodo que se emplea aquí solamente sirve para 
@@ -59,29 +84,31 @@
  # ARREGLO el cual se reutiliza.
  */
 
-        if ($privilegio == 'administrador') {
-            //echo 'que onda peggo';
-            $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC"; //consulta general
-
-        } else {
-            $consultaCapas = "select capas.*, ordencapas.zindex from relacion_usuario_capas inner join capas on relacion_usuario_capas.idcapa = capas.idcapa and relacion_usuario_capas.usuario = '" . $miUsuario . "' inner join ordencapas on capas.idcapa = ordencapas.idcapa order by ordencapas.zindex desc"; //consulta general
-        }
-
-
-        $resultadoCapas = pg_query($conexion, $consultaCapas);
-        if (!$resultadoCapas) {
-            echo 'Consulta de resultadoCapas Fallida';
-            exit();
-        } else {
-            echo "<script>console.log('Consulta de resultadoCapas correcta');</script>";
-        } //fin if error resultadoCapas
+if($privilegio == 'administrador'){
+    echo 'que onda peggo';
+    $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
+  
+}else{
+    $consultaCapas = "select capas.*, ordencapas.zindex from relacion_usuario_capas inner join capas on relacion_usuario_capas.idcapa = capas.idcapa and relacion_usuario_capas.usuario = '".$miUsuario."' inner join ordencapas on capas.idcapa = ordencapas.idcapa order by ordencapas.zindex desc";//consulta general
+}
 
 
-        while ($filaCapa = pg_fetch_assoc($resultadoCapas)) { //obteniendo capas de BD
-            echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";
-            $arregloCapas[] = $filaCapa; //agregando los valores de la BD al arreglo
-        } //fin while
-        /*
+$resultadoCapas = pg_query($conexion,$consultaCapas);
+if(!$resultadoCapas) {
+   echo 'Consulta de resultadoCapas Fallida';
+   exit();
+  }
+  else {
+     echo "<script>console.log('Consulta de resultadoCapas correcta');</script>";
+  }//fin if error resultadoCapas
+
+
+       while ($filaCapa = pg_fetch_assoc($resultadoCapas))
+       {//obteniendo capas de BD
+         echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";
+        $arregloCapas[]=$filaCapa;//agregando los valores de la BD al arreglo
+       }//fin while
+/*
 # Una vez que se obtienen los datos de la BD en el ARREGLO
 # se utiliza la siguiente sentencia -
 
@@ -100,7 +127,7 @@
     <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Geoportal</title>
+        <title>Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -117,7 +144,10 @@
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
         <link rel="stylesheet" href="css/css_barraFiltro.css">
+        
 
+
+        <link rel="stylesheet" href="css/side/side.css">
 
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -153,17 +183,19 @@
 
 <!------ENCABEZADO DE LA PAGINA-->
 
+
 <div class="bg-light" id="controlMenuPanel">
     <!--btnAdmin-->
-    <?php
-        if($privilegio == "administrador"){
+  <?php
+if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true"   ){
     ?>
     <button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">
         <span class="icon-cog"></span>
     </button>
     <?php
-        }//fin if privilegio
-    ?>
+
+}
+?>
     <!--fin btnAdmin-->
 <button id="btnCerrarMenu">
 <span class="icon-cross"></span>
@@ -195,18 +227,13 @@
                         <div class="btn-group" role="group">
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="icon-images text-secondary small" id="btnActivarSwipe2"></span></button>
+                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                               <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
                         </div>
-                        <span class="text-secondary mr-1 ml-1">|</span>
-                        <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
-                        <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
-                        <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
-                    </div>
-                    <!--
+                       
                         <div class="btn-group grupo1" role="group">
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
@@ -407,24 +434,40 @@
         <ul class="list-unstyled">
           <li>
             <div class="custom-control custom-radio">
+<<<<<<< HEAD
               <input type="radio" id="radio_csm1" class="custom-control-input" name="radioGrupo1" value="csm1" checked>
               <label for="radio_csm1" class="custom-control-label">OSM</label>
+=======
+              <input type="radio" id="radio_csm" class="custom-control-input" name="radioGrupo" value="csm" checked>
+              <label for="radio_csm" class="custom-control-label">Calles (OpenStreetMap)</label>
+>>>>>>> Actualizacion usuarios y roles
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
+<<<<<<< HEAD
               <input type="radio" id="radio_calles1" class="custom-control-input" name="radioGrupo1" value="calles1">
               <label for="radio_calles1" class="custom-control-label">OSM Topo</label>
+=======
+              <input type="radio" id="radio_calles" class="custom-control-input" name="radioGrupo" value="calles">
+              <label for="radio_calles" class="custom-control-label">OpenStreetMap Topogr&aacute;fico</label>
+>>>>>>> Actualizacion usuarios y roles
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
+<<<<<<< HEAD
               <input type="radio" id="radio_grises1" class="custom-control-input" name="radioGrupo1" value="grises1">
               <label for="radio_grises1" class="custom-control-label">OSM Grises</label>
+=======
+              <input type="radio" id="radio_grises" class="custom-control-input" name="radioGrupo" value="grises">
+              <label for="radio_grises" class="custom-control-label">OpenStreetMap Grises</label>
+>>>>>>> Actualizacion usuarios y roles
             </div>
           </li>
           <li>
             <div class="custom-control custom-radio">
+<<<<<<< HEAD
               <input type="radio" id="radio_google1" class="custom-control-input" name="radioGrupo1" value="googleSat1">
               <label for="radio_google1" class="custom-control-label">Google Sat</label>
             </div>
@@ -436,6 +479,10 @@
             <div class="btn btn-light">
               <input type="button" id="boton-fin" value="Detener" onclick="removMapa()">
              
+=======
+              <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
+              <label for="radio_google" class="custom-control-label">Google Sat&eacute;lite</label>
+>>>>>>> Actualizacion usuarios y roles
             </div>
 
           </li>
@@ -517,6 +564,7 @@
                                         <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
                                             <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
                                                 <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
+<<<<<<< HEAD
                                                 <button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>
 <<<<<<< HEAD
@@ -527,6 +575,10 @@
 =======
 
 >>>>>>> Regreso a la version anterior
+=======
+                                              
+
+>>>>>>> Actualizacion usuarios y roles
                                             </div>
                                       </div>
  
@@ -551,8 +603,13 @@
                 <input id="campoBuscar" type="search" placeholder="Escribe tu filtro" aria-describedby="button-addon5" class="form-control">
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
+<<<<<<< HEAD
                     <option selected value="ninguno">NINGUNO</option>
                     <?php 
+=======
+                    <option selected value="ninguno">Seleccionar</option>
+                    <?php
+>>>>>>> Actualizacion usuarios y roles
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
             		?>
             		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
@@ -590,6 +647,7 @@
           <div class="input-group mt-4" id="buscadorS">
           <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
                     <option  value="ninguno">Seleccionar</option>
+<<<<<<< HEAD
                     <option value="osm">OSM</option>
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
@@ -597,6 +655,12 @@
 <<<<<<< HEAD
                     <?php 
 =======
+=======
+                    <option value="osm">Calles (OpenStreetMap)</option>
+                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
+                    <option value="grayscale">OpenStreetMap Grises</option>
+                    <option value="googleSat">Google Sat&eacute;lite</option>
+>>>>>>> Actualizacion usuarios y roles
                     <?php
 >>>>>>> Regreso a la version anterior
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
@@ -614,6 +678,7 @@
 
                 <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
                     <option value="ninguno">Seleccionar</option>
+<<<<<<< HEAD
                     <option value="osm">OSM</option>
                     <option value="streets">OSM Topo</option>
                     <option value="grayscale">OSM Grises</option>
@@ -621,6 +686,12 @@
 <<<<<<< HEAD
                     <?php 
 =======
+=======
+                    <option value="osm">Calles (OpenStreetMap)</option>
+                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
+                    <option value="grayscale">OpenStreetMap Grises</option>
+                    <option value="googleSat">Google Sat&eacute;lite</option>
+>>>>>>> Actualizacion usuarios y roles
                     <?php
 >>>>>>> Regreso a la version anterior
             		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
@@ -638,7 +709,7 @@
 >>>>>>> Regreso a la version anterior
                 </select>
             <div class="input-group-append">
-               
+
                <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon"src="img/swipe.png" alt=""></button>
                <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Desactivar swipe"><i class="icon-cross"></i></button>
             </div>
@@ -712,7 +783,7 @@
 
     var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
       minZoom: 1,
-      maxZoom: 22,
+      maxZoom: 25,
       attribution: osmAttrib
       });
 
@@ -727,7 +798,7 @@
     });
     
     var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
+    maxZoom: 25,
     subdomains:['mt0','mt1','mt2','mt3']
     });
 
@@ -1308,7 +1379,7 @@ map.on('mouseup', function (e) {
 //-------------fin Capas-------------  
 
             //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
-            L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
+           // L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
 
             //control para poliniea calculo de metrica de puntos
             var myControl= L.control.polylineMeasure ({position:'topright', unit:'metres', showBearings:true, clearMeasurementsOnStop: false, showClearControl: true, showUnitControl: false});
@@ -1342,7 +1413,7 @@ map.on('mouseup', function (e) {
                 map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
 
                 //Escala
-                L.control.scale().addTo(map);
+                //L.control.scale().addTo(map);
 
 
 //fin miguel
@@ -1488,8 +1559,10 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 
 >>>>>>> Regreso a la version anterior
                     activoSwipe=true;
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-light small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-light small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").style.color= "white";
                     document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
+                    document.getElementById("cambio-swipe").src="css/side/Recurso2_blanco.png";
                     //document.getElementById("SwipeOcultar").style.display="block";
                     //document.getElementById("swipeOption").style.display="block";
                     document.getElementById("contenedorSwipe").style.display="block";
@@ -1513,11 +1586,12 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                 }
                 else{
                     activoSwipe = false;//cambiando el valor de la variable
-                    document.getElementById("btnActivarSwipe2").className = "icon-images text-secondary small";//alterando las propiedades del span dentro del boton
+                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-secondary small";//alterando las propiedades del span dentro del boton
                     document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
                     //document.getElementById("SwipeOcultar").style.display="none";
                     //document.getElementById("swipeOption").style.display="none";
                     document.getElementById("contenedorSwipe").style.display="none";
+                    document.getElementById("cambio-swipe").src="css/side/Recurso1.png";
                     //document.getElementById("radio_csm").disabled = false;
                     //document.getElementById("radio_grises").disabled = false;
                     //document.getElementById("radio_calles").disabled = false;
@@ -1535,7 +1609,7 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
 >>>>>>> Correccion
 =======
 
-                    
+
 
 
 
@@ -1733,7 +1807,7 @@ function onMapClick(e) {
         var latitud = e.latlng.lat.toFixed(4);
         var longitud = e.latlng.lng.toFixed(4);
         var BBOX = map.getBounds()._southWest.lng+","+map.getBounds()._southWest.lat+","+map.getBounds()._northEast.lng+","+map.getBounds()._northEast.lat;
-        var WIDTH= map.getSize().x; 
+        var WIDTH= map.getSize().x;
         var HEIGHT = map.getSize().y;
 <<<<<<< HEAD
         var X = map.layerPointToContainerPoint(e.layerPoint).x;

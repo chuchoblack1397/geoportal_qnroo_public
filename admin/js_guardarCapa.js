@@ -98,6 +98,25 @@ btn_guardarCapa.onclick = function (e) {
             console.log('Campo consulta :' + campoConsulta);
         } //fin else
 
+        //var chkConsulta_ok=''
+        if (chkConsulta) {
+            console.log('Consulta :' + chkConsulta);
+            if (campoConsulta != '') {
+                campoConsultaClass.className = 'form-control is-valid';
+                console.log('Campo consulta :' + campoConsulta);
+            } //fin if
+            else {
+                console.error('FALTA Campo de consulta');
+                campoConsultaClass.className = 'form-control is-invalid';
+                return;
+            } //fin else
+        } //fin if
+        else {
+            console.log('Consulta :' + chkConsulta);
+            campoConsulta = '';
+            console.log('Campo consulta :' + campoConsulta);
+        } //fin else
+
         console.log('***');
 
         //---creando cadena de ruta de conexion
