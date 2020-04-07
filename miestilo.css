@@ -282,6 +282,39 @@ position: relative;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
   }
+
+
+  #SwipeOcultar{
+    
+  
+    
+    
+    }
+
+
+
+
+.icono-swipe { 
+   height: 24px;
+   width: 24px;
+}
+
+
+.swipe-icon {
+    height: 35px;
+    width: 35px;
+}
+.boton-swipe{
+
+    background-color: transparent;
+    border-radius:10px;
+outline:none;
+border:0;
+
+    
+    
+
+}
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
 

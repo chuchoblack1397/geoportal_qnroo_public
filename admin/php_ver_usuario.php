@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../conexion.php";
         $consultaUsuarioVER = "SELECT * FROM usuarios ORDER BY usuario ASC ";//consulta general
         $resultadoUsuarioVER = pg_query($conexion,$consultaUsuarioVER);
@@ -13,6 +14,7 @@ include "../conexion.php";
           $amUser=$filaUserVer['apellidomaternousuario'];
           $puestoUser=$filaUserVer['puesto'];
           $privilegioUser=$filaUserVer['privilegio'];
+  
 ?>
 <tr>
       <th scope="row">
@@ -21,7 +23,15 @@ include "../conexion.php";
             <label class="custom-control-label" for="<?php echo $usuario;?>"><?php echo $i;?></label>
           </div>
       </th>
+
+      <?php
+       if($_SESSION['rol_usuario_u'] =='true' ){
+         ?>
+
       <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario;?>','<?php echo $nombreUser;?>','<?php echo $apUser;?>','<?php echo $amUser;?>','<?php echo $puestoUser;?>','<?php echo $privilegioUser;?>')"><span class="icon-pencil2 text-info"></span></button></td>
+      <?php
+       }
+      ?>
       <td><?php echo $usuario;?></td>
       <td><?php echo $nombreUser;?></td>
       <td><?php echo $apUser;?></td>

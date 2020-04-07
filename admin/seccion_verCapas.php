@@ -1,16 +1,28 @@
-
+<?php
+include "../conexion.php";
+?>
 <input type="text" class="form-control" id="buscadorCapas" placeholder="Buscar capa">
 <br>
+<?php
+if($_SESSION['rol_capa_d'] =='true' ){
+  ?>
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar capa(s)</strong></button>
 </div>
+<?php
+}
+?>
 <div class="table-responsive">
 <form id="formid">
 <table class="table table-condensed">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+     <?php if($_SESSION['rol_capa_u'] =='true' ){
+       ?>
       <th scope="col"></th>
+    <?php
+     }?>
       <th scope="col">T&iacute;tulo</th>
       <th scope="col">URL</th>
       <th scope="col">Layer</th>
@@ -28,10 +40,16 @@
 </table>
 </form>
 </div>
+<?php
+if($_SESSION['rol_capa_d'] =='true' ){
+  ?>
+
 <div>
     <button type="button" class="btn btn-light botonEliminarCapas"  onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar capa(s)</strong></button>
 </div>
-
+<?php
+}
+?>
 <script>
 
 //$(document).ready(ajax_ver_capas());

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../conexion.php";
        $consultaPrivilegioVER = "SELECT * FROM cat_privilegios ORDER BY privilegio ASC ";//consulta general
         $resultadoPrivilegioVER = pg_query($conexion,$consultaPrivilegioVER);
@@ -41,7 +42,13 @@ include "../conexion.php";
             <label class="custom-control-label" for="btn_edit_<?php echo $privilegio?>"><?php echo $i; ?></label>
           </div>
       </th>
+      <?php
+if($_SESSION['rol_rol_d']=='true'){
+  ?>
       <td><button data-toggle="modal" data-target="#modalEditarPrivilegios" id="y" type="button" class="btn btn-light botonEditarCapas" ><span class="icon-pencil2 text-info"></span></button></td>
+      <?php
+}
+?>
       <td><?php echo $privilegio; ?></td>
       <td>
               <div class="accordion" id="acordionCaracteristicasPrivilegios">
