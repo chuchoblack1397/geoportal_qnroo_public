@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../conexion.php";
         $consultaCapasVER = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY idcapa ASC ";//consulta general
         $resultadoCapasVER = pg_query($conexion,$consultaCapasVER);
@@ -15,14 +16,22 @@ include "../conexion.php";
             <label class="custom-control-label" for="<?php echo $filaCapaVER['idcapa'];?>"><?php echo $i;?></label>
           </div>
       </th>
+      <?php
+       if($_SESSION['rol_capa_u']=='true') {
+                        ?>
       <td><button id="btn_<?php echo $filaCapaVER['idcapa'];?>" type="button" class="btn btn-light botonEditarCapas" onClick="editarCapa(this)"><span class="icon-pencil2 text-info"></span></button></td>
+      <?php
+      }
+      ?>
       <td><?php echo $filaCapaVER['titulocapa'];?></td>
       <td><?php echo $filaCapaVER['urlcapa'];?></td>
       <td><?php echo $filaCapaVER['layer'];?></td>
       <td><?php echo $filaCapaVER['estilo'];?></td>
       <td><?php echo $filaCapaVER['version'];?></td>
-      <td><?php echo $filaCapaVER['formato'];?></td>
       <td><?php echo $filaCapaVER['transparencia'];?></td>
+      <td><?php echo $filaCapaVER['formato'];?></td>
+      <td><?php echo $filaCapaVER['leyenda'];?></td>
+      <td><?php echo $filaCapaVER['campo_consulta'];?></td>
       <td><?php echo $filaCapaVER['zindex'];?></td>
 </tr>
 <?php
