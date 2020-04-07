@@ -79,7 +79,15 @@
  # muchas veces la conexion y dejamos todo dentro de un
  # ARREGLO el cual se reutiliza.
  */
-$consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
+
+if($privilegio == 'administrador'){
+    $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
+  
+}else{
+    $consultaCapas = "select capas.*, ordencapas.zindex from relacion_usuario_capas inner join capas on relacion_usuario_capas.idcapa = capas.idcapa and relacion_usuario_capas.usuario = '".$miUsuario."' inner join ordencapas on capas.idcapa = ordencapas.idcapa order by ordencapas.zindex desc";//consulta general
+}
+
+
 $resultadoCapas = pg_query($conexion,$consultaCapas);
 if(!$resultadoCapas) {
    echo 'Consulta de resultadoCapas Fallida';
@@ -173,8 +181,8 @@ if(!$resultadoCapas) {
         <span class="icon-cog"></span>
     </button>
     <?php
-        }//fin if privilegio
-    ?>
+}
+?>
     <!--fin btnAdmin-->
 <button id="btnCerrarMenu">
 <span class="icon-cross"></span>
@@ -327,7 +335,7 @@ if(!$resultadoCapas) {
                 <input id="campoBuscar" type="search" placeholder="Escribe tu filtro de ->" aria-describedby="button-addon5" class="form-control">
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
-                    <option selected value="ninguno">NINGUNO</option>
+                    <option selected value="ninguno">Seleccionar</option>
                     <?php 
                         foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
                             if($campo['activo_consulta']=='true'){
