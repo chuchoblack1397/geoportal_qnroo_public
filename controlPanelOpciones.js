@@ -99,11 +99,6 @@ var selector2 = document.getElementById('selectTipoS1');
 var boton1 = document.getElementById('botonSwipeA');
 var boton2 = document.getElementById('btn_borrar');
 
-var selector = document.getElementById('selectTipoS');
-var selector2 = document.getElementById('selectTipoS1');
-var boton1 = document.getElementById('botonSwipeA');
-var boton2 = document.getElementById('btn_borrar');
-
 window.onload = validaRadioButtonControl(); //al cargar la pagina va a validar el boton chekbox
 
 function validaRadioButtonControl() {
@@ -198,10 +193,6 @@ function RecogerDatos() {
         selector.disabled = true;
         selector2.disabled = true;
     }
-
-    console.log(activo);
-
-    console.log(activo);
 
     console.log(activo);
 }
