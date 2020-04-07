@@ -85,7 +85,6 @@
  */
 
 if($privilegio == 'administrador'){
-    echo 'que onda peggo';
     $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
   
 }else{
@@ -194,7 +193,6 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
         <span class="icon-cog"></span>
     </button>
     <?php
-
 }
 ?>
     <!--fin btnAdmin-->
@@ -322,8 +320,13 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
             <div class="input-group-append">
                 <select class="custom-select btn" id="selectTipo">
                     <option selected value="ninguno">Seleccionar</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+                    <?php 
+                        foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
+                            if($campo['activo_consulta']=='true'){
+                                $value_idcapa = $campo['idcapa'];
+                                $value_url = $campo['urlcapa'];
+                                $value_capa = $campo['layer'];
+                                $value_filtro=$campo['campo_consulta'];
             		?>
             		    <option value="<?php echo $value_idcapa."|".$value_url."|".$value_capa."|".$value_filtro;?>"><?php echo $campo['campo_consulta'].' --- '.$campo['titulocapa'];?></option>
             		<?php
