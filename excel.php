@@ -9,7 +9,7 @@ session_start();
 
 $base_url = "http://" . $_SERVER['SERVER_NAME'];
 var_dump($_SESSION['usuarioSession'], '</br>');
-if (!isset($_SESSION)) {
+if (!isset($_SESSION)) { //Validar si hay sesion activa
     header('Location: ' . $base_url);
 }
 
@@ -65,7 +65,7 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     }
 
     unlink($path . $file['name']); //Borra archivo xlsx despues de leer su contenido
-    unset($arrayData[0]); //Borra valores del primer array (Nombres de columnas)
+    unset($arrayData[0]); //Borra valores del primera posicion de array (Nombres de columnas)
 
     var_dump("Deleting file already readed", '</br>');
     var_dump(count($arrayData), '</br>');
