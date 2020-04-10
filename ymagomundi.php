@@ -85,7 +85,7 @@
  */
 
 if($privilegio == 'administrador'){
-    echo 'que onda peggo';
+    
     $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
   
 }else{
@@ -149,6 +149,9 @@ if(!$resultadoCapas) {
 
         <link rel="stylesheet" href="css/side/side.css">
 
+
+        
+
         <!--links editBar-->
         <link rel="stylesheet" href="css/leaflet-geoman.css" />
         <script src="js/leaflet-geoman.min.js"></script>
@@ -165,6 +168,9 @@ if(!$resultadoCapas) {
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.4.10/leaflet.draw.js'></script>
         <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
 
+        <!-- Buffer -->
+        <link rel="stylesheet" href="js/buffer/leaflet.buffer.css">
+        <script src="js/buffer/leaflet.buffer.min.js"></script>
 
 
           <!--links estilo leyendas wms-->
@@ -626,12 +632,18 @@ map.on('mouseup', function (e) {
 //-------capa de figuras y control de figuras-----------------
 var featureGroup = L.featureGroup();//.addTo(map); //crendo la capa de figuras
 
+
 var drawControl = new L.Control.Draw({ //creando el control de las figuras
   edit: {
     featureGroup: featureGroup,
     poly : {
                     allowIntersection : false
-    }
+    },
+    buffer: {
+        replacePolylines: false,
+        separateBuffer:false,
+        radiousOrMessage: false,
+    },
   },
   position: 'topright',
   draw: {
@@ -644,6 +656,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
     circle: false,
     marker: true
   },
+
+  
   metric: ['km', 'm']
 });
 //---MAS ABAJO ESTA EL METODO PARA EL AREA DE LAS FIGURAS ----------
