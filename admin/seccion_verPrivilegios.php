@@ -49,13 +49,15 @@ if($_SESSION['rol_rol_d']=='true'){
 
 //$(document).ready(ajax_ver_usuarios());
 window.onload = ajax_ver_privilegios();
-ajax_ver_privilegios();
 
     function ajax_ver_privilegios(){
         console.log('Dentro de AJAX ver Privilegios');
         $.ajax({
               url:'php_ver_privilegio.php',
               
+              beforeSend: function() {
+                document.getElementById("cuerpoTablaPrivilegio").innerHTML="<p>Cargando...</p>";
+              },
               success: function(res){
                 seccionVerPrivilegio=document.getElementById("cuerpoTablaPrivilegio");
                 seccionVerPrivilegio.innerHTML=res;

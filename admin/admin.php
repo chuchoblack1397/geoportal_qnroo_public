@@ -143,7 +143,13 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                       <?php
                       }
                       ?>
-
+                      <?php
+                      if($_SESSION['rol_capa_c']=='true') {
+                        ?>
+                      <a class="nav-link" id="opcion_asignarCapa" data-toggle="pill" href="#asignarCapa" role="tab" aria-controls="asignarCapa" aria-selected="false" onclick="ajax_asignar_capas();"><span class="icon-user-check mr-3"></span>Asignar Capas</a>
+                      <?php
+                      }
+                      ?>
                       <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
                     </div><!--fin div tab-content-->
                   </div><!--fin div col-3-->
@@ -159,6 +165,9 @@ if(isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio'])){
                       </div><!--fin div verCapas-->
                       <div id="ordenarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionOrdenarCapa">
                         <?php include 'seccion_ordenarCapas.php';?>
+                      </div><!--fin div verCapas-->
+                      <div id="asignarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionAsignarCapa">
+                        <?php include 'seccion_asignarCapas.php';?>
                       </div><!--fin div verCapas-->
                       <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                     </div><!--fin div tab-content-->
@@ -346,6 +355,7 @@ else{?>
     <script src="js_editarUsuario.js"></script><!--Archivo js para editar la capa en bd-->
     <script src="js_guardarPrivilegio.js"></script><!--Archivo js para editar la capa en bd-->
     <script src="js_eliminarPrivilegio.js"></script><!--Archivo js para eliminar la capa en bd-->
+    <script src="js_guardarAsignacionCapaUsuario.js"></script><!--Archivo js para eliminar la capa en bd-->
     
     </body>
     

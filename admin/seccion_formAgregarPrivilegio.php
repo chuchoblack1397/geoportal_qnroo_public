@@ -17,7 +17,7 @@
                                     <label class="font-italic font-weight-bold" for="">Usuarios</label>
 
                                     <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="chk_seleccionar_todo_usuarios" onclick="seleccionar_todo(this,'usuario')">
+                                      <input type="checkbox" class="custom-control-input" id="chk_seleccionar_todo_usuarios" onclick="seleccionar_todo(this,'usuarios')">
                                       <label class="custom-control-label font-italic mb-1" for="chk_seleccionar_todo_usuarios">Seleccionar todo</label>
                                     </div><!--fin checkbox seleccionar todo-->
 
@@ -131,25 +131,42 @@ function seleccionar_todo(idChk,dato){
 
   var chk_select = document.getElementById(idChk.id);
 
-  var chk_agregar = document.getElementById("chk_agregar_"+dato);
-  var chk_ver = document.getElementById("chk_ver_"+dato);
-  var chk_editar = document.getElementById("chk_editar_"+dato);
-  var chk_eliminar = document.getElementById("chk_eliminar_"+dato);
-
   if(chk_select.checked == true){
-    chk_agregar.checked = true;
-    chk_ver.checked = true;
-    chk_editar.checked = true;
-    chk_eliminar.checked = true;
-  }
+    $("input[type=checkbox][name='chk_"+dato+"']").prop("checked", true);
+  }//fin if
   else{
-    chk_agregar.checked = false;
-    chk_ver.checked = false;
-    chk_editar.checked = false;
-    chk_eliminar.checked = false;
-  }
+    $("input[type=checkbox][name='chk_"+dato+"']").prop("checked", false);
+  }//fin else
+}//fin funcion
 
+/*ESTE ES PARA SELECIONAR TODO DESDE UN CLICK
+$("#chk_seleccionar_todo_roles").click(function() {
+    $("input[type=checkbox][name='chk_roles']").prop("checked", $(this).prop("checked"));
+});*/
 
-}
+//FUNCIONES PARA DESHABILITAR EL CHECKBOX DE SELECCNAR TODO!S
+$("input[type=checkbox][name='chk_usuario']").click(function() {
+    if (!$(this).prop("checked")) {
+        $("#chk_seleccionar_todo_usuarios").prop("checked", false);
+    }
+});
+
+$("input[type=checkbox][name='chk_capas']").click(function() {
+    if (!$(this).prop("checked")) {
+        $("#chk_seleccionar_todo_capas").prop("checked", false);
+    }
+});
+
+$("input[type=checkbox][name='chk_mapasRef']").click(function() {
+    if (!$(this).prop("checked")) {
+        $("#chk_seleccionar_todo_mapasRef").prop("checked", false);
+    }
+});
+
+$("input[type=checkbox][name='chk_roles']").click(function() {
+    if (!$(this).prop("checked")) {
+        $("#chk_seleccionar_todo_roles").prop("checked", false);
+    }
+});
 
 </script>
