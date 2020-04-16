@@ -18,6 +18,7 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Nombre</th>
           <?php
           if ($_SESSION['rol_mapa_u'] == 'true') {
           ?>
@@ -25,14 +26,6 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
           <?php
           }
           ?>
-          <th scope="col">T&iacute;tulo</th>
-          <th scope="col">URL</th>
-          <th scope="col">Layer</th>
-          <th scope="col">Est&iacute;lo</th>
-          <th scope="col">Versi&oacute;n</th>
-          <th scope="col">Transparencia</th>
-          <th scope="col">Formato</th>
-          <th scope="col">zindex</th>
         </tr>
       </thead>
       <tbody id="cuerpoTablaVerProyectos">
@@ -50,34 +43,34 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
       }
 ?> -->
 <script>
-  //$(document).ready(ajax_ver_capas());
-  window.onload = ajax_ver_capas();
-  ajax_ver_capas();
+  // //$(document).ready(ajax_ver_capas());
+  // window.onload = ajax_ver_capas();
+  // ajax_ver_capas();
 
-  function ajax_ver_capas() {
-    console.log('Dentro de AJAX ver capas');
-    $.ajax({
-      url: 'php_ver_capas.php',
+  // function ajax_ver_capas() {
+  //   console.log('Dentro de AJAX ver capas');
+  //   $.ajax({
+  //     url: 'php_ver_capas.php',
 
-      success: function(res) {
-        seccionVer = document.getElementById("cuerpoTablaVerProyectos");
-        seccionVer.innerHTML = res;
-      },
-      error: function() {
-        alert("Error con el servidor");
-      }
-    });
-  }
+  //     success: function(res) {
+  //       seccionVer = document.getElementById("cuerpoTablaVerProyectos");
+  //       seccionVer.innerHTML = res;
+  //     },
+  //     error: function() {
+  //       alert("Error con el servidor");
+  //     }
+  //   });
+  // }
 
-  //funcion para el buscador
-  $(document).ready(function() {
-    $("#buscadorCapas").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#cuerpoTabla tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
+  // //funcion para el buscador
+  // $(document).ready(function() {
+  //   $("#buscadorCapas").on("keyup", function() {
+  //     var value = $(this).val().toLowerCase();
+  //     $("#cuerpoTabla tr").filter(function() {
+  //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  //     });
+  //   });
+  // });
   //fin funcion buscador
 
 
