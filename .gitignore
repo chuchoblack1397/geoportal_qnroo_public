@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 conexion.php
 
@@ -8,3 +9,7 @@ fragmentos/pgconnect.php
 /vendor
 
 .vscode/**
+=======
+/vendor
+conexion.php
+>>>>>>> Agregar a gitignore
