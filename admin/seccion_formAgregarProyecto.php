@@ -12,6 +12,8 @@ include "../conexion.php";
         </div>
     </div>
     <h6>Selecciona las capas que pertenecerán a este proyecto:</h6>
+    <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todas</button>
+    <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
     <div class="table-responsive">
         <div style="position: relative; height: 500px; overflow: auto; display: block;">
             <form id="formAsignarCapas">
@@ -19,7 +21,7 @@ include "../conexion.php";
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">T&iacute;tulo</th>
+                            <th scope="col">Título</th>
                             <th scope="col">Layer</th>
                             <th scope="col">Formato</th>
                             <th scope="col">Consulta</th>
@@ -31,9 +33,27 @@ include "../conexion.php";
                 </table>
             </form>
         </div>
-        <button type="Reset" class="btn btn-secondary">Limpiar selección de capas</button>
     </div>
-
+    <h6>Selecciona a los usuarios que tendrán acceso a este proyecto:</h6>
+    <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todos</button>
+    <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
+    <div class="table-responsive">
+        <div style="position: relative; height: 500px; overflow: auto; display: block;">
+            <form id="formAsignarUsuariosAProyecto">
+                <table class="table table-condensed table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nombre Usuario</th>
+                            <th scope="col">Nombre Completo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTablaAsignacionUsuarioProyecto">
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
     <div class="form-group row">
         <div class="col-sm-10">
             <button type="button" class="btn btn-primary" id="btn_guardarCapa">Crear proyecto</button>
