@@ -200,7 +200,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_mapa_r'] == 'true') {
                   ?>
-                    <a class="nav-link active" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="true" onclick="ajax_ver_mapas();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
+                    <a class="nav-link active" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="true" onclick="ajax_ver_proyectos();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
                   <?php
                   }
 

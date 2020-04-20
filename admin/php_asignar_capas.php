@@ -17,9 +17,6 @@ include "../conexion.php";
           </div>
       </th>
       <td><?php echo $filaCapaAsignar['titulocapa'];?></td>
-      <td><?php echo $filaCapaAsignar['layer'];?></td>
-      <td><?php echo $filaCapaAsignar['formato'];?></td>
-      <td><?php echo $filaCapaAsignar['campo_consulta'];?></td>
       <td><?php echo $filaCapaAsignar['zindex'];?></td>
 </tr>
 <?php
