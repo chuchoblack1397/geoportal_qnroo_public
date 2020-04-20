@@ -387,7 +387,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
     <!--Archivo js para editar la capa en bd-->
     <script src="js_eliminarPrivilegio.js"></script>
     <!--Archivo js para eliminar la capa en bd-->
-    <script src="js_guardarAsignacionCapaUsuario.js"></script>
+    <script src="js_guardarAsignacionCapaProyecto.js"></script>
     <!--Archivo js para eliminar la capa en bd-->
 
     </body>

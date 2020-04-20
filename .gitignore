@@ -4,3 +4,5 @@ conexion.php
 fragmentos/conexionPostgres.php
 
 fragmentos/pgconnect.php
+
+/vendor
