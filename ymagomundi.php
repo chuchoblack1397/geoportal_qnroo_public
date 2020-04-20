@@ -17,56 +17,56 @@
             $miUsuario = $_SESSION['usuarioSession'];
             $miContra = $_SESSION['usuarioPass'];
 
-            
-            //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
-            $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
-            $resultado = pg_query($conexion,$consulta);
-            if(!$resultado) {
-                echo 'Consulta de usuario Fallida';
-                exit();
-               } 
-               else {
-                  echo "<script>console.log('Consulta de usuario correcta');</script>";
-               }//fin if error resultado
+ //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+ $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
+ $resultado = pg_query($conexion,$consulta);
+ if(!$resultado) {
+     echo 'Consulta de usuario Fallida';
+     exit();
+    } 
+    else {
+       echo "<script>console.log('Consulta de usuario correcta');</script>";
+    }//fin if error resultado
 
-					if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-					    echo "<script>console.log('Se encontro Usuario');</script>";
-					    
-                        while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
-                        {//obteniendo el dato del privilegio
-					        echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                            $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
-					        $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-					        $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-					        
-					        $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
-					        
-					        $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-                            echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
-                            
-                            //asignacion de los roles a variables de session para mayor accesibilidad
-                            $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
-                            $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
-                            $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
-                            $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
+         if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
+             echo "<script>console.log('Se encontro Usuario');</script>";
+             
+             while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
+             {//obteniendo el dato del privilegio
+                 echo "<script>console.log('DENTRO DEL WHILE');</script>";
+                 $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
+                 $nombre = $datoUsuarioPrivilegio['nombreusuario'];
+                 $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
+                 
+                 $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
+                 
+                 $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
+                 echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
+                 
+                 //asignacion de los roles a variables de session para mayor accesibilidad
+                 $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
+                 $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
+                 $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
+                 $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
 
-                            $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
-                            $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
-                            $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
-                            $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
+                 $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
+                 $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
+                 $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
+                 $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
 
-                            $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
-                            $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
-                            $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
-                            $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
+                 $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
+                 $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
+                 $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
+                 $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
 
-                            $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
-                            $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
-                            $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
-                            $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
-					        
-					    }//fin while
+                 $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
+                 $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
+                 $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
+                 $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
+                 
+             }//fin while
+                   
                         
  
  //--ARREGLO PARA LOS DATOS DE LAS CAPAS
@@ -220,12 +220,13 @@ if(!$resultadoCapas) {
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
                         </div>
-                        <span class="text-secondary mr-1 ml-1">|</span>
-                        <div class="btn-group" role="group">
+                       <!--
+                        <div class="btn-group grupo1" role="group">
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
                         </div>
+                        -->
         </div><!--fin contenedorBotonesAcciones-->
         
     <hr><!--linea-->

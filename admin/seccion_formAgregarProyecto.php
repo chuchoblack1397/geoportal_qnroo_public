@@ -11,52 +11,57 @@ include "../conexion.php";
             <input type="text" class="form-control" id="nombreProyecto" placeholder="Nombre del proyecto" required>
         </div>
     </div>
-    <h6>Selecciona las capas que pertenecerán a este proyecto:</h6>
-    <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todas</button>
-    <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
-    <div class="table-responsive">
-        <div style="position: relative; height: 500px; overflow: auto; display: block;">
-            <form id="formAsignarCapas">
-                <table class="table table-condensed table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Layer</th>
-                            <th scope="col">Formato</th>
-                            <th scope="col">Consulta</th>
-                            <th scope="col">zindex</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTablaAsignacionProyecto">
-                    </tbody>
-                </table>
-            </form>
-        </div>
-    </div>
-    <h6>Selecciona a los usuarios que tendrán acceso a este proyecto:</h6>
-    <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todos</button>
-    <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
-    <div class="table-responsive">
-        <div style="position: relative; height: 500px; overflow: auto; display: block;">
-            <form id="formAsignarUsuariosAProyecto">
-                <table class="table table-condensed table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Nombre Usuario</th>
-                            <th scope="col">Nombre Completo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cuerpoTablaAsignacionUsuarioProyecto">
-                    </tbody>
-                </table>
-            </form>
-        </div>
-    </div>
+    
     <div class="form-group row">
+        <div class="col mr-1">
+            <h6>Selecciona las capas que pertenecerán a este proyecto:</h6>
+                <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todas</button>
+                <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
+                <div class="table-responsive">
+                    <div style="position: relative; height: 450px; overflow: auto; display: block;">
+                        <form id="formAsignarCapas">
+                            <table class="table table-condensed table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Título</th>
+                                        <th scope="col">zindex</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpoTablaAsignacionProyecto">
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+        </div><!--fin col-->
+        <div class="col ml-1">
+            <h6>Selecciona a los usuarios que tendrán acceso a este proyecto:</h6>
+                <button type="Reset" class="btn btn-secondary mb-2">Seleccionar todos</button>
+                <button type="" class="btn btn-secondary mb-2">Limpiar selección</button>
+                <div class="table-responsive">
+                    <div style="position: relative; height: 450px; overflow: auto; display: block;">
+                        <form id="formAsignarUsuariosAProyecto">
+                            <table class="table table-condensed table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre Usuario</th>
+                                        <th scope="col">Nombre Completo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpoTablaAsignacionUsuarioProyecto">
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+        </div><!--fin col-->
+    </div><!--fin row-->
+
+<div class="form-group row">
         <div class="col-sm-10">
-            <button type="button" class="btn btn-primary" id="btn_guardarProyecto">Crear proyecto</button>
+            <button type="button" class="btn btn-success" id="btn_guardarCapa"><span class="icon-checkmark mr-2"></span>Crear proyecto</button>
         </div>
     </div>
 </form>
@@ -77,6 +82,20 @@ include "../conexion.php";
             error: function() {
                 alert("Error con el servidor");
             }
+        });
+
+        $.ajax({
+              url:'php_asignar_capas_usuarios.php',
+              beforeSend:function(){
+                document.getElementById("cuerpoTablaAsignacionUsuarioProyecto").innerHTML="<option selected value=''>Cargando...</option>";
+              },
+              success: function(res){
+                seccionVer=document.getElementById("cuerpoTablaAsignacionUsuarioProyecto");
+                seccionVer.innerHTML=res;
+            },
+            error: function(){
+              alert( "Error con el servidor" );
+          } 
         });
     }
 

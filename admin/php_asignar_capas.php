@@ -28,14 +28,13 @@ if (isset($_POST['capa'])) {
       <th scope="row" colspan="2">
         <p>Todos los proyectos ya tienen asignada la capa seleccionada...</p>
       </th>
-    </tr>
-  <?php
-  }
-} else {
-  $consultaCapasAsignar = "SELECT * FROM proyectos ORDER BY 2 ASC"; //consulta general
-  $resultadoCapasAsignar = pg_query($conexion, $consultaCapasAsignar);
-
-  $i = 1;
+      <td><?php echo $filaCapaAsignar['titulocapa'];?></td>
+      <td><?php echo $filaCapaAsignar['zindex'];?></td>
+</tr>
+<?php
+    $i=$i+1;
+    }//fin while
+?>
 
   while ($filaCapaAsignar = pg_fetch_assoc($resultadoCapasAsignar)) { //obteniendo capas de BD
   ?>
