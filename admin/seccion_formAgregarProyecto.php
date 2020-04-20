@@ -56,7 +56,7 @@ include "../conexion.php";
     </div>
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="button" class="btn btn-primary" id="btn_guardarCapa">Crear proyecto</button>
+            <button type="button" class="btn btn-primary" id="btn_guardarProyecto">Crear proyecto</button>
         </div>
     </div>
 </form>
@@ -94,7 +94,7 @@ include "../conexion.php";
 
     // //funcion limpiar el formulario
     // function limpiarFormulario() {
-    //   listAsignarUsuario
+    //   listAsignarCapa
     //   document.getElementById("formAsignarCapas").reset();
     //   document.getElementById("formAsignarTodasCapas").reset();
     //   document.getElementById("formAsignarUsuario").reset();
@@ -102,12 +102,106 @@ include "../conexion.php";
 
     // //funnciones para habilitar y deshabilitar checkbox
     // $("#chk_vistaTotalAsignada").click(function() {
-    //   $("input[type=checkbox][name='inputAsignarCapas[]']").prop("checked", $(this).prop("checked"));
+    //   $("input[type=checkbox][name='inputAsignarProyectos[]']").prop("checked", $(this).prop("checked"));
 
-    //   $("input[type=checkbox][name='inputAsignarCapas[]']").click(function() {
+    //   $("input[type=checkbox][name='inputAsignarProyectos[]']").click(function() {
     //     if (!$(this).prop("checked")) {
     //       $("#chk_vistaTotalAsignada").prop("checked", false);
     //     }
     //   });
     // });
+
+    //
+    $(document).ready(function() {
+        //console.log('documento listo')
+        //asignarCapasUsuarios_proyecto();
+    });
+
+    //funcion para asignar capas seleccionadas
+    function asignarCapasUsuarios_proyecto() {
+        var capasAsiganadas, usuariosAsiganados;
+        $("#btn_guardarProyecto").click(function() {
+            capasAsiganadas = new Array();
+            usuariosAsiganados = new Array();
+            //get capas seleccionadas
+            console.log($("#cuerpoTablaAsignacionProyecto tr"));
+
+            $("#cuerpoTablaAsignacionProyecto tr").each(function(index, value) {
+                let capasCheckbox = $(this).find("input[type=checkbox][name='inputAsignarProyectos[]']");
+                let idcapa = '';
+                if (!capasCheckbox.is(":checked"))
+                    return;
+                else {
+                    idcapa = $(this).find("input[type=checkbox][name='inputAsignarProyectos[]']").val();
+                    console.log(idcapa);
+                    capasAsiganadas.push(
+                        idcapa
+                    );
+                }
+            });
+            //send to php and save to db
+            if (capasAsiganadas.length > 0) {
+                console.log(capasAsiganadas);
+
+                /* $.ajax({
+                    url: 'php_asignar_capas.php',
+                    beforeSend: function() {
+                        document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Cargando...</p>";
+                    },
+                    success: function(res) {
+                        seccionVer = document.getElementById("cuerpoTablaAsignacion");
+                        seccionVer.innerHTML = res;
+                    },
+                    error: function() {
+                        alert("Error con el servidor");
+                    }
+                }); */
+            } else {
+                console.log("No se ha seleccionado alguna capa");
+            }
+        });
+        //get usuarios seleccionados
+        console.log($("#cuerpoTablaAsignacionProyecto tr"));
+        $("#cuerpoTablaAsignacionProyecto tr").each(function(index, value) {
+            let dataArray = [];
+            if (!$(this).find("input[type=checkbox][name='inputAsignarProyectos[]']").is(":checked"))
+                return;
+            $(this).find('td').each(function(index2, td) {
+                //console.log("Index: " + index + " Data: " + $(td).text());
+                if (index2 == 0) dataArray["titulocapa"] = $(td).text();
+                if (index2 == 1) dataArray["layer"] = $(td).text();
+                if (index2 == 2) dataArray["formato"] = $(td).text();
+                if (index2 == 3) dataArray["campo_consulta"] = $(td).text();
+                if (index2 == 4) dataArray["zindex"] = $(td).text();
+                if (index2 == 5) dataArray["titulocapa"] = $(td).text();
+            });
+            usuariosAsiganados.push(
+                dataArray
+            );
+            //console.log(dataArray);
+        });
+        //send to php and save to db
+        if (usuariosAsiganados.length > 0) {
+            console.log(usuariosAsiganados);
+
+            /* $.ajax({
+                url: 'php_asignar_capas.php',
+                beforeSend: function() {
+                    document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Cargando...</p>";
+                },
+                success: function(res) {
+                    seccionVer = document.getElementById("cuerpoTablaAsignacion");
+                    seccionVer.innerHTML = res;
+                },
+                error: function() {
+                    alert("Error con el servidor");
+                }
+            }); */
+        } else {
+            console.log("No se ha seleccionado alguna capa");
+        }
+
+    };
+
+    let base_url = "<?= "http://" . $_SERVER['SERVER_NAME']; ?>";
 </script>

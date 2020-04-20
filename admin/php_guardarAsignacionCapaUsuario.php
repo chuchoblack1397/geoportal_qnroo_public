@@ -1,8 +1,53 @@
 <?php
 include "../conexion.php";
-echo "<script>console.log('PHP guardar asignacion capa y usuario');</script>";
+echo "<script>console.log('PHP guardar asignacion capa a proyecto');</script>";
+if (isset($_POST['data'])) {
+    $data = json_decode($_POST['data']);
+    $num_proyectos = count($data->proyectos);
+    $proyectos = $data->proyectos;
+    echo "<script>console.log('Datos obtenidos: $num_proyectos');</script>";
+    $select_query = "SELECT Id_proyecto FROM relacion_proyectos_capas WHERE Idcapa = '$data->capa'";
+    $insert_query = pg_prepare($conexion, "insert_query", "INSERT INTO relacion_proyectos_capas VALUES ($1, $2)");
+    $result = pg_query($conexion, $select_query);
+    if ($result) {
+        $proyectos_capas = pg_fetch_all($result, PGSQL_ASSOC);
+        if ($proyectos_capas) {
+            foreach ($proyectos_capas as $key => $value) {
+                foreach ($proyectos as $key2 => $value2) {
+                    if ($value['id_proyecto'] == $value2) {
+                        unset($proyectos[$key2]);
+                        break;
+                    }
+                }
+            }
+        }
+        if ($proyectos) {
+            foreach ($proyectos as $uuid) {
+                $insert_query = pg_execute($conexion, "insert_query", array($uuid, $data->capa));
+            }
 
-$usuario = $_POST['usuario'];
+            $print = json_encode($proyectos);
+            echo "<script>console.log('Se agregaron:');</script>";
+            echo "<script>console.table($print);</script>";
+        } else {
+            echo "<script>console.log('Los proyectos elegidos ya tienen la capa seleccionada');</script>";
+        }
+    } else {
+        echo "<script>console.log('No existen proyectos con capa seleccionada');</script>";
+    }
+} else {
+    echo "<script>console.log('No se ha obtenido ningun dato');</script>";
+}
+
+
+
+//bb6d8f96-1937-4308-a72f-2cb9e5b6254d capa_Denue_2019_Inegi
+
+
+
+
+
+/* $usuario = $_POST['usuario'];
 $vista_total = $_POST['vista_total'];
 
 if($vista_total == 'false'){
@@ -12,7 +57,7 @@ if($vista_total == 'false'){
         foreach ($checksCapas as $key ) {
             echo "<script>console.log('".$key."');</script>";
         }
-}
+} */
 
 
 
@@ -94,4 +139,3 @@ else{
 
 //mysqli_close($conexion);//cerrando conexion
 */
-?>
