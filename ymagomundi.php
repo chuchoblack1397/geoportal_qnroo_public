@@ -37,7 +37,7 @@
                  $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
                  $nombre = $datoUsuarioPrivilegio['nombreusuario'];
                  $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-                 $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+                 $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
                  
                  $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
                  
@@ -232,12 +232,13 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                               <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                               <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
                         </div>
-                       
+                       <!--
                         <div class="btn-group grupo1" role="group">
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
                               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
                         </div>
+                        -->
         </div><!--fin contenedorBotonesAcciones-->
 
     <hr><!--linea-->

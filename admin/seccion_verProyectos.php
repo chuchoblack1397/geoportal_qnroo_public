@@ -9,6 +9,9 @@ include "../conexion.php";
 <?php
 if ($_SESSION['rol_mapa_d'] == 'true') {
 ?>
+<div>
+    <button type="button" class="btn btn-light botonEliminarCapas mb-2" onclick="eliminarProyecto()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar proyecto(s)</strong></button>
+</div>
 <?php
 }
 ?>
@@ -33,34 +36,38 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
     </table>
   </form>
 </div>
-<!-- <?php
+ <?php
       if ($_SESSION['rol_mapa_d'] == 'true') {
       ?>
   <div>
-    <button type="button" class="btn btn-light botonEliminarCapas" onclick="eliminarCapa()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar</strong></button>
+    <button type="button" class="btn btn-light botonEliminarCapas" onclick="eliminarProyecto()"><span class="icon-bin text-danger mr-2"></span><strong>Eliminar proyecto(s)</strong></button>
   </div>
 <?php
       }
-?> -->
+?>
 <script>
   // //$(document).ready(ajax_ver_capas());
   // window.onload = ajax_ver_capas();
   // ajax_ver_capas();
 
-  // function ajax_ver_capas() {
-  //   console.log('Dentro de AJAX ver capas');
-  //   $.ajax({
-  //     url: 'php_ver_capas.php',
+  function ajax_ver_proyectos() {
+     console.log('Dentro de AJAX ver proyectos');
 
-  //     success: function(res) {
-  //       seccionVer = document.getElementById("cuerpoTablaVerProyectos");
-  //       seccionVer.innerHTML = res;
-  //     },
-  //     error: function() {
-  //       alert("Error con el servidor");
-  //     }
-  //   });
-  // }
+     $.ajax({
+              url:'php_ver_proyectos.php',
+              beforeSend:function(){
+                document.getElementById("cuerpoTablaVerProyectos").innerHTML="<option selected value=''>Cargando...</option>";
+              },
+              success: function(res){
+                seccionVer=document.getElementById("cuerpoTablaVerProyectos");
+                seccionVer.innerHTML=res;
+            },
+            error: function(){
+              alert( "Error con el servidor" );
+          } 
+        });
+
+   }
 
   // //funcion para el buscador
   // $(document).ready(function() {
