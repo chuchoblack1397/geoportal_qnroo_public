@@ -66,7 +66,7 @@ include "../conexion.php";
     });
 
     $.ajax({
-      url: 'php_asignar_capas.php',
+      url: 'php_ver_capa_proyectos.php',
       beforeSend: function() {
         document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Cargando...</p>";
       },
@@ -124,7 +124,7 @@ include "../conexion.php";
   function checkProyectos() {
     let capaSelect = $("#listAsignarCapa").val();
     $.ajax({
-      url: 'php_asignar_capas.php',
+      url: 'php_asignar_proyectos.php',
       type: 'POST',
       data: {
         capa: capaSelect
