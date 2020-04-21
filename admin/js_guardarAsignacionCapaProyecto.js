@@ -18,11 +18,11 @@ $(document).ready(function () {
         //Creamos un array que almacenará los valores de los input "checked"
         var proyectos = [];
         //Recorremos todos los input checkbox con name = Colores y que se encuentren "checked"
-        $("input[name='inputAsignarProyectos[]']:checked").each(function (
-            index
-        ) {
-            proyectos.push($(this).val());
-        });
+        $('#cuerpoTablaAsignacionProyecto')
+            .find("input[name='inputAsignarProyectos[]']:checked")
+            .each(function (index) {
+                proyectos.push($(this).val());
+            });
 
         if (capa == '') {
             alert('Debe seleccionar un usuario');
@@ -38,7 +38,7 @@ $(document).ready(function () {
                 proyectos,
             };
             data = JSON.stringify(jsonData);
-            console.table(proyectos);
+            //console.table(proyectos);
             //enviando los datos optenidos
             enviarDatosGuardar_asignacion(data);
         }
