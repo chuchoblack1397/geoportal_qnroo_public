@@ -30,7 +30,7 @@ function guardarProyecto($nombre, $conexion, $capas, $usuarios)
         }
         $values['usuarios'] = substr($values['usuarios'], 0, -1); //Quitar ultima coma de String
         if ($values) {
-            $query_insert_usuarios = pg_query($conexion, "INSERT INTO relacion_proyectos_usuarios (id_proyecto, usuario) VALUES " . $values['usuarios']);
+            $query_insert_usuarios = pg_query($conexion, "INSERT INTO relacion_proyecto_usuarios (id_proyecto, usuario) VALUES " . $values['usuarios']);
         }
         //Asignar capas
         foreach ($capas as $key => $value) {
@@ -38,7 +38,7 @@ function guardarProyecto($nombre, $conexion, $capas, $usuarios)
         }
         $values['capas'] = substr($values['capas'], 0, -1); //Quitar ultima coma de String
         if ($values) {
-            $query_insert_usuarios = pg_query($conexion, "INSERT INTO relacion_proyectos_capas (id_proyecto, idcapa, zindex) VALUES " . $values['capas']);
+            $query_insert_usuarios = pg_query($conexion, "INSERT INTO relacion_proyecto_capas (id_proyecto, idcapa, zindex) VALUES " . $values['capas']);
         }
 
         return true;
