@@ -16,12 +16,11 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
 }
 ?>
 <div class="table-responsive">
-  <form id="formid">
+  <form id="formid_proyectos">
     <table class="table table-condensed table-striped">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nombre</th>
           <?php
           if ($_SESSION['rol_mapa_u'] == 'true') {
           ?>
@@ -29,6 +28,10 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
           <?php
           }
           ?>
+          <th scope="col">ID proyecto</th>
+          <th scope="col">Nombre de proyecto</th>
+          <th scope="col">Usuarios asignados</th>
+          <th scope="col">Capas asignadas</th>
         </tr>
       </thead>
       <tbody id="cuerpoTablaVerProyectos">
