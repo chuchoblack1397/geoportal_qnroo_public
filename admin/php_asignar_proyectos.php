@@ -4,7 +4,7 @@ include "../conexion.php";
 if (isset($_POST['capa'])) {
   $capa = $_POST['capa'];
   //consulta general
-  $consultaProyectosCapas = 'SELECT * FROM proyectos WHERE "Id" NOT IN (SELECT id_proyecto FROM relacion_proyectos_capas WHERE idcapa = ' . "'$capa'" . ') ORDER BY 2 ASC';
+  $consultaProyectosCapas = 'SELECT * FROM proyectos WHERE "id_proyecto" NOT IN (SELECT id_proyecto FROM relacion_proyecto_capas WHERE idcapa = ' . "'$capa'" . ') ORDER BY 2 ASC';
   $result = pg_query($conexion, $consultaProyectosCapas);
   $filas = pg_num_rows($result);
   $i = 1;
@@ -14,11 +14,11 @@ if (isset($_POST['capa'])) {
       <tr>
         <th scope="row">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="asignar_<?php echo $proyectos['Id']; ?>" name="inputAsignarProyectos[]" value="<?php echo $proyectos['Id']; ?>">
-            <label class="custom-control-label" for="asignar_<?php echo $proyectos['Id']; ?>"><?php echo $i; ?></label>
+            <input type="checkbox" class="custom-control-input" id_proyecto="asignar_<?php echo $proyectos['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $proyectos['id_proyecto']; ?>">
+            <label class="custom-control-label" for="asignar_<?php echo $proyectos['id_proyecto']; ?>"><?php echo $i; ?></label>
           </div>
         </th>
-        <td><?php echo $proyectos['Nombre']; ?></td>
+        <td><?php echo $proyectos['nombre_proyecto']; ?></td>
       </tr>
     <?php
       $i = $i + 1;
@@ -42,11 +42,11 @@ if (isset($_POST['capa'])) {
     <tr>
       <th scope="row">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="asignar_<?php echo $filaCapaAsignar['Id']; ?>" name="inputAsignarProyectos[]" value="<?php echo $filaCapaAsignar['Id']; ?>">
-          <label class="custom-control-label" for="asignar_<?php echo $filaCapaAsignar['Id']; ?>"><?php echo $i; ?></label>
+          <input type="checkbox" class="custom-control-input" id_proyecto="asignar_<?php echo $filaCapaAsignar['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $filaCapaAsignar['id_proyecto']; ?>">
+          <label class="custom-control-label" for="asignar_<?php echo $filaCapaAsignar['id_proyecto']; ?>"><?php echo $i; ?></label>
         </div>
       </th>
-      <td><?php echo $filaCapaAsignar['Nombre']; ?></td>
+      <td><?php echo $filaCapaAsignar['nombre_proyecto']; ?></td>
     </tr>
 <?php
     $i = $i + 1;
