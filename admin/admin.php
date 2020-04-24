@@ -198,17 +198,17 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
               <div class="col-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                   <?php
-                  if ($_SESSION['rol_mapa_r'] == 'true') {
+                  if ($_SESSION['rol_mapa_c'] == 'true') {
                   ?>
-                    <a class="nav-link active" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="true" onclick="ajax_ver_proyectos();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
+                     <a class="nav-link active" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="true"><span class="icon-plus mr-3"></span>Crear proyecto</a>
                   <?php
                   }
 
                   ?>
                   <?php
-                  if ($_SESSION['rol_mapa_c'] == 'true') {
+                  if ($_SESSION['rol_mapa_r'] == 'true') {
                   ?>
-                    <a class="nav-link" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="false"><span class="icon-plus mr-3"></span>Crear proyecto</a>
+                  <a class="nav-link" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="false" onclick="ajax_ver_proyectos();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
 
                   <?php
                   }
@@ -221,14 +221,14 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
               <!--fin div col-3-->
               <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                  <div id="agregarProyecto" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcion_agregarProyecto">
+                  <div id="agregarProyecto" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcion_agregarProyecto">
                     <?php
                     if ($_SESSION['rol_mapa_c'] == 'true') {
                       include 'seccion_formAgregarProyecto.php';
                     } ?>
                   </div>
                   <!--fin div opcionAgregarCapa-->
-                  <div id="verProyecto" class="tab-pane fade show active ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerProyectos">
+                  <div id="verProyecto" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionVerProyectos">
                     <?php include 'seccion_verProyectos.php'; ?>
                   </div>
                   <!--fin div verCapas-->
@@ -389,6 +389,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
     <!--Archivo js para eliminar la capa en bd-->
     <script src="js_guardarAsignacionCapaProyecto.js"></script>
     <!--Archivo js para eliminar la capa en bd-->
+    <script src="js_eliminarProyecto.js"></script>
 
     </body>
 
