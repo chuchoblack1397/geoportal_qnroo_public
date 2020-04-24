@@ -48,7 +48,7 @@ $(document).ready(function () {
 function enviarDatosGuardar_asignacion(data) {
     console.log('Dentro de AJAX Asignacion de capas');
     $.ajax({
-        url: 'php_guardarAsignacionCapaProyecto.php',
+        url: 'php_guardarAsignacionCapaProyectos.php',
         type: 'POST',
         data: { data: data },
         success: function (res) {
