@@ -14,7 +14,7 @@ if (isset($_POST['capa'])) {
             <tr>
                 <th scope="row">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id_proyecto="asignar_<?php echo $proyectos['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $proyectos['id_proyecto']; ?>">
+                        <input type="checkbox" class="custom-control-input" id="asignar_<?php echo $proyectos['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $proyectos['id_proyecto']; ?>">
                         <label class="custom-control-label" for="asignar_<?php echo $proyectos['id_proyecto']; ?>"><?php echo $i; ?></label>
                     </div>
                 </th>
@@ -42,7 +42,7 @@ if (isset($_POST['capa'])) {
         <tr>
             <th scope="row">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id_proyecto="asignar_<?php echo $filaCapaAsignar['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $filaCapaAsignar['id_proyecto']; ?>">
+                    <input type="checkbox" class="custom-control-input" id="asignar_<?php echo $filaCapaAsignar['id_proyecto']; ?>" name="inputAsignarProyectos[]" value="<?php echo $filaCapaAsignar['id_proyecto']; ?>">
                     <label class="custom-control-label" for="asignar_<?php echo $filaCapaAsignar['id_proyecto']; ?>"><?php echo $i; ?></label>
                 </div>
             </th>

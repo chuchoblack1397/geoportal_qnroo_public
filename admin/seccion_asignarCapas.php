@@ -1,24 +1,24 @@
 <?php
 include "../conexion.php";
 ?>
-<form id="formAsignarUsuario">
+<form id="formAsignarCapa">
   <div class="form-group row">
-    <label for="listAsignarCapa" class="col-sm-2 col-form-label">Asignar a</label>
-    <div class="col-sm-10" id="contenidoUsuariosAsignar">
+    <label for="listAsignarCapa" class="col-sm-2 col-form-label">Asignar capa</label>
+    <div class="col-sm-10" id="contenidoCapasAsignar">
       <select class="custom-select" id="listAsignarCapa">
       </select>
     </div>
   </div>
 </form>
 
-<input type="text" class="form-control" id="buscadorAsignarCapas" placeholder="Buscar capa">
+<input type="text" class="form-control" id="buscadorAsignarCapas" placeholder="Buscar proyecto">
 <br>
 
 <form id="formAsignarTodasCapas">
   <div class="custom-control custom-checkbox ml-1">
     <input type="checkbox" class="custom-control-input" id="chk_vistaTotalAsignada">
     <label class="custom-control-label font-weight-bold" for="chk_vistaTotalAsignada">Vista Total</label>
-    <span id="info_capaCapa" class="text-info ml-2">(Tendrá acceso a ver todas las capas actuales y futuras).</span>
+    <!-- <span id="info_capaCapa" class="text-info ml-2">(Tendrá acceso a ver todas las capas actuales y futuras).</span> -->
   </div>
 </form>
 
@@ -32,7 +32,7 @@ include "../conexion.php";
             <th scope="col">Nombre</th>
           </tr>
         </thead>
-        <tbody id="cuerpoTablaAsignacion">
+        <tbody id="cuerpoTablaAsignacionProyecto">
         </tbody>
       </table>
     </form>
@@ -68,10 +68,10 @@ include "../conexion.php";
     $.ajax({
       url: 'php_ver_capa_proyectos.php',
       beforeSend: function() {
-        document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Cargando...</p>";
+        document.getElementById("cuerpoTablaAsignacionProyecto").innerHTML = "<p>Cargando...</p>";
       },
       success: function(res) {
-        seccionVer = document.getElementById("cuerpoTablaAsignacion");
+        seccionVer = document.getElementById("cuerpoTablaAsignacionProyecto");
         seccionVer.innerHTML = res;
       },
       error: function() {
@@ -84,7 +84,7 @@ include "../conexion.php";
   $(document).ready(function() {
     $("#buscadorAsignarCapas").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      $("#cuerpoTablaAsignacion tr").filter(function() {
+      $("#cuerpoTablaAsignacionProyecto tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
@@ -99,7 +99,7 @@ include "../conexion.php";
     listAsignarCapa
     document.getElementById("formAsignarCapas").reset();
     document.getElementById("formAsignarTodasCapas").reset();
-    document.getElementById("formAsignarUsuario").reset();
+    document.getElementById("formAsignarCapa").reset();
   }
 
   //funnciones para habilitar y deshabilitar checkbox
@@ -124,21 +124,20 @@ include "../conexion.php";
   function checkProyectos() {
     let capaSelect = $("#listAsignarCapa").val();
     $.ajax({
-      url: 'php_asignar_proyectos.php',
+      url: 'php_ver_capa_proyectos.php',
       type: 'POST',
       data: {
         capa: capaSelect
       },
       beforeSend: function() {
-        document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Cargando...</p>";
+        document.getElementById("cuerpoTablaAsignacionProyecto").innerHTML = "<p>Cargando...</p>";
       },
       success: function(proyectos) {
-        console.log(proyectos);
         if (proyectos) {
-          seccionVer = document.getElementById("cuerpoTablaAsignacion");
+          seccionVer = document.getElementById("cuerpoTablaAsignacionProyecto");
           seccionVer.innerHTML = proyectos;
         } else {
-          document.getElementById("cuerpoTablaAsignacion").innerHTML = "<p>Todos los proyectos ya tienen asignada la capa " + capaSelect + " ...</p>";
+          document.getElementById("cuerpoTablaAsignacionProyecto").innerHTML = "<p>Todos los proyectos ya tienen asignada la capa " + capaSelect + " ...</p>";
         }
 
       },
