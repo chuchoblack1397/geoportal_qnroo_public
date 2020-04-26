@@ -10,7 +10,7 @@ $credentials = "user = postgres password = Miguel290497*";
 
 $conexion = pg_connect("$host $port $dbname $credentials");
 if (!$conexion) {
-	echo 'Conexion Fallida : ', pg_connect_error();
+	echo 'Conexion Fallida : ', pg_last_error();
 	exit();
 } else {
 	echo "<script>console.log('Abriendo conexion');</script>";
