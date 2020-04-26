@@ -55,16 +55,10 @@ include "../conexion.php";
       </div>
       <div class="modal-body" id="cuerpoModalEditarUsuario">
       </div>
-    </th>
-    <td><button id="btn_<?php echo $filaUserVer['usuario']; ?>" type="button" class="btn btn-light botonEditarCapas" onClick="editarCapa(this)"><span class="icon-pencil2 text-info"></span></button></td>
-    <td><?php echo $filaUserVer['usuario']; ?></td>
-    <td><?php echo $filaUserVer['nombreusuario']; ?></td>
-    <td><?php echo $filaUserVer['apellidopaternousuario']; ?></td>
-    <td><?php echo $filaUserVer['apellidomaternousuario']; ?></td>
-    <td><?php echo $filaUserVer['puesto']; ?></td>
-    <td><?php echo $filaUserVer['privilegio']; ?></td>
-  </tr>
-<?php
-  $i = $i + 1;
-} //fin while
-?>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onClick="editarUsuario()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
