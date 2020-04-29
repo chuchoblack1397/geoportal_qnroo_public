@@ -25,12 +25,12 @@ $(document).ready(function () {
             });
 
         if (capa == '') {
-            alert('Debe seleccionar un usuario');
+            alert('Debe seleccionar una capa');
             return;
         }
 
         if (proyectos.length == 0) {
-            alert('Debe seleccionar al menos una capa');
+            alert('Debe seleccionar al menos un proyecto');
             return;
         } else {
             let jsonData = {
@@ -48,7 +48,7 @@ $(document).ready(function () {
 function enviarDatosGuardar_asignacion(data) {
     console.log('Dentro de AJAX Asignacion de capas');
     $.ajax({
-        url: 'php_guardarAsignacionCapaUsuario.php',
+        url: 'php_guardarAsignacionCapaProyectos.php',
         type: 'POST',
         data: { data: data },
         success: function (res) {

@@ -6,8 +6,8 @@ if (isset($_POST['data'])) {
     $num_proyectos = count($data->proyectos);
     $proyectos = $data->proyectos;
     echo "<script>console.log('Datos obtenidos: $num_proyectos');</script>";
-    $select_query = "SELECT Id_proyecto FROM relacion_proyectos_capas WHERE Idcapa = '$data->capa'";
-    $insert_query = pg_prepare($conexion, "insert_query", "INSERT INTO relacion_proyectos_capas VALUES ($1, $2)");
+    $select_query = "SELECT Id_proyecto FROM relacion_proyecto_capas WHERE Idcapa = '$data->capa'";
+    $insert_query = pg_prepare($conexion, "insert_query", "INSERT INTO relacion_proyecto_capas VALUES ($1, $2)");
     $result = pg_query($conexion, $select_query);
     if ($result) {
         $proyectos_capas = pg_fetch_all($result, PGSQL_ASSOC);

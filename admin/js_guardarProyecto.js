@@ -61,21 +61,45 @@ function enviarDatosGuardar_proyecto(Proyecto) {
                 console.log('No se ha obtenido un resultado del servidor');
                 return;
             }
-            let result = JSON.parse(json_data);
-            console.log();
-            if (result.guardar) {
-                $('#formAgregarProyecto')[0].reset();
-                $('#formAsignarUsuariosAProyecto')[0].reset();
-                $('#formAsignarCapasAProyecto')[0].reset();
-                alert('Se ha creado el proyecto exitosamente!');
-            } else if (!result.guardar) {
-                alert('El proyecto ya existe');
-            } else {
-                alert(
-                    'Ha ocurrido un error en el servidor y no se ha podido crear el proyecto'
+            try {
+                let result = JSON.parse(json_data);
+                if (result.guardar) {
+                    $('#formAgregarProyecto')[0].reset();
+                    $('#formAsignarUsuariosAProyecto')[0].reset();
+                    $('#formAsignarCapasAProyecto')[0].reset();
+                    $('#scripts').html(result.scripts);
+                    console.log('Se ha creado el proyecto exitosamente!');
+                    let res = swal(
+                        'COMPLETADO!',
+                        'Proyecto se ha creado con éxito',
+                        'success'
+                    );
+                    $('#respuesta').html(res);
+                } else if (!result.guardar) {
+                    console.log('El proyecto ya existe');
+                    let res = swal(
+                        'Error!',
+                        'El proyecto ya existe!',
+                        'warning'
+                    );
+                    $('#respuesta').html(res);
+                    $('#nombreProyecto').focus();
+                } else {
+                    console.log(
+                        'Ha ocurrido un error en el servidor y no se ha podido crear el proyecto'
+                    );
+                    let res = swal(
+                        'Error',
+                        'Ha ocurrido un error en el servidor y no se ha podido crear el proyecto',
+                        'error'
+                    );
+                    $('#respuesta').html(res);
+                }
+            } catch (error) {
+                console.log(
+                    'Ocurrio un error al procesar la informacion obtenida del server!'
                 );
             }
-            //$('#scripts').html(result);
         },
         error: function () {
             alert('Error con el servidor');

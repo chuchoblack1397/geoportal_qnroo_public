@@ -200,7 +200,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_mapa_c'] == 'true') {
                   ?>
-                     <a class="nav-link active" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="true"><span class="icon-plus mr-3"></span>Crear proyecto</a>
+                    <a class="nav-link active" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="true"><span class="icon-plus mr-3"></span>Crear proyecto</a>
                   <?php
                   }
 
@@ -208,7 +208,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_mapa_r'] == 'true') {
                   ?>
-                  <a class="nav-link" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="false" onclick="ajax_ver_proyectos();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
+                    <a class="nav-link" id="opcion_verProyecto" data-toggle="pill" href="#verProyecto" role="tab" aria-controls="verProyecto" aria-selected="false" onclick="ajax_ver_proyectos();"><span class="icon-list2 mr-3"></span>Ver proyectos</a>
 
                   <?php
                   }
