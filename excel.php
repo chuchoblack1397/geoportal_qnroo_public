@@ -9,7 +9,7 @@ session_start();
 
 $base_url = "http://" . $_SERVER['SERVER_NAME'];
 var_dump($_SESSION['usuarioSession']);
-if (!isset($_SESSION)) { //Validar si hay sesion activa
+if (!isset($_SESSION['usuarioSession'])) { //Validar si hay sesion activa
     header('Location: ' . $base_url);
 }
 
@@ -28,7 +28,7 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     if (move_uploaded_file($file['tmp_name'], $path . $file['name'])) { //Guarda en carpeta uploads archivos xlsx
         echo "The file " . basename($file["name"]) . " has been uploaded.";
     } else {
-        echo "Lo sentimos, hay un error en el archivo.";
+        echo "Hay un error en el archivo.";
     }
 
     try { // Inicio funcion para leer excel
@@ -49,10 +49,10 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     $arrayData = array(); //Inicializacion de array para guardar datos
     for ($r = 1; $r <= $highestRow; $r++) { //Filas
         for ($c = 2; $c <= $highestColumnIndex; $c++) { //Columnas
-            $value = $worksheet->getCellByColumnAndRow($c, $r)->getValue(); //Obtiene valor de la celda en columna y fila
-            $value = ltrim($value); //Quita espacios lado izquierdo de la String
-            $value = rtrim($value); //Quita espacios lado derecho de la String
+            $value = $worksheet->getCellByColumnAndRow($c, $r)->getValue(); //Obtiene valor de la celda en columna y fila            
             if (isset($value)) { //Guarda valores de celdas que no sean nulas de lo contrario salta a siguiente fila
+                $value = ltrim($value); //Quita espacios lado izquierdo de la String
+                $value = rtrim($value); //Quita espacios lado derecho de la String
                 if ($c == 2) $datos["clave_cata"] = $value;
                 if ($c == 3) $datos["nombre_loc"] = $value;
                 if ($c == 4) $datos["direccion"] = $value;
@@ -72,14 +72,27 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     var_dump("Deleting file already readed");
     var_dump(count($arrayData));
 
-    //Debug
-    echo '<h3>Data</h3>';
+    //Data
+    /* echo '<h3>Data</h3>';
     echo '<table>';
     foreach ($arrayData as $row) {
         echo '<tr>';
         foreach ($row as $key => $value) {
             echo '<td>' . $value . '</td>';
         }
+        echo '</tr>';
+    }
+    echo '</table>'; */
+
+    echo '<h3>Data</h3>';
+    echo '<table>';
+    foreach ($arrayData as $key => $value) {
+        echo '<tr>';
+        $direccionArray = explode(',', $value["direccion"]);
+        foreach ($direccionArray as $key2 => $value2) {
+            echo '<td>' . $value2 . '</td>';
+        }
+
         echo '</tr>';
     }
     echo '</table>';
