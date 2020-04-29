@@ -239,8 +239,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
-                        <span class="text-secondary mr-1 ml-1">|</span>
-                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#actualizarCapa" title="Actualizar capa"><span class="icon-file-excel text-secondary small"></span></button>
                     </div>
                     <!--
                         <div class="btn-group grupo1" role="group">
@@ -253,7 +251,13 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 <!--fin contenedorBotonesAcciones-->
 
                 <hr>
-                <!--linea-->
+                <div class="d-flex flex-column px-3">
+                    <label for="selectProyecto">Proyecto</label>
+                    <select name="selectProyecto" id="selectProyecto">
+                        <option value="">Selecciona un proyecto...</option>
+                    </select>
+                </div>
+                <hr>
 
                 <button class="accordion">Mapas de referencia: </button>
 

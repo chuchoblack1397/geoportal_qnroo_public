@@ -212,3 +212,83 @@ function repetido() {
         }
     }
 }
+
+const selectProyecto = document.getElementById('selectProyecto');
+
+function loadSelectProyectos() {
+    let request = new XMLHttpRequest();
+    request.open('GET', '/verProyectos.php', true);
+
+    request.onload = function () {
+        if (this.status >= 200 && this.status < 400) {
+            const respuesta = JSON.parse(this.response);
+            respuesta.forEach((value, index) => {
+                Object.keys(value).forEach((val, ind) => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = value[val];
+                    optionElement.text = value[val];
+                    selectProyecto.appendChild(optionElement);
+                });
+            });
+        } else {
+            alert(
+                'Hubo un error al intentar conectarse con el servidor: Conexión fallida.\n' +
+                    this.statusText
+            );
+        }
+    };
+
+    request.onerror = function () {
+        alert(
+            'Hubo un error al intentar conectarse con el servidor: Conexión fallida.'
+        );
+    };
+
+    request.send();
+}
+
+loadSelectProyectos();
+
+function loadCapasFromProyecto() {
+    const proyecto =
+        'proyecto=' +
+        selectProyecto.options[selectProyecto.selectedIndex].value;
+
+    let request = new XMLHttpRequest();
+    request.open('POST', '/verProyectos.php', true);
+
+    request.setRequestHeader(
+        'Content-Type',
+        'application/x-www-form-urlencoded; charset=UTF-8'
+    );
+
+    request.onload = function () {
+        if (this.status >= 200 && this.status < 400) {
+            // const respuesta = JSON.parse(this.response);
+            console.log(this.response);
+            // respuesta.forEach((value, index) => {
+            //     Object.keys(value).forEach((val, ind) => {
+            //         const optionElement = document.createElement('option');
+            //         optionElement.value = value[val];
+            //         optionElement.text = value[val];
+            //         selectProyecto.appendChild(optionElement);
+            //     });
+            // });
+        } else {
+            alert(
+                'Hubo un error al intentar conectarse con el servidor: Conexión fallida.\n' +
+                    this.statusText
+            );
+        }
+    };
+
+    request.onerror = function () {
+        alert(
+            'Hubo un error al intentar conectarse con el servidor: Conexión fallida.'
+        );
+    };
+
+    request.send(proyecto);
+}
+
+selectProyecto.addEventListener('change', loadCapasFromProyecto);
