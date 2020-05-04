@@ -319,48 +319,6 @@ function loadCapasFromProyecto() {
 
                 inputElement.addEventListener('change', toggleLayer);
 
-                // listItemElement.id = value['idcapa'];
-                // divElement.classList.add('custom-control', 'custom-checkbox');
-                // listItemElement.appendChild(divElement);
-                // inputElement.type = 'checkbox';
-                // inputElement.id = 'chk_' + value['idcapa'];
-                // inputElement.classList.add('custom-control-input');
-                // inputElement.name = 'chkGrupo';
-                // inputElement.value = value['idcapa'];
-                // inputElement.addEventListener(
-                //     'change',
-                //     validaChkBoxControl,
-                //     false
-                // );
-                // divElement.appendChild(inputElement);
-                // labelElement.htmlFor = 'chk_' + value['idcapa'];
-                // labelElement.classList.add('custom-control-label');
-                // labelElement.textContent = value['titulocapa'];
-                // divElement.appendChild(labelElement);
-                // divElement.appendChild(breakElement);
-                // divLeyendElement.id = 'div_btn_' + value['idcapa'];
-                // divLeyendElement.classList.add('btn-group');
-                // divLeyendElement.setAttribute('role', 'group');
-                // divElement.appendChild(divLeyendElement);
-                // btnElement.id = 'btn_leyenda_' + value['idcapa'];
-                // btnElement.type = 'button';
-                // btnElement.classList.add('btn', 'btn-light');
-                // btnElement.title = 'Ver leyenda';
-                // btnElement.addEventListener('click', () => {
-                //     activarLeyendas(value['idcapa']);
-                // });
-                // spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
-                // spanElement.classList.add(
-                //     'icon-eye',
-                //     'text-secondary',
-                //     'small'
-                // );
-                // btnElement.appendChild(spanElement);
-                // divLeyendElement.appendChild(btnElement);
-                // divElement.appendChild(divLeyendElement);
-
-                // listaCapasFromProyecto.appendChild(listItemElement);
-
                 const layer = L.tileLayer.wms(value['urlcapa'], {
                     // id: value['idcapa'],
                     layers: value['layer'],
