@@ -222,13 +222,12 @@ function loadSelectProyectos() {
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
             const respuesta = JSON.parse(this.response);
+
             respuesta.forEach((value, index) => {
-                Object.keys(value).forEach((val, ind) => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = value[val];
-                    optionElement.text = value[val];
-                    selectProyecto.appendChild(optionElement);
-                });
+                const optionElement = document.createElement('option');
+                optionElement.value = value['id_proyecto'];
+                optionElement.text = value['nombre_proyecto'];
+                selectProyecto.appendChild(optionElement);
             });
         } else {
             alert(
@@ -249,10 +248,36 @@ function loadSelectProyectos() {
 
 loadSelectProyectos();
 
+function toggleLayer() {}
+
+const listaCapasFromProyecto = document.getElementById(
+    'listaCapasFromProyecto'
+);
+let layersObj = {};
 function loadCapasFromProyecto() {
-    const proyecto =
-        'proyecto=' +
+    const valueProyecto =
         selectProyecto.options[selectProyecto.selectedIndex].value;
+    const proyecto = 'proyecto=' + valueProyecto;
+
+    while (listaCapasFromProyecto.firstChild) {
+        listaCapasFromProyecto.removeChild(listaCapasFromProyecto.firstChild);
+    }
+
+    if (
+        Object.keys(layersObj).length === 0 &&
+        layersObj.constructor === Object
+    ) {
+        for (const key of Object.keys(layersObj)) {
+            map.removeLayer(layersObj[key]);
+        }
+    }
+    if (layersObj) {
+        layersObj.length = 0;
+    }
+
+    if (valueProyecto === '') {
+        return;
+    }
 
     let request = new XMLHttpRequest();
     request.open('POST', '/verProyectos.php', true);
@@ -264,16 +289,93 @@ function loadCapasFromProyecto() {
 
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
-            // const respuesta = JSON.parse(this.response);
-            console.log(this.response);
-            // respuesta.forEach((value, index) => {
-            //     Object.keys(value).forEach((val, ind) => {
-            //         const optionElement = document.createElement('option');
-            //         optionElement.value = value[val];
-            //         optionElement.text = value[val];
-            //         selectProyecto.appendChild(optionElement);
-            //     });
-            // });
+            const respuesta = JSON.parse(this.response);
+
+            respuesta.forEach((value, index) => {
+                const listItemElement = document.createElement('li');
+                const divElement = document.createElement('div');
+                const inputElement = document.createElement('input');
+                const labelElement = document.createElement('label');
+                const breakElement = document.createElement('br');
+                const divLeyendElement = document.createElement('div');
+                const btnElement = document.createElement('button');
+                const spanElement = document.createElement('span');
+
+                listItemElement.classList.add('px-3');
+
+                inputElement.id = value['idcapa'];
+                inputElement.classList.add('form-check-input');
+                inputElement.type = 'checkbox';
+                inputElement.value = '';
+
+                labelElement.classList.add('form-check-label');
+                labelElement.htmlFor = value['idcapa'];
+                labelElement.textContent = value['titulocapa'];
+
+                listItemElement.appendChild(inputElement);
+                listItemElement.appendChild(labelElement);
+
+                listaCapasFromProyecto.appendChild(listItemElement);
+
+                inputElement.addEventListener('change', toggleLayer);
+
+                // listItemElement.id = value['idcapa'];
+                // divElement.classList.add('custom-control', 'custom-checkbox');
+                // listItemElement.appendChild(divElement);
+                // inputElement.type = 'checkbox';
+                // inputElement.id = 'chk_' + value['idcapa'];
+                // inputElement.classList.add('custom-control-input');
+                // inputElement.name = 'chkGrupo';
+                // inputElement.value = value['idcapa'];
+                // inputElement.addEventListener(
+                //     'change',
+                //     validaChkBoxControl,
+                //     false
+                // );
+                // divElement.appendChild(inputElement);
+                // labelElement.htmlFor = 'chk_' + value['idcapa'];
+                // labelElement.classList.add('custom-control-label');
+                // labelElement.textContent = value['titulocapa'];
+                // divElement.appendChild(labelElement);
+                // divElement.appendChild(breakElement);
+                // divLeyendElement.id = 'div_btn_' + value['idcapa'];
+                // divLeyendElement.classList.add('btn-group');
+                // divLeyendElement.setAttribute('role', 'group');
+                // divElement.appendChild(divLeyendElement);
+                // btnElement.id = 'btn_leyenda_' + value['idcapa'];
+                // btnElement.type = 'button';
+                // btnElement.classList.add('btn', 'btn-light');
+                // btnElement.title = 'Ver leyenda';
+                // btnElement.addEventListener('click', () => {
+                //     activarLeyendas(value['idcapa']);
+                // });
+                // spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
+                // spanElement.classList.add(
+                //     'icon-eye',
+                //     'text-secondary',
+                //     'small'
+                // );
+                // btnElement.appendChild(spanElement);
+                // divLeyendElement.appendChild(btnElement);
+                // divElement.appendChild(divLeyendElement);
+
+                // listaCapasFromProyecto.appendChild(listItemElement);
+
+                const layer = L.tileLayer.wms(value['urlcapa'], {
+                    // id: value['idcapa'],
+                    layers: value['layer'],
+                    format: value['formato'],
+                    transparent: value['transparencia'],
+                    maxZoom: 22,
+                    version: value['version'],
+                    style: value['estilo'],
+                    zIndex: value['zindex'],
+                });
+
+                layersObj[value['idcapa']] = layer;
+            });
+            delete layersObj.length;
+            L.control.layers(null, layersObj).addTo(map);
         } else {
             alert(
                 'Hubo un error al intentar conectarse con el servidor: Conexión fallida.\n' +

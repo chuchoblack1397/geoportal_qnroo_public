@@ -12,7 +12,7 @@ if (isset($_POST['proyecto'])) {
         $resultProyectosUsuario = pg_query($conexion, $queryVerProyectosFromUsuario);
 
         if (pg_num_rows($resultProyectosUsuario) !== 0) {
-            $queryGetCapasFromProyecto = "SELECT relacion_proyecto_capas.idcapa, capas.titulocapa FROM relacion_proyecto_capas LEFT JOIN capas ON relacion_proyecto_capas.idcapa = capas.idcapa WHERE id_proyecto = '$proyecto' ";
+            $queryGetCapasFromProyecto = "SELECT relacion_proyecto_capas.idcapa, capas.titulocapa, capas.urlcapa, capas.layer, capas.formato, capas.transparencia, capas.version, capas.estilo, relacion_proyecto_capas.zindex  FROM relacion_proyecto_capas LEFT JOIN capas ON relacion_proyecto_capas.idcapa = capas.idcapa WHERE id_proyecto = '$proyecto'";
             $resultGetCapasFromProyecto = pg_query($conexion, $queryGetCapasFromProyecto);
             $resultArrayCapas = pg_fetch_all($resultGetCapasFromProyecto);
             echo json_encode($resultArrayCapas);
@@ -24,7 +24,7 @@ if (isset($_POST['proyecto'])) {
     if (isset($_SESSION['usuarioSession'])) {
         $idUsuario = $_SESSION['usuarioSession'];
 
-        $queryVerProyectosFromUsuario = "SELECT id_proyecto FROM relacion_proyecto_usuarios WHERE usuario = '$idUsuario'";
+        $queryVerProyectosFromUsuario = "SELECT relacion_proyecto_usuarios.id_proyecto, proyectos.nombre_proyecto FROM relacion_proyecto_usuarios LEFT JOIN proyectos ON relacion_proyecto_usuarios.id_proyecto = proyectos.id_proyecto WHERE usuario = '$idUsuario'";
         $resultProyectosUsuario = pg_query($conexion, $queryVerProyectosFromUsuario);
 
         $resultArray = pg_fetch_all($resultProyectosUsuario);

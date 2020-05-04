@@ -261,6 +261,23 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 </div>
                 <hr>
 
+                <div id="accordionCapasFromProyecto">
+                    <div class="card">
+                        <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
+                            <div class="card-header" id="headingCapasFromProyecto">
+                                Capas de datos
+                            </div>
+                        </a>
+                        <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
+                            <div class="card-body">
+                                <ul id="listaCapasFromProyecto" class="list-unstyled">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <button class="accordion">Mapas de referencia: </button>
 
                 <div id="contenidoRadios" class="panel">
