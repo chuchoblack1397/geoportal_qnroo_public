@@ -251,8 +251,6 @@ loadSelectProyectos();
 let layersObj = {};
 
 function toggleLayer() {
-    // console.log(this.id);
-    // console.log(this.checked);
     if (
         Object.keys(layersObj).length !== 0 &&
         layersObj.constructor === Object
@@ -332,7 +330,6 @@ function loadCapasFromProyecto() {
                 inputElement.addEventListener('change', toggleLayer);
 
                 const layer = L.tileLayer.wms(value['urlcapa'], {
-                    // id: value['idcapa'],
                     layers: value['layer'],
                     format: value['formato'],
                     transparent: value['transparencia'],
