@@ -248,12 +248,26 @@ function loadSelectProyectos() {
 
 loadSelectProyectos();
 
-function toggleLayer() {}
+let layersObj = {};
+
+function toggleLayer() {
+    // console.log(this.id);
+    // console.log(this.checked);
+    if (
+        Object.keys(layersObj).length !== 0 &&
+        layersObj.constructor === Object
+    ) {
+        if (this.checked === true && !map.hasLayer(layersObj[this.id])) {
+            layersObj[this.id].addTo(map);
+        } else if (this.checked !== true && map.hasLayer(layersObj[this.id])) {
+            layersObj[this.id].remove();
+        }
+    }
+}
 
 const listaCapasFromProyecto = document.getElementById(
     'listaCapasFromProyecto'
 );
-let layersObj = {};
 function loadCapasFromProyecto() {
     const valueProyecto =
         selectProyecto.options[selectProyecto.selectedIndex].value;
@@ -264,15 +278,13 @@ function loadCapasFromProyecto() {
     }
 
     if (
-        Object.keys(layersObj).length === 0 &&
+        Object.keys(layersObj).length !== 0 &&
         layersObj.constructor === Object
     ) {
         for (const key of Object.keys(layersObj)) {
             map.removeLayer(layersObj[key]);
+            delete layersObj[key];
         }
-    }
-    if (layersObj) {
-        layersObj.length = 0;
     }
 
     if (valueProyecto === '') {
@@ -332,8 +344,8 @@ function loadCapasFromProyecto() {
 
                 layersObj[value['idcapa']] = layer;
             });
+
             delete layersObj.length;
-            L.control.layers(null, layersObj).addTo(map);
         } else {
             alert(
                 'Hubo un error al intentar conectarse con el servidor: Conexión fallida.\n' +
