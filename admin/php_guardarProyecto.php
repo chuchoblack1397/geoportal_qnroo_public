@@ -29,14 +29,15 @@ function guardarProyecto($nombre, $conexion, $capas, $usuarios)
         'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', ' ' => '_'
     );
     $id_proyecto = strtr($nombre, $unwanted_array);
+    $id_proyectoOK = 'proyecto_'.$id_proyecto;
     $query_result = pg_query($conexion, "SELECT EXISTS(SELECT 1 FROM proyectos WHERE id_proyecto = '$id_proyecto')");
     $existe = pg_fetch_row($query_result);
     if ($existe[0] === 'f') {
-        $query_insert = pg_query($conexion, "INSERT INTO proyectos (id_proyecto, nombre_proyecto) VALUES ('$id_proyecto', '$nombre')");
+        $query_insert = pg_query($conexion, "INSERT INTO proyectos (id_proyecto, nombre_proyecto) VALUES ('$id_proyectoOK', '$nombre')");
         $values['usuarios'] = $values['capas'] = "";
         //Asignar usuarios
         foreach ($usuarios as $key => $value) {
-            $values['usuarios'] .= "('$id_proyecto', '$value'),";
+            $values['usuarios'] .= "('$id_proyectoOK', '$value'),";
         }
         $values['usuarios'] = substr($values['usuarios'], 0, -1); //Quitar ultima coma de String
         if ($values) {
@@ -44,7 +45,7 @@ function guardarProyecto($nombre, $conexion, $capas, $usuarios)
         }
         //Asignar capas
         foreach ($capas as $key => $value) {
-            $values['capas'] .= "('$id_proyecto', '$value[0]', $value[1]),";
+            $values['capas'] .= "('$id_proyectoOK', '$value[0]', $value[1]),";
         }
         $values['capas'] = substr($values['capas'], 0, -1); //Quitar ultima coma de String
         if ($values) {

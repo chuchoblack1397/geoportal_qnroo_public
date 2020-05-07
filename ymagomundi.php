@@ -453,7 +453,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
             <!--fin contenedor iframes LEYENDAS -->
 
             <!--Contenedor resultados de filtro-->
-            <div id="contenedorResultadoFiltro">
+            <div id="contenedorResultadoFiltro" style="display:none;">
                 <div class="contenedorResultado" id="contenedorResultado">
                     Resultado
                 </div>
@@ -770,6 +770,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                                 document.getElementById("btnActivarBusqueda2").className = "icon-filter text-light small"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("btnActivarBusqueda1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("contenedorBuscador").style.display = "block";
+                                document.getElementById("contenedorResultadoFiltro").style.display = "block";
 
                             } //fin if
                             else {
@@ -777,6 +778,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                                 document.getElementById("btnActivarBusqueda2").className = "icon-filter text-secondary small"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("btnActivarBusqueda1").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("contenedorBuscador").style.display = "none";
+                                document.getElementById("contenedorResultadoFiltro").style.display = "none";
 
                             } //fin else
                             break;
