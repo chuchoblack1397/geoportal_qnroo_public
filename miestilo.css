@@ -277,7 +277,6 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-<<<<<<< HEAD
 }
 
 #SwipeOcultar {
@@ -297,53 +296,6 @@
     border-radius: 10px;
     outline: none;
     border: 0;
-}
-=======
-  }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Regreso a la version anterior
-
-
-  #SwipeOcultar{
-    
-  
-    
-    
-    }
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> swipe1
-=======
->>>>>>> Correccion
-=======
->>>>>>> Regreso a la version anterior
-=======
-
-
-
-
-.icono-swipe { 
-   height: 24px;
-   width: 24px;
-}
-
-
-.swipe-icon {
-    height: 35px;
-    width: 35px;
-}
-.boton-swipe{
-
-    background-color: transparent;
-    border-radius:10px;
-outline:none;
-border:0;
-
-    
-    
-
 }
 >>>>>>> cambios icono
 /*--fiun Acordeon*/
@@ -383,4 +335,12 @@ border:0;
         font-size: 11px;
         text-align: center;
     }
+}
+
+.text-gray-100 {
+    color: #404041;
+}
+.text-gray-100:hover {
+    color: #404041;
+    text-decoration: none;
 }

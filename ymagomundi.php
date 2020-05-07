@@ -109,7 +109,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
     foreach ($arregloCapas as $clave => $campo) {
         echo $campo['idcapa'];
     }//fin foreach
-# en donde $campo[''] es donde se pone el nombre del
+    
+# en donde $campo[''] es donde se pone el nombre del 
 # campo a obtener los valores de BD ahora en el ARREGLO
 */
 
@@ -258,6 +259,23 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     </select>
                 </div>
                 <hr>
+
+                <div id="accordionCapasFromProyecto">
+                    <div class="card">
+                        <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
+                            <div class="card-header" id="headingCapasFromProyecto">
+                                Capas de datos
+                            </div>
+                        </a>
+                        <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
+                            <div class="card-body">
+                                <ul id="listaCapasFromProyecto" class="list-unstyled">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <button class="accordion">Mapas de referencia: </button>
 
@@ -499,6 +517,11 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                 });
 
+    var grayscale1   = L.tileLayer(mbUrl, {
+        id: 'mapbox.light', 
+        attribution: atribuciones
+    });
+    
 
 
 
@@ -507,6 +530,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
                 //----fin Mapas de referencia----
 
+                //----fin Mapas de referencia----
 
 
 
@@ -638,6 +662,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
                 //Agregado de miguel
 
+                //Agregado de miguel
 
                 //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
                 L.control.scale({

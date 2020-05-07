@@ -222,13 +222,12 @@ function loadSelectProyectos() {
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
             const respuesta = JSON.parse(this.response);
+
             respuesta.forEach((value, index) => {
-                Object.keys(value).forEach((val, ind) => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = value[val];
-                    optionElement.text = value[val];
-                    selectProyecto.appendChild(optionElement);
-                });
+                const optionElement = document.createElement('option');
+                optionElement.value = value['id_proyecto'];
+                optionElement.text = value['nombre_proyecto'];
+                selectProyecto.appendChild(optionElement);
             });
         } else {
             alert(
@@ -249,10 +248,46 @@ function loadSelectProyectos() {
 
 loadSelectProyectos();
 
+let layersObj = {};
+
+function toggleLayer() {
+    if (
+        Object.keys(layersObj).length !== 0 &&
+        layersObj.constructor === Object
+    ) {
+        if (this.checked === true && !map.hasLayer(layersObj[this.id])) {
+            layersObj[this.id].addTo(map);
+        } else if (this.checked !== true && map.hasLayer(layersObj[this.id])) {
+            layersObj[this.id].remove();
+        }
+    }
+}
+
+const listaCapasFromProyecto = document.getElementById(
+    'listaCapasFromProyecto'
+);
 function loadCapasFromProyecto() {
-    const proyecto =
-        'proyecto=' +
+    const valueProyecto =
         selectProyecto.options[selectProyecto.selectedIndex].value;
+    const proyecto = 'proyecto=' + valueProyecto;
+
+    while (listaCapasFromProyecto.firstChild) {
+        listaCapasFromProyecto.removeChild(listaCapasFromProyecto.firstChild);
+    }
+
+    if (
+        Object.keys(layersObj).length !== 0 &&
+        layersObj.constructor === Object
+    ) {
+        for (const key of Object.keys(layersObj)) {
+            map.removeLayer(layersObj[key]);
+            delete layersObj[key];
+        }
+    }
+
+    if (valueProyecto === '') {
+        return;
+    }
 
     let request = new XMLHttpRequest();
     request.open('POST', '/verProyectos.php', true);
@@ -264,16 +299,50 @@ function loadCapasFromProyecto() {
 
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
-            // const respuesta = JSON.parse(this.response);
-            console.log(this.response);
-            // respuesta.forEach((value, index) => {
-            //     Object.keys(value).forEach((val, ind) => {
-            //         const optionElement = document.createElement('option');
-            //         optionElement.value = value[val];
-            //         optionElement.text = value[val];
-            //         selectProyecto.appendChild(optionElement);
-            //     });
-            // });
+            const respuesta = JSON.parse(this.response);
+
+            respuesta.forEach((value, index) => {
+                const listItemElement = document.createElement('li');
+                const divElement = document.createElement('div');
+                const inputElement = document.createElement('input');
+                const labelElement = document.createElement('label');
+                const breakElement = document.createElement('br');
+                const divLeyendElement = document.createElement('div');
+                const btnElement = document.createElement('button');
+                const spanElement = document.createElement('span');
+
+                listItemElement.classList.add('px-3');
+
+                inputElement.id = value['idcapa'];
+                inputElement.classList.add('form-check-input');
+                inputElement.type = 'checkbox';
+                inputElement.value = '';
+
+                labelElement.classList.add('form-check-label');
+                labelElement.htmlFor = value['idcapa'];
+                labelElement.textContent = value['titulocapa'];
+
+                listItemElement.appendChild(inputElement);
+                listItemElement.appendChild(labelElement);
+
+                listaCapasFromProyecto.appendChild(listItemElement);
+
+                inputElement.addEventListener('change', toggleLayer);
+
+                const layer = L.tileLayer.wms(value['urlcapa'], {
+                    layers: value['layer'],
+                    format: value['formato'],
+                    transparent: value['transparencia'],
+                    maxZoom: 22,
+                    version: value['version'],
+                    style: value['estilo'],
+                    zIndex: value['zindex'],
+                });
+
+                layersObj[value['idcapa']] = layer;
+            });
+
+            delete layersObj.length;
         } else {
             alert(
                 'Hubo un error al intentar conectarse con el servidor: Conexión fallida.\n' +

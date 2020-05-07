@@ -198,7 +198,7 @@ function reemplazarAcentosHTML(cadena){//funcion POSIBLE!!!! NO ESTOY EJECUTANDO
 function enviarDatosGuardar_guardar(ruta){
     console.log('Dentro de AJAX');
     $.ajax({
-        url:'php_guardarCapa.php',
+        url:'guardarCapa_guardar.php',
         type:'POST',
         data: ruta,
         success: function(res){
