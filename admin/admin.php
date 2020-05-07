@@ -73,7 +73,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
 
       <nav class="m-3">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="false">Estadísticas</a>
+          <a class="nav-item nav-link active" id="nav-estadisticas-tab" data-toggle="tab" href="#nav-estadisticas" role="tab" aria-controls="nav-estadisticas" aria-selected="false"></a>
           <?php if ($_SESSION['rol_capa_c'] == 'false' && $_SESSION['rol_capa_r'] == 'false' && $_SESSION['rol_capa_u'] == 'false' && $_SESSION['rol_capa_d'] == 'false') {
           } else { ?>
             <a class="nav-item nav-link" id="nav-capas-tab" data-toggle="tab" href="#nav-capas" role="tab" aria-controls="nav-capas" aria-selected="false">Capas</a>
@@ -108,7 +108,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
       <!--Opciones de menu-->
       <div class="tab-content m-3" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-estadisticas" role="tabpanel" aria-labelledby="nav-estadisticas-tab">
-          <h2 class="h2">Estadísticas</h2>
+          <h2 class="h2"></h2>
           <?php include 'seccion_formEstadisticas.php'; ?>
         </div>
         <!--Opcion CAPAS-->

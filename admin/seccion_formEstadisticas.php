@@ -1,5 +1,5 @@
 <div class="container">
-
+<!--
 <div class="card mb-3">
   <h5 class="card-header">Featured</h5>
   <div class="card-body">
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-  </div><!--fin card-deck -->
+  </div>
 
   <div class="card-deck">
 
@@ -56,5 +56,6 @@
   </div>
 </div>
 
-  </div><!--fin card-deck -->
+  </div>
+  -->
 </div>
