@@ -217,7 +217,7 @@ const selectProyecto = document.getElementById('selectProyecto');
 
 function loadSelectProyectos() {
     let request = new XMLHttpRequest();
-    request.open('GET', '/verProyectos.php', true);
+    request.open('GET', './verProyectos.php', true);
 
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
@@ -290,7 +290,7 @@ function loadCapasFromProyecto() {
     }
 
     let request = new XMLHttpRequest();
-    request.open('POST', '/verProyectos.php', true);
+    request.open('POST', './verProyectos.php', true);
 
     request.setRequestHeader(
         'Content-Type',
