@@ -252,19 +252,18 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 <!--fin contenedorBotonesAcciones-->
 
                 <hr>
-                <div class="d-flex flex-column px-3">
+                <div class="form-group d-flex flex-column px-3">
                     <label for="selectProyecto">Proyecto</label>
-                    <select name="selectProyecto" id="selectProyecto">
-                        <option value="">Selecciona un proyecto...</option>
+                    <select class="form-control" id="selectProyecto" name="selectProyecto">
+                    <option value="">Selecciona un proyecto...</option>
                     </select>
                 </div>
-                <hr>
 
-                <div id="accordionCapasFromProyecto">
+                <!--<div id="accordionCapasFromProyecto">
                     <div class="card">
                         <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
                             <div class="card-header" id="headingCapasFromProyecto">
-                                Capas de datos
+                                Capas de datos territoriales
                             </div>
                         </a>
                         <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
@@ -276,7 +275,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                         </div>
                     </div>
                 </div>
-
+-->
                 <button class="accordion">Mapas de referencia: </button>
 
                 <div id="contenidoRadios" class="panel">
@@ -312,7 +311,15 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 </div>
                 <!--fin div contenidoRadios-->
 
+                <!--contenidoCapaz-->
+                <button class="accordion">Capas de datos territoriales: </button>
+                <div id="accordionCapasFromProyecto" class="panel">
+                <ul id="listaCapasFromProyecto" class="list-unstyled">
 
+                </ul>
+                    <!--fin ul capaz-->
+                </div>
+                <!--fin div capaz-->
 
                 <!--contenidoCapaz-->
                 <button class="accordion">Capas de datos territoriales: </button>

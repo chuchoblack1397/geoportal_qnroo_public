@@ -217,7 +217,7 @@ const selectProyecto = document.getElementById('selectProyecto');
 
 function loadSelectProyectos() {
     let request = new XMLHttpRequest();
-    request.open('GET', '/verProyectos.php', true);
+    request.open('GET', './verProyectos.php', true);
 
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
@@ -226,7 +226,7 @@ function loadSelectProyectos() {
             respuesta.forEach((value, index) => {
                 const optionElement = document.createElement('option');
                 optionElement.value = value['id_proyecto'];
-                optionElement.text = value['nombre_proyecto'];
+                optionElement.innerHTML = value['nombre_proyecto'];
                 selectProyecto.appendChild(optionElement);
             });
         } else {
@@ -290,7 +290,7 @@ function loadCapasFromProyecto() {
     }
 
     let request = new XMLHttpRequest();
-    request.open('POST', '/verProyectos.php', true);
+    request.open('POST', './verProyectos.php', true);
 
     request.setRequestHeader(
         'Content-Type',
@@ -311,19 +311,53 @@ function loadCapasFromProyecto() {
                 const btnElement = document.createElement('button');
                 const spanElement = document.createElement('span');
 
-                listItemElement.classList.add('px-3');
+                //listItemElement.classList.add('px-3');
+                listItemElement.id = 'li_'+value['idcapa'];
+                listItemElement.appendChild(divElement);
 
-                inputElement.id = value['idcapa'];
-                inputElement.classList.add('form-check-input');
+                divElement.classList.add('custom-control');//agregue clase a div
+                divElement.classList.add('custom-checkbox');//agregue clase a div
+                
+                divElement.appendChild(inputElement);
+                divElement.appendChild(labelElement);
+                divElement.appendChild(breakElement);
+                divElement.appendChild(divLeyendElement);
+
+                divLeyendElement.id = 'div_btn_'+value['idcapa'];
+                divLeyendElement.classList.add('btn-group');
+                divLeyendElement.role="group";
+
+                btnElement.id='btn_leyenda_'+value['idcapa'];
+                btnElement.type = 'button';
+                btnElement.classList.add('btn');
+                btnElement.classList.add('btn-light');
+                btnElement.title = 'Ver Leyenda';
+                btnElement.setAttribute("onclick","activarLeyendas('"+value['idcapa']+"')");
+                
+                btnElement.disabled = true;
+
+                spanElement.id='icon_btn_leyenda_'+value['idcapa'];
+                spanElement.classList.add('icon-eye');
+                spanElement.classList.add('text-secondary');
+                spanElement.classList.add('small');
+
+                divLeyendElement.appendChild(btnElement);
+                btnElement.appendChild(spanElement);
+
                 inputElement.type = 'checkbox';
-                inputElement.value = '';
+                inputElement.id = value['idcapa'];//agregue chk
+                inputElement.classList.add('custom-control-input');
+                inputElement.name = 'chkGrupo';
+                inputElement.value = value['idcapa'];
 
-                labelElement.classList.add('form-check-label');
                 labelElement.htmlFor = value['idcapa'];
-                labelElement.textContent = value['titulocapa'];
+                labelElement.classList.add('custom-control-label');
+                //labelElement.htmlContent = value['titulocapa'];
+                labelElement.innerHTML = value['titulocapa'];
+                
 
-                listItemElement.appendChild(inputElement);
-                listItemElement.appendChild(labelElement);
+                //listItemElement.appendChild(inputElement);
+                //listItemElement.appendChild(labelElement);
 
                 listaCapasFromProyecto.appendChild(listItemElement);
 
