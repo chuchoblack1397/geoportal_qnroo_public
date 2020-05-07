@@ -3,15 +3,15 @@
 echo "<script>console.log('Dentro archivo conexion');</script>";
 
 //$host        = "host = localhost";
-$host        = "host = localhost";
+$host        = "host = 144.91.126.153";
 $port        = "port = 5432";
-$dbname      = "dbname = test_opb_geoportal_qroo";
-$credentials = "user = postgres password = Miguel290497*";
+$dbname      = "dbname = opb_geoportal_00";
+$credentials = "user = bigsgeoadmin password = Overkill23004";
 
 $conexion = pg_connect("$host $port $dbname $credentials");
 if (!$conexion) {
-	echo 'Conexion Fallida : ', pg_last_error();
-	exit();
+    echo 'Conexion Fallida : ', pg_last_error();
+    exit();
 } else {
-	echo "<script>console.log('Abriendo conexion');</script>";
+    echo "<script>console.log('Abriendo conexion');</script>";
 }

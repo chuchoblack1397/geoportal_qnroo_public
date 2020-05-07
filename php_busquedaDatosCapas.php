@@ -1,8 +1,19 @@
 <?php
 include "conexion.php";
 $variable_consulta_filtro = $_POST['variable_consulta_filtro'];
-/*
-$consulta="select * from opb_predios_202003_dcm_32616_u where folio='".$variable_consulta_filtro."'";
+$variable_campo_filtro = $_POST['campo_filtro'];
+
+//bigs_opb_20201q_aoi_w_4326u
+if($variable_campo_filtro == '__gid'){
+    $tabla_consulta = 'bigs_opb_20201q_aoi_w_4326u';
+}
+
+if($variable_campo_filtro == 'folio'){
+    $tabla_consulta = 'opb_predios_202003_dcm_32616_u';
+}
+
+
+$consulta="select * from $tabla_consulta where $variable_campo_filtro='".$variable_consulta_filtro."'";
 //$consulta= "SELECT * FROM propietarios WHERE idpropietario=".$idPropietario;
 $datosConsulta = pg_query($conexion, $consulta);
 
@@ -11,46 +22,44 @@ if(!$datosConsulta){
     exit;
 }
 else{
-    echo "<script> console.log('OK OK OK php'); </script>";
-}
-*/
+    echo "<script> console.log('Registros encontrados'); </script>";
 
+$hayContenido = false;
+
+    while ($filaCampoFiltro = pg_fetch_assoc($datosConsulta))
+    {//obteniendo capas de BD
+        $gid = $filaCampoFiltro['gid'];
+        $__gid = $filaCampoFiltro['__gid'];
+        $name = $filaCampoFiltro['name'];
+        $latitud = $filaCampoFiltro['lat'];
+        $longitud = $filaCampoFiltro['lon'];
 ?>
 <table class="table table-borderless table-md small">
     <thead class="thead-dark">
         <tr>
-        <th scope="col" colspan="3">#1521 - Imagencita tatatan</th>
+        <th scope="col" colspan="3">#<?php echo $gid.' - '.$__gid; ?></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th scope="row">Dir:</th>
-            <td class="col-9">Calle fulana No.1</td>
-            <td rowspan="2" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('18.537008055555557','-88.285151388888892','3550')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
+            <th scope="row">Name:</th>
+            <td class="col-9"><?php echo $name;?></td>
+            <td rowspan="2" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('<?php echo $latitud;?>','<?php echo $longitud;?>','<?php echo $__gid;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
         </tr>
         <tr>
             <th scope="row">Lat/Lon:</th>
-            <td>12.5515 | -102.1554</td>
+            <td><?php echo $latitud. ' | '.$longitud; ?></td>
         </tr>
     </tbody>
 </table>
 <hr>
-<table class="table table-borderless table-md small">
-    <thead class="thead-dark">
-        <tr>
-        <th scope="col" colspan="3">#5145 - registro chunchun</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">Dir:</th>
-            <td class="col-9">Col. perengana No.17</td>
-            <td rowspan="2" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('18.522911388888890','-88.308823055555550','1804')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
-        </tr>
-        <tr>
-            <th scope="row">Lat/Lon:</th>
-            <td>12.7415 | -102.5454</td>
-        </tr>
-    </tbody>
-</table>
-<hr>
+<?php
+    $hayContenido = true;
+    }//fin while
+
+    if($hayContenido == false){
+        echo "No hay registros";
+    }
+
+}//fin else
+?>

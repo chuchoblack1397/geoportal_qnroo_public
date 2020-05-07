@@ -26,14 +26,18 @@ function buscarFiltro(){
     console.log("URL de Busqueda: "+url);
     console.log("Capa de Busqueda: "+layer);
     console.log("Filtro de Busqueda: "+campoFiltro);
+
     
-    if(variable_consulta_filtro !== ''){//detecta si tiene datos el campo
+    if(variable_consulta_filtro !== '' && campoFiltro!='0'){//detecta si tiene datos el campo
         console.log("Hay datos en la variable de busqueda.");
-        var ruta="variable_consulta_filtro="+variable_consulta_filtro;
+        var ruta="variable_consulta_filtro="+variable_consulta_filtro+"&campo_filtro="+campoFiltro;
         $.ajax({
                 url:'php_busquedaDatosCapas.php',
                 type:'POST',
                 data: ruta,
+                beforeSend:function(){
+                    document.getElementById("contenedorResultado").innerHTML="Buscando...";
+                  },
                 success: function(res){
                 $('#contenedorResultado').html(res);
             },
@@ -79,6 +83,7 @@ function buscarFiltro(){
         
     }//fin if
     else{
+        alert('Asegurese que los parametros de busqueda sean correctos.');
         /*if(predioWMSlayer){//evaluando si existe la capa
             window.map.removeLayer(predioWMSlayer);//quitando la capa
         }*/

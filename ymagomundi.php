@@ -360,7 +360,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     <input id="campoBuscar" type="search" placeholder="Escribe tu filtro de ->" aria-describedby="button-addon5" class="form-control">
                     <div class="input-group-append">
                         <select class="custom-select btn" id="selectTipo">
-                            <option selected value="ninguno">Seleccionar</option>
+                            <option selected value="0|0|0|0">Seleccionar</option>
                             <?php
                             foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                                 if ($campo['activo_consulta'] == 'true') {
@@ -369,7 +369,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                                     $value_capa = $campo['layer'];
                                     $value_filtro = $campo['campo_consulta'];
                             ?>
-                                    <option value="<?php echo $value_idcapa . "|" . $value_url . "|" . $value_capa . "|" . $value_filtro; ?>"><?php echo $campo['campo_consulta'] . ' --- ' . $campo['titulocapa']; ?></option>
+                                    <option value="<?php echo $value_idcapa . "|" . $value_url . "|" . $value_capa . "|" . $value_filtro; ?>"><?php echo $value_filtro . ' --- ' . $campo['titulocapa']; ?></option>
                             <?php
                                 } //fin if
                             } //fin foreach
@@ -770,10 +770,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                                 document.getElementById("btnActivarBusqueda2").className = "icon-filter text-light small"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("btnActivarBusqueda1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("contenedorBuscador").style.display = "block";
-                                console.log(mapa1);
-                                console.log(mapa2);
-
-
 
                             } //fin if
                             else {
