@@ -28,38 +28,131 @@ $hayContenido = false;
 
     while ($filaCampoFiltro = pg_fetch_assoc($datosConsulta))
     {//obteniendo capas de BD
-        $gid = $filaCampoFiltro['gid'];
-        $__gid = $filaCampoFiltro['__gid'];
-        $name = $filaCampoFiltro['name'];
-        $latitud = $filaCampoFiltro['lat'];
-        $longitud = $filaCampoFiltro['lon'];
-?>
-<table class="table table-borderless table-md small">
-    <thead class="thead-dark">
-        <tr>
-        <th scope="col" colspan="3">#<?php echo $gid.' - '.$__gid; ?></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">Name:</th>
-            <td class="col-9"><?php echo $name;?></td>
-            <td rowspan="2" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('<?php echo $latitud;?>','<?php echo $longitud;?>','<?php echo $__gid;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
-        </tr>
-        <tr>
-            <th scope="row">Lat/Lon:</th>
-            <td><?php echo $latitud. ' | '.$longitud; ?></td>
-        </tr>
-    </tbody>
-</table>
-<hr>
-<?php
-    $hayContenido = true;
+
+        if($variable_campo_filtro == '__gid'){//if en caso de __gid
+
+            $gid = $filaCampoFiltro['gid'];
+            $__gid = $filaCampoFiltro['__gid'];
+            $name = $filaCampoFiltro['name'];
+            $latitud = $filaCampoFiltro['lat'];
+            $longitud = $filaCampoFiltro['lon'];
+            ?>
+                <table class="table table-borderless table-md small">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col" colspan="3">#<?php echo $gid.' - '.$__gid; ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Name:</th>
+                            <td class="col-9"><?php echo $name;?></td>
+                            <td rowspan="2" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('<?php echo $latitud;?>','<?php echo $longitud;?>','<?php echo $__gid;?>','','<?php echo $variable_campo_filtro;?>','<?php echo $tabla_consulta;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Lat/Lon:</th>
+                            <td><?php echo $latitud. ' | '.$longitud; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+            <?php
+        }//fin if __gid
+
+        if($variable_campo_filtro == 'folio'){//if en caso de folio
+
+            $gid = $filaCampoFiltro['gid'];
+            $clave_cata = $filaCampoFiltro['clave_cata'];
+            $clave_loca = $filaCampoFiltro['clave_loca'];
+            $numero_reg = $filaCampoFiltro['numero_reg'];
+            $numero_man = $filaCampoFiltro['numero_man'];
+            $numero_lot = $filaCampoFiltro['numero_lot'];
+            $direccion = $filaCampoFiltro['direccion'];
+            $nombre_col = $filaCampoFiltro['nombre_col'];
+            $codigo_pos = $filaCampoFiltro['codigo_pos'];
+            $fecha_alt = $filaCampoFiltro['fecha_alta'];
+            $propietari = $filaCampoFiltro['propietari'];
+            $razon_soci = $filaCampoFiltro['razon_soci'];
+            $uso_predio = $filaCampoFiltro['uso_predio'];
+
+        $consultaCoordenadas="select ST_AsText(ST_Centroid(geom)) as puntito from ".$tabla_consulta." where folio ='".$variable_consulta_filtro."'";// linea de consulta a postgress
+    
+        $resultCoordenadas = pg_query($conexion, $consultaCoordenadas);//ejecuta la consulta de postgress
+            if (!$resultCoordenadas) {//evalua si exite un error en la consulta
+            echo "Ocurrió un error.\n";
+            exit;
+            }//fin if
+            else
+            {
+                echo "<script>console.log('CONSULTA - Recibida');</script>";
+            
+                while ($filaPos = pg_fetch_row($resultCoordenadas)) {//busca el resultado obtenido de la consulta
+                    $centroide = $filaPos [0];//muestra en pantalla el resultado
+                }//fin while
+            }//fin else
+
+
+            ?>
+                <table class="table table-borderless table-md small">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col" colspan="3">Folio: <?php echo $variable_consulta_filtro.' - GID: '.$gid; ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <?php if($propietari != ''){ ?>
+                            <th scope="row">Propietario:</th>
+                            <td class="col-9"><?php  echo $propietari;?></td>
+                            <?php
+                            }//fin if
+                            else{
+                                if($razon_soci != ''){
+                                    ?>
+                                    <th scope="row">Razón Social:</th>
+                                    <td class="col-9"><?php  echo $razon_soci;?></td>
+                                    <?php
+                                }//fin if
+                                else{
+                                    ?>
+                                    <th scope="row">Propietario:</th>
+                                    <td class="col-9"><?php  echo 'Desconocido';?></td>
+                                    <?php
+                                }
+                            }//fin else
+                            ?>
+                            <td  rowspan="5" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('','','<?php echo $variable_consulta_filtro;?>','<?php echo $centroide;?>','<?php echo $variable_campo_filtro;?>','<?php echo $tabla_consulta;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Dirección:</th>
+                            <td><?php echo $nombre_col.', '.$direccion.' Lt: '.$numero_lot.' Man: '. $numero_man.' Reg:'. $numero_reg.' CP: '.$codigo_pos; ?></td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row">Clave Catastral:</th>
+                            <td><?php echo $clave_cata; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fecha de alta:</th>
+                            <td><?php echo $fecha_alt; ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Uso de predio:</th>
+                            <td><?php echo $uso_predio; ?></td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            <?php
+        }//fin if folio
+
+        $hayContenido = true;//exitencia de registros
     }//fin while
 
+    //evaluacion de existencia de registros
     if($hayContenido == false){
         echo "No hay registros";
-    }
+    }//fin if
 
 }//fin else
 ?>

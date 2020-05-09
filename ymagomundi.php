@@ -314,9 +314,9 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 <!--contenidoCapaz-->
                 <button class="accordion">Capas de datos territoriales: </button>
                 <div id="accordionCapasFromProyecto" class="panel">
-                <ul id="listaCapasFromProyecto" class="list-unstyled">
+                    <ul id="listaCapasFromProyecto" class="list-unstyled">
 
-                </ul>
+                    </ul>
                     <!--fin ul capaz-->
                 </div>
                 <!--fin div capaz-->

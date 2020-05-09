@@ -90,21 +90,34 @@ function buscarFiltro(){
     }//fin else
 }//fin metodo
 
-function buscarUbicacionFiltro(latitud, longitud, identificador){
-   
+function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,filtro,layer){
+
+        var centroide = centroideGeom;
         
         if(resultadoWMSlayer){//evaluando si existe la capa
             console.log("Existe una capa, Borrando...");
             window.map.removeLayer(resultadoWMSlayer);//quitando la capa
         }
+
+        if(centroide != ''){
+
+            //---extrayendo las coordenadas en variables separadas----
+            var centroSinPOINT = centroide.slice(6,-1);
+            console.log("Centro sin texto POINT:" + centroSinPOINT);
+            var centroLat = centroSinPOINT.split(' ')[0];
+            console.log("Latitud: " + centroLat);
+            var centroLon = centroSinPOINT.split(' ')[1];
+            console.log("Longitud: " + centroLon);
+            //---fin extraer-----
+        }
             // capa de busqueda de predio
             resultadoWMSlayer= L.tileLayer.wms('http://144.91.126.153:8990/gs216/opb/wms',
             {
-                layers: 'opb:bigs_opb_20201q_aoi_w_4326u',
+                layers: 'opb:'+layer,
                 format: 'image/png',
                 transparent: true,
                 zIndex:101,
-                CQL_FILTER:'__gid='+identificador
+                CQL_FILTER: filtro+'='+identificador
             });//fin capa
             
             window.map.addLayer(resultadoWMSlayer);//agregando capa
