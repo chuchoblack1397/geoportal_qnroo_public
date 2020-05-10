@@ -102,12 +102,12 @@ function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,fi
         if(centroide != ''){
 
             //---extrayendo las coordenadas en variables separadas----
-            var centroSinPOINT = centroide.slice(6,-1);
+            var centroSinPOINT = centroide.slice(6,-1);//quitando el texto POINT
             console.log("Centro sin texto POINT:" + centroSinPOINT);
-            var centroLat = centroSinPOINT.split(' ')[0];
-            console.log("Latitud: " + centroLat);
-            var centroLon = centroSinPOINT.split(' ')[1];
-            console.log("Longitud: " + centroLon);
+            longitud = centroSinPOINT.split(' ')[0];
+            console.log("Longitud: " + longitud);
+            latitud = centroSinPOINT.split(' ')[1];
+            console.log("Latitud: " + latitud);
             //---fin extraer-----
         }
             // capa de busqueda de predio
@@ -129,7 +129,6 @@ function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,fi
                 console.log("Error.");
             }
 
-           
             //var latitud = 17.5546;
             //var longitud = -99.4995;
             var zoom = 18;  
