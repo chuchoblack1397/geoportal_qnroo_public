@@ -38,6 +38,13 @@ if($_SESSION['rol_capa_d'] =='true' ){
   <tbody id="cuerpoTabla">
   </tbody>
 </table>
+
+<!--LOADER-->
+<div style='display:none, width:100%' id="loader_capas">
+        <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+    </div>
+<!--fin LOADER-->
+
 </form>
 </div>
 <?php
@@ -52,18 +59,20 @@ if($_SESSION['rol_capa_d'] =='true' ){
 ?>
 <script>
 
-//$(document).ready(ajax_ver_capas());
-window.onload = ajax_ver_capas();
-ajax_ver_capas();
+
 
     function ajax_ver_capas(){
         console.log('Dentro de AJAX ver capas');
         $.ajax({
               url:'php_ver_capas.php',
-              
+              beforeSend:function(){
+                document.getElementById("cuerpoTabla").innerHTML="";//vaciar la tabla
+                $('#loader_capas').show();//mostrar LOADER
+              },
               success: function(res){
                 seccionVer=document.getElementById("cuerpoTabla");
                 seccionVer.innerHTML=res;
+                $('#loader_capas').hide();//ocultar LOADER
             },
             error: function(){
               alert( "Error con el servidor" );

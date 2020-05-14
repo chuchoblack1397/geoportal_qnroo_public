@@ -35,6 +35,13 @@
   <tbody id="cuerpoTablaUser">
   </tbody>
 </table>
+
+<!--LOADER-->
+<div style='display:none, width:100%' id="loader_usuarios">
+        <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+    </div>
+<!--fin LOADER-->
+
 </form>
 </div>
 <?php
@@ -48,18 +55,18 @@
  ?>
 <script>
 
-//$(document).ready(ajax_ver_usuarios());
-window.onload = ajax_ver_usuarios();
-ajax_ver_usuarios();
-
     function ajax_ver_usuarios(){
         console.log('Dentro de AJAX ver Usuarios');
         $.ajax({
               url:'php_ver_usuario.php',
-              
+              beforeSend:function(){
+                document.getElementById("cuerpoTablaUser").innerHTML="";//vaciar la tabla
+                $('#loader_usuarios').show();//mostrar LOADER
+              },
               success: function(res){
                 seccionVerUser=document.getElementById("cuerpoTablaUser");
                 seccionVerUser.innerHTML=res;
+                $('#loader_usuarios').hide();//ocultar LOADER
             },
             error: function(){
               alert( "Error con el servidor" );

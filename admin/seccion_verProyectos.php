@@ -35,8 +35,16 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
         </tr>
       </thead>
       <tbody id="cuerpoTablaVerProyectos">
+        
       </tbody>
     </table>
+    
+    <!--LOADER-->
+    <div class='display:none, width:100%' id="loader_proyectos">
+        <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+    </div>
+    <!--fin LOADER-->
+
   </form>
 </div>
  <?php
@@ -59,11 +67,12 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
      $.ajax({
               url:'php_ver_proyectos.php',
               beforeSend:function(){
-                document.getElementById("cuerpoTablaVerProyectos").innerHTML="<option selected value=''>Cargando...</option>";
+                document.getElementById("cuerpoTablaVerProyectos").innerHTML="";//vaciar la tabla
+                $('#loader_proyectos').show();//mostrar LOADER
               },
               success: function(res){
-                seccionVer=document.getElementById("cuerpoTablaVerProyectos");
-                seccionVer.innerHTML=res;
+                document.getElementById("cuerpoTablaVerProyectos").innerHTML=res;//rellenar tabla con datos
+                $('#loader_proyectos').hide();//ocultar LOADER
             },
             error: function(){
               alert( "Error con el servidor" );
@@ -73,14 +82,14 @@ if ($_SESSION['rol_mapa_d'] == 'true') {
    }
 
   // //funcion para el buscador
-  // $(document).ready(function() {
-  //   $("#buscadorCapas").on("keyup", function() {
-  //     var value = $(this).val().toLowerCase();
-  //     $("#cuerpoTabla tr").filter(function() {
-  //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-  //     });
-  //   });
-  // });
+   $(document).ready(function() {
+     $("#buscadorProyectos").on("keyup", function() {
+       var value = $(this).val().toLowerCase();
+       $("#cuerpoTablaVerProyectos tr").filter(function() {
+         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+       });
+     });
+   });
   //fin funcion buscador
 
 

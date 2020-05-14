@@ -31,6 +31,11 @@ include "../conexion.php";
                             <tbody id="cuerpoTablaAsignacionCapaProyecto">
                             </tbody>
                         </table>
+                        <!--LOADER-->
+                        <div style='display:none, width:100%' id="loader_proyecto1">
+                            <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+                        </div>
+                        <!--fin LOADER-->
                     </form>
                 </div>
             </div>
@@ -54,6 +59,11 @@ include "../conexion.php";
                             <tbody id="cuerpoTablaAsignacionUsuarioProyecto">
                             </tbody>
                         </table>
+                        <!--LOADER-->
+                        <div style='display:none, width:100%' id="loader_proyecto2">
+                            <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+                        </div>
+                        <!--fin LOADER-->
                     </form>
                 </div>
             </div>
@@ -77,11 +87,13 @@ include "../conexion.php";
         $.ajax({
             url: 'php_asignar_capas.php',
             beforeSend: function() {
-                document.getElementById("cuerpoTablaAsignacionCapaProyecto").innerHTML = "<p>Cargando...</p>";
+                document.getElementById("cuerpoTablaAsignacionCapaProyecto").innerHTML="";//vaciar la tabla
+                $('#loader_proyecto1').show();//mostrar LOADER
             },
             success: function(res) {
                 let seccionVer = document.getElementById("cuerpoTablaAsignacionCapaProyecto");
                 seccionVer.innerHTML = res;
+                $('#loader_proyecto1').hide();//ocultar LOADER
             },
             error: function() {
                 alert("Error con el servidor");
@@ -91,11 +103,13 @@ include "../conexion.php";
         $.ajax({
             url: 'php_asignar_capas_usuarios.php',
             beforeSend: function() {
-                document.getElementById("cuerpoTablaAsignacionUsuarioProyecto").innerHTML = "<option selected value=''>Cargando...</option>";
+                document.getElementById("cuerpoTablaAsignacionUsuarioProyecto").innerHTML="";//vaciar la tabla
+                $('#loader_proyecto2').show();//mostrar LOADER
             },
             success: function(res) {
                 let seccionVer = document.getElementById("cuerpoTablaAsignacionUsuarioProyecto");
                 seccionVer.innerHTML = res;
+                $('#loader_proyecto2').hide();//ocultar LOADER
             },
             error: function() {
                 alert("Error con el servidor");

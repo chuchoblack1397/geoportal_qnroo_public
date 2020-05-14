@@ -1,46 +1,34 @@
 console.log("Dentro de archivo JS_EDITAR Usuario");
 
-var usuarioEditar="";
-var nombreEditar="";
-var apEditar="";
-var amEditar="";
-var puestoEditar="";
-var privilegioEditar="";
 
-function modalUsuario(usuarioR,nombreR,apUR,amUR,puestoR,privilegioR){//funcion para obtener valores de campos y eliminarlos
-    console.log("Editando: "+usuarioR+nombreR+apUR+amUR+puestoR+privilegioR);
+function modalProyecto(idproyecto){//funcion para obtener valores de campos y eliminarlos
+    console.log("Editando: "+idproyecto);
 
-    var ruta="usuario="+usuarioR+"&nombre="+nombreR+"&ap="+apUR+"&am="+amUR+"&puesto="+puestoR+"&privilegio="+privilegioR;
+    var ruta="idproyecto="+idproyecto;
     
-    usuarioEditar=usuarioR;
-    nombreEditar=nombreR;
-    apEditar=apUR;
-    amEditar=amUR;
-    puestoEditar=puestoR;
-    privilegioEditar=privilegioR;
 
-    var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
+    var seccionModalProyecto=document.getElementById("cuerpoModalEditarProyecto");
     $.ajax({
-        url:"php_modal_editar_usuario.php",
+        url:"php_modal_editar_proyecto.php",
         type:"POST",
         data: ruta,
         beforeSend:function(){
-            seccionModalUser.innerHTML="";
-            $('#loader_usuarios_modal').show();//mostrar LOADER
+            seccionModalProyecto.innerHTML="";
+            $('#loader_proyectos_modal').show();//mostrar LOADER
         },
         success: function(res){
-            seccionModalUser.innerHTML=res;
-            $('#loader_usuarios_modal').hide();//ocultar LOADER
+            seccionModalProyecto.innerHTML=res;
+            $('#loader_proyectos_modal').hide();//ocultar LOADER
         },
         error: function(){
-          alert( "Error con el servidor" );
-      } 
+        alert( "Error con el servidor" );
+        } 
     });
 }
 
 
 
-function editarUsuario(){
+function editarProyecto(){
     console.log("Editando: "+usuarioEditar);
     var txt_usuarioUser = usuarioEditar;
     var txt_nombreUser = document.getElementById("nombreUser").value;
@@ -61,7 +49,7 @@ function editarUsuario(){
         return;
     }//fin if
     
-    var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
+    var seccionModalProyecto=document.getElementById("cuerpoModalEditarProyecto");
         //var rutaUpdate="usuario="+usuarioEditar+"&nombre="+txt_nombreUser+"&ap="+txt_apUser+"&am="+txt_amUser+"&puesto="+txt_puestoUser+"&privilegio="+txt_privilegioUser;
         var rutaUpdate="usuario="+txt_usuarioUser;
         $.ajax({
@@ -69,17 +57,17 @@ function editarUsuario(){
             type:"POST",
             data: rutaUpdate,
             beforeSend:function(){
-                seccionModalUser.innerHTML="Cargando. Por favor espere...";
+                seccionModalProyecto.innerHTML="Cargando. Por favor espere...";
             },
             success: function(res){
                 $('#respuestaUsuario').html(res);
-                seccionModalUser.innerHTML=res;
+                seccionModalProyecto.innerHTML=res;
                 //$('#modalEditarUsuario').modal('hide');
                // ajax_ver_usuarios();
             },
             error: function(){
-              alert( "Error con el servidor" );
-          } 
+                alert( "Error con el servidor" );
+            } 
         });
     
     

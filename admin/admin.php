@@ -200,7 +200,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_mapa_c'] == 'true') {
                   ?>
-                    <a class="nav-link active" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="true"><span class="icon-plus mr-3"></span>Crear proyecto</a>
+                    <a class="nav-link active" id="opcion_agregarProyecto" data-toggle="pill" href="#agregarProyecto" role="tab" aria-controls="agregarProyecto" aria-selected="true" onclick="ajax_asignar_capas_proyecto();"><span class="icon-plus mr-3"></span>Crear proyecto</a>
                   <?php
                   }
 
@@ -377,6 +377,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
     <!--Archivo js para eliminar la capa en bd-->
     <script src="js_editarCapa.js"></script>
     <!--Archivo js para editar la capa en bd-->
+    <script src="js_editarProyecto.js"></script>
+    <!--Archivo js para editar el proyecto en bd-->
     <script src="js_guardarUsuario.js"></script>
     <!--Archivo js para guardar la capa en bd-->
     <script src="js_eliminarUsuario.js"></script>

@@ -18,9 +18,9 @@ include "../conexion.php";
           </div>
       </th>
       <?php
-       if($_SESSION['rol_capa_u']=='true') {
-       ?>
-      <td><button id="btn_<?php echo $idProyecto;?>" type="button" class="btn btn-light botonEditarProyectos" onClick="editarProyecto(this)"><span class="icon-pencil2 text-info"></span></button></td>
+      if($_SESSION['rol_capa_u']=='true') {
+      ?>
+      <td><button data-toggle="modal" data-target="#modalEditarProyecto" id="btn_proyecto_<?php echo $idProyecto;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalProyecto('<?php echo $idProyecto;?>')"><span class="icon-pencil2 text-info"></span></button></td>
       <?php
       }
       ?>
@@ -70,4 +70,27 @@ include "../conexion.php";
     $i=$i+1;
     }//fin while
 ?>
-
+<!-- Modal -->
+<div class="modal fade" id="modalEditarProyecto" tabindex="-1" role="dialog" aria-labelledby="modalEditarProyectoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarProyectoTitle">Editar proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="cuerpoModalEditarProyecto">
+      </div>
+        <!--LOADER-->
+        <div style='display:none, width:100%' id="loader_proyectos_modal" class="mb-4">
+            <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+        </div>
+        <!--fin LOADER-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onClick="editarProyecto()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

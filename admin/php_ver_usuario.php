@@ -55,6 +55,11 @@ include "../conexion.php";
       </div>
       <div class="modal-body" id="cuerpoModalEditarUsuario">
       </div>
+       <!--LOADER-->
+       <div style='display:none, width:100%' id="loader_usuarios_modal" class="mb-4">
+            <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+        </div>
+        <!--fin LOADER-->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" onClick="editarUsuario()">Guardar</button>
