@@ -11,6 +11,7 @@ var resultadoWMSlayer;
 //---- metodo de Click para buscar dato del input campoBuscar-------
 //$("#btn_buscar").click(function(){
 function buscarFiltro(){
+    document.getElementById("contenedorResultado").style.display = "block";
     console.log("Buscando...");
     var variable_consulta_filtro = document.getElementById('campoBuscar').value;//asignacion de la variable
     console.log("Valor de Busqueda: "+variable_consulta_filtro);
@@ -37,56 +38,21 @@ function buscarFiltro(){
                 data: ruta,
                 beforeSend:function(){
                     document.getElementById("contenedorResultado").innerHTML="Buscando...";
-                  },
+                },
                 success: function(res){
                 $('#contenedorResultado').html(res);
             },
             error: function(){
                 alert( "Error al realizar la busqueda" );
             } 
-        });
-  
-/*
-        if(resultadoWMSlayer){//evaluando si existe la capa
-            console.log("Existe una capa, Borrando...");
-            window.map.removeLayer(resultadoWMSlayer);//quitando la capa
-        }
-            // capa de busqueda de predio
-            resultadoWMSlayer= L.tileLayer.wms(url,
-            {
-                layers: layer,
-                format: 'image/png',
-                transparent: true,
-                zIndex:101,
-                CQL_FILTER:campoFiltro+'='+variable_consulta_filtro
-            });//fin capa
-            
-            window.map.addLayer(resultadoWMSlayer);//agregando capa
-
-            if(window.map.addLayer(resultadoWMSlayer)){
-                console.log("Agregada");
-            }
-            else{
-                console.log("Error.");
-            }
-*/
-           /* 
-            var latitud = 17.5546;
-            var longitud = -99.4995;
-            var zoom = 18;  
-            map.setView({lat: latitud, lng: longitud},zoom);
-            */
-
-            //map.setView({lat: latitud, lng: longitud}, zoom);//funcion para mover el mapa hasta el predio
-            
-            //map.panTo({lat: latitud, lng: longitud}); // otra funcion para mover el mapa hasta el predio
-        
+        });  
     }//fin if
     else{
-        alert('Asegurese que los parametros de busqueda sean correctos.');
-        /*if(predioWMSlayer){//evaluando si existe la capa
-            window.map.removeLayer(predioWMSlayer);//quitando la capa
-        }*/
+        //alert('Asegurese que los parametros de busqueda sean correctos.');
+        if(resultadoWMSlayer){//evaluando si existe la capa
+            window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+        }
+        document.getElementById("contenedorResultado").innerHTML="<b><span style='color:red'>Asegurese que los parametros de busqueda sean correctos</span></b>";
     }//fin else
 }//fin metodo
 
@@ -140,3 +106,14 @@ function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,fi
             //map.panTo({lat: latitud, lng: longitud}); // otra funcion para mover el mapa hasta el predio
         
 }//fin metodo
+
+//CERRAR o ELIMINAR BUSQUEDA
+var btn_borrarFiltro = document.getElementById("btn_borrarFiltro");
+function borrarFiltro(){
+    document.getElementById("contenedorResultado").innerHTML="";
+    document.getElementById("contenedorResultado").style.display = "none";
+    if(resultadoWMSlayer){//evaluando si existe la capa
+        window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+    }
+
+}

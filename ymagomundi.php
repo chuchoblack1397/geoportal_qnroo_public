@@ -194,7 +194,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                 <?php
                 if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
                 ?>
-                    <button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">
+                    <!--<button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">-->
+                    <button id="btnEntrarAdmin" onclick="window.open('admin/admin.php','_blank')">
                         <span class="icon-cog"></span>
                     </button>
                 <?php
@@ -243,9 +244,9 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     </div>
                     <!--
                         <div class="btn-group grupo1" role="group">
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
+                            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
+                            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
+                            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
                         </div>
                         -->
                 </div>
@@ -364,8 +365,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
             <div class="bg-light" id="contenedorBuscador" style="width:35%; display:none">
                 <div class="input-group mt-2" id="buscador">
-                    <input id="campoBuscar" type="search" placeholder="Escribe tu filtro de ->" aria-describedby="button-addon5" class="form-control">
-                    <div class="input-group-append">
+                    <div class="input-group-prepend">
                         <select class="custom-select btn" id="selectTipo">
                             <option selected value="0|0|0|0">Seleccionar</option>
                             <?php
@@ -382,8 +382,13 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                             } //fin foreach
                             ?>
                         </select>
-                        <button id="btn_buscar" class="btn btn-primary" title="Aplicar filtro" onclick="buscarFiltro()"><i class="icon-filter"></i></button>
-                        <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
+                    </div>
+
+                        <input id="campoBuscar" type="search" placeholder="Escribe tu filtro" aria-describedby="button-addon5" class="form-control">
+                        
+                    <div class="input-group-append">
+                        <button id="btn_buscar" class="btn btn-primary mr-2" title="Aplicar filtro" onclick="buscarFiltro()"><i class="icon-filter"></i></button>
+                        <button id="btn_borrarFiltro" class="btn btn-danger" title="Borrar filtro" onclick="borrarFiltro()"><i class="icon-cross"></i></button>
                     </div>
                 </div>
 
@@ -461,7 +466,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
             <!--Contenedor resultados de filtro-->
             <div id="contenedorResultadoFiltro" style="display:none;">
-                <div class="contenedorResultado" id="contenedorResultado">
+                <div class="contenedorResultado" id="contenedorResultado" style="display:none;">
                     Resultado
                 </div>
             </div>
@@ -778,6 +783,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                                 document.getElementById("btnActivarBusqueda1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("contenedorBuscador").style.display = "block";
                                 document.getElementById("contenedorResultadoFiltro").style.display = "block";
+                                
 
                             } //fin if
                             else {
