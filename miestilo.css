@@ -315,6 +315,106 @@ border:0;
     
 
 }
+
+
+/* popup  */
+
+.overlay{
+    background:rgba(0,0,0,.3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left :0;
+    right:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.overlay.active {
+    visibility: visible;
+}
+
+.popup{
+    background: #f8f8f8;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    border-radius: 3px;
+    font-family:  sans-serif;
+    padding: 20px;
+    text-align: center;
+    width: 600px;
+    transition:.3s ease all;
+    transform: scale(.7);
+    opacity: 0;
+
+
+
+}
+
+.popup .btn-cerrar-popup{
+    font-size: 16px;
+    line-height: 16px;
+    display:block;
+    text-align: right;
+    color: #BBBBBB;
+    transition: 2s ease all;
+
+}
+
+.popup .btn-cerrar-popup:hover{
+    color:#000;
+}
+
+
+.popup h3{
+
+    font-size: 36px;
+  
+    margin-bottom: 10px;
+   
+}
+
+.popup form .contenedor-input input{
+    width: 100%;
+    margin-bottom: 20px;
+    height: 52px;
+    line-height: 52px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #BBBBBB;
+}
+
+
+.popup form .btn-submit{
+
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color: #fff;
+    background: #5E7DE3;
+    border-radius: 3px;
+    font-family: sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s ease all;
+
+}
+
+.popup form .btn-submit:hover{
+    background: rgba(94,125,227,.9);
+}
+
+
+
+/*animaciones*/
+
+.popup.active{
+    opacity: 1;
+    transform: scale(1);
+}
+
 /*--fiun Acordeon*/
 @media only screen and (max-width: 850px) {
 

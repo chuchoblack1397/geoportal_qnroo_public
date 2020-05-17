@@ -2,9 +2,10 @@
 include "../conexion.php";
 echo "<script>console.log('PHP guardar capa');</script>";
 
-
+password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
 $userNickname = $_POST['userNickname'];
-$userPass =  $_POST['userPass'];
+//$userPass =  $_POST['userPass'];
+$userPass =  password_hash($_POST['userPass'], PASSWORD_DEFAULT);
 $userNombre = $_POST['userNombre'];
 $userAPaterno = $_POST['userAPaterno'];
 $userAMaterno = $_POST['userAMaterno'];
