@@ -8,7 +8,7 @@ $SRID =$_POST['srid'];
 //echo $tblname;
 //echo $SRID;
 
-$dir_subida = '/var/www/uploads/';
+$dir_subida = '/var/tmp/uploads';
 $fichero_subido = $dir_subida . basename($_FILES['fichero_usuario']['name']);
 
 //echo '<pre>';
@@ -28,7 +28,7 @@ if (move_uploaded_file($_FILES['fichero_usuario']['tmp_name'], $fichero_subido))
 
 $zip = new ZipArchive;
 if ($zip->open($fichero_subido) === TRUE) {
-    $zip->extractTo('/var/www/uploads/');
+    $zip->extractTo('/var/tmp/uploads');
     $zip->close();
     echo 'ok';
     ?>
@@ -64,7 +64,7 @@ if (file_exists($nombre_fichero)) {
 }*/
 
 
-$directorio_base = '/var/www/uploads/';
+$directorio_base = '/var/tmp/uploads';
 
 
 $dir_handle = opendir($directorio_base);
@@ -159,7 +159,7 @@ $archivoExtension=false;
 
 
 
-$rutaArchivo='/var/wwww/uploads/'.$archivoSHP;
+$rutaArchivo='/var/tmp/uploads/'.$archivoSHP;
 
 
 
@@ -205,9 +205,9 @@ else{
 
 }
 
-unlink('/var/www/uploads/'.$archivoSHP);
-unlink('/var/www/uploads/'.$archivoSHX);
-unlink('/var/www/uploads/'.$archivoPRJ);
-unlink('/var/www/uploads/'.$archivoDBF);
+unlink('/var/tmp/uploads/'.$archivoSHP);
+unlink('/var/tmp/uploads/'.$archivoSHX);
+unlink('/var/tmp/uploads/'.$archivoPRJ);
+unlink('/var/tmp/uploads/'.$archivoDBF);
 
 ?>

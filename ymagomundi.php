@@ -344,7 +344,7 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
     <div class="contenedor-input">
     <label for="capa-nombre">Nombre de la capa</label>
     <input type="text" name="capa-nombre" id="capa-nombre" required>
-    <label for="srid">Ingrese srID</label>
+    <label for="srid">Ingrese SRID</label>
     <input type="text" name="srid" id="srid" required>
 
     </div>
@@ -356,7 +356,7 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
  
     <input type="submit" name="uploadBtn" value="ENVIAR" id="boton-enviar" class="btn-submit" />
     <div id="respuesta"></div>
-    <iframe width="1" height="1" frameborder="0" name="subir-archivo" ></iframe>
+    <iframe width="1" height="1" frameborder="0" name="subir-archivo" style="display=none;"></iframe>
   </form>
     
  
