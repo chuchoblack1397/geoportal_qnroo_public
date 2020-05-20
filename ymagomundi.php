@@ -17,112 +17,62 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
     $miUsuario = $_SESSION['usuarioSession'];
     $miContra = $_SESSION['usuarioPass'];
 
-/*validar hash*/
+    //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
+    $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
+    $resultado = pg_query($conexion, $consulta);
+    if (!$resultado) {
+        echo 'Consulta de usuario Fallida';
+        exit();
+    } else {
+        echo "<script>console.log('Consulta de usuario correcta');</script>";
+    } //fin if error resultado
 
-$validarPass="SELECT pass from usuarios where usuario='$miUsuario'";
-$resultadoPass= pg_query($conexion,$validarPass);
+    if ($row = pg_num_rows($resultado) > 0) { //comprueba si existe el usuario
+        echo "<script>console.log('Se encontro Usuario');</script>";
 
-if(!$resultadoPass) {
-    echo 'Consulta de usuario Fallida';
-    exit();
-   } 
-   else {
-      echo "<script>console.log('Consulta de usuario correcta');</script>";
-   }
+        while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado)) { //obteniendo el dato del privilegio
+            echo "<script>console.log('DENTRO DEL WHILE');</script>";
+            $privilegio = $datoUsuarioPrivilegio['privilegio']; //asigna el valor del campo 'privilegio' a una variable normal
+            $nombre = $datoUsuarioPrivilegio['nombreusuario'];
+            $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
+            $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
 
-        if($row=pg_num_rows($resultadoPass) > 0){//comprueba si existe el usuario
-            echo "<script>console.log('Se encontro Usuario');</script>";
-            
-            while ($UserPass = pg_fetch_assoc($resultadoPass))
-            {
-                echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                $pass = $UserPass['pass'];           
-            }//fin while
-        }
+            $nombreCompleto = $nombre . ' ' . $aPaterno . ' ' . $aMaterno;
 
-        //valido que la contraseña tenga hash, en caso de que no la actualiza
-    if($miContra==$pass){
-        $hash= password_hash($miContra, PASSWORD_DEFAULT);
-        $sql_actualizarPass = "UPDATE usuarios set pass ='$hash' where usuario='$miUsuario'";
-        $resultado_updatePass = pg_query($conexion,$sql_actualizarPass);
-        header("Refresh:0");
-    } else{
-      
+            $_SESSION['usuarioPrivilegio'] = $privilegio; //asignando el privilegio a la variable de session
+            echo "<script>console.log('Hola " . $nombre . ", eres: " . $privilegio . "');</script>";
 
-if (password_verify($miContra, $pass)) {
-    
+            //asignacion de los roles a variables de session para mayor accesibilidad
+            $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear']; //agregar
+            $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver']; //ver
+            $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar']; //editar
+            $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar']; //eliminar
 
-/*Fin validar hash*/ 
+            $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear']; //agregar
+            $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver']; //ver
+            $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar']; //editar
+            $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar']; //eliminar
 
+            $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear']; //agregar
+            $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver']; //ver
+            $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar']; //editar
+            $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar']; //eliminar
 
             $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear']; //agregar
             $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver']; //ver
             $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar']; //editar
             $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar']; //eliminar
 
+        } //fin while
 
 
 
 
 
- //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
- $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario'  AND cat_privilegios.privilegio = usuarios.privilegio";
- $resultado = pg_query($conexion,$consulta);
- if(!$resultado) {
-     echo 'Consulta de usuario Fallida';
-     exit();
-    } 
-    else {
-       echo "<script>console.log('Consulta de usuario correcta');</script>";
-    }//fin if error resultado
-
-         if($row=pg_num_rows($resultado) > 0){//comprueba si existe el usuario
-             echo "<script>console.log('Se encontro Usuario');</script>";
-             
-             while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado))
-             {//obteniendo el dato del privilegio
-                 echo "<script>console.log('DENTRO DEL WHILE');</script>";
-                 $privilegio = $datoUsuarioPrivilegio['privilegio'];//asigna el valor del campo 'privilegio' a una variable normal
-                 $nombre = $datoUsuarioPrivilegio['nombreusuario'];
-                 $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-                 $aMaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
-                 
-                 $nombreCompleto = $nombre.' '.$aPaterno.' '.$aMaterno;
-                 
-                 $_SESSION['usuarioPrivilegio'] = $privilegio;//asignando el privilegio a la variable de session
-                 echo "<script>console.log('Hola ".$nombre.", eres: ".$privilegio."');</script>";
-                 
-                 //asignacion de los roles a variables de session para mayor accesibilidad
-                 $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear'];//agregar
-                 $_SESSION['rol_usuario_r'] = $datoUsuarioPrivilegio['usuario_ver'];//ver
-                 $_SESSION['rol_usuario_u'] = $datoUsuarioPrivilegio['usuario_editar'];//editar
-                 $_SESSION['rol_usuario_d'] = $datoUsuarioPrivilegio['usuario_eliminar'];//eliminar
-
-                 $_SESSION['rol_capa_c'] = $datoUsuarioPrivilegio['capa_crear'];//agregar
-                 $_SESSION['rol_capa_r'] = $datoUsuarioPrivilegio['capa_ver'];//ver
-                 $_SESSION['rol_capa_u'] = $datoUsuarioPrivilegio['capa_editar'];//editar
-                 $_SESSION['rol_capa_d'] = $datoUsuarioPrivilegio['capa_eliminar'];//eliminar
-
-                 $_SESSION['rol_mapa_c'] = $datoUsuarioPrivilegio['mapa_crear'];//agregar
-                 $_SESSION['rol_mapa_r'] = $datoUsuarioPrivilegio['mapa_ver'];//ver
-                 $_SESSION['rol_mapa_u'] = $datoUsuarioPrivilegio['mapa_editar'];//editar
-                 $_SESSION['rol_mapa_d'] = $datoUsuarioPrivilegio['mapa_eliminar'];//eliminar
-
-                 $_SESSION['rol_rol_c'] = $datoUsuarioPrivilegio['rol_crear'];//agregar
-                 $_SESSION['rol_rol_r'] = $datoUsuarioPrivilegio['rol_ver'];//ver
-                 $_SESSION['rol_rol_u'] = $datoUsuarioPrivilegio['rol_editar'];//editar
-                 $_SESSION['rol_rol_d'] = $datoUsuarioPrivilegio['rol_eliminar'];//eliminar
-                 
-             }//fin while
-                   
-                        
-           
 
 
-
-
- //--ARREGLO PARA LOS DATOS DE LAS CAPAS
- /*
+        //--ARREGLO PARA LOS DATOS DE LAS CAPAS
+        /*
  # Este metodo que se emplea aquí solamente sirve para
  # realizar una sola vez la consulta a la base de datos
  # de los datos completos de las capas, ya que en este
@@ -131,24 +81,6 @@ if (password_verify($miContra, $pass)) {
  # muchas veces la conexion y dejamos todo dentro de un
  # ARREGLO el cual se reutiliza.
  */
-
-if($privilegio == 'administrador'){
-    
-    $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC";//consulta general
-  
-}else{
-    $consultaCapas = "select capas.*, ordencapas.zindex from relacion_usuario_capas inner join capas on relacion_usuario_capas.idcapa = capas.idcapa and relacion_usuario_capas.usuario = '".$miUsuario."' inner join ordencapas on capas.idcapa = ordencapas.idcapa order by ordencapas.zindex desc";//consulta general
-}
-
-
-$resultadoCapas = pg_query($conexion,$consultaCapas);
-if(!$resultadoCapas) {
-   echo 'Consulta de resultadoCapas Fallida';
-   exit();
-  }
-  else {
-     echo "<script>console.log('Consulta de resultadoCapas correcta');</script>";
-  }//fin if error resultadoCapas
 
         if ($privilegio == 'administrador') {
             $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC"; //consulta general
@@ -187,26 +119,20 @@ if(!$resultadoCapas) {
         <!DOCTYPE html>
         <html>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</title>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-        <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-        <script src="Leaflet.PolylineMeasure.js"></script>
-        <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
-        <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</title>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+            <link rel="stylesheet" href="Leaflet.PolylineMeasure.css" />
+            <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+            <script src="Leaflet.PolylineMeasure.js"></script>
+            <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+            <script src="leaflet-plugins-1.9.3\layer\tile\Google.js"></script>
 
-        <link rel="stylesheet" href="miestilo.css">
-        <link rel="stylesheet" href="fonts/style.css">
-        <link rel="stylesheet" href="estiloPopup.css">
-        <link rel="stylesheet" href="css/search.css">
-        <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
-        <link rel="stylesheet" href="css/css_barraFiltro.css">
-        
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
             <link rel="stylesheet" href="miestilo.css">
             <link rel="stylesheet" href="fonts/style.css">
@@ -216,14 +142,6 @@ if(!$resultadoCapas) {
             <link rel="stylesheet" href="css/css_barraFiltro.css">
             <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
 
-        <link rel="stylesheet" href="css/side/side.css">
-
-
-        
-
-        <!--links editBar-->
-        <link rel="stylesheet" href="css/leaflet-geoman.css" />
-        <script src="js/leaflet-geoman.min.js"></script>
 
 
             <link rel="stylesheet" href="css/side/side.css">
@@ -232,9 +150,8 @@ if(!$resultadoCapas) {
             <link rel="stylesheet" href="css/leaflet-geoman.css" />
             <script src="js/leaflet-geoman.min.js"></script>
 
-        <!-- Buffer -->
-        <link rel="stylesheet" href="js/buffer/leaflet.buffer.css">
-        <script src="js/buffer/leaflet.buffer.min.js"></script>
+            <!--links Side para dividir pantalla-->
+            <script src="js/side/leaflet-side-by-side.js"></script>
 
             <!-- Coordenadas mouse -->
             <link rel="stylesheet" href="css/L.Control.MousePosition.css">
@@ -246,49 +163,6 @@ if(!$resultadoCapas) {
             <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
 
 
-        <style>
-            body {padding: 0; margin: 0;}
-            html, body, #map {height: 100%;}
-        </style>
-
-        <script type="text/javascript"> 
-            function cargando(){
-    $("#respuesta").html('Subiendo archivo');
-} 
-function resultadoOk(){
-    $("#respuesta").html('El archivo ha sido subido exitosamente.');
-} 
-function resultadoErrorCmd(){
-    $("#respuesta").html('Error en el servidor.');
-} 
-function resultadoExitoCmd(){
-    $("#respuesta").html('La capa se ha subido correctamente.');
-} 
-
-function resultadoErrorFalta(){
-    $("#respuesta").html('Error: Archivos Faltantes.');
-}
-function resultadoExtraccionCorrecta(){
-    $("#respuesta").html('Extraccion Correcta');
-}
-
-function resultadoErrorExtraccion(){
-    $("#respuesta").html('Error: No se pudo descomprimir el archivo.');
-}
-
-function resultadoErrorExt(){
-    $("#respuesta").html('Error: Extencion invalida de archivos.');
-}
-$(document).ready(function(){
-    $("#boton-enviar").click(function(){
-       cargando();
-    });
-});
-
-        </script>
-
-
-    </head>
 
             <!--links estilo leyendas wms-->
             <link rel="stylesheet" href="estiloLeyendas.css" />
@@ -296,51 +170,22 @@ $(document).ready(function(){
             <!--links estilo barra Acciones-->
             <link rel="stylesheet" href="estiloBarraAcciones.css" />
 
+            <style>
+                body {
+                    padding: 0;
+                    margin: 0;
+                }
 
-<div class="bg-light" id="controlMenuPanel">
-    <!--btnAdmin-->
-  <?php
-if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true"   ){
-    ?>
-    <button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">
-        <span class="icon-cog"></span>
-    </button>
-    <?php
+                html,
+                body,
+                #map {
+                    height: 100%;
+                }
+            </style>
+        </head>
 
-}
-?>
-    <!--fin btnAdmin-->
-<button id="btnCerrarMenu">
-<span class="icon-cross"></span>
-</button>
-  <input type="checkbox" name="" id="botonCerrarControl" checked>
-  <label for="botonCerrarControl" id="botonCerrarControl_label"><</label>
-  <div id="avatar" class="baseControlPanel">
-    <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
-    <p><?php echo $nombreCompleto;?></p>
-    <a href="cerrarSesion.php">Cerrar sesión</a>
-  </div><!--fin div avatar-->
-  <hr><!--linea-->
-  <div id="contenedorZoom" class="baseControlPanel">
-    <label for="zoom">Zoom</label>
-    <div class="divZoom">
-      <button id="zoomOut" class="btnZoom"><span class="icon-minus"></span></button>
-    </div>
-    <div class="divZoom">
-      <input type="range" class="custom-range" min="5" max="20" id="zoom">
-    </div>
-    <div class="divZoom">
-      <button id="zoomIn" class="btnZoom"><span class="icon-plus"></span></button>
-    </div>
-  </div><!--fin div contenedorZoom-->
-  <hr><!--linea-->
-  <div id="contendorControles" >
+        <body>
 
-        <div id="contenedorBotonesAcciones">
-                        <div class="btn-group" role="group">
-                              <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                              <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
             <!------ENCABEZADO DE LA PAGINA-->
 
 
@@ -403,87 +248,66 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
                             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
                         </div>
-                       
-                        <div class="btn-group grupo1" role="group">
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalAgregar" title="Agregar"><span class="icon-plus text-secondary small"></span></button>
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalConsulta" title="Consultar"><span class="icon-search text-secondary small"></span></button>
-                              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modalEliminar" title="Eliminar"><span class="icon-bin text-secondary small"></span></button>
-                              <button type="button" class="btn btn-light"  data-target="#modalSubirCapa" title="Subir capa" id="subirCapa"><span class="icon-upload text-secondary small"></span></button>
+                        -->
+                </div>
+                <!--fin contenedorBotonesAcciones-->
+
+                <hr>
+                <div class="form-group d-flex flex-column px-3">
+                    <label for="selectProyecto">Proyecto</label>
+                    <select class="form-control" id="selectProyecto" name="selectProyecto">
+                    <option value="">Selecciona un proyecto...</option>
+                    </select>
+                </div>
+
+                <!--<div id="accordionCapasFromProyecto">
+                    <div class="card">
+                        <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
+                            <div class="card-header" id="headingCapasFromProyecto">
+                                Capas de datos territoriales
+                            </div>
+                        </a>
+                        <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
+                            <div class="card-body">
+                                <ul id="listaCapasFromProyecto" class="list-unstyled">
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 -->
                 <button class="accordion">Mapas de referencia: </button>
 
-
-
-
-
-    <div class="overlay" id="overlay">
-    <div class="popup" id="popup">
-    <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="icon-cross"></i></a>
- <form id="formulario"method="POST" action="archivo.php" enctype="multipart/form-data" target="subir-archivo">
-        <h3>Subir capas</h3>
-    
-    <div class="contenedor-input">
-    <label for="capa-nombre">Nombre de la capa</label>
-    <input type="text" name="capa-nombre" id="capa-nombre" required>
-    <label for="srid">Ingrese SRID</label>
-    <input type="text" name="srid" id="srid" required>
-
-    </div>
-    <div>
-      <span>Sube tu archivo Zip</span>
-      <input type="file" name="fichero_usuario" required/>
-    </div>
-
- 
-    <input type="submit" name="uploadBtn" value="ENVIAR" id="boton-enviar" class="btn-submit" />
-    <div id="respuesta"></div>
-    <iframe width="1" height="1" frameborder="0" name="subir-archivo" style="display=none;"></iframe>
-  </form>
-    
- 
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-    <hr><!--linea-->
+                <div id="contenidoRadios" class="panel">
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="radio_csm" class="custom-control-input" name="radioGrupo" value="csm" checked>
+                                <label for="radio_csm" class="custom-control-label">Calles (OpenStreetMap)</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="radio_calles" class="custom-control-input" name="radioGrupo" value="calles">
+                                <label for="radio_calles" class="custom-control-label">OpenStreetMap Topogr&aacute;fico</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="radio_grises" class="custom-control-input" name="radioGrupo" value="grises">
+                                <label for="radio_grises" class="custom-control-label">OpenStreetMap Grises</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
+                                <label for="radio_google" class="custom-control-label">Google Sat&eacute;lite</label>
+                            </div>
 
                         </li>
                     </ul>
 
-      <div id="contenidoRadios" class="panel">
-        <ul class="list-unstyled">
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_csm" class="custom-control-input" name="radioGrupo" value="csm" checked>
-              <label for="radio_csm" class="custom-control-label">Calles (OpenStreetMap)</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_calles" class="custom-control-input" name="radioGrupo" value="calles">
-              <label for="radio_calles" class="custom-control-label">OpenStreetMap Topogr&aacute;fico</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_grises" class="custom-control-input" name="radioGrupo" value="grises">
-              <label for="radio_grises" class="custom-control-label">OpenStreetMap Grises</label>
-            </div>
-          </li>
-          <li>
-            <div class="custom-control custom-radio">
-              <input type="radio" id="radio_google" class="custom-control-input" name="radioGrupo" value="googleSat">
-              <label for="radio_google" class="custom-control-label">Google Sat&eacute;lite</label>
-            </div>
 
                 </div>
                 <!--fin div contenidoRadios-->
@@ -515,20 +339,8 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                                                 <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
 
 
-      <!--contenidoCapaz-->
-      <button class="accordion">Capas de datos territoriales: </button>
-        <div id="contenidoCapas" class="panel">
-          <ul class="list-unstyled" id="listaCapa">
-              <?php
-					    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-					       ?>
-					        <li id="<?php echo $campo['idcapa'];?>">
-                                      <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" id="chk_<?php echo $campo['idcapa'];?>" class="custom-control-input" name="chkGrupo" value="<?php echo $campo['idcapa'];?>">
-                                        <label for="chk_<?php echo $campo['idcapa'];?>" class="custom-control-label"><?php echo $campo['titulocapa'];?></label><br>
-                                            <div id="div_btn_<?php echo $campo['idcapa'];?>" class="btn-group" role="group">
-                                                <button id="btn_leyenda_<?php echo $campo['idcapa'];?>" type="button" class="btn btn-light"  title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa'];?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa'];?>" class="icon-eye text-secondary small"></span></button>
-                                              
+                                    </div>
+                                </div>
 
                             </li>
 
@@ -607,21 +419,7 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                         } //fin foreach
                         ?>
 
-        <div class="bg-light" id="contenedorSwipe" style="width:30%; display:none">
-          <div class="input-group mt-4" id="buscadorS">
-          <select class="custom-select btn" id="selectTipoS" onchange="repetido()"> <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
-                    <option  value="ninguno">Seleccionar</option>
-                    <option value="osm">Calles (OpenStreetMap)</option>
-                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
-                    <option value="grayscale">OpenStreetMap Grises</option>
-                    <option value="googleSat">Google Sat&eacute;lite</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-            		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
-            		<?php
-            		    }//fin foreach
-                    ?>
+                    </select>
 
                     <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
                         <option value="ninguno">Seleccionar</option>
@@ -637,28 +435,15 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                         } //fin foreach
                         ?>
 
-                <select class="custom-select btn" id="selectTipoS1" onchange="repetido()">
-                    <option value="ninguno">Seleccionar</option>
-                    <option value="osm">Calles (OpenStreetMap)</option>
-                    <option value="streets">OpenStreetMap Topogr&aacute;fico</option>
-                    <option value="grayscale">OpenStreetMap Grises</option>
-                    <option value="googleSat">Google Sat&eacute;lite</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-            		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
-            		<?php
-            		    }//fin foreach
-                    ?>
 
                     </select>
                     <div class="input-group-append">
 
-                </select>
-            <div class="input-group-append">
+                        <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="img/swipe.png" alt=""></button>
+                        <button id="btn_borrar" class="btn btn-danger ml-2" onClick="RecogerDatos();" title="Desactivar swipe"><i class="icon-cross"></i></button>
+                    </div>
+                </div>
 
-               <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon"src="img/swipe.png" alt=""></button>
-               <button id="btn_borrar" class="btn btn-danger ml-2" onClick ="RecogerDatos();"title="Desactivar swipe"><i class="icon-cross"></i></button>
             </div>
 
 
@@ -732,11 +517,6 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                     attribution: osmAttrib
                 });
 
-    var osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {//NOTA: OSM = Open Street Map
-      minZoom: 1,
-      maxZoom: 25,
-      attribution: osmAttrib
-      });
 
                 var grayscale = L.tileLayer(mbUrl, {
                     id: 'mapbox.light',
@@ -758,10 +538,6 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
     });
     
 
-    var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 25,
-    subdomains:['mt0','mt1','mt2','mt3']
-    });
 
 
 
@@ -895,8 +671,7 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                     showUnitControl: false
                 });
 
-            //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
-           // L.control.scale ({maxWidth:240, metric:true, imperial:false, position: 'bottomleft'}).addTo(map);
+                map.addEventListener('click', onMapClick); //llama al evento click dentro del MAPA
 
 
 
@@ -936,36 +711,28 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                 //-------capa de figuras y control de figuras-----------------
                 var featureGroup = L.featureGroup(); //.addTo(map); //crendo la capa de figuras
 
-
-var drawControl = new L.Control.Draw({ //creando el control de las figuras
-  edit: {
-    featureGroup: featureGroup,
-    poly : {
-                    allowIntersection : false
-    },
-    buffer: {
-        replacePolylines: false,
-        separateBuffer:false,
-        radiousOrMessage: false,
-    },
-  },
-  position: 'topright',
-  draw: {
-    polygon : {
-                    allowIntersection: false,
-                    showArea:true
-                },
-    polyline: true,
-    rectangle: true,
-    circle: false,
-    marker: true
-  },
-
-  
-  metric: ['km', 'm']
-});
-//---MAS ABAJO ESTA EL METODO PARA EL AREA DE LAS FIGURAS ----------
-//-----fin capa de figuras y control de figuras-------
+                var drawControl = new L.Control.Draw({ //creando el control de las figuras
+                    edit: {
+                        featureGroup: featureGroup,
+                        poly: {
+                            allowIntersection: false
+                        }
+                    },
+                    position: 'topright',
+                    draw: {
+                        polygon: {
+                            allowIntersection: false,
+                            showArea: true
+                        },
+                        polyline: true,
+                        rectangle: true,
+                        circle: false,
+                        marker: true
+                    },
+                    metric: ['km', 'm']
+                });
+                //---MAS ABAJO ESTA EL METODO PARA EL AREA DE LAS FIGURAS ----------
+                //-----fin capa de figuras y control de figuras-------
 
 
 
@@ -995,9 +762,8 @@ var drawControl = new L.Control.Draw({ //creando el control de las figuras
 
 
 
-
-function activarInformacion(opcionBtn){//funcion para evaluar el click del boton para el onMapClick
-    switch(opcionBtn){
+                function activarInformacion(opcionBtn) { //funcion para evaluar el click del boton para el onMapClick
+                    switch (opcionBtn) {
 
                         case "informacion":
                             if (activoInformacion == false) {
@@ -1054,20 +820,6 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                                 repetido();
 
 
-                    activoSwipe=true;
-                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-light small";//alterando las propiedades del span dentro del boton
-                    document.getElementById("btnActivarSwipe2").style.color= "white";
-                    document.getElementById("btnActivarSwipe1").className = "btn btn-success";//alterando las propiedades del span dentro del boton
-                    document.getElementById("cambio-swipe").src="css/side/Recurso2_blanco.png";
-                    //document.getElementById("SwipeOcultar").style.display="block";
-                    //document.getElementById("swipeOption").style.display="block";
-                    document.getElementById("contenedorSwipe").style.display="block";
-                    //document.getElementById("radio_csm").disabled = true;
-                    //document.getElementById("radio_grises").disabled = true;
-                    //document.getElementById("radio_calles").disabled = true;
-                    //document.getElementById("radio_google").disabled = true;
-                    //document.getElementById("boton-fin").disabled=true;
-                    repetido();
 
 
                             } else {
@@ -1084,19 +836,6 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                                 //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
 
 
-                }
-                else{
-                    activoSwipe = false;//cambiando el valor de la variable
-                    document.getElementById("btnActivarSwipe2").className = "icon-Recurso-1 text-secondary small";//alterando las propiedades del span dentro del boton
-                    document.getElementById("btnActivarSwipe1").className = "btn btn-light";//alterando las propiedades del span dentro del boton
-                    //document.getElementById("SwipeOcultar").style.display="none";
-                    //document.getElementById("swipeOption").style.display="none";
-                    document.getElementById("contenedorSwipe").style.display="none";
-                    document.getElementById("cambio-swipe").src="css/side/Recurso1.png";
-                    //document.getElementById("radio_csm").disabled = false;
-                    //document.getElementById("radio_grises").disabled = false;
-                    //document.getElementById("radio_calles").disabled = false;
-                    //document.getElementById("radio_google").disabled = false; //desactivamos radiobutton
 
 
 
@@ -1109,14 +848,29 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                                 document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small"; //alterando las propiedades del span dentro del boton
                                 document.getElementById("btnActivarLeyenda1").className = "btn btn-danger"; //alterando las propiedades del span dentro del boton
 
-
-                }
-            break;
-        case "leyenda":
-                if(activoLeyenda == false){
-                    activoLeyenda = true;//cambiando el valor de la variable
-                    document.getElementById("btnActivarLeyenda2").className = "icon-eye-blocked text-light small";//alterando las propiedades del span dentro del boton
-                    document.getElementById("btnActivarLeyenda1").className = "btn btn-danger";//alterando las propiedades del span dentro del boton
+                                //subFuncionactivarInformacion();
+                            } //fin if
+                            else {
+                                activoLeyenda = false; //cambiando el valor de la variable
+                                document.getElementById("btnActivarLeyenda2").className = "icon-eye-plus text-secondary small"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarLeyenda1").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("contenedorIframeLeyendasNuevo").style.display = "block";
+                                //subFuncionactivarInformacion();
+                            } //fin else
+                            break;
+                        case "medicion":
+                            if (activoMedicion == false) {
+                                document.getElementById("btnActivarMedi2").className = "icon-wrench text-light small"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarMedi1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                                myControl.addTo(map); //agregar control al mapa
+                                activoMedicion = true;
+                                subFuncionactivarInformacion();
+                                document.getElementById("contenedorIframeLeyendasNuevo").style.right = "50px";
+                            } //fin if
+                            else {
+                                document.getElementById("btnActivarMedi2").className = "icon-wrench text-secondary small"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarMedi1").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                                map.removeControl(myControl); // quitar o eliminar control del mapa
 
                                 //if para evaluar si las opciones estan activadas, realizar un espaciado en las leyendas
                                 if (activoMedicion == false || activoAreaTrazo == false) {
@@ -1254,17 +1008,8 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                         var URL = urlWMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + cadenaLayers + '&QUERY_LAYERS=' + cadenaLayers + '&STYLES=&BBOX=' + BBOX + '&FEATURE_COUNT=50&HEIGHT=' + HEIGHT + '&WIDTH=' + WIDTH + '&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X=' + X + '&Y=' + Y;
                         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 
-        var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
-        var latitud = e.latlng.lat.toFixed(4);
-        var longitud = e.latlng.lng.toFixed(4);
-        var BBOX = map.getBounds()._southWest.lng+","+map.getBounds()._southWest.lat+","+map.getBounds()._northEast.lng+","+map.getBounds()._northEast.lat;
-        var WIDTH= map.getSize().x;
-        var HEIGHT = map.getSize().y;
-        var X = Math.round(map.layerPointToContainerPoint(e.layerPoint).x);
-        var Y = Math.round(map.layerPointToContainerPoint(e.layerPoint).y);
-        //var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
-        var URL = urlWMS+'?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
-        //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+                        //-----------FIN PRUEBAS---------------------------------------------------------
+                        if (cadenaLayers != "") {
 
                             var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:" + latitud + "</span><span>Longitud:" + longitud + "</span></div><div class='contenidoPopup'> <iframe class='mb-2' src=" + URL + " id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
                             popup.setLatLng(e.latlng);
@@ -1372,13 +1117,19 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
                     featureGroup.addLayer(layer);
                 });
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script src="controlPanelOpciones.js"></script>
-        <script src="controlPanel.js"></script>
-        <script src="busquedaDatosCapas.js"></script>
-        <script src="js/popup.js"></script>
-    </body>
-</html>
+                // Object(s) edited - update popups
+                map.on(L.Draw.Event.EDITED, function(event) {
+                    var layers = event.layers,
+                        content = null;
+                    layers.eachLayer(function(layer) {
+                        content = getPopupContent(layer);
+                        if (content !== null) {
+                            layer.setPopupContent(content);
+                        }
+                    });
+                });
+                //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////
+            </script>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
             <script src="controlPanelOpciones.js"></script>
@@ -1389,30 +1140,14 @@ function activarInformacion(opcionBtn){//funcion para evaluar el click del boton
         </html>
 
 <?php //AQUI TERMINA EL MAPA POR ESO SE VUELVE ABRIR PHP
-        
-    
-}//fin validar hash 
+    } //fin if usuario encontrado
+    else {
+        //Si el usuario no existe me mandara un mensaje
+        echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
+    } //fin else
+    pg_close($conexion);
+} //fin if
 else {
-    echo 'La contraseña no es válida.';
-}
-
-
-
-
-
-					}//fin if usuario encontrado
-					else{
-                        //Si el usuario no existe me mandara un mensaje
-						echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
-
-                    }//fin else
-                }
-					pg_close($conexion);
-        }//fin if
-        else
-        {
-            header("Location: index.php");
-        }//fin else
-    
+    header("Location: index.php");
+} //fin else
 ?>
-
