@@ -7,6 +7,7 @@ document.getElementById('campoBuscar').onkeyup = function (event) {
 }; //fin funcion
 
 var resultadoWMSlayer;
+var resultadoWMSlayerOPACA;
 
 //---- metodo de Click para buscar dato del input campoBuscar-------
 //$("#btn_buscar").click(function(){
@@ -51,18 +52,20 @@ function buscarFiltro(){
         //alert('Asegurese que los parametros de busqueda sean correctos.');
         if(resultadoWMSlayer){//evaluando si existe la capa
             window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+            window.map.removeLayer(resultadoWMSlayerOPACA);//quitando la capa
         }
         document.getElementById("contenedorResultado").innerHTML="<b><span style='color:red'>Asegurese que los parametros de busqueda sean correctos</span></b>";
     }//fin else
 }//fin metodo
 
-function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,filtro,layer){
+function buscarUbicacionFiltro(latitud, longitud, variable_busqueda,centroideGeom,filtro,layer){
 
         var centroide = centroideGeom;
         
         if(resultadoWMSlayer){//evaluando si existe la capa
             console.log("Existe una capa, Borrando...");
             window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+            window.map.removeLayer(resultadoWMSlayerOPACA);//quitando la capa
         }
 
         if(centroide != ''){
@@ -74,19 +77,34 @@ function buscarUbicacionFiltro(latitud, longitud, identificador,centroideGeom,fi
             console.log("Longitud: " + longitud);
             latitud = centroSinPOINT.split(' ')[1];
             console.log("Latitud: " + latitud);
+            console.log("Filtro: " + filtro);
+            console.log("Variable busqueda: " + variable_busqueda);
+            console.log(filtro +" = "+ variable_busqueda);
             //---fin extraer-----
         }
             // capa de busqueda de predio
             resultadoWMSlayer= L.tileLayer.wms('http://144.91.126.153:8990/gs216/opb/wms',
             {
-                layers: 'opb:'+layer,
+                layers: layer,
                 format: 'image/png',
                 transparent: true,
-                zIndex:101,
-                CQL_FILTER: filtro+'='+identificador
+                zIndex:102,
+                CQL_FILTER: filtro+"='"+variable_busqueda+"'"
             });//fin capa
             
             window.map.addLayer(resultadoWMSlayer);//agregando capa
+
+            // capa de busqueda de predio OPACA
+            resultadoWMSlayerOPACA= L.tileLayer.wms('http://144.91.126.153:8990/gs216/opb/wms',
+            {
+                layers: layer,
+                format: 'image/png',
+                transparent: true,
+                zIndex:101,
+                opacity: 0.2
+            });//fin capa
+            
+            window.map.addLayer(resultadoWMSlayerOPACA);//agregando capa
 
             if(window.map.addLayer(resultadoWMSlayer)){
                 console.log("Agregada");
@@ -114,6 +132,7 @@ function borrarFiltro(){
     document.getElementById("contenedorResultado").style.display = "none";
     if(resultadoWMSlayer){//evaluando si existe la capa
         window.map.removeLayer(resultadoWMSlayer);//quitando la capa
+        window.map.removeLayer(resultadoWMSlayerOPACA);//quitando la capa
     }
 
 }

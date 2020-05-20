@@ -341,6 +341,57 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
                               <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar barra de filtros" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
                               <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
+            <!------ENCABEZADO DE LA PAGINA-->
+
+
+            <div class="bg-light" id="controlMenuPanel">
+                <!--btnAdmin-->
+                <?php
+                if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
+                ?>
+                    <!--<button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">-->
+                    <button id="btnEntrarAdmin" onclick="window.open('admin/admin.php','_blank')">
+                        <span class="icon-cog"></span>
+                    </button>
+                <?php
+                }
+                ?>
+                <!--fin btnAdmin-->
+                <button id="btnCerrarMenu">
+                    <span class="icon-cross"></span>
+                </button>
+                <input type="checkbox" name="" id="botonCerrarControl" checked>
+                <label for="botonCerrarControl" id="botonCerrarControl_label">
+                    <</label> <div id="avatar" class="baseControlPanel">
+                        <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
+                        <p><?php echo $nombreCompleto; ?></p>
+                        <a href="cerrarSesion.php">Cerrar sesión</a>
+            </div>
+            <!--fin div avatar-->
+            <hr>
+            <!--linea-->
+            <div id="contenedorZoom" class="baseControlPanel">
+                <label for="zoom">Zoom</label>
+                <div class="divZoom">
+                    <button id="zoomOut" class="btnZoom"><span class="icon-minus"></span></button>
+                </div>
+                <div class="divZoom">
+                    <input type="range" class="custom-range" min="5" max="20" id="zoom">
+                </div>
+                <div class="divZoom">
+                    <button id="zoomIn" class="btnZoom"><span class="icon-plus"></span></button>
+                </div>
+            </div>
+            <!--fin div contenedorZoom-->
+            <hr>
+            <!--linea-->
+            <div id="contendorControles">
+
+                <div id="contenedorBotonesAcciones">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
+                        <button type="button" class="btn btn-light" title="Activar barra de busqueda" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
+                        <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
@@ -500,22 +551,38 @@ if($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] 
 
             <!--BARRA BUSCADOR-->
 
-      <div class="bg-light" id="contenedorBuscador" style="width:35%; display:none">
-          <div class="input-group mt-2" id="buscador">
-                <input id="campoBuscar" type="search" placeholder="Escribe tu filtro" aria-describedby="button-addon5" class="form-control">
-            <div class="input-group-append">
-                <select class="custom-select btn" id="selectTipo">
-                    <option selected value="ninguno">Seleccionar</option>
-                    <?php
-            		    foreach ($arregloCapas as $clave => $campo) {//obteniendo datos de Arreglo con datos de BD
-            		?>
-            		    <option value="<?php echo $campo['idcapa'];?>"><?php echo $campo['titulocapa'];?></option>
-            		<?php
-            		    }//fin foreach
-            		?>
-                </select>
-               <button id="btn_buscar" class="btn btn-primary" title="Aplicar filtro"><i class="icon-filter"></i></button>
-               <button id="btn_borrarFiltro" class="btn btn-danger ml-2" title="Borrar filtro"><i class="icon-bin2"></i></button>
+            <div class="bg-light" id="contenedorBuscador" style="width:35%; display:none">
+                <div class="input-group mt-2" id="buscador">
+                    <div class="input-group-prepend">
+                        <select class="custom-select btn" id="selectTipo">
+                            <option selected value="0|0|0|0">Seleccionar</option>
+                            <?php
+                            foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
+                                if ($campo['activo_consulta'] == 'true') {
+                                    $value_idcapa = $campo['idcapa'];
+                                    $value_url = $campo['urlcapa'];
+                                    $value_capa = $campo['layer'];
+                                    $value_filtro = $campo['campo_consulta'];
+                            ?>
+                                    <option value="<?php echo $value_idcapa . "|" . $value_url . "|" . $value_capa . "|" . $value_filtro; ?>"><?php echo $value_filtro . ' --- ' . $campo['titulocapa']; ?></option>
+                            <?php
+                                } //fin if
+                            } //fin foreach
+                            ?>
+                            <option value="capa_Predios|http://144.91.126.153:8990/gs216/opb/wms|opb:opb_predios_202003_dcm_32616_u|clave_cata">clave catastral --- Predios</option>
+                            <option value="capa_Predios|http://144.91.126.153:8990/gs216/opb/wms|opb:opb_predios_202003_dcm_32616_u|propietari">propietario --- Predios</option>
+                            <option value="capa_Predios|http://144.91.126.153:8990/gs216/opb/wms|opb:opb_predios_202003_dcm_32616_u|nombre_col">colonia --- Predios</option>
+                        </select>
+                    </div>
+
+                        <input id="campoBuscar" type="search" placeholder="Escribe tu busqueda" aria-describedby="button-addon5" class="form-control">
+                        
+                    <div class="input-group-append">
+                        <button id="btn_buscar" class="btn btn-primary mr-2" title="Buscar" onclick="buscarFiltro()"><i class="icon-filter"></i></button>
+                        <button id="btn_borrarFiltro" class="btn btn-danger" title="Borrar busqueda" onclick="borrarFiltro()"><i class="icon-cross"></i></button>
+                    </div>
+                </div>
+
             </div>
 
             <!--fin BARRA BUSCADOR-->

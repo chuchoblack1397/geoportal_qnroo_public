@@ -8,7 +8,7 @@ if($variable_campo_filtro == '__gid'){
     $tabla_consulta = 'bigs_opb_20201q_aoi_w_4326u';
 }
 
-if($variable_campo_filtro == 'folio'){
+if($variable_campo_filtro == 'folio' || $variable_campo_filtro == 'clave_cata' || $variable_campo_filtro == 'propietari' || $variable_campo_filtro == 'nombre_col'){
     $tabla_consulta = 'opb_predios_202003_dcm_32616_u';
 }
 
@@ -59,9 +59,10 @@ $hayContenido = false;
             <?php
         }//fin if __gid
 
-        if($variable_campo_filtro == 'folio'){//if en caso de folio
+        if($variable_campo_filtro == 'folio' || $variable_campo_filtro == 'clave_cata' || $variable_campo_filtro == 'propietari' || $variable_campo_filtro == 'nombre_col'){//if en caso de folio
 
             $gid = $filaCampoFiltro['gid'];
+            $folio = $filaCampoFiltro['folio'];
             $clave_cata = $filaCampoFiltro['clave_cata'];
             $clave_loca = $filaCampoFiltro['clave_loca'];
             $numero_reg = $filaCampoFiltro['numero_reg'];
@@ -75,7 +76,7 @@ $hayContenido = false;
             $razon_soci = $filaCampoFiltro['razon_soci'];
             $uso_predio = $filaCampoFiltro['uso_predio'];
 
-        $consultaCoordenadas="select ST_AsText(ST_Centroid(geom)) as puntito from ".$tabla_consulta." where folio ='".$variable_consulta_filtro."'";// linea de consulta a postgress
+            $consultaCoordenadas="select ST_AsText(ST_Centroid(geom)) as puntito from ".$tabla_consulta." where folio ='".$folio."'";// linea de consulta a postgress
 
         $resultCoordenadas = pg_query($conexion, $consultaCoordenadas);//ejecuta la consulta de postgress
             if (!$resultCoordenadas) {//evalua si exite un error en la consulta
@@ -115,7 +116,7 @@ $hayContenido = false;
                 <table class="table table-borderless table-md small">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col" colspan="3">Folio: <?php echo $variable_consulta_filtro.' - GID: '.$gid; ?></th>
+                        <th scope="col" colspan="3">Folio: <?php echo $folio.' - GID: '.$gid; ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -140,7 +141,7 @@ $hayContenido = false;
                                 }
                             }//fin else
                             ?>
-                            <td  rowspan="5" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('','','<?php echo $variable_consulta_filtro;?>','<?php echo $centroideOK;?>','<?php echo $variable_campo_filtro;?>','<?php echo $tabla_consulta;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
+                            <td  rowspan="5" style="vertical-align : middle;text-align:center;" class="col-1"><button onclick="buscarUbicacionFiltro('','','<?php echo $folio;?>','<?php echo $centroideOK;?>','folio','<?php echo $tabla_consulta;?>')" type="button" class="btn btn-link small text-danger"><span class="icon-location small"></span>Ver</button></td>
                         </tr>
                         <tr>
                             <th scope="row">Dirección:</th>
