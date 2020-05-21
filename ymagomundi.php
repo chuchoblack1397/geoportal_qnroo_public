@@ -133,6 +133,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
             <link rel="stylesheet" href="css/bootstrap.min.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
             <link rel="stylesheet" href="miestilo.css">
             <link rel="stylesheet" href="fonts/style.css">
@@ -1150,4 +1151,23 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 else {
     header("Location: index.php");
 } //fin else
+?>
+
+<?php
+if (isset($_SESSION["updates"])) { ?>
+    <div id="respuesta">
+    </div>
+    <script defer>
+        let total = <?= $_SESSION["updates"]["success"] + $_SESSION["updates"]["error"] ?>;
+        let updatesSuccess = <?= $_SESSION["updates"]["success"] ?>;
+        let updatesErrors = <?= $_SESSION["updates"]["error"] ?>;
+        let res = swal(
+            'COMPLETADO!',
+            'Total filas excel: ' + total + '\nActualizados: ' + updatesSuccess + '\nErrores: ' + updatesErrors,
+            'success'
+        );
+        $('#respuesta').html(res);
+    </script>
+<?php unset($_SESSION["updates"]);
+}
 ?>
