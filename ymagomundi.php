@@ -17,8 +17,48 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
     $miUsuario = $_SESSION['usuarioSession'];
     $miContra = $_SESSION['usuarioPass'];
 
+
+/*validar hash*/
+
+$validarPass="SELECT pass from usuarios where usuario='$miUsuario'";
+$resultadoPass= pg_query($conexion,$validarPass);
+
+if(!$resultadoPass) {
+    echo 'Consulta de usuario Fallida';
+    exit();
+   } 
+   else {
+      echo "<script>console.log('Consulta de usuario correcta');</script>";
+   }
+
+        if($row=pg_num_rows($resultadoPass) > 0){//comprueba si existe el usuario
+            echo "<script>console.log('Se encontro Usuario');</script>";
+            
+            while ($UserPass = pg_fetch_assoc($resultadoPass))
+            {
+                echo "<script>console.log('DENTRO DEL WHILE');</script>";
+                $pass = $UserPass['pass'];           
+            }//fin while
+        }
+
+        //valido que la contraseña tenga hash, en caso de que no la actualiza
+    if($miContra==$pass){
+        $hash= password_hash($miContra, PASSWORD_DEFAULT);
+        $sql_actualizarPass = "UPDATE usuarios set pass ='$hash' where usuario='$miUsuario'";
+        $resultado_updatePass = pg_query($conexion,$sql_actualizarPass);
+        header("Refresh:0");
+    } else{
+      
+
+if (password_verify($miContra, $pass)) {
+    
+
+/*Fin validar hash*/ 
+
+
+
     //$consulta = "SELECT * FROM usuarios WHERE usuario='$miUsuario' AND pass='$miContra'";
-    $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND usuarios.pass='$miContra' AND cat_privilegios.privilegio = usuarios.privilegio";
+    $consulta = "SELECT * FROM usuarios INNER JOIN cat_privilegios ON  usuarios.usuario='$miUsuario' AND cat_privilegios.privilegio = usuarios.privilegio";
     $resultado = pg_query($conexion, $consulta);
     if (!$resultado) {
         echo 'Consulta de usuario Fallida';
@@ -183,6 +223,43 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     height: 100%;
                 }
             </style>
+
+<script type="text/javascript"> 
+            function cargando(){
+    $("#respuesta").html('Subiendo archivo');
+} 
+function resultadoOk(){
+    $("#respuesta").html('El archivo ha sido subido exitosamente.');
+} 
+function resultadoErrorCmd(){
+    $("#respuesta").html('Error en el servidor.');
+} 
+function resultadoExitoCmd(){
+    $("#respuesta").html('La capa se ha subido correctamente.');
+} 
+
+function resultadoErrorFalta(){
+    $("#respuesta").html('Error: Archivos Faltantes.');
+}
+function resultadoExtraccionCorrecta(){
+    $("#respuesta").html('Extraccion Correcta');
+}
+
+function resultadoErrorExtraccion(){
+    $("#respuesta").html('Error: No se pudo descomprimir el archivo.');
+}
+
+function resultadoErrorExt(){
+    $("#respuesta").html('Error: Extencion invalida de archivos.');
+}
+$(document).ready(function(){
+    $("#boton-enviar").click(function(){
+    cargando();
+    });
+});
+</script>
+
+
         </head>
 
         <body>
@@ -242,6 +319,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
+                        <button type="button" class="btn btn-light"  data-target="#modalSubirCapa" title="Subir capa" id="subirCapa"><span class="icon-upload text-secondary small"></span></button>
                     </div>
                     <!--
                         <div class="btn-group grupo1" role="group">
@@ -252,6 +330,33 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                         -->
                 </div>
                 <!--fin contenedorBotonesAcciones-->
+
+                <div class="overlay" id="overlay">
+                    <div class="popup" id="popup">
+                        <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="icon-cross"></i></a>
+                        <form id="formulario"method="POST" action="archivo.php" enctype="multipart/form-data" target="subir-archivo">
+                            <h3>Subir capas</h3>
+            
+                            <div class="contenedor-input">
+                            <label for="capa-nombre">Nombre de la capa</label>
+                            <input type="text" name="capa-nombre" id="capa-nombre" required>
+                            <label for="srid">Ingrese SRID</label>
+                            <input type="text" name="srid" id="srid" required>
+
+                            </div>
+                            <div>
+                            <span>Sube tu archivo Zip</span>
+                            <input type="file" name="fichero_usuario" required/>
+                            </div>
+
+                        
+                            <input type="submit" name="uploadBtn" value="ENVIAR" id="boton-enviar" class="btn-submit" />
+                            <div id="respuesta"></div>
+                            <iframe width="1" height="1" frameborder="0" name="subir-archivo" style="display=none;"></iframe>
+                        </form>
+                    </div>
+                </div>
+
 
                 <hr>
                 <div class="form-group d-flex flex-column px-3">
@@ -1141,16 +1246,24 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
         </html>
 
 <?php //AQUI TERMINA EL MAPA POR ESO SE VUELVE ABRIR PHP
-    } //fin if usuario encontrado
-    else {
-        //Si el usuario no existe me mandara un mensaje
-        echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
-    } //fin else
-    pg_close($conexion);
-} //fin if
+   
+}//fin validar hash 
 else {
-    header("Location: index.php");
-} //fin else
+    echo 'La contraseña no es válida.';
+}
+					}//fin if usuario encontrado
+					else{
+                        //Si el usuario no existe me mandara un mensaje
+						echo 'Este usuario no existe <br> <a href="cerrarSesion.php"> <-- Volver a intentar</a>';
+
+                    }//fin else
+                }
+					pg_close($conexion);
+        }//fin if
+        else
+        {
+            header("Location: index.php");
+        }//fin else
 ?>
 
 <?php
