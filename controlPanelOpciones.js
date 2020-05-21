@@ -248,6 +248,16 @@ function loadSelectProyectos() {
 
 loadSelectProyectos();
 
+var wmsOptions = {
+    transparent: true,
+    format: 'image/png',
+    maxZoom: 22,
+    info_format: 'text/html',
+};
+var source = L.WMS.source(
+    'http://opb.geoportal.mx:8990/gs216/opb/wms',
+    wmsOptions
+);
 let layersObj = {};
 
 function toggleLayer() {
@@ -255,10 +265,11 @@ function toggleLayer() {
         Object.keys(layersObj).length !== 0 &&
         layersObj.constructor === Object
     ) {
-        if (this.checked === true && !map.hasLayer(layersObj[this.id])) {
-            layersObj[this.id].addTo(map);
-        } else if (this.checked !== true && map.hasLayer(layersObj[this.id])) {
-            layersObj[this.id].remove();
+        const layer = layersObj[this.id];
+        if (this.checked === true && !map.hasLayer(layer)) {
+            layer.addTo(map);
+        } else if (this.checked !== true && map.hasLayer(layer)) {
+            layer.remove();
         }
     }
 }
@@ -266,6 +277,15 @@ function toggleLayer() {
 const listaCapasFromProyecto = document.getElementById(
     'listaCapasFromProyecto'
 );
+if (!listaCapasFromProyecto.length) {
+    const spanElement = document.createElement('span');
+    const textElement = document.createTextNode(
+        'Por favor selecciona un proyecto.'
+    );
+    spanElement.appendChild(textElement);
+    spanElement.classList.add('text-info');
+    listaCapasFromProyecto.appendChild(spanElement);
+}
 function loadCapasFromProyecto() {
     const valueProyecto =
         selectProyecto.options[selectProyecto.selectedIndex].value;
@@ -286,6 +306,10 @@ function loadCapasFromProyecto() {
     }
 
     if (valueProyecto === '') {
+        const spanElement = document.createElement('span');
+        const textElement = document.createTextNode(
+            'Por favor selecciona un proyecto.'
+        );
         return;
     }
 
@@ -312,31 +336,34 @@ function loadCapasFromProyecto() {
                 const spanElement = document.createElement('span');
 
                 //listItemElement.classList.add('px-3');
-                listItemElement.id = 'li_'+value['idcapa'];
+                listItemElement.id = 'li_' + value['idcapa'];
                 listItemElement.appendChild(divElement);
 
-                divElement.classList.add('custom-control');//agregue clase a div
-                divElement.classList.add('custom-checkbox');//agregue clase a div
-                
+                divElement.classList.add('custom-control'); //agregue clase a div
+                divElement.classList.add('custom-checkbox'); //agregue clase a div
+
                 divElement.appendChild(inputElement);
                 divElement.appendChild(labelElement);
                 divElement.appendChild(breakElement);
                 divElement.appendChild(divLeyendElement);
 
-                divLeyendElement.id = 'div_btn_'+value['idcapa'];
+                divLeyendElement.id = 'div_btn_' + value['idcapa'];
                 divLeyendElement.classList.add('btn-group');
-                divLeyendElement.role="group";
+                divLeyendElement.role = 'group';
 
-                btnElement.id='btn_leyenda_'+value['idcapa'];
+                btnElement.id = 'btn_leyenda_' + value['idcapa'];
                 btnElement.type = 'button';
                 btnElement.classList.add('btn');
                 btnElement.classList.add('btn-light');
                 btnElement.title = 'Ver Leyenda';
-                btnElement.setAttribute("onclick","activarLeyendas('"+value['idcapa']+"')");
-                
+                btnElement.setAttribute(
+                    'onclick',
+                    "activarLeyendas('" + value['idcapa'] + "')"
+                );
+
                 btnElement.disabled = true;
 
-                spanElement.id='icon_btn_leyenda_'+value['idcapa'];
+                spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
                 spanElement.classList.add('icon-eye');
                 spanElement.classList.add('text-secondary');
                 spanElement.classList.add('small');
@@ -345,7 +372,7 @@ function loadCapasFromProyecto() {
                 btnElement.appendChild(spanElement);
 
                 inputElement.type = 'checkbox';
-                inputElement.id = value['idcapa'];//agregue chk
+                inputElement.id = value['idcapa']; //agregue chk
                 inputElement.classList.add('custom-control-input');
                 inputElement.name = 'chkGrupo';
                 inputElement.value = value['idcapa'];
@@ -354,7 +381,6 @@ function loadCapasFromProyecto() {
                 labelElement.classList.add('custom-control-label');
                 //labelElement.htmlContent = value['titulocapa'];
                 labelElement.innerHTML = value['titulocapa'];
-                
 
                 //listItemElement.appendChild(inputElement);
                 //listItemElement.appendChild(labelElement);
@@ -363,17 +389,18 @@ function loadCapasFromProyecto() {
 
                 inputElement.addEventListener('change', toggleLayer);
 
-                const layer = L.tileLayer.wms(value['urlcapa'], {
-                    layers: value['layer'],
-                    format: value['formato'],
-                    transparent: value['transparencia'],
-                    maxZoom: 22,
-                    version: value['version'],
-                    style: value['estilo'],
-                    zIndex: value['zindex'],
-                });
+                // const layer = L.tileLayer.wms(value['urlcapa'], {
+                //     layers: value['layer'],
+                //     format: value['formato'],
+                //     transparent: value['transparencia'],
+                //     maxZoom: 22,
+                //     version: value['version'],
+                //     style: value['estilo'],
+                //     zIndex: value['zindex'],
+                // });
 
-                layersObj[value['idcapa']] = layer;
+                // layersObj[value['idcapa']] = layer;
+                layersObj[value['idcapa']] = source.getLayer(value['layer']);
             });
 
             delete layersObj.length;

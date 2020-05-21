@@ -366,23 +366,6 @@ $(document).ready(function(){
                     </select>
                 </div>
 
-                <!--<div id="accordionCapasFromProyecto">
-                    <div class="card">
-                        <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
-                            <div class="card-header" id="headingCapasFromProyecto">
-                                Capas de datos territoriales
-                            </div>
-                        </a>
-                        <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
-                            <div class="card-body">
-                                <ul id="listaCapasFromProyecto" class="list-unstyled">
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
--->
                 <button class="accordion">Mapas de referencia: </button>
 
                 <div id="contenidoRadios" class="panel">
@@ -418,19 +401,26 @@ $(document).ready(function(){
                 </div>
                 <!--fin div contenidoRadios-->
 
-                <!--contenidoCapaz-->
-                <button class="accordion">Capas de datos territoriales: </button>
-                <div id="accordionCapasFromProyecto" class="panel">
-                    <ul id="listaCapasFromProyecto" class="list-unstyled">
+                <div id="accordionCapasFromProyecto">
+                    <div class="card">
+                        <a class="text-gray-100 pl-0" data-toggle="collapse" href="#collapseCapasFromProyecto" role="button" aria-expanded="false" aria-controls="collapseCapasFromProyecto">
+                            <div class="card-header" id="headingCapasFromProyecto">
+                                Capas de datos territoriales:
+                            </div>
+                        </a>
+                        <div id="collapseCapasFromProyecto" class="collapse" aria-labelledby="headingCapasFromProyecto" data-parent="#accordionCapasFromProyecto">
+                            <div class="card-body">
+                                <ul id="listaCapasFromProyecto" class="list-unstyled">
 
-                    </ul>
-                    <!--fin ul capaz-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!--fin div capaz-->
 
                 <!--contenidoCapaz-->
-                <button class="accordion">Capas de datos territoriales: </button>
-                <div id="contenidoCapas" class="panel">
+                <button class="accordion" style="display:none">Capas de datos territoriales: </button>
+                <div id="contenidoCapas" class="panel" style="display:none">
                     <ul class="list-unstyled" id="listaCapa">
                         <?php
                         foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
@@ -638,11 +628,11 @@ $(document).ready(function(){
                     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
                 });
 
-    var grayscale1   = L.tileLayer(mbUrl, {
-        id: 'mapbox.light', 
-        attribution: atribuciones
-    });
-    
+                var grayscale1 = L.tileLayer(mbUrl, {
+                    id: 'mapbox.light',
+                    attribution: atribuciones
+                });
+
 
 
 
@@ -1078,7 +1068,6 @@ $(document).ready(function(){
                 }); //variable de popup de click sobre el mapa
 
                 function onMapClick(e) {
-
                     //if(document.getElementById('chkBoton').checked){//verifica solo si cuando se da click en el mapa esta activado el boton chkboton
                     if (activoInformacion == true && activoMedicion == false && activoAreaTrazo == false) { //verifica solo si cuando se da click en el mapa esta activado el boton btnActivarInfo
 
@@ -1111,7 +1100,7 @@ $(document).ready(function(){
                         var X = Math.round(map.layerPointToContainerPoint(e.layerPoint).x);
                         var Y = Math.round(map.layerPointToContainerPoint(e.layerPoint).y);
                         //var URL = 'http://74.208.210.103:8990/geos/bigsdemo/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS='+cadenaLayers+'&QUERY_LAYERS='+cadenaLayers+'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=50&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
-                        var URL = urlWMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + cadenaLayers + '&QUERY_LAYERS=' + cadenaLayers + '&STYLES=&BBOX=' + BBOX + '&FEATURE_COUNT=50&HEIGHT=' + HEIGHT + '&WIDTH=' + WIDTH + '&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X=' + X + '&Y=' + Y;
+                        var URL = urlWMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + cadenaLayers + '&QUERY_LAYERS=' + cadenaLayers + '&STYLES=&BBOX=' + BBOX + '&FEATURE_COUNT=50&HEIGHT=' + HEIGHT + '&WIDTH=' + WIDTH + '&FORMAT=image%2Fpng&INFO_FORMAT=application%2fjson&SRS=EPSG%3A4326&X=' + X + '&Y=' + Y;
                         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 
                         //-----------FIN PRUEBAS---------------------------------------------------------
@@ -1238,6 +1227,7 @@ $(document).ready(function(){
             </script>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+            <script src="leaflet.wms.js"></script>
             <script src="controlPanelOpciones.js"></script>
             <script src="controlPanel.js"></script>
             <script src="busquedaDatosCapas.js"></script>
