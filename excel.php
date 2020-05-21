@@ -96,7 +96,7 @@ if ($FileExtension['extension'] == 'xlsx' || $FileExtension['extension'] == 'xls
     echo "<h3>Tiempo transcurrido updates: $time</h3>";
     $_SESSION["updates"] = ["error" => $updatesE, "success" => $updatesS];
 
-    return header('Location: ' . $base_url);
+    return header('Location: index.php');
 } else {
-    return header('Location: ' . $base_url);
+    return header('Location: index.php');
 }
