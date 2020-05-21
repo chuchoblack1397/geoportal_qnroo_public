@@ -1241,6 +1241,7 @@ $(document).ready(function(){
             <script src="controlPanelOpciones.js"></script>
             <script src="controlPanel.js"></script>
             <script src="busquedaDatosCapas.js"></script>
+            <script src="js/popup.js"></script>
         </body>
 
         </html>
