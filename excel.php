@@ -2,9 +2,6 @@
 require 'vendor/autoload.php';
 include './conexion.php';
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
 session_start();
 
 $base_url = "http://" . $_SERVER['SERVER_NAME'];
@@ -19,7 +16,7 @@ var_dump($file);
 var_dump($FileExtension['extension']);
 $path = "uploads/";
 
-if ($FileExtension['extension'] == 'xlsx') { // Valida extension
+if ($FileExtension['extension'] == 'xlsx' || $FileExtension['extension'] == 'xls') { // Valida extension
     if (file_exists($path . $file['name'])) { //Borra archivo si existe en proyecto
         echo "Borrando archivo si existe ya uno.</br>";
         unlink($path . $file['name']);
@@ -32,7 +29,8 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     }
 
     try { // Inicio funcion para leer excel
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($path . $file['name']);
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path . $file['name']);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
         $spreadsheet = $reader->load($path . $file['name']);
         $worksheet = $spreadsheet->getActiveSheet();
 
@@ -40,8 +38,8 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
         $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-    } catch (Exception $e) {
-        echo "Fallo en encontrar archivo xlsx\n" . $e;
+    } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
+        die('Error loading file: ' . $e->getMessage());
     }
 
     pg_set_client_encoding($conexion, "UTF8");
@@ -94,11 +92,11 @@ if ($FileExtension['extension'] == 'xlsx') { // Valida extension
     var_dump("Borrando archivo ya leido");
     unlink($path . $file['name']); //Borra archivo xlsx despues de leer su contenido
     $time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
-    echo "<h3>Total updates: $update</h3>";
+    echo "<h3>Total updates: $updatesS</h3>";
     echo "<h3>Tiempo transcurrido updates: $time</h3>";
     $_SESSION["updates"] = ["error" => $updatesE, "success" => $updatesS];
 
-    return header('Location: ' . $base_url);
+    return header('Location: index.php');
 } else {
-    return header('Location: ' . $base_url);
+    return header('Location: index.php');
 }

@@ -203,7 +203,7 @@
 <div class="modal fade" id="actualizarCapa" tabindex="-1" role="dialog" aria-labelledby="actualizarCapaTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
-      <form action="/excel.php" enctype="multipart/form-data" method="post">
+      <form action="excel.php" enctype="multipart/form-data" method="post">
         <div class="modal-header">
           <h5 class="modal-title" id="actualizarCapaTitle">Actualizar capa</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
