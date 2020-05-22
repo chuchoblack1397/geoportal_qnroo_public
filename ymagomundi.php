@@ -319,7 +319,12 @@ $(document).ready(function(){
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
+                        
+                    </div>
+                    <br>
+                    <div class="btn-group grupo1" role="group">
                         <button type="button" class="btn btn-light"  data-target="#modalSubirCapa" title="Subir capa" id="subirCapa"><span class="icon-upload text-secondary small"></span></button>
+                        <button type="button" class="btn btn-light" data-toggle="modal" data-target="#actualizarCapa" title="Actualizar capa"><span class="icon-file-excel text-secondary small"></span></button>
                     </div>
                     <!--
                         <div class="btn-group grupo1" role="group">
