@@ -15,8 +15,8 @@ include "../conexion.php";
     <div class="form-group row">
         <div class="col mr-1">
             <h6>Selecciona las capas que pertenecerán a este proyecto:</h6>
-            <button type="button" id="seleccionar_capas" class="btn btn-secondary mb-2">Seleccionar todas</button>
-            <button type="button" id="limpiar_Capas" class="btn btn-secondary mb-2">Limpiar selección</button>
+            <button type="button" id="seleccionar_capas" class="btn btn-outline-info mb-2" title="Seleccionar todo"><span class="icon-sort-amount-asc"></span></button>
+            <button type="button" id="limpiar_Capas" class="btn btn-outline-danger mb-2" title="Limpiar todo"><span class="icon-bin2"></span></button>
             <div class="table-responsive">
                 <div style="position: relative; height: 450px; overflow: auto; display: block;">
                     <form id="formAsignarCapasAProyecto" name="formAsignarCapasAProyecto">
@@ -43,8 +43,8 @@ include "../conexion.php";
         <!--fin col-->
         <div class="col ml-1">
             <h6>Selecciona a los usuarios que tendrán acceso a este proyecto:</h6>
-            <button type="button" id="seleccionar_usuarios" class="btn btn-secondary mb-2">Seleccionar todos</button>
-            <button type="button" id="limpiar_Usuarios" class="btn btn-secondary mb-2">Limpiar selección</button>
+            <button type="button" id="seleccionar_usuarios" class="btn btn-outline-info mb-2" title="Seleccionar todo"><span class="icon-sort-amount-asc"></span></button>
+            <button type="button" id="limpiar_Usuarios" class="btn btn-outline-danger mb-2" title="Limpiar todo"><span class="icon-bin2"></span></button>
             <div class="table-responsive">
                 <div style="position: relative; height: 450px; overflow: auto; display: block;">
                     <form id="formAsignarUsuariosAProyecto">
@@ -74,7 +74,7 @@ include "../conexion.php";
 
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="button" class="btn btn-primary" id="btn_guardarProyecto">Crear proyecto</button>
+            <button type="button" class="btn btn-success" id="btn_guardarProyecto"><span class="icon-checkmark"></span> Crear proyecto</button>
         </div>
     </div>
 </form>

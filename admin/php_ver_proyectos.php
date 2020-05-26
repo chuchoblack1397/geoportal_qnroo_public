@@ -72,7 +72,7 @@ include "../conexion.php";
 ?>
 <!-- Modal -->
 <div class="modal fade" id="modalEditarProyecto" tabindex="-1" role="dialog" aria-labelledby="modalEditarProyectoTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalEditarProyectoTitle">Editar proyecto</h5>
@@ -89,7 +89,7 @@ include "../conexion.php";
         <!--fin LOADER-->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onClick="editarProyecto()">Guardar</button>
+        <button type="button" class="btn btn-success" onClick="editarProyecto()"><span class="icon-checkmark"></span> Guardar</button>
       </div>
     </div>
   </div>
