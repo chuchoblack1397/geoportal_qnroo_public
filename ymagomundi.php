@@ -664,6 +664,8 @@ $(document).ready(function(){
                     //layers: [osm,googleSat]
                 });
 
+                const infoToggler = document.getElementById("btnActivarInfo1");
+
                 /*var control_side = L.control.sideBySide(osm,googleSat);
                 control_side.addTo(map);*/
 
@@ -870,7 +872,7 @@ $(document).ready(function(){
                             if (activoInformacion == false) {
                                 activoInformacion = true; //cambiando el valor de la variable
                                 document.getElementById("btnActivarInfo2").className = "icon-info text-light small"; //alterando las propiedades del span dentro del boton
-                                document.getElementById("btnActivarInfo1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarInfo1").className = "btn btn-success activo"; //alterando las propiedades del span dentro del boton
                                 subFuncionactivarInformacion();
                             } //fin if
                             else {
@@ -1032,7 +1034,7 @@ $(document).ready(function(){
 
                     if (activoMedicion == false && activoAreaTrazo == false) {
                         if (activoInformacion == true) {
-                            document.getElementById("btnActivarInfo1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarInfo1").className = "btn btn-success activo"; //alterando las propiedades del span dentro del boton
                             document.getElementById("btnActivarInfo2").className = "icon-info text-light small"; //alterando las propiedades del span dentro del boton
                         } //fin if
                         else {

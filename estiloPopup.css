@@ -1,18 +1,18 @@
-.popup{
+.popup {
     /*width: 365px;*/
     width: auto;
     height: auto;
 }
 
-
-.leaflet-popup-tip, .leaflet-popup-content-wrapper {
+.leaflet-popup-tip,
+.leaflet-popup-content-wrapper {
     background: whitesmoke;
     color: #232323;
     border-radius: 10px 10px 3px 3px;
     border: solid 1px #dedede;
 }
 
-.tituloPopup{
+.tituloPopup {
     background: #e0e0e0;
     position: absolute;
     width: 100%;
@@ -24,19 +24,45 @@
     border-radius: 10px 10px 0px 0px;
 }
 
-.contenidoPopup{
+.contenidoPopup {
     /*padding: 10px;*/
     padding: 10px 0px 0px 0px;
 }
 
-.coordenadasPopup{
+.coordenadasPopup {
     position: relative;
     text-align: center;
     top: 10px;
     padding: 5px;
 }
-.coordenadasPopup span{
+.coordenadasPopup span {
     margin: 0px 5px;
     font-size: 11px;
     color: forestgreen;
+}
+
+.popup__table {
+    font-size: 0.8rem;
+    width: 399px;
+}
+
+.popup__table th {
+    border-right: 3px solid rgba(0, 0, 0, 0.03);
+}
+
+.popup__title {
+    position: absolute;
+    top: 4%;
+    background: whitesmoke;
+    width: 399px;
+}
+
+.leaflet-popup-scrolled {
+    border-top: none;
+    border-bottom: none;
+    overflow-x: hidden;
+}
+
+.leaflet-popup-content-wrapper {
+    padding-top: 1.8rem;
 }

@@ -252,13 +252,14 @@ var wmsOptions = {
     transparent: true,
     format: 'image/png',
     maxZoom: 22,
-    info_format: 'text/html',
+    info_format: 'application/json',
 };
 var source = L.WMS.source(
     'http://opb.geoportal.mx:8990/gs216/opb/wms',
     wmsOptions
 );
 let layersObj = {};
+let layersNames = [];
 
 function toggleLayer() {
     if (
@@ -303,6 +304,7 @@ function loadCapasFromProyecto() {
             map.removeLayer(layersObj[key]);
             delete layersObj[key];
         }
+        layersNames.length = 0;
     }
 
     if (valueProyecto === '') {
@@ -401,6 +403,7 @@ function loadCapasFromProyecto() {
 
                 // layersObj[value['idcapa']] = layer;
                 layersObj[value['idcapa']] = source.getLayer(value['layer']);
+                layersNames.push(value['titulocapa']);
             });
 
             delete layersObj.length;
