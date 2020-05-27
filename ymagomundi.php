@@ -546,6 +546,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                     //layers: [osm,googleSat]
                 });
 
+                const infoToggler = document.getElementById("btnActivarInfo1");
+
                 /*var control_side = L.control.sideBySide(osm,googleSat);
                 control_side.addTo(map);*/
 
@@ -751,7 +753,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
                             if (activoInformacion == false) {
                                 activoInformacion = true; //cambiando el valor de la variable
                                 document.getElementById("btnActivarInfo2").className = "icon-info text-light small"; //alterando las propiedades del span dentro del boton
-                                document.getElementById("btnActivarInfo1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarInfo1").className = "btn btn-success activo"; //alterando las propiedades del span dentro del boton
                                 subFuncionactivarInformacion();
                             } //fin if
                             else {
@@ -914,7 +916,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //v
 
                     if (activoMedicion == false && activoAreaTrazo == false) {
                         if (activoInformacion == true) {
-                            document.getElementById("btnActivarInfo1").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarInfo1").className = "btn btn-success activo"; //alterando las propiedades del span dentro del boton
                             document.getElementById("btnActivarInfo2").className = "icon-info text-light small"; //alterando las propiedades del span dentro del boton
                         } //fin if
                         else {

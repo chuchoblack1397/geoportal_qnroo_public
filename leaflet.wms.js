@@ -101,12 +101,14 @@
             if (!layers.length) {
                 return;
             }
-            this.getFeatureInfo(
-                evt.containerPoint,
-                evt.latlng,
-                layers,
-                this.showFeatureInfo
-            );
+            if (infoToggler.classList.contains('activo')) {
+                this.getFeatureInfo(
+                    evt.containerPoint,
+                    evt.latlng,
+                    layers,
+                    this.showFeatureInfo
+                );
+            }
         },
         getFeatureInfo: function (point, latlng, layers, callback) {
             var params = this.getFeatureInfoParams(point, layers),
@@ -149,15 +151,69 @@
                 result =
                     "<iframe src='" +
                     url +
-                    "' style='border:none;width:400px'>";
+                    "' style='border:none;width:500px;height:200px'>";
             }
-            return result;
+            const data = JSON.parse(result);
+            const divMain = document.createElement('div');
+
+            if (Object.keys(data['features']).length === 0) {
+                divMain.textContent =
+                    'No se encontró información acerca de este punto.';
+            } else {
+                data['features'].forEach((value, index) => {
+                    const layerId = value['id'];
+                    const [layerName, featureNo] = layerId.split(
+                        /\.(?=[^\.]+$)/
+                    );
+
+                    const div = document.createElement('div');
+                    const title = document.createElement('span');
+                    const table = document.createElement('table');
+                    const tableBody = document.createElement('tbody');
+
+                    divMain.appendChild(title);
+                    divMain.appendChild(table);
+                    table.appendChild(tableBody);
+
+                    table.classList.add(
+                        'table',
+                        'table-striped',
+                        'popup__table'
+                    );
+                    title.classList.add('h6', 'pb-2', 'popup__title');
+
+                    Object.values(layersObj).some((val, ind) => {
+                        if (val['_name'] === layerName) {
+                            title.textContent = layersNames[ind];
+                            return val['_name'] === layerName;
+                        }
+                    });
+                    Object.keys(value['properties']).forEach((val, ind) => {
+                        const tableRow = document.createElement('tr');
+                        const tableHeader = document.createElement('th');
+                        const tableData = document.createElement('td');
+
+                        tableHeader.textContent = val;
+                        tableData.textContent = value['properties'][val];
+
+                        tableRow.appendChild(tableHeader);
+                        tableRow.appendChild(tableData);
+
+                        tableBody.appendChild(tableRow);
+                    });
+                });
+            }
+
+            return divMain;
         },
         showFeatureInfo: function (latlng, info) {
             if (!this._map) {
                 return;
             }
-            this._map.openPopup(info, latlng, { maxWidth: '500px' });
+            this._map.openPopup(info, latlng, {
+                maxWidth: 460,
+                maxHeight: 340,
+            });
         },
         showWaiting: function () {
             if (!this._map) return;
