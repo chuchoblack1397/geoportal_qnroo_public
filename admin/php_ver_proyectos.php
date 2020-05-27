@@ -29,9 +29,10 @@ include "../conexion.php";
       <td><!--lista de usuarios asignados-->
         <ul>
         <?php
+          $arregloUsuariosVista = Array();
           $consultaProyectoUsuarioLista = "select usuarios.usuario, usuarios.nombreusuario, usuarios.apellidopaternousuario, usuarios.apellidomaternousuario from relacion_proyecto_usuarios inner join usuarios on id_proyecto = '$idProyecto' and usuarios.usuario = relacion_proyecto_usuarios.usuario order by usuarios.nombreusuario asc";//consulta general
           $resultadoProyectoUsuarioLista = pg_query($conexion,$consultaProyectoUsuarioLista);
-      
+
           while ($filaProyectoUsuarioLista = pg_fetch_assoc($resultadoProyectoUsuarioLista))
           {//obteniendo capas de BD
         ?>
@@ -50,7 +51,7 @@ include "../conexion.php";
         <?php
           $consultaProyectoCapaLista = "select capas.idcapa, capas.titulocapa from relacion_proyecto_capas inner join capas on id_proyecto = '$idProyecto' and capas.idcapa = relacion_proyecto_capas.idcapa order by capas.titulocapa asc";//consulta general
           $resultadoProyectoCapaLista = pg_query($conexion,$consultaProyectoCapaLista);
-      
+
           while ($filaProyectoCapaLista = pg_fetch_assoc($resultadoProyectoCapaLista))
           {//obteniendo capas de BD
         ?>

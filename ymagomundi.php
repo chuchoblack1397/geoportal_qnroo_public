@@ -48,7 +48,7 @@ if(!$resultadoPass) {
         $resultado_updatePass = pg_query($conexion,$sql_actualizarPass);
         header("Refresh:0");
     } else{
-      
+
 
 if (password_verify($miContra, $pass)) {
     
