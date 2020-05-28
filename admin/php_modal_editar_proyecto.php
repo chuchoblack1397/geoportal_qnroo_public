@@ -93,7 +93,7 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                     </thead>
                                     <tbody>
                                     <?php
-                                                $consultaCapasAsignarUsuario_editar = "SELECT usuario, nombreusuario, apellidopaternousuario, apellidomaternousuario  FROM usuarios";//consulta general
+                                                $consultaCapasAsignarUsuario_editar = "SELECT usuario, nombreusuario, apellidopaternousuario, apellidomaternousuario  FROM usuarios ORDER BY usuario ASC";//consulta general
                                                 $resultadoCapasAsignarUsuario_editar = pg_query($conexion,$consultaCapasAsignarUsuario_editar);
 
                                                 $i = 1;
@@ -131,11 +131,7 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                     ?>
                                     </tbody>
                                 </table>
-                                <!--LOADER-->
-                                <div style='display:none, width:100%' id="loader_proyecto2">
-                                    <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
-                                </div>
-                                <!--fin LOADER-->
+                               
                             </form>
                         </div>
                     </div>

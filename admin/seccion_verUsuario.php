@@ -30,6 +30,7 @@
       <th scope="col">Apellido Materno</th>
       <th scope="col">Puesto</th>
       <th scope="col">Privilegio/Rol</th>
+      <th scope="col">Correo</th>
     </tr>
   </thead>
   <tbody id="cuerpoTablaUser">

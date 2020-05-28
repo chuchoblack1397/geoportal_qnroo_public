@@ -10,6 +10,12 @@
                           </div>
                         </div>
                         <div class="form-group row">
+                          <label for="userCorreo" class="col-sm-2 col-form-label">Correo</label>
+                          <div class="col-sm-10">
+                            <input type="email" class="form-control" id="userCorreo" placeholder="Ej: user_123@empresa.com" required>
+                          </div>
+                        </div>
+                        <div class="form-group row">
                           <label for="userPass" class="col-sm-2 col-form-label">Contraseña</label>
                           <div class="col-sm-10">
                             <input type="password" class="form-control" id="userPass" required>

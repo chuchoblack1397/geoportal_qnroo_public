@@ -6,24 +6,29 @@ $apUserR = $_POST['ap'];
 $amUserR = $_POST['am'];
 $puestoUserR = $_POST['puesto'];
 $privilegioUserR = $_POST['privilegio'];
+$correoUserR = $_POST['correo'];
 ?>
 <div class="container">
     <div class="form-group">
             <h4 class="h-4">Usuario: <?php echo $usuarioR; ?></h4>
             <div class="form-row">
-                <label for="nombreViolentado" class="small">Nombre</label>
+                <label for="nombreUser" class="small">Nombre</label>
                 <input type="text" class="form-control mb-3" id="nombreUser" value="<?php echo $nombreUserR; ?>">
             </div>
             <div class="form-row">
-                <label for="nombreViolentado" class="small">Apellido Paterno</label>
+                <label for="correoUser" class="small">Correo</label>
+                <input type="email" class="form-control mb-3" id="correoUser" value="<?php echo $correoUserR; ?>">
+            </div>
+            <div class="form-row">
+                <label for="apUser" class="small">Apellido Paterno</label>
                 <input type="text" class="form-control mb-3" id="apUser"  value="<?php echo $apUserR; ?>">
             </div>
             <div class="form-row">
-                <label for="nombreViolentado" class="small">Apellido Materno</label>
+                <label for="amUser" class="small">Apellido Materno</label>
                 <input type="text" class="form-control mb-3" id="amUser"  value="<?php echo $amUserR; ?>">
             </div>
             <div class="form-row">
-                <label for="nombreViolentado" class="small">Puesto</label>
+                <label for="puestoUser" class="small">Puesto</label>
                 <select name="userPuesto" id="puestoUser" class="custom-select my-1 mr-sm-2  mb-3">
                               <option value="NA">Selecciona...</option>
                               <?php
@@ -44,7 +49,7 @@ $privilegioUserR = $_POST['privilegio'];
                 </select>
             </div>
             <div class="form-row">
-                <label for="nombreViolentado" class="small">Privilegios</label>
+                <label for="privilegioUser" class="small">Privilegios</label>
                 <select name="userPrivilegio" id="privilegioUser" class="custom-select my-1 mr-sm-2">
                               <option value="NA" selected>Selecciona...</option>
                               <?php
