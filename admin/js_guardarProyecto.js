@@ -6,7 +6,7 @@ function crearProyecto() {
     $('#btn_guardarProyecto').click(function () {
         let nombre = document.getElementById('nombreProyecto').value;
         if (!nombre) {
-            alert('Escribe el nombre del proyecto');
+            swal('¿?', 'Escribe el nombre del proyecto', 'info');
             document.getElementById('nombreProyecto').focus();
             return;
         }
@@ -31,14 +31,17 @@ function crearProyecto() {
             } else return;
         });
 
-        if (usuarios.length == 0) {
-            alert('Selecciona al menos un usuario');
-            return;
-        }
+
         if (capas.length == 0) {
-            alert('Selecciona al menos una capa');
+            swal('¿?', 'Selecciona al menos una capa', 'info');
             return;
         }
+
+        if (usuarios.length == 0) {
+            swal('¿?', 'Selecciona al menos un usuario', 'info');
+            return;
+        }
+
         let Proyecto = {
             nombre: nombre,
             capas: capas,

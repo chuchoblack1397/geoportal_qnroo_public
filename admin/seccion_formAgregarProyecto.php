@@ -14,6 +14,7 @@ include "../conexion.php";
     <form></form>
     <div class="form-group row">
         <div class="col mr-1">
+            <h5 class="h5">CAPAS</h5>
             <h6>Selecciona las capas que pertenecerán a este proyecto:</h6>
             <button type="button" id="seleccionar_capas" class="btn btn-outline-info mb-2" title="Seleccionar todo"><span class="icon-sort-amount-asc"></span></button>
             <button type="button" id="limpiar_Capas" class="btn btn-outline-danger mb-2" title="Limpiar todo"><span class="icon-bin2"></span></button>
@@ -42,6 +43,7 @@ include "../conexion.php";
         </div>
         <!--fin col-->
         <div class="col ml-1">
+            <h5 class="h5">USUARIOS</h5>
             <h6>Selecciona a los usuarios que tendrán acceso a este proyecto:</h6>
             <button type="button" id="seleccionar_usuarios" class="btn btn-outline-info mb-2" title="Seleccionar todo"><span class="icon-sort-amount-asc"></span></button>
             <button type="button" id="limpiar_Usuarios" class="btn btn-outline-danger mb-2" title="Limpiar todo"><span class="icon-bin2"></span></button>

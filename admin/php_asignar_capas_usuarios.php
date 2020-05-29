@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../conexion.php";
-        $consultaCapasAsignarUsuario = "SELECT usuario, nombreusuario, apellidopaternousuario, apellidomaternousuario  FROM usuarios";//consulta general
+        $consultaCapasAsignarUsuario = "SELECT usuario, nombreusuario, apellidopaternousuario, apellidomaternousuario  FROM usuarios ORDER BY usuario ASC";//consulta general
         $resultadoCapasAsignarUsuario = pg_query($conexion,$consultaCapasAsignarUsuario);
 
         $i = 1;

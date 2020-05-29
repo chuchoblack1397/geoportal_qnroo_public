@@ -89,8 +89,8 @@ include "../conexion.php";
         </div>
         <!--fin LOADER-->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" onClick="editarProyecto()"><span class="icon-checkmark"></span> Guardar</button>
+        <button id="btn_cerrarModalProyecto" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="btn_actualizarProyecto" type="button" class="btn btn-success" onClick="editarProyecto()"><span class="icon-checkmark"></span> Guardar</button>
       </div>
     </div>
   </div>

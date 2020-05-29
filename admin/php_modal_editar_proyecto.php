@@ -33,7 +33,7 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                                 <th scope="col">zindex</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="cuerpoTablaAsignacionCapaProyecto_editar">
                                             <?php
                                                 $consultaCapasAsignar_editar = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY idcapa ASC "; //consulta general
                                                 $resultadoCapasAsignar_editar = pg_query($conexion, $consultaCapasAsignar_editar);
@@ -41,25 +41,29 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                                 $i = 1;
 
                                                 while ($filaCapaAsignar_editar = pg_fetch_assoc($resultadoCapasAsignar_editar)) { //obteniendo capas de BD
+                                                    $capa_bd = $filaCapaAsignar_editar['idcapa'];
+                                                    $capa_checked = false;
                                                 ?>
                                                 <tr>
                                                     <th scope="row">
                                                     <div class="custom-control custom-checkbox">
                                                     <?php
                                                     foreach ($arregloCapas_editar as $clave_capa => $campo_capa) {
-                                                        if($campo_capa['idcapa'] == $filaCapaAsignar_editar['idcapa']){
+                                                        if($capa_bd == $campo_capa['idcapa']){
+                                                            $capa_checked = true;
                                                             ?>
-                                                            <input type="checkbox" class="custom-control-input" id="asignar_editar<?php echo $filaCapaAsignar_editar['idcapa']; ?>" name="inputAsignarCapas_editar[]" value="<?php echo $filaCapaAsignar_editar['idcapa']; ?>" checked>
+                                                            <input type="checkbox" class="custom-control-input" id="asignar_editar_<?php echo $filaCapaAsignar_editar['idcapa']; ?>" name="inputAsignarCapas_editar[]" value="<?php echo $filaCapaAsignar_editar['idcapa']; ?>" checked>
                                                         <?php
                                                         }//fin if
-                                                        else{
-                                                            ?>
-                                                            <input type="checkbox" class="custom-control-input" id="asignar_editar<?php echo $filaCapaAsignar_editar['idcapa']; ?>" name="inputAsignarCapas_editar[]" value="<?php echo $filaCapaAsignar_editar['idcapa']; ?>">
-                                                    <?php
-                                                        }//fin else
                                                     }//fin foreach
+
+                                                    if($capa_checked == false){
                                                     ?>
-                                                        <label class="custom-control-label" for="asignar_editar<?php echo $filaCapaAsignar_editar['idcapa']; ?>"><?php echo $i; ?></label>
+                                                    <input type="checkbox" class="custom-control-input" id="asignar_editar_<?php echo $filaCapaAsignar_editar['idcapa']; ?>" name="inputAsignarCapas_editar[]" value="<?php echo $filaCapaAsignar_editar['idcapa']; ?>">
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                        <label class="custom-control-label" for="asignar_editar_<?php echo $filaCapaAsignar_editar['idcapa']; ?>"><?php echo $i; ?></label>
                                                     </div>
                                                     </th>
                                                     <td><?php echo $filaCapaAsignar_editar['titulocapa']; ?></td>
@@ -91,7 +95,7 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                             <th scope="col">Nombre Completo</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="cuerpoTablaAsignacionUsuarioProyecto_editar">
                                     <?php
                                                 $consultaCapasAsignarUsuario_editar = "SELECT usuario, nombreusuario, apellidopaternousuario, apellidomaternousuario  FROM usuarios ORDER BY usuario ASC";//consulta general
                                                 $resultadoCapasAsignarUsuario_editar = pg_query($conexion,$consultaCapasAsignarUsuario_editar);
@@ -99,26 +103,30 @@ $sql_consulta_editar_proyecto_usuarios = "SELECT usuario FROM relacion_proyecto_
                                                 $i = 1;
                                                 while ($filaCapaAsignarUsuario_editar = pg_fetch_assoc($resultadoCapasAsignarUsuario_editar))
                                                 {//obteniendo capas de BD
+                                                    $usuario_bd = $filaCapaAsignarUsuario_editar['usuario'];
+                                                    $usuario_checked = false;
                                                 ?>
                                                 <tr>
                                                 <th scope="row">
                                                         <div class="custom-control custom-checkbox">
                                                     <?php
                                                         foreach ($arregloUsuario_editar as $clave_usuario => $campo_usuario) {
-                                                            if($campo_usuario['usuario'] == $filaCapaAsignarUsuario_editar['usuario']){
+                                                            if($usuario_bd == $campo_usuario['usuario']){
+                                                                $usuario_checked = true;
                                                                 ?>
-                                                                <input type="checkbox" class="custom-control-input" id="asignar_editar<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" name="inputAsignarUsuarios_editar[]" value="<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" checked>
+                                                                <input type="checkbox" class="custom-control-input" id="asignar_editar_<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" name="inputAsignarUsuarios_editar[]" value="<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" checked>
                                                             <?php
                                                             }//fin if
-                                                            else{
-                                                                ?>
-                                                            <input type="checkbox" class="custom-control-input" id="asignar_editar<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" name="inputAsignarUsuarios_editar[]" value="<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>">
+                                                        }//fin foreach}
+
+                                                        if($usuario_checked == false){
+                                                        ?>
+                                                        <input type="checkbox" class="custom-control-input" id="asignar_editar_<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>" name="inputAsignarUsuarios_editar[]" value="<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>">
                                                         <?php
-                                                            }//fin else
-                                                        }//fin foreach
-                                                    ?>
+                                                        }
+                                                        ?>
                                                         
-                                                        <label class="custom-control-label" for="asignar_editar<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>"><?php echo $i;?></label>
+                                                        <label class="custom-control-label" for="asignar_editar_<?php echo $filaCapaAsignarUsuario_editar['usuario'];?>"><?php echo $i;?></label>
                                                         </div>
                                                 </th>
                                                 <td><?php echo $filaCapaAsignarUsuario_editar['usuario'];?></td>

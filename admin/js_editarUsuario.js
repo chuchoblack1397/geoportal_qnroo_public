@@ -91,7 +91,7 @@ function editarUsuario(){
                 $('#btn_actualizarUsuario').css('display','none');//ocultando botones
             },
             success: function(res){
-                $('#respuestaUsuario').html(res);
+                //$('#respuestaUsuario').html(res);
                 seccionModalUser.innerHTML=res;
                 $('#loader_usuarios_modal').hide();//ocultar LOADER
                 $('#btn_cerrarModalUsuario').click();//dando click al boton cerrar del modal para que se oculte

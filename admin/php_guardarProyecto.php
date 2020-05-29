@@ -21,31 +21,19 @@ function guardarProyecto($nombre, $conexion, $capas, $usuarios)
 {
     $nombre = ltrim($nombre);
     $nombre = rtrim($nombre);
-    $id_proyecto_unwanted_array = array(
+    $unwanted_array = array(
         'Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
         'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
         'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
         'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
         'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', ' ' => '_'
     );
-<<<<<<< HEAD
     $id_proyecto = strtr($nombre, $unwanted_array);
     $id_proyectoOK = 'proyecto_'.$id_proyecto;
     $query_result = pg_query($conexion, "SELECT EXISTS(SELECT 1 FROM proyectos WHERE id_proyecto = '$id_proyecto')");
     $existe = pg_fetch_row($query_result);
     if ($existe[0] === 'f') {
         $query_insert = pg_query($conexion, "INSERT INTO proyectos (id_proyecto, nombre_proyecto) VALUES ('$id_proyectoOK', '$nombre')");
-=======
-    $id_proyecto = strtr($nombre, $id_proyecto_unwanted_array);
-    $nombre_proyecto_unwanted_array = array(
-        'á' => '&aacute;', 'à' => '&aacute;', 'Á' => '&Aacute;', 'À' => '&Aacute;', 'é' => '&eacute;', 'è' => '&eacute;', 'É' => '&Eacute;', 'È' => '&Eacute;', 'í' => '&iacute;', 'ì' => '&iacute;', 'Í' => '&Iacute;', 'Ì' => '&Iacute;', 'ó' => '&oacute;', 'ò' => '&oacute;', 'Ó' => '&Oacute;', 'Ò' => '&Oacute;', 'ú' => '&uacute;', 'ù' => '&uacute;', 'Ú' => '&Uacute;', 'Ù' => '&Uacute;', 'ñ' => '&ntilde;', 'Ñ' => '&Ntilde;'
-    );
-    $nombre_proyecto = strtr($nombre, $nombre_proyecto_unwanted_array);
-    $query_result = pg_query($conexion, "SELECT EXISTS(SELECT 1 FROM proyectos WHERE id_proyecto = '$id_proyecto')");
-    $existe = pg_fetch_row($query_result);
-    if ($existe[0] === 'f') {
-        $query_insert = pg_query($conexion, "INSERT INTO proyectos (id_proyecto, nombre_proyecto) VALUES ('$id_proyecto', '$nombre_proyecto')");
->>>>>>> Proyectos_Apartado
         $values['usuarios'] = $values['capas'] = "";
         //Asignar usuarios
         foreach ($usuarios as $key => $value) {
