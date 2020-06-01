@@ -259,7 +259,7 @@ var source = L.WMS.source(
     wmsOptions
 );
 let layersObj = {};
-let layersNames = [];
+let layersOrder = [];
 
 function toggleLayer() {
     if (
@@ -304,7 +304,6 @@ function loadCapasFromProyecto() {
             map.removeLayer(layersObj[key]);
             delete layersObj[key];
         }
-        layersNames.length = 0;
     }
 
     if (valueProyecto === '') {
@@ -391,19 +390,13 @@ function loadCapasFromProyecto() {
 
                 inputElement.addEventListener('change', toggleLayer);
 
-                // const layer = L.tileLayer.wms(value['urlcapa'], {
-                //     layers: value['layer'],
-                //     format: value['formato'],
-                //     transparent: value['transparencia'],
-                //     maxZoom: 22,
-                //     version: value['version'],
-                //     style: value['estilo'],
-                //     zIndex: value['zindex'],
-                // });
-
-                // layersObj[value['idcapa']] = layer;
                 layersObj[value['idcapa']] = source.getLayer(value['layer']);
-                layersNames.push(value['titulocapa']);
+                const titulo = new DOMParser().parseFromString(
+                    value['titulocapa'],
+                    'text/html'
+                ).body.textContent;
+                layersObj[value['idcapa']].tituloCapa = titulo;
+                layersObj[value['idcapa']].zIndex = parseInt(value['zindex']);
             });
 
             delete layersObj.length;
