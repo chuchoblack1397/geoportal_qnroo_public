@@ -65,13 +65,13 @@ $hayContenido = false;
             $folio = $filaCampoFiltro['folio'];
             $clave_cata = $filaCampoFiltro['clave_cata'];
             $clave_loca = $filaCampoFiltro['clave_loca'];
-            $numero_reg = $filaCampoFiltro['numero_reg'];
+            $nombre_loc = $filaCampoFiltro['nombre_loc'];
             $numero_man = $filaCampoFiltro['numero_man'];
             $numero_lot = $filaCampoFiltro['numero_lot'];
             $direccion = $filaCampoFiltro['direccion'];
             $nombre_col = $filaCampoFiltro['nombre_col'];
             $codigo_pos = $filaCampoFiltro['codigo_pos'];
-            $fecha_alt = $filaCampoFiltro['fecha_alta'];
+            $superficie = $filaCampoFiltro['superficie'];
             $propietari = $filaCampoFiltro['propietari'];
             $razon_soci = $filaCampoFiltro['razon_soci'];
             $uso_predio = $filaCampoFiltro['uso_predio'];
@@ -145,7 +145,7 @@ $hayContenido = false;
                         </tr>
                         <tr>
                             <th scope="row">Dirección:</th>
-                            <td><?php echo $nombre_col.', '.$direccion.' Lt: '.$numero_lot.' Man: '. $numero_man.' Reg:'. $numero_reg.' CP: '.$codigo_pos; ?></td>
+                            <td><?php echo $nombre_col.', '.$direccion.' Lt: '.$numero_lot.' Man: '. $numero_man.' Localidad:'. $nombre_loc.' CP: '.$codigo_pos; ?></td>
                         </tr>
                         
                         <tr>
@@ -153,8 +153,8 @@ $hayContenido = false;
                             <td><?php echo $clave_cata; ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Fecha de alta:</th>
-                            <td><?php echo $fecha_alt; ?></td>
+                            <th scope="row">Superficie:</th>
+                            <td><?php echo $superficie ?> m<sup>2</sup></td>
                         </tr>
                         <tr>
                             <th scope="row">Uso de predio:</th>

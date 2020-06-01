@@ -318,8 +318,7 @@ $(document).ready(function(){
                         <span class="text-secondary mr-1 ml-1">|</span>
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
-                        <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>
-                        
+                        <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>                        
                     </div>
                     <!--
                     <br>
@@ -541,8 +540,8 @@ $(document).ready(function(){
 
                     </select>
                     <div class="input-group-append">
-
-                        <button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="img/swipe.png" alt=""></button>
+                        <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="css/side/Recurso2_blanco.png" alt=""></button>
+                        <!--<button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="img/swipe.png" alt=""></button>-->
                         <button id="btn_borrar" class="btn btn-danger ml-2" onClick="RecogerDatos();" title="Desactivar swipe"><i class="icon-cross"></i></button>
                     </div>
                 </div>
