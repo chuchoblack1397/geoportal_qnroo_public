@@ -142,7 +142,6 @@
         getFeatureInfo: function (point, latlng, layers, callback) {
             var params = this.getFeatureInfoParams(point, layers),
                 url = this._url + L.Util.getParamString(params, this._url);
-            console.log(url);
             this.showWaiting();
             this.ajax(url, done);
             function done(result) {
@@ -216,9 +215,9 @@
                     title.classList.add('h6', 'pb-2', 'popup__title');
 
                     Object.values(layersObj).some((val, ind) => {
-                        if (val['_name'] === layerName) {
+                        if (val['_name'].includes(layerName)) {
                             title.textContent = val['tituloCapa'];
-                            return val['_name'] === layerName;
+                            return val['_name'].includes(layerName);
                         }
                     });
                     Object.keys(value['properties']).forEach((val, ind) => {
