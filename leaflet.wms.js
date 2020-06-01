@@ -85,7 +85,22 @@
             this.refreshOverlay();
         },
         refreshOverlay: function () {
-            var subLayers = Object.keys(this._subLayers).join(',');
+            let layers = [...Object.keys(this._subLayers)];
+            layersOrder.length = 0;
+            layers.forEach((value) => {
+                Object.values(layersObj).some((val, ind) => {
+                    if (val['_name'] === value) {
+                        layersOrder.push(val);
+                    }
+                });
+            });
+            layersOrder.sort((a, b) => a.zIndex - b.zIndex);
+            layers.length = 0;
+            layersOrder.forEach((value) => {
+                layers.push(value['_name']);
+            });
+
+            var subLayers = layers.join(',');
             if (!this._map) {
                 return;
             }
@@ -102,6 +117,20 @@
                 return;
             }
             if (infoToggler.classList.contains('activo')) {
+                layersOrder.length = 0;
+                layers.forEach((value) => {
+                    Object.values(layersObj).some((val, ind) => {
+                        if (val['_name'] === value) {
+                            layersOrder.push(val);
+                        }
+                    });
+                });
+                layersOrder.sort((a, b) => a.zIndex - b.zIndex);
+                layers.length = 0;
+                layersOrder.forEach((value) => {
+                    layers.push(value['_name']);
+                });
+
                 this.getFeatureInfo(
                     evt.containerPoint,
                     evt.latlng,
@@ -155,6 +184,7 @@
             }
             const data = JSON.parse(result);
             const divMain = document.createElement('div');
+            divMain.classList.add('popup__container');
 
             if (Object.keys(data['features']).length === 0) {
                 divMain.textContent =
@@ -167,11 +197,13 @@
                     );
 
                     const div = document.createElement('div');
-                    const title = document.createElement('span');
+                    const title = document.createElement('h6');
+                    const coords = document.createElement('span');
                     const table = document.createElement('table');
                     const tableBody = document.createElement('tbody');
 
                     divMain.appendChild(title);
+                    divMain.appendChild(coords);
                     divMain.appendChild(table);
                     table.appendChild(tableBody);
 
@@ -183,9 +215,9 @@
                     title.classList.add('h6', 'pb-2', 'popup__title');
 
                     Object.values(layersObj).some((val, ind) => {
-                        if (val['_name'] === layerName) {
-                            title.textContent = layersNames[ind];
-                            return val['_name'] === layerName;
+                        if (val['_name'].includes(layerName)) {
+                            title.textContent = val['tituloCapa'];
+                            return val['_name'].includes(layerName);
                         }
                     });
                     Object.keys(value['properties']).forEach((val, ind) => {
@@ -211,7 +243,7 @@
                 return;
             }
             this._map.openPopup(info, latlng, {
-                maxWidth: 460,
+                maxWidth: 413,
                 maxHeight: 340,
             });
         },
@@ -253,8 +285,8 @@
             this._source.bringToFront();
         },
     });
-    wms.layer = function (source, options) {
-        return new wms.Layer(source, options);
+    wms.layer = function (source, layerName, options = null) {
+        return new wms.Layer(source, layerName, options);
     };
     var sources = {};
     wms.getSourceForUrl = function (url, options) {
@@ -269,11 +301,12 @@
         defaultWmsParams: {
             service: 'WMS',
             request: 'GetMap',
-            version: '1.1.1',
+            version: '1.3.0',
             layers: '',
             styles: '',
             format: 'image/jpeg',
             transparent: false,
+            feature_count: 20,
         },
         options: {
             crs: null,
