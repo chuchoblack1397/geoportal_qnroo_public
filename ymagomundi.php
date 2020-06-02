@@ -506,6 +506,7 @@ $(document).ready(function(){
 
             <div class="bg-light" id="contenedorSwipe" style="width:30%; display:none">
                 <div class="input-group mt-4" id="buscadorS">
+                
                     <select class="custom-select btn" id="selectTipoS" onchange="repetido()">
                         <!--Aqui voy a poner la comparacion de los mapas de referencia.-->
                         <option value="ninguno">Seleccionar</option>
@@ -539,6 +540,7 @@ $(document).ready(function(){
 
 
                     </select>
+                    
                     <div class="input-group-append">
                         <button id="botonSwipeA" class="btn btn-primary" onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="css/side/Recurso2_blanco.png" alt=""></button>
                         <!--<button id="botonSwipeA" class="boton-swipe  " onClick="RecogerDatos()" title="Activar swipe"><img class="swipe-icon" src="img/swipe.png" alt=""></button>-->
