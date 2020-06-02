@@ -146,7 +146,7 @@
             this.ajax(url, done);
             function done(result) {
                 this.hideWaiting();
-                var text = this.parseFeatureInfo(result, url);
+                var text = this.parseFeatureInfo(result, url, latlng);
                 callback.call(this, latlng, text);
             }
         },
@@ -175,7 +175,7 @@
             };
             return L.extend({}, wmsParams, infoParams);
         },
-        parseFeatureInfo: function (result, url) {
+        parseFeatureInfo: function (result, url, latlng) {
             if (result == 'error') {
                 result =
                     "<iframe src='" +
@@ -196,14 +196,21 @@
                         /\.(?=[^\.]+$)/
                     );
 
-                    const div = document.createElement('div');
-                    const title = document.createElement('h6');
-                    const coords = document.createElement('span');
+                    const divHeader = document.createElement('div');
+                    const titlePopup = document.createElement('div');
+                    const coordsPopup = document.createElement('div');
+                    const titleLayer = document.createElement('h6');
+                    const coordLat = document.createElement('span');
+                    const coordLong = document.createElement('span');
                     const table = document.createElement('table');
                     const tableBody = document.createElement('tbody');
 
-                    divMain.appendChild(title);
-                    divMain.appendChild(coords);
+                    coordsPopup.appendChild(coordLat);
+                    coordsPopup.appendChild(coordLong);
+                    divHeader.appendChild(titlePopup);
+                    divHeader.appendChild(coordsPopup);
+                    divMain.appendChild(divHeader);
+                    divMain.appendChild(titleLayer);
                     divMain.appendChild(table);
                     table.appendChild(tableBody);
 
@@ -212,11 +219,22 @@
                         'table-striped',
                         'popup__table'
                     );
-                    title.classList.add('h6', 'pb-2', 'popup__title');
+                    divHeader.classList.add('popup__header');
+                    titlePopup.classList.add('tituloPopup');
+                    coordsPopup.classList.add('coordenadasPopup');
+                    titleLayer.classList.add('popup__title');
+
+                    titlePopup.textContent = 'Atributos descriptivos';
+                    coordLat.textContent = `Lat: ${latlng.lat.toFixed(6)}`;
+                    coordLong.textContent = `Long: ${latlng.lng.toFixed(6)}`;
+                    // console.log(latlng);
+                    // coordsPopup.textContent = `Lat: ${latlng.lat.toFixed(
+                    //     6
+                    // )} Long: ${latlng.lng.toFixed(6)}`;
 
                     Object.values(layersObj).some((val, ind) => {
                         if (val['_name'].includes(layerName)) {
-                            title.textContent = val['tituloCapa'];
+                            titleLayer.textContent = val['tituloCapa'];
                             return val['_name'].includes(layerName);
                         }
                     });
@@ -306,7 +324,7 @@
             styles: '',
             format: 'image/jpeg',
             transparent: false,
-            feature_count: 20,
+            feature_count: 1,
         },
         options: {
             crs: null,
