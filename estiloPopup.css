@@ -46,6 +46,11 @@
 
 .popup__table th {
     border-right: 3px solid rgba(0, 0, 0, 0.03);
+    padding: 0.5rem;
+}
+
+.popup__table td {
+    padding: 0.5rem;
 }
 
 .popup__header {
