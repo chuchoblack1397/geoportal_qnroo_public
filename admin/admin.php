@@ -137,14 +137,14 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_capa_c'] == 'true') {
                   ?>
-                    <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
+                    <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false" onclick="cargar_lista_proyectos_ordenar();select_proyecto_ordenar();"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
                   <?php
                   }
                   ?>
                   <?php
                   if ($_SESSION['rol_capa_c'] == 'true') {
                   ?>
-                    <a class="nav-link" id="opcion_asignarCapa" data-toggle="pill" href="#asignarCapa" role="tab" aria-controls="asignarCapa" aria-selected="false" onclick="ajax_asignar_capas();"><span class="icon-user-check mr-3"></span>Asignar Capas</a>
+                   <!-- <a class="nav-link" id="opcion_asignarCapa" data-toggle="pill" href="#asignarCapa" role="tab" aria-controls="asignarCapa" aria-selected="false" onclick="ajax_asignar_capas();"><span class="icon-user-check mr-3"></span>Asignar Capas</a>-->
                   <?php
                   }
                   ?>
@@ -170,9 +170,9 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                     <?php include 'seccion_ordenarCapas.php'; ?>
                   </div>
                   <!--fin div verCapas-->
-                  <div id="asignarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionAsignarCapa">
-                    <?php include 'seccion_asignarCapas.php'; ?>
-                  </div>
+                  <!--<div id="asignarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionAsignarCapa">
+                    <?php //include 'seccion_asignarCapas.php'; ?>
+                  </div>-->
                   <!--fin div verCapas-->
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                 </div>
@@ -389,7 +389,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
     <!--Archivo js para editar la capa en bd-->
     <script src="js_eliminarPrivilegio.js"></script>
     <!--Archivo js para eliminar la capa en bd-->
-    <script src="js_guardarAsignacionCapaProyecto.js"></script>
+    <!--<script src="js_guardarAsignacionCapaProyecto.js"></script>-->
     <!--Archivo js para eliminar la capa en bd-->
     <script src="js_eliminarProyecto.js"></script>
 
