@@ -356,16 +356,21 @@ function loadCapasFromProyecto() {
                 btnElement.type = 'button';
                 btnElement.classList.add('btn');
                 btnElement.classList.add('btn-light');
-                btnElement.title = 'Ver Leyenda';
-                btnElement.setAttribute(
+                //btnElement.title = 'Ver Leyenda';
+                btnElement.title = 'Actualizar con Excel';//title boton excel
+                
+                //funcion para activar atributos de las leyendas
+                /*btnElement.setAttribute(
                     'onclick',
                     "activarLeyendas('" + value['idcapa'] + "')"
-                );
+                );*/
 
-                btnElement.disabled = true;
+                //btnElement.disabled = true; //desabilitar boton de excel  
 
-                spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
-                spanElement.classList.add('icon-eye');
+                //spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
+                spanElement.id = 'icon_btn_excel_' + value['idcapa'];//id boton de excel
+                //spanElement.classList.add('icon-eye');
+                spanElement.classList.add('icon-file-excel');//icono excel
                 spanElement.classList.add('text-secondary');
                 spanElement.classList.add('small');
 

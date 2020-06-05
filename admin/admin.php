@@ -135,7 +135,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   }
                   ?>
                   <?php
-                  if ($_SESSION['rol_capa_c'] == 'true') {
+                  if ($_SESSION['rol_capa_u'] == 'true') {
                   ?>
                     <a class="nav-link" id="opcion_ordenarCapa" data-toggle="pill" href="#ordenarCapa" role="tab" aria-controls="ordenarCapa" aria-selected="false" onclick="cargar_lista_proyectos_ordenar();select_proyecto_ordenar();"><span class="icon-menu2 mr-3"></span>Ordenar Capas</a>
                   <?php
@@ -144,7 +144,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_capa_c'] == 'true') {
                   ?>
-                   <!-- <a class="nav-link" id="opcion_asignarCapa" data-toggle="pill" href="#asignarCapa" role="tab" aria-controls="asignarCapa" aria-selected="false" onclick="ajax_asignar_capas();"><span class="icon-user-check mr-3"></span>Asignar Capas</a>-->
+                  <a class="nav-link" id="opcion_subir_archivo" data-toggle="pill" href="#subir_archivo" role="tab" aria-controls="subir_archivo" aria-selected="false"><span class="icon-upload3 mr-3"></span>Subir archivo</a>
                   <?php
                   }
                   ?>
@@ -170,9 +170,9 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                     <?php include 'seccion_ordenarCapas.php'; ?>
                   </div>
                   <!--fin div verCapas-->
-                  <!--<div id="asignarCapa" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcionAsignarCapa">
-                    <?php //include 'seccion_asignarCapas.php'; ?>
-                  </div>-->
+                  <div id="subir_archivo" class="tab-pane fade ml-2 p-3" role="tabpanel" aria-labelledby="opcion_subir_archivo">
+                    <?php include 'seccion_subir_archivo.php'; ?>
+                  </div>
                   <!--fin div verCapas-->
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                 </div>
