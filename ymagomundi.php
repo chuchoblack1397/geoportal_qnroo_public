@@ -314,6 +314,7 @@ $(document).ready(function(){
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar barra de busqueda" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
+                        <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
@@ -500,6 +501,25 @@ $(document).ready(function(){
             </div>
 
             <!--fin BARRA BUSCADOR-->
+
+             <!--BUSQUEDA COORDENADAS-->
+
+             <div class="bg-light" id="contenedorCoordenadas" style="width:35%; display:none">
+                <div class="input-group mt-2" id="buscadorCoordenada">
+                    <div class="input-group-prepend">
+                        <input id="campoLatitud" type="search" placeholder="Latitud" aria-describedby="button-addon5" class="form-control">
+                        <input id="campoLongitud" type="search" placeholder="Longitud" aria-describedby="button-addon5" class="form-control">
+                    </div>
+                        
+                    <div class="input-group-append">
+                        <button id="btn_buscar_coordenada" class="btn btn-primary mr-2" title="Buscar Coordenadas" onclick="buscarCoordenada()"><i class="icon-filter"></i></button>
+                        <button id="btn_borrar_coordenada" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--fin BUSQUEDA COORDENADAS-->
 
 
             <!--Inicio Selector de capas para el swipe -->
@@ -861,6 +881,7 @@ $(document).ready(function(){
 
                 var activoInformacion = false; //inicializando variable
                 var activoBusqueda = false; //inicializando variable
+                var activoCoordenada = false; //inicializando variable
                 var activoLeyenda = false; //inicializando variable
                 var activoMedicion = false; //inicializando variable
                 var activoAreaTrazo = false; //inicializando variable
@@ -905,6 +926,23 @@ $(document).ready(function(){
                             } //fin else
                             break;
 
+                        case "coordenada":
+                            if (activoCoordenada == false) {
+                                activoCoordenada = true; //cambiando el valor de la variable
+                                document.getElementById("btnActivarBusquedaCoor2").className = "icon-compass2 text-light small"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarBusquedaCoor").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("contenedorCoordenadas").style.display = "block";
+                                
+
+                            } //fin if
+                            else {
+                                activoCoordenada = false; //cambiando el valor de la variable
+                                document.getElementById("btnActivarBusquedaCoor2").className = "icon-compass2 text-secondary small"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("btnActivarBusquedaCoor").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                                document.getElementById("contenedorCoordenadas").style.display = "none";    
+
+                            } //fin else
+                            break;
 
                         case "swipe": //activamos y desactivamos swipe
 
@@ -1242,6 +1280,7 @@ $(document).ready(function(){
             <script src="controlPanel.js"></script>
             <script src="busquedaDatosCapas.js"></script>
             <script src="js/popup.js"></script>
+            <script src="js/buscar_coordenadas.js"></script>
         </body>
 
         </html>
