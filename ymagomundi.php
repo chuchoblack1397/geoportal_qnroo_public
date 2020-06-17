@@ -1250,6 +1250,8 @@ $(document).ready(function(){
                     return null;
                 };
 
+//var arregloMarcadores = [];
+
                 // Object created - bind popup to layer, add to feature group
                 map.on(L.Draw.Event.CREATED, function(event) {
                     var layer = event.layer;
@@ -1258,7 +1260,68 @@ $(document).ready(function(){
                         layer.bindPopup(content);
                     }
                     featureGroup.addLayer(layer);
+/*
+                    var type = event.layerType;
+                    if (type === 'marker') {
+                        var markador = prompt("Marcador:", "");
+                        layer.bindPopup(markador+" "+content); 
+                        
+                        if (layer instanceof L.Marker) {
+                            var miMarker = layer.getLatLng();
+                            var lat = miMarker.lat;
+                            var long = miMarker.lng;
+                            console.log(markador+"-"+lat+ ":" + long);
+                            
+                            arregloMarcadores.push({marcador: markador, latitud: lat, longitud: long});
+                            console.log(arregloMarcadores);
+                            map.panTo([miMarker.lat, miMarker.lng]);
+                            /*var obj = new Object();
+                            obj.marcador = markador;
+                            obj.latitud = lat;
+                            obj.longitud = long;
+                            */
+                            //var sCadena = JSON.stringify(arregloMarcadores);
+                            //var sCadena = JSON.parse(obj);
+                            //console.log(sCadena);
+
+                           // }//fin if L.Marker
+                       // }//fin if type
+                      //  featureGroup.addLayer(layer);
+
+                        /*
+                        var nombreMarker = markador;
+
+                        var shapes = getShapes(nombreMarker,featureGroup); 
+                        var json = layer.toGeoJSON();
+                        console.log("shapes:",json); 
+                        var shape_for_db = JSON.stringify(json.geometry.coordinates); 
+                        console.log("shapes json:",shape_for_db); */
+                        /*console.log("shapes:",shapes);
+                        var shape_for_db = JSON.stringify(shapes.marker); 
+                        console.log("shapes json:",shape_for_db);
+                        var parseJson = JSON.parse(shape_for_db);
+                        console.log("shapes parseJson:",parseJson);*/
+
+
                 });
+
+            /* function getShapes(nombreMarker ,featureGroup) { 
+                    
+                    var shapes = []; 
+                    shapes["marker"] = []; 
+                    featureGroup.eachLayer(function (layer) { 
+                if (layer instanceof L.Marker) { 
+                    var miMarker = layer.getLatLng();
+                    //shapes["marker"].push(miMarker); 
+                    map.panTo([miMarker.lat, miMarker.lng]);
+                    //console.log(miMarker.lng + " : " + miMarker.lat);
+                    shapes["marker"].push([nombreMarker,miMarker.lat,miMarker.lng]); 
+                }//fin if 
+                }); 
+                return shapes; 
+                }; */
+
+
 
                 // Object(s) edited - update popups
                 map.on(L.Draw.Event.EDITED, function(event) {

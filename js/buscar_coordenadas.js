@@ -34,11 +34,20 @@ function buscarCoordenada(){
     map.setView({lat: latitud, lng: longitud},zoom);
 
         marcador_coordenadas = L.marker([latitud, longitud], {
-        title: "Latitud: "+latitud+" - Longitud: "+longitud,
+        //title: "Latitud: "+latitud+" - Longitud: "+longitud,
         draggable:true,
         opacity: 1
         }).bindPopup("<i>Latitud: "+latitud+"<br>Longitud: "+longitud+"</i>")
-        .addTo(map);
+        .addTo(map)
+        .on('dragend', function() {
+			var coord = marcador_coordenadas.getLatLng();
+            var lat = coord.lat.toFixed(6);
+            var long = coord.lng.toFixed(6);
+            marcador_coordenadas.bindPopup("<i>Latitud: "+lat+"<br>Longitud: "+long+"</i>");
+            console.log("Latitud: "+lat+" - Longitud: "+long);
+            document.getElementById('campoLatitud').value = lat;
+            document.getElementById('campoLongitud').value = long;
+		});
 
 };
 
@@ -52,3 +61,9 @@ function borrarCoordenada(){
     map.removeLayer(this.marcador_coordenadas);
     marcador_coordenadas="";
 };
+
+function guardarCoordenadas(){
+    var latitud = document.getElementById('campoLatitud').value;
+    var longitud = document.getElementById('campoLongitud').value;
+    console.log("GUARDANDO Latitud: "+latitud+" - Longitud: "+longitud);
+}
