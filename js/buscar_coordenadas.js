@@ -15,10 +15,17 @@ document.getElementById('campoLongitud').onkeyup = function (event) {
 }; //fin funcion
 
 var marcador_coordenadas="";
+var coor_lat="";
+var coor_lon="";
 
 function buscarCoordenada(){
+    coor_lat="";
+    coor_lon="";
     var latitud = document.getElementById('campoLatitud').value;
     var longitud = document.getElementById('campoLongitud').value;
+    if(marcador_coordenadas!=""){
+        map.removeLayer(marcador_coordenadas);
+    }
 
     if(latitud == '' ||longitud == ''){
         alert("Ingresa los campos de coordenadas");
@@ -29,24 +36,28 @@ function buscarCoordenada(){
         alert("No puedes buscar texto en coordenadas");
         return;
     }
-    
-    var zoom = 18;  
-    map.setView({lat: latitud, lng: longitud},zoom);
 
-        marcador_coordenadas = L.marker([latitud, longitud], {
+    coor_lat = latitud;
+    coor_lon = longitud;
+
+    var zoom = 18;  
+    map.setView({lat: coor_lat, lng: coor_lon},zoom);
+
+        marcador_coordenadas = L.marker([coor_lat, coor_lon], {
         //title: "Latitud: "+latitud+" - Longitud: "+longitud,
         draggable:true,
         opacity: 1
-        }).bindPopup("<i>Latitud: "+latitud+"<br>Longitud: "+longitud+"</i>")
+        }).bindPopup("<i>Latitud: "+coor_lat+"<br>Longitud: "+coor_lon+"</i>")
         .addTo(map)
         .on('dragend', function() {
 			var coord = marcador_coordenadas.getLatLng();
-            var lat = coord.lat.toFixed(6);
-            var long = coord.lng.toFixed(6);
-            marcador_coordenadas.bindPopup("<i>Latitud: "+lat+"<br>Longitud: "+long+"</i>");
-            console.log("Latitud: "+lat+" - Longitud: "+long);
-            document.getElementById('campoLatitud').value = lat;
-            document.getElementById('campoLongitud').value = long;
+            coor_lat = coord.lat.toFixed(6);
+            coor_lon = coord.lng.toFixed(6);
+            marcador_coordenadas.bindPopup("<i>Latitud: "+coor_lat+"<br>Longitud: "+coor_lon+"</i>");
+            console.log("Latitud: "+coor_lat+" - Longitud: "+coor_lon);
+            document.getElementById('campoLatitud').value = coor_lat;
+            document.getElementById('campoLongitud').value = coor_lon;
+            map.setView({lat: coor_lat, lng: coor_lon},zoom);
 		});
 
 };
@@ -63,7 +74,15 @@ function borrarCoordenada(){
 };
 
 function guardarCoordenadas(){
-    var latitud = document.getElementById('campoLatitud').value;
-    var longitud = document.getElementById('campoLongitud').value;
-    console.log("GUARDANDO Latitud: "+latitud+" - Longitud: "+longitud);
+    //var latitud = document.getElementById('campoLatitud').value;
+    //var longitud = document.getElementById('campoLongitud').value;
+    if(coor_lat == "" || coor_lon ==""){
+        alert("Debe escribir coordenadas para guardar");
+        return;
+    }
+
+    var markador = prompt("Marcador:", "");
+    marcador_coordenadas.bindPopup("<center><b style='text-transform: uppercase;'>"+markador+"</b> <br> "+"<i>Latitud: </i>"+coor_lat+"<br><i>Longitud: </i>"+coor_lon+"</center>"); 
+    marcador_coordenadas.dragging.disable();
+    console.log("GUARDANDO "+markador+" Latitud: "+coor_lat+" - Longitud: "+coor_lon);
 }

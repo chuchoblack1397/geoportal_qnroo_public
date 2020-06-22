@@ -1,7 +1,7 @@
 <?php
 include "../conexion.php";
 ?>
-<input type="text" class="form-control" id="buscadorUser" placeholder="Buscar capa">
+<input type="text" class="form-control" id="buscadorPrivilegio" placeholder="Buscar capa">
 <br>
 <?php
 if($_SESSION['rol_rol_d']=='true'){
@@ -75,9 +75,9 @@ if($_SESSION['rol_rol_d']=='true'){
 
     //funcion para el buscador
     $(document).ready(function(){
-        $("#buscadorUser").on("keyup",function(){
+        $("#buscadorPrivilegio").on("keyup",function(){
           var value=$(this).val().toLowerCase();
-          $("#cuerpoTablaUser tr").filter(function(){
+          $("#cuerpoTablaPrivilegio tr").filter(function(){
             $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
           });
         });

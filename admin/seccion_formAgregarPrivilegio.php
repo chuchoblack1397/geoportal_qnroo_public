@@ -1,4 +1,4 @@
- <form id="formAgregarCapa">
+ <form id="formAgregarPrivilegio">
                       <h3>
                         Añadir nuevo privilegio/rol
                       </h3>

@@ -185,7 +185,7 @@ if (password_verify($miContra, $pass)) {
 
 
 
-            <link rel="stylesheet" href="css/side/side.css">
+            
 
             <!--links editBar-->
             <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -425,36 +425,7 @@ $(document).ready(function(){
                     </div>
                 </div>
 
-                <!--contenidoCapaz-->
-                <button class="accordion" style="display:none">Capas de datos territoriales: </button>
-                <div id="contenidoCapas" class="panel" style="display:none">
-                    <ul class="list-unstyled" id="listaCapa">
-                        <?php
-                        foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                        ?>
-                            <li id="<?php echo $campo['idcapa']; ?>">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" id="chk_<?php echo $campo['idcapa']; ?>" class="custom-control-input" name="chkGrupo" value="<?php echo $campo['idcapa']; ?>">
-                                    <label for="chk_<?php echo $campo['idcapa']; ?>" class="custom-control-label"><?php echo $campo['titulocapa']; ?></label><br>
-                                    <div id="div_btn_<?php echo $campo['idcapa']; ?>" class="btn-group" role="group">
-                                        <button id="btn_leyenda_<?php echo $campo['idcapa']; ?>" type="button" class="btn btn-light" title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa']; ?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa']; ?>" class="icon-eye text-secondary small"></span></button>
-                                        <!--<button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
 
-
-                                    </div>
-                                </div>
-
-                            </li>
-
-                        <?php
-                        } //fin foreach
-
-                        ?>
-                    </ul>
-                    <!--fin ul capaz-->
-                </div>
-                <!--fin div capaz-->
 
             </div>
             <!--fin div contendorControles-->
@@ -513,10 +484,10 @@ $(document).ready(function(){
                         
                     <div class="input-group-append">
                         <button id="btn_buscar_coordenada" class="btn btn-primary mr-2" title="Buscar Coordenadas" onclick="buscarCoordenada()"><i class="icon-filter"></i></button>
-                        <button id="btn_borrar_coordenada" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
+                        <button id="btn_borrar_coordenada" class="btn btn-danger mr-2" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
+                        <button id="btn_guardar_coordenada" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas()"><span class="icon-floppy-disk px-2"></span></button>
                     </div>
                 </div>
-
             </div>
 
             <!--fin BUSQUEDA COORDENADAS-->
@@ -535,10 +506,12 @@ $(document).ready(function(){
                         <option value="grayscale">OpenStreetMap Grises</option>
                         <option value="googleSat">Google Sat&eacute;lite</option>
                         <?php
+$i_item=1;
                         foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                         ?>
-                            <option value="<?php echo $campo['idcapa']; ?>"><?php echo $campo['titulocapa']; ?></option>
+                            <option value="capa_<?php echo $i_item; ?>"><?php echo $campo['titulocapa']; ?></option>
                         <?php
+                        $i_item = $i_item+1;
                         } //fin foreach
                         ?>
 
@@ -551,10 +524,12 @@ $(document).ready(function(){
                         <option value="grayscale">OpenStreetMap Grises</option>
                         <option value="googleSat">Google Sat&eacute;lite</option>
                         <?php
+$i_item=1;
                         foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                         ?>
-                            <option value="<?php echo $campo['idcapa']; ?>"><?php echo $campo['titulocapa']; ?></option>
+                            <option value="capa_<?php echo $i_item; ?>"><?php echo $campo['titulocapa']; ?></option>
                         <?php
+                        $i_item=$i_item+1;
                         } //fin foreach
                         ?>
 
@@ -687,6 +662,8 @@ $(document).ready(function(){
                     //layers: [osm,googleSat]
                 });
 
+
+
                 const infoToggler = document.getElementById("btnActivarInfo1");
 
                 /*var control_side = L.control.sideBySide(osm,googleSat);
@@ -707,13 +684,15 @@ $(document).ready(function(){
                 });
                 //---fin cambiar el cursor en el mapa
 
+
+                //----capas----
                 <?php
 
                 ///////////////////////////////////////////////////////////////////////////
-
+$i_item=1;
                 foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                 ?>
-                    var <?php echo $campo['idcapa']; ?> = L.tileLayer.wms("<?php echo $campo['urlcapa']; ?>", {
+                    var capa_<?php echo $i_item; ?> = L.tileLayer.wms("<?php echo $campo['urlcapa']; ?>", {
                         layers: '<?php echo $campo['layer']; ?>',
                         format: '<?php echo $campo['formato']; ?>',
                         transparent: <?php echo $campo['transparencia']; ?>,
@@ -736,52 +715,9 @@ $(document).ready(function(){
                     });
 
                 <?php
-                } //fin foreach
-
-                foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                ?>
-                    var chkBoxControl_<?php echo $campo['idcapa']; ?> = document.getElementById('chk_<?php echo $campo['idcapa']; ?>');
-                    chkBoxControl_<?php echo $campo['idcapa']; ?>.addEventListener("change", validaChkBoxControl, false);
-                <?php
+                $i_item = $i_item+1;
                 } //fin foreach
                 ?>
-
-                function validaChkBoxControl() { //funcion para evaluar el boton chkbox
-                    <?php
-                    foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                    ?>
-                        var checked_chkBoxControl_<?php echo $campo['idcapa']; ?> = chkBoxControl_<?php echo $campo['idcapa']; ?>.checked;
-                    <?php
-                    } //fin foreach
-                    ?>
-
-                    <?php
-                    foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                    ?>
-                        if (checked_chkBoxControl_<?php echo $campo['idcapa']; ?>) {
-                            console.log("<?php echo $campo['idcapa']; ?>");
-                            map.addLayer(<?php echo $campo['idcapa']; ?>);
-                            document.getElementById('btn_leyenda_<?php echo $campo['idcapa']; ?>').disabled = false;
-                        } //fin if
-                        else {
-                            console.log("No-<?php echo $campo['idcapa']; ?>");
-                            map.removeLayer(<?php echo $campo['idcapa']; ?>);
-                            document.getElementById('btn_leyenda_<?php echo $campo['idcapa']; ?>').disabled = true;
-                            document.getElementById('img_leyenda_<?php echo $campo['idcapa']; ?>').style.display = "none";
-                            document.getElementById('icon_btn_leyenda_<?php echo $campo['idcapa']; ?>').className = "icon-eye text-secondary small";
-
-                        } //fin else
-                    <?php
-                    } //fin foreach
-                    ?>
-
-
-
-                } //fin funcion validaChkBoxControl
-
-                window.onload = validaChkBoxControl(); //al cargar la pagina va a validar el boton chekbox
-
-                //----fin Capaz----
                 //-------------fin Capas-------------
 
                 //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
@@ -1122,22 +1058,6 @@ $(document).ready(function(){
                         var cadenaLayers = [];
                         var i = 0;
                         var urlWMS = "";
-                        <?php
-
-                        foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                        ?>
-                            var ck_layer_<?php echo $campo['idcapa']; ?> = document.getElementById('chk_<?php echo $campo['idcapa']; ?>');
-                            if (ck_layer_<?php echo $campo['idcapa']; ?>.checked == true) {
-                                cadenaLayers[i] = '<?php echo $campo['layer']; ?>';
-                                urlWMS = '<?php echo $campo['urlcapa']; ?>';
-                                i = i + 1;
-                            } //fin if
-                            urlWMS = '<?php echo $campo['urlcapa']; ?>';
-                        <?php
-                        } //fin foreach //
-                        ?>
-
-                        console.log('CADENA: ' + cadenaLayers);
 
                         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
                         var latitud = e.latlng.lat.toFixed(4);
@@ -1152,14 +1072,7 @@ $(document).ready(function(){
                         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 
                         //-----------FIN PRUEBAS---------------------------------------------------------
-                        if (cadenaLayers != "") {
-
-                            var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:" + latitud + "</span><span>Longitud:" + longitud + "</span></div><div class='contenidoPopup'> <iframe class='mb-2' src=" + URL + " id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
-                            popup.setLatLng(e.latlng);
-                            popup.setContent(htmlPopup);
-                            map.openPopup(popup);
-
-                        } //fin if cadena
+                    
                     } //fin if
                 } //fin onMapClick
 

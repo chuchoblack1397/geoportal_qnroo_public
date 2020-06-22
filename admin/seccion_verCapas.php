@@ -32,7 +32,7 @@ if($_SESSION['rol_capa_d'] =='true' ){
       <th scope="col">Formato</th>
       <th scope="col">Leyenda</th>
       <th scope="col">Consulta</th>
-      <th scope="col">zindex</th>
+      <!--<th scope="col">zindex</th>-->
     </tr>
   </thead>
   <tbody id="cuerpoTabla">
@@ -93,5 +93,8 @@ if($_SESSION['rol_capa_d'] =='true' ){
      
      
      //click boton EDITAR
+
+
+
 
 </script>

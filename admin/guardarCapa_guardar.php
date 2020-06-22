@@ -62,11 +62,11 @@ $resultado_existencia = pg_query($conexion,$existenciaTitulo);
 
 if(pg_num_rows($resultado_existencia) > 0){
     //revisa si existe la clave principal Titulo
-    echo "<script>mostrarAlertas({message: '<strong>ATENCIÓN!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> ya existe. Intenta de nuevo', class:'warning'});</script>";
+    echo "<script>swal('Atención', 'esta capa ya existe', 'warning');</script>";
 }//fin if
 else{
     //Si no existe el titulo entonces la inserta 
-    $sql_Insertar = "insert into capas(idcapa, titulocapa, urlcapa, layer, estilo, version, formato, transparencia, leyenda) values ('".$idCapa."','".$tituloCapaACUTE."','".$UrlCapaOK."','".$capaCapaOK."','".$estiloCapaOK."','".$versionCapaOK."','".$formatoCapa."','".$transparenciaCapa."','-')";
+    $sql_Insertar = "insert into capas(idcapa, titulocapa, urlcapa, layer, estilo, version, formato, transparencia, leyenda) values ('".$idCapa."','".$tituloCapaACUTE."','".$UrlCapaOK."','".$capaCapaOK."','".$estiloCapaOK."','".$versionCapaOK."','".$formatoCapa."','".$transparenciaCapa."','')";
     $resultado_Insertar = pg_query($conexion,$sql_Insertar);
     
     //encontrando el valor de zIndex
@@ -116,10 +116,12 @@ else{
     $resultado_InsertarZIndex = pg_query($conexion,$sql_InsertarZIndex);
     
     if ($resultado_Insertar && $resultado_InsertarZIndex) {
-        echo "<script>mostrarAlertas({message: '<strong>COMPLETADO!</strong> La capa <strong>".$tituloCapaOK."</strong> ha sido agregada con éxito', class:'success'});</script>";
+        echo "<script>swal('Perfecto', 'se han agregado la capa con éxito', 'success');
+        </script>
+        ";
     }//fin if
     else {
-        echo "<script>mostrarAlertas({message: '<strong>ERROR!</strong> La capa <strong>".utf8_decode($tituloCapaOK)."</strong> no pudo ser agregada', class:'danger'});</script>";
+        echo "<script>swal('Error', 'No se pudo guardar', 'error');</script>";
     }//fin else
 }//fin else
 
