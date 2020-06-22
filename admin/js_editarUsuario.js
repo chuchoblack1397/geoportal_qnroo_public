@@ -77,7 +77,7 @@ function editarUsuario(){
     }
 
 
-    var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
+        var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
         var rutaUpdate="usuario="+txt_usuarioUser+"&nombre="+txt_nombreUser+"&ap="+txt_apUser+"&am="+txt_amUser+"&puesto="+txt_puestoUser+"&privilegio="+txt_privilegioUser+"&correo="+txt_correoUser;
         //var rutaUpdate="usuario="+txt_usuarioUser;
         $.ajax({
