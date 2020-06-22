@@ -5,6 +5,7 @@ echo "<script>console.log('PHP guardar capa');</script>";
 password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
 $userNickname = $_POST['userNickname'];
 //$userPass =  $_POST['userPass'];
+$userCorreo = $_POST['userCorreo'];
 $userPass =  password_hash($_POST['userPass'], PASSWORD_DEFAULT);
 $userNombre = $_POST['userNombre'];
 $userAPaterno = $_POST['userAPaterno'];
@@ -23,7 +24,7 @@ if(pg_num_rows($resultado_existencia) > 0){
 }//fin if
 else{
     //Si no existe el titulo entonces la inserta 
-    $sql_InsertarUsuario = "insert into usuarios(usuario, pass, nombreusuario, apellidopaternousuario, apellidomaternousuario, puesto, privilegio) values ('".$userNickname."','".$userPass."','".$userNombre."','".$userAPaterno."','".$userAMaterno."','".$userPuesto."','".$userPrivilegio."')";
+    $sql_InsertarUsuario = "insert into usuarios(usuario, pass, nombreusuario, apellidopaternousuario, apellidomaternousuario, puesto, privilegio,correo) values ('".$userNickname."','".$userPass."','".$userNombre."','".$userAPaterno."','".$userAMaterno."','".$userPuesto."','".$userPrivilegio."','".$userCorreo."')";
     $resultado_InsertarUsuario = pg_query($conexion,$sql_InsertarUsuario);
     
     

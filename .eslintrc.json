@@ -1,0 +1,126 @@
+{
+    "extends": [
+        // "airbnb-base",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "warnOnUnsupportedTypeScriptVersion": true,
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "plugins": ["@typescript-eslint", "no-null", "import", "prettier"],
+    "rules": {
+        "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/camelcase": [
+            "error",
+            {
+                "properties": "never",
+                "allow": ["^[A-Za-z][a-zA-Za-z]+_[A-Za-z]+$"]
+            }
+        ],
+        "@typescript-eslint/consistent-type-definitions": [
+            "error",
+            "interface"
+        ],
+        "@typescript-eslint/indent": ["error", 4],
+        "no-extra-parens": "off",
+        "@typescript-eslint/no-extra-parens": "error",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/prefer-function-type": "error",
+        "quotes": "off",
+        "@typescript-eslint/quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "semi": "off",
+        "@typescript-eslint/semi": "error",
+        "@typescript-eslint/unified-signatures": "error",
+        // eslint-plugin-import
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "optionalDependencies": false
+            }
+        ],
+        // eslint-plugin-no-null
+        "no-null/no-null": "error",
+        // eslint
+        "brace-style": [
+            "error",
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "constructor-super": "error",
+        "curly": ["error", "multi-line"],
+        "dot-notation": "error",
+        "eqeqeq": "error",
+        "linebreak-style": ["error", "windows"],
+        "new-parens": "error",
+        "no-caller": "error",
+        "no-duplicate-case": "error",
+        "no-duplicate-imports": "error",
+        "no-empty": "error",
+        "no-eval": "error",
+        "no-extra-bind": "error",
+        "no-fallthrough": "error",
+        "no-new-func": "error",
+        "no-new-wrappers": "error",
+        "no-return-await": "error",
+        "no-restricted-globals": [
+            "error",
+            {
+                "name": "setTimeout"
+            },
+            {
+                "name": "clearTimeout"
+            },
+            {
+                "name": "setInterval"
+            },
+            {
+                "name": "clearInterval"
+            },
+            {
+                "name": "setImmediate"
+            },
+            {
+                "name": "clearImmediate"
+            }
+        ],
+        "no-sparse-arrays": "error",
+        "no-template-curly-in-string": "error",
+        "no-throw-literal": "error",
+        "no-trailing-spaces": "error",
+        "no-undef-init": "error",
+        "no-unsafe-finally": "error",
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowTernary": true
+            }
+        ],
+        "no-unused-labels": "error",
+        "object-shorthand": "error",
+        "prefer-object-spread": "error",
+        "quote-props": ["error", "consistent-as-needed"],
+        "space-in-parens": "error",
+        "unicode-bom": ["error", "never"],
+        "use-isnan": "error"
+    }
+}

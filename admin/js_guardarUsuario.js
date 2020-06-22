@@ -9,6 +9,7 @@ btn_guardarUsuario.onclick = function(e)
 
     //opteniendo el valor de campos
     var userNickname = document.getElementById('userNickname').value;//obligatorio
+    var userCorreo = document.getElementById('userCorreo').value;//obligatorio
     var userPass = document.getElementById('userPass').value;//obligatorio
     var userPassRepetir = document.getElementById('userPassRepetir').value;//obligatorio
     var userNombre = document.getElementById('userNombre').value;//obligatorio
@@ -18,6 +19,7 @@ btn_guardarUsuario.onclick = function(e)
     var userPuesto = document.getElementById('userPuesto').value;//obligatorio
     
     var userNicknameClass = document.getElementById('userNickname');
+    var userCorreoClass = document.getElementById('userCorreo');
     var info_userNicknameClass = document.getElementById('info_userNickname');
     var userPassClass = document.getElementById('userPass')
     var userPassRepetirClass = document.getElementById('userPassRepetir');
@@ -27,7 +29,7 @@ btn_guardarUsuario.onclick = function(e)
     var userPrivilegioClass = document.getElementById('userPrivilegio');
     var userPuestoClass = document.getElementById('userPuesto');
 
-    if(userNickname != '' && userPass != '' && userPassRepetir != '' && userNombre != '' && userAPaterno != '' && userPrivilegio != '' && userPuesto != ''){//evalua los campos obligatorios
+    if(userNickname != '' && userCorreo != '' && userPass != '' && userPassRepetir != '' && userNombre != '' && userAPaterno != '' && userPrivilegio != '' && userPuesto != ''){//evalua los campos obligatorios
         console.clear();
         console.warn('Todos los datos obligatorios se encuentran');
         console.log('***');
@@ -44,7 +46,16 @@ btn_guardarUsuario.onclick = function(e)
             info_userNicknameClass.className = "small text-success";
         }
 
-        var userNicknameOK = userNickname.trim();   
+        //EVALUAR CORREO
+        if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/.test(userCorreo)){
+            userCorreoClass.className = "form-control is-valid";
+        } else {
+            userCorreoClass.className = "form-control is-invalid";
+            return;
+        }
+           //fin EVALUAR CORREO
+        var userNicknameOK = userNickname.trim();
+        var userCorreoOK = userCorreo.trim();
         var userPassOK = userPass.trim();
         var userPassRepetirOK = userPassRepetir.trim();
         var userNombreOK = userNombre.trim();
@@ -56,7 +67,8 @@ btn_guardarUsuario.onclick = function(e)
             userPassRepetirClass.className = "form-control is-invalid";
             return;
         }
-       
+
+        userCorreoClass.className = "form-control is-valid";
         userPassClass.className = "form-control is-valid";
         userPassRepetirClass.className = "form-control is-valid";
         userNombreClass.className = "form-control is-valid";
@@ -66,7 +78,7 @@ btn_guardarUsuario.onclick = function(e)
         userPuestoClass.className = "form-control is-valid";
 
         //---creando cadena de ruta de conexion
-        var Ruta = "userNickname="+userNicknameOK+"&userPass="+userPassOK+"&userNombre="+userNombreOK+"&userAPaterno="+userAPaternoOK+"&userAMaterno="+userAMaternoOK+"&userPrivilegio="+userPrivilegio+"&userPuesto="+userPuesto;
+        var Ruta = "userNickname="+userNicknameOK+"&userCorreo="+userCorreoOK+"&userPass="+userPassOK+"&userNombre="+userNombreOK+"&userAPaterno="+userAPaternoOK+"&userAMaterno="+userAMaternoOK+"&userPrivilegio="+userPrivilegio+"&userPuesto="+userPuesto;
         
         console.log('Ruta a post :'+Ruta);
         //enviando los datos optenidos
@@ -75,18 +87,32 @@ btn_guardarUsuario.onclick = function(e)
     }//fin if
     else{
         userNicknameClass.className = "form-control is-valid";
-        info_userNicknameClass = "form-control is-valid";
-        userPassClass = "form-control is-valid";
-        userPassRepetirClass = "form-control is-valid";
-        userNombreClass = "form-control is-valid";
-        userAPaternoClass = "form-control is-valid";
-        userPrivilegioClass = "form-control is-valid";
-        userPuestoClass = "form-control is-valid";
+        userCorreoClass.className = "form-control is-valid";
+        //info_userNicknameClass.className = "form-control is-valid";
+        userPassClass.className = "form-control is-valid";
+        userPassRepetirClass.className = "form-control is-valid";
+        userNombreClass.className = "form-control is-valid";
+        userAPaternoClass.className = "form-control is-valid";
+        userPrivilegioClass.className = "form-control is-valid";
+        userPuestoClass.className = "form-control is-valid";
+        
         //si defecta que falta un campo entonces se manda  a evaluar cual campo falta
         if(userNickname == ''){ 
             console.error('FALTA userNickname');
             userNicknameClass.className = "form-control is-invalid";
         }
+        if(userCorreo == ''){
+            console.error('FALTA correo');
+            userCorreoClass.className = "form-control is-invalid";
+        }else{
+            //validando correo
+            if (/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/.test(userCorreo)){
+                userCorreoClass.className = "form-control is-valid";
+            } else {
+                userCorreoClass.className = "form-control is-invalid";
+            }
+        }
+
         if(userPass == ''){
             console.error('FALTA userPass');
             userPassClass.className = "form-control is-invalid";
@@ -103,11 +129,11 @@ btn_guardarUsuario.onclick = function(e)
             console.error('FALTA userAPaterno');
             userAPaternoClass.className = "form-control is-invalid";
         }
-        if(userPrivilegio == ''){
+        if(userPrivilegio == 'NA'){
             console.error('FALTA userPrivilegio');
             userPrivilegioClass.className = "form-control is-invalid";
         }
-        if(userPuesto == ''){
+        if(userPuesto == 'NA'){
             console.error('FALTA userPuesto');
             userPuestoClass.className = "form-control is-invalid";
         }

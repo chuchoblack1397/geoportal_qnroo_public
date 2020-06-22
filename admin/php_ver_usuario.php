@@ -14,6 +14,7 @@ include "../conexion.php";
           $amUser=$filaUserVer['apellidomaternousuario'];
           $puestoUser=$filaUserVer['puesto'];
           $privilegioUser=$filaUserVer['privilegio'];
+          $correoUser=$filaUserVer['correo'];
   
 ?>
 <tr>
@@ -28,7 +29,7 @@ include "../conexion.php";
        if($_SESSION['rol_usuario_u'] =='true' ){
          ?>
 
-      <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario;?>','<?php echo $nombreUser;?>','<?php echo $apUser;?>','<?php echo $amUser;?>','<?php echo $puestoUser;?>','<?php echo $privilegioUser;?>')"><span class="icon-pencil2 text-info"></span></button></td>
+      <td><button data-toggle="modal" data-target="#modalEditarUsuario" id="btn_user_<?php echo $usuario;?>" type="button" class="btn btn-light botonEditarCapas" onClick="modalUsuario('<?php echo $usuario;?>','<?php echo $nombreUser;?>','<?php echo $apUser;?>','<?php echo $amUser;?>','<?php echo $puestoUser;?>','<?php echo $privilegioUser;?>','<?php echo $correoUser;?>')"><span class="icon-pencil2 text-info"></span></button></td>
       <?php
        }
       ?>
@@ -38,6 +39,7 @@ include "../conexion.php";
       <td><?php echo $amUser;?></td>
       <td><?php echo $puestoUser;?></td>
       <td><?php echo $privilegioUser;?></td>
+      <td><?php echo $correoUser;?></td>
 </tr>
 <?php
     $i=$i+1;
@@ -55,9 +57,14 @@ include "../conexion.php";
       </div>
       <div class="modal-body" id="cuerpoModalEditarUsuario">
       </div>
+       <!--LOADER-->
+       <div style='display:none, width:100%' id="loader_usuarios_modal" class="mb-4">
+            <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+        </div>
+        <!--fin LOADER-->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onClick="editarUsuario()">Guardar</button>
+        <button id="btn_cerrarModalUsuario" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="btn_actualizarUsuario" type="button" class="btn btn-primary" onClick="editarUsuario()">Actualizar</button>
       </div>
     </div>
   </div>

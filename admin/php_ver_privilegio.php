@@ -42,13 +42,7 @@ include "../conexion.php";
             <label class="custom-control-label" for="btn_edit_<?php echo $privilegio?>"><?php echo $i; ?></label>
           </div>
       </th>
-      <?php
-if($_SESSION['rol_rol_d']=='true'){
-  ?>
       <td><button data-toggle="modal" data-target="#modalEditarPrivilegios" id="y" type="button" class="btn btn-light botonEditarCapas" ><span class="icon-pencil2 text-info"></span></button></td>
-      <?php
-}
-?>
       <td><?php echo $privilegio; ?></td>
       <td>
               <div class="accordion" id="acordionCaracteristicasPrivilegios">
