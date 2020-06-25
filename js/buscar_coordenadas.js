@@ -73,7 +73,7 @@ function borrarCoordenada(){
     marcador_coordenadas="";
 };
 
-function guardarCoordenadas(){
+function guardarCoordenadas(usuario){
     //var latitud = document.getElementById('campoLatitud').value;
     //var longitud = document.getElementById('campoLongitud').value;
     if(coor_lat == "" || coor_lon ==""){
@@ -85,4 +85,29 @@ function guardarCoordenadas(){
     marcador_coordenadas.bindPopup("<center><b style='text-transform: uppercase;'>"+markador+"</b> <br> "+"<i>Latitud: </i>"+coor_lat+"<br><i>Longitud: </i>"+coor_lon+"</center>"); 
     marcador_coordenadas.dragging.disable();
     console.log("GUARDANDO "+markador+" Latitud: "+coor_lat+" - Longitud: "+coor_lon);
+
+
+    var ruta = "titulo="+markador+"&latitud="+coor_lat+"&longitud="+coor_lon+"&usuario="+usuario;
+    console.log(ruta);
+
+    $.ajax({
+        url:"./php_crud_marcadores.php",
+        type:"POST",
+        data: ruta,
+        success: function(respuesta){
+            if(respuesta == "ok"){
+                swal('Perfecto', 'Se han guardado tus coordenadas', 'success');
+            }//fin if
+            if(respuesta == "error"){
+                swal('Error', 'No se pudo guardar', 'error');
+            }//fin if
+            if(respuesta == "existe"){
+                swal('¿?', 'Ya existe un marcador con ese nombre', 'warning');
+            }//fin if
+        },
+        error: function(){
+            alert( "Error con el servidor" );
+        } 
+    });//fin ajax
+
 }

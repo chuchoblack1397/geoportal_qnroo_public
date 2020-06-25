@@ -268,18 +268,24 @@ $(document).ready(function(){
 
 
             <div class="bg-light" id="controlMenuPanel">
+                
+                <div class="mt-2 ml-3">
                 <!--btnAdmin-->
                 <?php
                 if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
                 ?>
                     <!--<button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">-->
-                    <button id="btnEntrarAdmin" onclick="window.open('admin/admin.php','_blank')">
+                    <button id="btnEntrarAdmin" class="btn_admin_perfil" onclick="window.open('admin/admin.php','_blank')">
                         <span class="icon-cog"></span>
                     </button>
                 <?php
                 }
                 ?>
+                <button id="btnEntrarPerfil" class="btn_admin_perfil" onclick="window.open('usuario/perfil.php','_blank')">
+                        <span class="icon-user"></span>
+                </button>
                 <!--fin btnAdmin-->
+                </div>
                 <button id="btnCerrarMenu">
                     <span class="icon-cross"></span>
                 </button>
@@ -485,7 +491,7 @@ $(document).ready(function(){
                     <div class="input-group-append">
                         <button id="btn_buscar_coordenada" class="btn btn-primary mr-2" title="Buscar Coordenadas" onclick="buscarCoordenada()"><i class="icon-filter"></i></button>
                         <button id="btn_borrar_coordenada" class="btn btn-danger mr-2" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
-                        <button id="btn_guardar_coordenada" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas()"><span class="icon-floppy-disk px-2"></span></button>
+                        <button id="btn_guardar_coordenada" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas('<?php echo $miUsuario?>')"><span class="icon-floppy-disk px-2"></span></button>
                     </div>
                 </div>
             </div>
