@@ -169,7 +169,6 @@
                 echo 'error';
                 exit();
             }//fin if
-            header("Refresh:0");
             echo "ok";
         }//fin if
         else{

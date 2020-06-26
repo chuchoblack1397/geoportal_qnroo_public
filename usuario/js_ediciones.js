@@ -56,36 +56,76 @@ function actualizar_password(){
 
     var actualizando = document.getElementById("actualizando");
 
-    $.ajax({
-        url:"php_ediciones.php",
-        type:"POST",
-        data: ruta_password,
-        beforeSend:function(){
-            actualizando.innerHTML="<center><span>Actualizando...</span></center>";
-        },
-        success: function(res){
-            if(res == "ok")
-            {
-                swal('Perfecto', 'Se han actualizado los datos', 'success');
-                $("#passActual").val('');
-                $("#passNueva").val('');
-                $("#passConfirmar").val('');
-                actualizando.innerHTML="";
-                $('#btn_cerrarModalPassoword').click();
-            }
-            if(res == "error")
-            {
-                swal('Error', 'No se realizaron los cambios', 'error');
-            }
-            if(res == "error_e")
-            {
-                swal('Error', 'Error en la contraseña', 'error');
-            }
-        },
-        error: function(){
-            alert( "Error con el servidor" );
-        } 
-    });
+    swal({
+        title: "Advertencia",
+        text: "Estás a punto de cambiar tu contraseña. ¿Estás seguro de hacerlo?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"php_ediciones.php",
+                type:"POST",
+                data: ruta_password,
+                beforeSend:function(){
+                    actualizando.innerHTML="<center><span>Actualizando...</span></center>";
+                },
+                success: function(res){
+                    if(res == "ok")
+                    {
+                        /*
+                        swal('Perfecto', 'Se han actualizado los datos', 'success');
+                        $("#passActual").val('');
+                        $("#passNueva").val('');
+                        $("#passConfirmar").val('');
+                        actualizando.innerHTML="";
+                        $('#btn_cerrarModalPassoword').click();*/
+                        swal({
+                            title: "Perfecto",
+                            text: "Se han actualizado los datos",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    location.href ="../cerrarSesion.php";
+                                
+                                } else {
+                                    location.href ="../cerrarSesion.php";
+                                }
+                            });
+                    }
+                    if(res == "error")
+                    {
+                        swal('Error', 'No se realizaron los cambios', 'error');
+                        $("#passActual").val('');
+                        $("#passNueva").val('');
+                        $("#passConfirmar").val('');
+                        actualizando.innerHTML="";
+                        $('#btn_cerrarModalPassoword').click();
+                    }
+                    if(res == "error_e")
+                    {
+                        swal('Error', 'Error en la contraseña', 'error');
+                        actualizando.innerHTML="";
+                    }
+                },
+                error: function(){
+                    alert( "Error con el servidor" );
+                } 
+            });//fin ajax
+        }//fin if
+        else {
+            $("#passActual").val('');
+            $("#passNueva").val('');
+            $("#passConfirmar").val('');
+            actualizando.innerHTML="";
+            $('#btn_cerrarModalPassoword').click();
+        }//fin else
+        });
 }// fin metodo cargar_modal_password
 
 function actualizar_usuario(){
