@@ -24,7 +24,7 @@
 </div>
 <!-- fin Modal  editar usuario-->
 
-<!-- Modal  editar usuario-->
+<!-- Modal  editar password usuario-->
 <div class="modal fade" id="modal_cambiar_password" tabindex="-1" role="dialog" aria-labelledby="modal_cambiar_passwordTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -61,4 +61,4 @@
         </div>
     </div>
 </div>
-<!-- fin Modal  editar usuario-->
+<!-- fin Modal  editar password usuario-->

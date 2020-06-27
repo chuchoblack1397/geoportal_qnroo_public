@@ -69,3 +69,29 @@ include "../conexion.php";
     </div>
   </div>
 </div>
+
+<!-- Modal  editar password usuario-->
+<div class="modal fade" id="modal_cambiar_password" tabindex="-1" role="dialog" aria-labelledby="modal_cambiar_passwordTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_cambiar_passwordTitle">Cambiar contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="cuerpoModal_cambiar_password">
+            </div>
+             <!--LOADER-->
+              <div style='display:none, width:100%' id="loader_pass_modal" class="mb-4">
+                    <center><img src='img/loading.gif' alt='Cargando...' width='24px'></center>
+                </div>
+                
+              <!--fin LOADER-->
+            <div class="modal-footer">
+                <button id="btn_cerrarModalPassoword" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin Modal  editar password usuario-->

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../conexion.php";
 $usuarioR = $_POST['usuario'];
 $nombreUserR = $_POST['nombre'];
@@ -7,11 +8,16 @@ $amUserR = $_POST['am'];
 $puestoUserR = $_POST['puesto'];
 $privilegioUserR = $_POST['privilegio'];
 $correoUserR = $_POST['correo'];
+
+$miUsuario = $_SESSION['usuarioSession'];
+
 ?>
 <div class="container">
     <div class="form-group">
-            <h4 class="h-4">Usuario: <?php echo $usuarioR; ?></h4>
-            <div class="form-row">
+            <h4 class="h-4">Usuario: <?php echo $usuarioR; ?></h4> 
+            <a href="#" class="card-link text-danger" data-toggle="modal" data-target="#modal_cambiar_password" onclick="cambiar_password_modal('<?php echo $usuarioR; ?>','<?php echo $miUsuario; ?>')"><span class="icon-key mr-2"></span>Cambiar contraseña</a>
+            
+            <div class="form-row mt-3">
                 <label for="nombreUser" class="small">Nombre</label>
                 <input type="text" class="form-control mb-3" id="nombreUser" value="<?php echo $nombreUserR; ?>">
             </div>
