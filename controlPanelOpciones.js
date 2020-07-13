@@ -347,7 +347,7 @@ function loadCapasFromProyecto() {
                 divElement.appendChild(labelElement);
                 divElement.appendChild(breakElement);
                 divElement.appendChild(divLeyendElement);
-
+/*
                 divLeyendElement.id = 'div_btn_' + value['idcapa'];
                 divLeyendElement.classList.add('btn-group');
                 divLeyendElement.role = 'group';
@@ -358,7 +358,7 @@ function loadCapasFromProyecto() {
                 btnElement.classList.add('btn-light');
                 //btnElement.title = 'Ver Leyenda';
                 btnElement.title = 'Actualizar con Excel';//title boton excel
-                
+*/                
                 //funcion para activar atributos de las leyendas
                 /*btnElement.setAttribute(
                     'onclick',
@@ -368,15 +368,15 @@ function loadCapasFromProyecto() {
                 //btnElement.disabled = true; //desabilitar boton de excel  
 
                 //spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
-                spanElement.id = 'icon_btn_excel_' + value['idcapa'];//id boton de excel
+//                spanElement.id = 'icon_btn_excel_' + value['idcapa'];//id boton de excel
                 //spanElement.classList.add('icon-eye');
-                spanElement.classList.add('icon-file-excel');//icono excel
+/*                spanElement.classList.add('icon-file-excel');//icono excel
                 spanElement.classList.add('text-secondary');
                 spanElement.classList.add('small');
 
                 divLeyendElement.appendChild(btnElement);
                 btnElement.appendChild(spanElement);
-
+*/
                 inputElement.type = 'checkbox';
                 inputElement.id = value['idcapa']; //agregue chk
                 inputElement.classList.add('custom-control-input');

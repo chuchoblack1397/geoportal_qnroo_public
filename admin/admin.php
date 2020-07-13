@@ -144,11 +144,11 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_capa_c'] == 'true') {
                   ?>
-                  <a class="nav-link" id="opcion_subir_archivo" data-toggle="pill" href="#subir_archivo" role="tab" aria-controls="subir_archivo" aria-selected="false"><span class="icon-upload3 mr-3"></span>Subir archivo</a>
+                  <!--<a class="nav-link" id="opcion_subir_archivo" data-toggle="pill" href="#subir_archivo" role="tab" aria-controls="subir_archivo" aria-selected="false"><span class="icon-upload3 mr-3"></span>Subir archivo</a>-->
                   <?php
                   }
                   ?>
-                  <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                  <!--<a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>-->
                 </div>
                 <!--fin div tab-content-->
               </div>
@@ -214,7 +214,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   }
                   ?>
 
-                  <a class="nav-link" id="opcion_papeleraMapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                  <!--<a class="nav-link" id="opcion_papeleraMapa" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>-->
                 </div>
                 <!--fin div tab-content-->
               </div>
@@ -270,7 +270,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   }
 
                   ?>
-                  <a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#papeleraUsuario" role="tab" aria-controls="papeleraUsuario" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>
+                  <!--<a class="nav-link" id="opcion_papeleraCapa" data-toggle="pill" href="#papeleraUsuario" role="tab" aria-controls="papeleraUsuario" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera</a>-->
                 </div>
                 <!--fin div tab-content-->
               </div>
@@ -326,7 +326,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   }
                   ?>
-                  <a class="nav-link" id="opcion_papeleraRol" data-toggle="pill" href="#papeleraRol" role="tab" aria-controls="papeleraRol" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera de Privilegios/Roles</a>
+                  <!--<a class="nav-link" id="opcion_papeleraRol" data-toggle="pill" href="#papeleraRol" role="tab" aria-controls="papeleraRol" aria-selected="false"><span class="icon-bin mr-3 text-danger"></span>Papelera de Privilegios/Roles</a>-->
                 </div>
                 <!--fin div tab-content-->
               </div>
@@ -344,7 +344,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                     <?php include 'seccion_verPrivilegios.php'; ?>
                   </div>
                   <!--fin div verRol-->
-                  <div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>
+                  <!--<div id="papeleraRol" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-settings-tab">Papelera de Privilegios/Roles</div>-->
                 </div>
                 <!--fin div tab-content-->
               </div>

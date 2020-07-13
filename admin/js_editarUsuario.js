@@ -96,6 +96,11 @@ function editarUsuario(){
                 $('#loader_usuarios_modal').hide();//ocultar LOADER
                 $('#btn_cerrarModalUsuario').click();//dando click al boton cerrar del modal para que se oculte
                 ajax_ver_usuarios();//actualizando lista de usuarios
+                swal(
+                    'COMPLETADO!',
+                    'El usuario se ha actualizado con éxito',
+                    'success'
+                );
             },
             error: function()
             {
