@@ -1,19 +1,19 @@
 console.log("Dentro de archivo JS_Eliminar Capa");
 
 function eliminarCapa(){//funcion para obtener valores de campos y eliminarlos
-     console.info("-------------Dentro de la funcion CLICK eliminar------------");
-     
-     var cadenaCapas = '';
-     var contador = 0;
-     var size=0;
-     
-     
-         $('#formid input[type=checkbox]').each(function(){
-             if (this.checked) {
+    console.info("-------------Dentro de la funcion CLICK eliminar------------");
+    
+    var cadenaCapas = '';
+    var contador = 0;
+    var size=0;
+
+
+        $('#formid input[type=checkbox]').each(function(){
+            if (this.checked) {
                 size=size+1;//obteniendo el tamaño del arreglo de checkbox
-             }//fin if
+            }//fin if
         });
-     
+
         $('#formid input[type=checkbox]').each(function(){
             if (this.checked) {
                 
