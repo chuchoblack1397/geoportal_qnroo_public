@@ -320,12 +320,17 @@ $(document).ready(function(){
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar barra de busqueda" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                        <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
                         <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>                        
+                    </div>
+                    <br>
+                    <div class="btn-group grupo1" role="group">
+                        <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
+                        <button type="button" class="btn btn-light" title="Guardar coordenadas" onclick="activarInformacion('guardar_coordenada')" id="btnActivarBusquedaCoor_guardar"><span class="icon-floppy-disk text-secondary small" id="btnActivarBusquedaCoor2_guardar"></span></button>
+                        <button type="button" class="btn btn-light" title="Ver mis marcadores" onclick="activarInformacion('ver_coordenada')" id="btnActivarBusquedaCoor_ver"><span class="icon-pushpin text-secondary small" id="btnActivarBusquedaCoor2_ver"></span></button>
                     </div>
                     <!--
                     <br>
@@ -491,12 +496,47 @@ $(document).ready(function(){
                     <div class="input-group-append">
                         <button id="btn_buscar_coordenada" class="btn btn-primary mr-2" title="Buscar Coordenadas" onclick="buscarCoordenada()"><i class="icon-filter"></i></button>
                         <button id="btn_borrar_coordenada" class="btn btn-danger mr-2" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
-                        <button id="btn_guardar_coordenada" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas('<?php echo $miUsuario?>')"><span class="icon-floppy-disk px-2"></span></button>
                     </div>
                 </div>
             </div>
 
-            <!--fin BUSQUEDA COORDENADAS-->
+            <!--fin GUARDAR COORDENADAS-->
+
+            <div class="container" id="contenedorCoordenadas_guardar" style="width:40%; display:none">
+                <div class="bg-white shadow p-3 mb-5 bg-white rounded">
+                    <div class="form-group">
+                        <label for="campoMarcador">Nombre de marcador</label>
+                        <input id="campoMarcador" type="text" placeholder="Nombre de marcador" aria-describedby="button-addon5" class="form-control">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="campoLatitud_guardar">Latitud</label>
+                            <input id="campoLatitud_guardar" type="search" placeholder="Latitud" aria-describedby="button-addon5" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="campoLongitud_guardar">Longitud</label>
+                            <input id="campoLongitud_guardar" type="search" placeholder="Longitud" aria-describedby="button-addon5" class="form-control">
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <button id="btn_guardar_coordenada_guardar" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas('<?php echo $miUsuario?>')"><span class="icon-floppy-disk"></span> Guardar</button>
+                        <button id="btn_borrar_coordenada_guardar" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada_guardar()"><span class="icon-cross"></span> Cancelar</button>
+                        <div class="float-right"><button id="btn_buscar_coordenada_guardar" class="btn btn-primary" title="Rectificar Coordenadas" onclick="buscarCoordenada_guardar()"><span class="icon-location"></span>Rectificar</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--fin GUARDAR COORDENADAS-->
+
+
+            <!--Contenedor VER MARCADORES-->
+            <div id="contenedorResultadoMarcadores" style="display:none">
+                <div class="contenedorMarcadores" id="contenedor_lista_marcadores" >
+                    Marcadores
+                </div>
+            </div>
+            <!--fin Contenedor VER MARCADORES-->
 
 
             <!--Inicio Selector de capas para el swipe -->
@@ -824,6 +864,8 @@ $i_item=1;
                 var activoInformacion = false; //inicializando variable
                 var activoBusqueda = false; //inicializando variable
                 var activoCoordenada = false; //inicializando variable
+                var activoCoordenada_guardar = false; //inicializando variable
+                var activoCoordenada_ver = false; //inicializando variable
                 var activoLeyenda = false; //inicializando variable
                 var activoMedicion = false; //inicializando variable
                 var activoAreaTrazo = false; //inicializando variable
@@ -885,6 +927,44 @@ $i_item=1;
 
                             } //fin else
                             break;
+
+                        case "guardar_coordenada":
+                        if (activoCoordenada_guardar == false) {
+                            activoCoordenada_guardar = true; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_guardar").className = "icon-floppy-disk text-light small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_guardar").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorCoordenadas_guardar").style.display = "block";
+                            
+
+                        } //fin if
+                        else {
+                            activoCoordenada_guardar = false; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_guardar").className = "icon-floppy-disk text-secondary small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_guardar").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorCoordenadas_guardar").style.display = "none";    
+
+                        } //fin else
+                        break;
+
+                        case "ver_coordenada":
+                        if (activoCoordenada_ver == false) {
+                            activoCoordenada_ver = true; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-pushpin text-light small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorResultadoMarcadores").style.display = "block";
+                            ver_marcadores();
+                            
+
+                        } //fin if
+                        else {
+                            activoCoordenada_ver = false; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-pushpin text-secondary small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorResultadoMarcadores").style.display = "none";
+                            cerrar_marcadores();    
+
+                        } //fin else
+                        break;
 
                         case "swipe": //activamos y desactivamos swipe
 

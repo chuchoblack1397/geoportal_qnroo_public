@@ -53,7 +53,7 @@
 
     if($tipo_busqueda == "marcadores"){
         
-        $consultaMarcadores = "select titulo_marcador from marcadores where usuario = '".$usuario_session."'";//consulta general
+        $consultaMarcadores = "select titulo_marcador from marcadores where usuario = '".$usuario_session."' order by titulo_marcador asc";//consulta general
         $resultadoMarcadores = pg_query($conexion,$consultaMarcadores);
 
         while ($filaMarcador = pg_fetch_assoc($resultadoMarcadores))
