@@ -190,3 +190,85 @@ function actualizar_usuario(){
     }
 
 }// fin metodo actualizar_usuario
+
+
+// Subir imagen
+function subirImagen() {
+        var fd = new FormData();
+        var files = $('#fotografia_georreferenciada')[0].files[0];
+        var nota = $('#nota').val();
+        fd.append('file', files);
+        fd.append('nota', nota);
+
+        $.ajax({
+            xhr: function(){
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt){
+                    if(evt.lengthComputable){
+                        var percentComplete =  ((evt.loaded / evt.total)*100);
+                        //$('#barra_progreso').width(percentComplete +'%');
+                        $('#barra_progreso').attr('aria-valuenow', percentComplete).css('width', percentComplete +'%');
+                        $('#barra_progreso').html(percentComplete +'%');
+                    }
+                },false);
+                return xhr;
+            },
+            url: 'php_read_exif.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            beforeSend: function(){
+                $('#barra_progreso').show();
+                $('#barra_progreso').attr('aria-valuenow', '0').css('width', '0%');
+                $('#barra_progreso').addClass( "progress-bar progress-bar-striped bg-info" );
+            },
+           /* uploadProgress: function(event, position, total, percentageComplete){
+                $('#barra_progreso').attr('aria-valuenow', percentageComplete).css('width', percentageComplete+'%');
+                /*$('#barra_progreso').animate({
+                    width: percentageComplete + '%'
+                },{
+                    duration: 1000
+                });
+            },*/
+            success: function (response) {
+                $('#barra_progreso').attr('aria-valuenow', '100').css('width', '100%');
+                $('#barra_progreso').addClass( "progress-bar progress-bar-striped bg-success" );
+                if (response != 0) {
+                    console.log(response);
+                    if (response == 3) {
+                        swal(
+                            'Perfecto',
+                            'Se ha subido la fotografia al sistema',
+                            'success'
+                        );
+
+                        $('#modal_subir_fotoGeo').modal('toggle');
+                        $('#foto_geo').trigger('reset');
+                        
+                    }
+                    if (response == 2) {
+                        swal(
+                            'Error',
+                            'No se pudo extraer información exif de la imagen',
+                            'error'
+                        );
+                        
+                    }
+                    if (response == 1) {
+                        swal(
+                            'Error',
+                            'No se pudo subir la fotografia al sistema',
+                            'error'
+                        );
+                    }
+                    if (response == 0) {
+                        swal('Error', 'La extension no es valida', 'error');
+                    }
+                } else {
+                    alert('file not uploaded');
+                }
+                $('#barra_progreso').hide();
+            },
+        });
+    };

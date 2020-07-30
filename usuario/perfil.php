@@ -41,13 +41,13 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
             <div class="card" >
                 <div class="row no-gutters">
                     <div class="col-md-2">
-                        <img src="imagenes/default.jpg" class="card-img p-4" alt="Foto de perfil" id="foto_perfil">
+                        <img src="imagenes/default.png" class="card-img p-4" alt="Foto de perfil" id="foto_perfil">
                         <br>
                         <center>
                             <label for="cargaImagen" class="btn btn-link btn-sm text-danger">
                                 <span class="icon-pencil"></span> Cambiar imagen
                             </label>
-                            <input type="file" class="custom-file-input" id="cargaImagen" style="display:none" name="file">
+                            <input type="file" class="custom-file-input" id="cargaImagen" style="display:none" name="file" accept="image/png, image/jpeg">
                         </center>
                     </div><!--fin col-->
                     <div class="col-md-7">
@@ -95,7 +95,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                 </div>
             </div><!--fin col-->
             <div class="col-md-4 text-center">
-                <button type="button" onclick="location.href='../ymagomundi.php'" class="btn btn-success text-white" title="Ver mapa"><span class="icon-map mr-2"></span>Ver mapa</button>
+                <button type="button" class="btn btn-success text-white" title="Ver mapa" data-toggle="modal" data-target="#modal_subir_fotoGeo"><span class="icon-images mr-2"></span>Subir imagen</button>
             </div><!--fin col-->
         </div><!--fin row-->
     </div><!--fin mapa-->

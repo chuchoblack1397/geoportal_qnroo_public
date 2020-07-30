@@ -62,3 +62,38 @@
     </div>
 </div>
 <!-- fin Modal  editar password usuario-->
+
+
+<!-- Modal  Subir fotografías georreferenciadas-->
+<div class="modal fade" id="modal_subir_fotoGeo" tabindex="-1" role="dialog" aria-labelledby="modal_subir_fotoGeoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <form id="foto_geo">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_subir_fotoGeoTitle">Subir fotografía georreferenciada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="cuerpomodal_subir_fotoGeo">
+                    <div class="form-group">
+                        <label for="fotografia_georreferenciada">Fotografía georreferenciada</label>
+                        <input type="file" class="form-control-file" id="fotografia_georreferenciada" name="fotografia_georreferenciada" accept="image/x-png,image/gif,image/jpeg">
+                    </div>
+                    <div class="form-group">
+                        <label for="nota">Nota</label>
+                        <textarea class="form-control" id="nota" name="nota" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="progress mx-3 mb-2">
+                    <div id="barra_progreso" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn_cerrarModalUsuario" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="btn_subirImagen" onclick="subirImagen()" type="button" class="btn btn-primary">Subir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- fin Modal  editar usuario-->

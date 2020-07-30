@@ -184,6 +184,7 @@ if (password_verify($miContra, $pass)) {
             <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
             <link rel="stylesheet" href="css/css_barraFiltro.css">
             <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
+            <link rel="stylesheet" href="leaflet.wmslegendwidget.css">
 
 
 
@@ -604,17 +605,19 @@ $i_item=1;
 
 
             <!--contenedor iframes LEYENDAS NUEVO-->
+            <!--
             <div id="contenedorIframeLeyendasNuevo">
                 <?php
-                foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
+                //foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                 ?>
-                    <div id="img_leyenda_<?php echo $campo['idcapa']; ?>" class="contenedorImg" style="display:none">
-                        <img src="<?php echo $campo['leyenda']; ?>">
+                    <div id="img_leyenda_<?php //echo $campo['idcapa']; ?>" class="contenedorImg" style="display:none">
+                        <img src="<?php //echo $campo['leyenda']; ?>">
                     </div>
                 <?php
-                } //fin foreach
+                //} //fin foreach
                 ?>
             </div>
+            -->
             <!--fin contenedor iframes LEYENDAS -->
 
             <!--Contenedor resultados de filtro-->
@@ -1122,6 +1125,7 @@ $i_item=1;
                 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
                 //FUNCION VER LEYENDA DE CAPA
+                /*
                 function activarLeyendas(idLeyenda) {
                     var divImg = document.getElementById('img_leyenda_' + idLeyenda);
 
@@ -1135,6 +1139,7 @@ $i_item=1;
                     }
 
                 }
+                */
                 //fin FUNCION VER LEYENDA DE CAPA
 
                 var popup = L.popup({
@@ -1343,6 +1348,7 @@ $i_item=1;
 
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
             <script src="leaflet.wms.js"></script>
+            <script src="leaflet.wmslegendwidget.js"></script>
             <script src="controlPanelOpciones.js"></script>
             <script src="controlPanel.js"></script>
             <script src="busquedaDatosCapas.js"></script>
