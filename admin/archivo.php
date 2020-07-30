@@ -128,6 +128,12 @@ echo $rutaArchivo;
 
 if(isset($archivoPRJ)&& isset($archivoSHX) && isset($archivoSHP) && isset($archivoDBF)){
 
+?>
+    
+    <script type="text/javascript">
+                    parent.Existen();
+                 </script>
+    <?php
     
     
 // Muestra el resultado completo del comando "ls", y devuelve la
