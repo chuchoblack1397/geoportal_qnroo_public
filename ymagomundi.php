@@ -275,14 +275,17 @@ $(document).ready(function(){
                 if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
                 ?>
                     <!--<button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">-->
-                    <button id="btnEntrarAdmin" class="btn_admin_perfil" onclick="window.open('admin/admin.php','_blank')">
+                    <button id="btnEntrarAdmin" class="btn_admin_perfil" onclick="window.open('admin/admin.php','_blank')" title="Perfil de administrador">
                         <span class="icon-cog"></span>
                     </button>
                 <?php
                 }
                 ?>
-                <button id="btnEntrarPerfil" class="btn_admin_perfil" onclick="window.open('usuario/perfil.php','_blank')">
+                <button id="btnEntrarPerfil" class="btn_admin_perfil" onclick="window.open('usuario/perfil.php','_blank')" title="Perfil de usuario">
                         <span class="icon-user"></span>
+                </button>
+                <button id="btnEntrarPerfil" class="btn_admin_perfil" data-toggle="modal" data-target="#modal_informacion" title="Acerca de IDT-OPB">
+                        <span class="icon-info"></span>
                 </button>
                 <!--fin btnAdmin-->
                 </div>
