@@ -205,7 +205,7 @@ function subirImagen() {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function(evt){
                     if(evt.lengthComputable){
-                        var percentComplete =  ((evt.loaded / evt.total)*100);
+                        var percentComplete =  Math.round((evt.loaded / evt.total)*100);
                         //$('#barra_progreso').width(percentComplete +'%');
                         $('#barra_progreso').attr('aria-valuenow', percentComplete).css('width', percentComplete +'%');
                         $('#barra_progreso').html(percentComplete +'%');
