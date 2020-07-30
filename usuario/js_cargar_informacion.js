@@ -1,6 +1,7 @@
 window.onload = cargar_datos_usuario();
 window.onload = cargar_proyectos_usuario();
 window.onload = cargar_marcadores_usuario();
+window.onload = cargar_foto();
 
 function cargar_datos_usuario(){
     var tipo_busqueda="datos";
@@ -16,6 +17,26 @@ function cargar_datos_usuario(){
         },
         success: function(res){
             datos_usuario.innerHTML=res;
+        },
+        error: function(){
+            alert( "Error con el servidor" );
+        } 
+    });
+}
+
+function cargar_foto(){
+    var tipo_busqueda="foto";
+    var ruta="tipo_busqueda="+tipo_busqueda;
+
+    $.ajax({
+        url:"php_cargar_informacion.php",
+        type:"POST",
+        data: ruta,
+        beforeSend: function(){
+            document.getElementById('foto_perfil').src="../img/loading.gif";
+        },
+        success: function(data){
+            document.getElementById('foto_perfil').src="imagenes/"+data;
         },
         error: function(){
             alert( "Error con el servidor" );

@@ -77,6 +77,8 @@ if (password_verify($miContra, $pass)) {
             $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
             $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
 
+            $foto = $datoUsuarioPrivilegio['foto_perfil'];
+
             $nombreCompleto = $nombre . ' ' . $aPaterno . ' ' . $aMaterno;
 
             $_SESSION['usuarioPrivilegio'] = $privilegio; //asignando el privilegio a la variable de session
@@ -294,8 +296,8 @@ $(document).ready(function(){
                 </button>
                 <input type="checkbox" name="" id="botonCerrarControl" checked>
                 <label for="botonCerrarControl" id="botonCerrarControl_label">
-                    <</label> <div id="avatar" class="baseControlPanel">
-                        <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
+                    </label> <div id="avatar" class="baseControlPanel">
+                    <img src="<?php if($foto != ''){ echo 'usuario/imagenes/'.$foto;}else{ ?> img/default.png <?php } ?>" alt="">
                         <p><?php echo $nombreCompleto; ?></p>
                         <a href="cerrarSesion.php">Cerrar sesión</a>
             </div>

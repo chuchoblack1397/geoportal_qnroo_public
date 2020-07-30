@@ -69,3 +69,24 @@ function enviarDatosEliminarUsuario(ruta){
     
 }
 ////////////////////// fin FUNCION AJAX PARA ENVIAR DATOS ////////////////////////
+
+
+function archivo(){
+    $('#btn-submit').on('click',function(e){
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal({
+            title: "Espera",
+            text: "¿Seguro que quieres continuar?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si",
+            closeOnConfirm: false
+        }, function(isConfirm){
+            if (isConfirm) form.submit();
+        });
+    });
+
+
+}

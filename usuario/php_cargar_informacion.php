@@ -64,4 +64,20 @@
         <?php
         }//if while
     }//fin if
+
+    if($tipo_busqueda == "foto"){
+        $consultaFoto = "select foto_perfil from usuarios where usuario = '".$usuario_session."'";//consulta general
+        $resultadoFoto = pg_query($conexion,$consultaFoto);
+
+        while ($filaFoto = pg_fetch_assoc($resultadoFoto))
+        {//obteniendo capas de BD
+            $foto=$filaFoto['foto_perfil'];
+            
+        }//if while
+        if($foto != ''){
+            echo $foto;
+        }else{
+            echo "default.png";
+        }
+    }
 ?>

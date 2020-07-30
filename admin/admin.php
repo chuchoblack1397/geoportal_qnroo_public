@@ -54,6 +54,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     </head>
 
@@ -144,7 +145,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                   <?php
                   if ($_SESSION['rol_capa_c'] == 'true') {
                   ?>
-                  <!--<a class="nav-link" id="opcion_subir_archivo" data-toggle="pill" href="#subir_archivo" role="tab" aria-controls="subir_archivo" aria-selected="false"><span class="icon-upload3 mr-3"></span>Subir archivo</a>-->
+                  <a class="nav-link" id="opcion_subir_archivo" data-toggle="pill" href="#subir_archivo" role="tab" aria-controls="subir_archivo" aria-selected="false"><span class="icon-upload3 mr-3"></span>Subir archivo</a>
                   <?php
                   }
                   ?>
@@ -399,6 +400,9 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
 
     <script>
       //document.getElementById("verCapa").onclick = function() {myFunction()};
+      $(document).ready(function () {
+        bsCustomFileInput.init()
+      });
     </script>
 <?php
   } //fin if

@@ -7,7 +7,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
 ?>
 
     <!DOCTYPE html>
-    <html lang="en" class="h-100">
+    <html lang="es" class="h-100">
 
     <head>
         <meta charset="UTF-8">
@@ -19,9 +19,12 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
     </head>
 
     <body class="d-flex flex-column h-100">
+    <div id="errores">
+    </div>
         <!--Panel superior-->
         <div class="container-fluid p-3 mb-2 bg-dark text-white">
             <h5>
@@ -38,7 +41,14 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
             <div class="card" >
                 <div class="row no-gutters">
                     <div class="col-md-2">
-                        <img src="https://i.pinimg.com/originals/5e/5a/af/5e5aaf1c8b220f46e74271f10c2c8d6d.jpg" class="card-img p-4" alt="Foto de perfil">
+                        <img src="imagenes/default.jpg" class="card-img p-4" alt="Foto de perfil" id="foto_perfil">
+                        <br>
+                        <center>
+                            <label for="cargaImagen" class="btn btn-link btn-sm text-danger">
+                                <span class="icon-pencil"></span> Cambiar imagen
+                            </label>
+                            <input type="file" class="custom-file-input" id="cargaImagen" style="display:none" name="file">
+                        </center>
                     </div><!--fin col-->
                     <div class="col-md-7">
                         <div class="card-body" id="datos_usuario">
@@ -122,7 +132,6 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
         </div>
     </footer>
 
-
         <!--fin codigo de la ventana emergente-->
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/bootstrap-input-spinner.js"></script>
@@ -130,6 +139,34 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
     
         <script src="js_cargar_informacion.js"></script>
         <script src="js_ediciones.js"></script>
+
+        <script>
+        
+        
+        const imagen = document.getElementById("cargaImagen");
+        imagen.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append('file',file);
+
+            $.ajax({
+                url: 'enviarImagen.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                beforeSend: function(){
+                    document.getElementById('foto_perfil').src="../img/loading.gif";
+                },
+                success: function(data){
+                    document.getElementById('foto_perfil').src="imagenes/"+data;
+                }
+            });
+        });
+        
+        </script>
+
     </body>
     </html>
 <?php
