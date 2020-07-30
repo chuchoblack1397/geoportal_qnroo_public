@@ -8,6 +8,6 @@
 }
 
 .leaflet-draw, .leaflet-control{
-    background:rgba(0,0,0,0.3) !important;
-    border-radius:3px !important;
+    background:rgba(0,0,0,0.3);
+    border-radius:3px;
 }
