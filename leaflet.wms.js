@@ -244,7 +244,7 @@
                         const tableData = document.createElement('td');
 
                         tableHeader.textContent = val;
-                        console.log(value['properties'][val]);
+                        //console.log(value['properties'][val]);
                         if (
                             typeof value['properties'][val] === 'string' &&
                             value['properties'][val].includes('http')
@@ -479,7 +479,7 @@
             request = new XMLHttpRequest();
         request.onreadystatechange = change;
         request.open('GET', url);
-        request.withCredentials = true;
+        //request.withCredentials = true;
         request.send();
         function change() {
             if (request.readyState === 4) {
