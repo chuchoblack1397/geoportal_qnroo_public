@@ -16,8 +16,8 @@
             </div>
             <!--fin LOADER-->
             <div class="modal-footer">
-                <button id="btn_cerrarModalUsuario" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button id="btn_actualizarUsuario" type="button" class="btn btn-primary" onclick="actualizar_usuario()">Actualizar</button>
+                <button id="btn_cerrarModalUsuario" type="button" class="btn btn-danger" data-dismiss="modal"><span class="icon-cross"></span> Cancelar</button>
+                <button id="btn_actualizarUsuario" type="button" class="btn btn-success" onclick="actualizar_usuario()"><span class="icon-checkmark"></span> Actualizar</button>
             </div>
         </div>
     </div>
@@ -55,8 +55,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn_cerrarModalPassoword" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button id="btn_actualizarPassoword" type="button" class="btn btn-primary" onclick="actualizar_password()">Actualizar</button>
+                <button id="btn_cerrarModalPassoword" type="button" class="btn btn-danger" data-dismiss="modal"><span class="icon-cross"></span> Cancelar</button>
+                <button id="btn_actualizarPassoword" type="button" class="btn btn-success" onclick="actualizar_password()"><span class="icon-checkmark"></span> Actualizar</button>
             </div>
         </div>
     </div>
@@ -89,7 +89,7 @@
                     <div id="barra_progreso" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn_cerrarModalUsuario" type="button" class="btn btn-danger" data-dismiss="modal"><span class="icon-cross"></span> Cerrar</button>
+                    <button id="btn_cerrarModalUsuario" type="button" class="btn btn-danger" data-dismiss="modal"><span class="icon-cross"></span> Cancelar</button>
                     <button id="btn_subirImagen" onclick="subirImagen()" type="submit" class="btn btn-success"><span class="icon-upload3"></span> Subir</button>
                 </div>
             </form>
