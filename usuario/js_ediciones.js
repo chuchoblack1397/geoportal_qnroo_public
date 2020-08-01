@@ -228,6 +228,7 @@ function subirImagen() {
     fd.append('nota', nota);
     $('#fotografia_georreferenciada').prop('disabled', true);
     $('#nota').prop('disabled', true);
+    $('#btn_subirImagen').prop('disabled', true);
 
     $.ajax({
         xhr: function () {
@@ -316,6 +317,7 @@ function subirImagen() {
             $('#barra_progreso').hide();
             $('#fotografia_georreferenciada').prop('disabled', false);
             $('#nota').prop('disabled', false);
+            $('#btn_subirImagen').prop('disabled', false);
         },
     });
 }
