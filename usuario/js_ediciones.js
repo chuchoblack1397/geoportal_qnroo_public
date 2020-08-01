@@ -221,6 +221,10 @@ $('#foto_geo').submit(function (e) {
     e.preventDefault();
 });
 function subirImagen() {
+    if (!$('#fotografia_georreferenciada')[0].files[0]) {
+        $('#imageTooltip').show();
+        return;
+    }
     var fd = new FormData();
     var files = $('#fotografia_georreferenciada')[0].files[0];
     var nota = $('#nota').val();

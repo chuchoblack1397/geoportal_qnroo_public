@@ -81,7 +81,7 @@
                         <input type="file" class="form-control-file" id="fotografia_georreferenciada" name="fotografia_georreferenciada" accept="image/x-png,image/gif,image/jpeg" required>
                     </div>
                     <div class="form-group">
-                        <label for="nota">Nota</label>
+                        <label for="nota">Nota(opcional)</label>
                         <textarea class="form-control" id="nota" name="nota" rows="3"></textarea>
                     </div>
                 </div>
