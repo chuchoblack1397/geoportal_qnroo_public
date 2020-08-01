@@ -70,7 +70,15 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                 </div><!--fin row-->
             </div><!--fin card-->
     </div><!--fin datos usuario-->
-    
+    <div class="container">
+        <div class="card text-justify" style="width: 19rem;">
+            <h5 class="card-header">Imagen georreferenciada</h5>
+            <div class="card-body">
+            <p class="card-text ">Esta herramienta sube y geolocaliza en el mapa una imagen que haya sido tomada con georreferencia activada.</p>
+            <center><button type="button" class="btn btn-success text-white" title="Ver mapa" data-toggle="modal" data-target="#modal_subir_fotoGeo"><span class="icon-images mr-2"></span>Subir imagen</button></center>
+        </div>
+</div>
+    </div>
     <div class="container bg-white p-3 pb-5"><!--mapa-->
         <div class="row"><!--row-->
             <div class="col-md-8">
@@ -95,7 +103,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                 </div>
             </div><!--fin col-->
             <div class="col-md-4 text-center">
-                <button type="button" class="btn btn-success text-white" title="Ver mapa" data-toggle="modal" data-target="#modal_subir_fotoGeo"><span class="icon-images mr-2"></span>Subir imagen</button>
+               
             </div><!--fin col-->
         </div><!--fin row-->
     </div><!--fin mapa-->
