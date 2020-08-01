@@ -322,7 +322,7 @@ $(document).ready(function(){
             <!--linea-->
             <div id="contendorControles">
 
-                <div id="contenedorBotonesAcciones">
+                <div id="contenedorBotonesAcciones" class="sticky-top bg-light rounded">
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-light" title="Inicio" onclick="activarInformacion('inicio')" id="btnActivarInicio1"><span class="icon-home text-secondary small" id="btnActivarInicio2"></span></button>
                         <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
