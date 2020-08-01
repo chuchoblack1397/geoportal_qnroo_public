@@ -244,7 +244,6 @@
                         const tableData = document.createElement('td');
 
                         tableHeader.textContent = val;
-                        //console.log(value['properties'][val]);
                         if (
                             typeof value['properties'][val] === 'string' &&
                             value['properties'][val].includes('http')
@@ -252,6 +251,7 @@
                             const link = document.createElement('a');
                             link.href = value['properties'][val];
                             link.textContent = value['properties'][val];
+                            link.target = '_blank';
                             tableData.appendChild(link);
                         } else {
                             tableData.textContent = value['properties'][val];

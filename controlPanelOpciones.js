@@ -213,6 +213,10 @@ function repetido() {
     }
 }
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 const selectProyecto = document.getElementById('selectProyecto');
 
 function loadSelectProyectos() {
@@ -298,6 +302,12 @@ function loadCapasFromProyecto() {
         listaCapasFromProyecto.removeChild(listaCapasFromProyecto.firstChild);
     }
 
+    while (wmsLegendWidget.legendContainer.firstChild) {
+        wmsLegendWidget.legendContainer.removeChild(
+            wmsLegendWidget.legendContainer.firstChild
+        );
+    }
+
     if (
         Object.keys(layersObj).length !== 0 &&
         layersObj.constructor === Object
@@ -333,13 +343,9 @@ function loadCapasFromProyecto() {
                 const divElement = document.createElement('div');
                 const inputElement = document.createElement('input');
                 const labelElement = document.createElement('label');
-                const breakElement = document.createElement('br');
-                const divLeyendElement = document.createElement('div');
-                const btnElement = document.createElement('button');
-                const spanElement = document.createElement('span');
 
-                //listItemElement.classList.add('px-3');
                 listItemElement.id = 'li_' + value['idcapa'];
+                listItemElement.classList.add('mb-3');
                 listItemElement.appendChild(divElement);
 
                 divElement.classList.add('custom-control'); //agregue clase a div
@@ -356,10 +362,8 @@ function loadCapasFromProyecto() {
 
                 labelElement.htmlFor = value['idcapa'];
                 labelElement.classList.add('custom-control-label');
-              
                 labelElement.innerHTML = value['titulocapa'];
 
-                
                 listaCapasFromProyecto.appendChild(listItemElement);
 
                 inputElement.addEventListener('change', toggleLayer);

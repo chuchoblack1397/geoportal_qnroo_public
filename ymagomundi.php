@@ -601,25 +601,6 @@ $i_item=1;
 
             <!--Fin selector de capas para el swipe -->
 
-
-
-
-            <!--contenedor iframes LEYENDAS NUEVO-->
-            <!--
-            <div id="contenedorIframeLeyendasNuevo">
-                <?php
-                //foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                ?>
-                    <div id="img_leyenda_<?php //echo $campo['idcapa']; ?>" class="contenedorImg" style="display:none">
-                        <img src="<?php //echo $campo['leyenda']; ?>">
-                    </div>
-                <?php
-                //} //fin foreach
-                ?>
-            </div>
-            -->
-            <!--fin contenedor iframes LEYENDAS -->
-
             <!--Contenedor resultados de filtro-->
             <div id="contenedorResultadoFiltro" style="display:none;">
                 <div class="contenedorResultado" id="contenedorResultado" style="display:none;">
@@ -649,9 +630,9 @@ $i_item=1;
 
 
             <!--fin codigo de la ventana emergente-->
-            <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap.bundle.min.js"></script>
             <script src="js/bootstrap-input-spinner.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
 
             <script>
                 var atribuciones = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -1124,24 +1105,6 @@ $i_item=1;
                 } //fin subfuncion
                 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
-                //FUNCION VER LEYENDA DE CAPA
-                /*
-                function activarLeyendas(idLeyenda) {
-                    var divImg = document.getElementById('img_leyenda_' + idLeyenda);
-
-                    if (divImg.style.display == "block") {
-                        divImg.style.display = "none";
-
-                        document.getElementById('icon_btn_leyenda_' + idLeyenda).className = "icon-eye text-secondary small";
-                    } else {
-                        divImg.style.display = "block";
-                        document.getElementById('icon_btn_leyenda_' + idLeyenda).className = "icon-eye text-primary small";
-                    }
-
-                }
-                */
-                //fin FUNCION VER LEYENDA DE CAPA
-
                 var popup = L.popup({
                     maxWidth: 1000,
                     className: 'popup'
@@ -1346,7 +1309,7 @@ $i_item=1;
                 //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////
             </script>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
             <script src="leaflet.wms.js"></script>
             <script src="leaflet.wmslegendwidget.js"></script>
             <script src="controlPanelOpciones.js"></script>
