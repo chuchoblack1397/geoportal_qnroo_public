@@ -19,15 +19,21 @@ L.Control.WMSLegendWidget = L.Control.extend({
             this.container
         );
         this.containerTitle.textContent = 'Simbología';
-        this.svg = L.DomUtil.create('svg', iconClassName, this.container);
-        this.svg.atl = 'Simbología';
+        this.icon = L.DomUtil.create('span', iconClassName, this.container);
         this.legendContainer = L.DomUtil.create(
             'div',
             legendContainerClassName,
             this.container
         );
 
-        L.DomEvent.on(this.container, 'click', this._click, this);
+        L.DomEvent.on(this.container, 'click', this._click, this)
+            .on(this.container, 'mousewheel', stop)
+            .on(this.container, 'mousedown', stop)
+            .on(this.container, 'dblclick', stop)
+            .on(this.container, 'click', L.DomEvent.preventDefault)
+            .on(this.container, 'click', stop);
+
+        this.shrink();
 
         return this.container;
     },
@@ -35,22 +41,34 @@ L.Control.WMSLegendWidget = L.Control.extend({
         L.DomEvent.stopPropagation(e);
         L.DomEvent.preventDefault(e);
 
-        var style = window.getComputedStyle(this.svg);
+        var style = window.getComputedStyle(this.icon);
         if (style.display === 'none') {
-            this.container.classList.add(
-                'leaflet-wms-legend-widget--collapsed'
-            );
-            this.svg.classList.add('d-block');
-            this.containerTitle.classList.add('d-none');
-            this.legendContainer.classList.add('d-none');
+            this.shrink();
         } else {
-            this.container.classList.remove(
-                'leaflet-wms-legend-widget--collapsed'
-            );
-            this.svg.classList.remove('d-block');
-            this.containerTitle.classList.remove('d-none');
-            this.legendContainer.classList.remove('d-none');
+            this.expand();
         }
+    },
+    expand: function () {
+        this.container.classList.remove('leaflet-wms-legend-widget--collapsed');
+        this.icon.classList.remove('d-block');
+        this.containerTitle.classList.remove('d-none');
+        this.legendContainer.classList.remove('d-none');
+
+        this.container.removeAttribute('data-toggle');
+        this.container.removeAttribute('data-placement');
+        this.container.removeAttribute('title');
+        $('.leaflet-wms-legend-widget').tooltip('dispose');
+    },
+    shrink: function () {
+        this.container.classList.add('leaflet-wms-legend-widget--collapsed');
+        this.icon.classList.add('d-block');
+        this.containerTitle.classList.add('d-none');
+        this.legendContainer.classList.add('d-none');
+
+        this.container.setAttribute('data-toggle', 'tooltip');
+        this.container.setAttribute('data-placement', 'left');
+        this.container.title = 'Simbología';
+        $('.leaflet-wms-legend-widget').tooltip();
     },
     addLegend: function (layer) {
         const legendClassName = 'wms-legend';

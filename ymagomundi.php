@@ -585,9 +585,9 @@ $i_item=1;
 
 
             <!--fin codigo de la ventana emergente-->
-            <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap.bundle.min.js"></script>
             <script src="js/bootstrap-input-spinner.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
 
             <script>
                 var atribuciones = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -1224,7 +1224,7 @@ $i_item=1;
                 //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////
             </script>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
             <script src="leaflet.wms.js"></script>
             <script src="leaflet.wmslegendwidget.js"></script>
             <script src="controlPanelOpciones.js"></script>

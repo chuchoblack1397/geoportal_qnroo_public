@@ -213,6 +213,10 @@ function repetido() {
     }
 }
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 const selectProyecto = document.getElementById('selectProyecto');
 
 function loadSelectProyectos() {
@@ -299,6 +303,12 @@ function loadCapasFromProyecto() {
         listaCapasFromProyecto.removeChild(listaCapasFromProyecto.firstChild);
     }
 
+    while (wmsLegendWidget.legendContainer.firstChild) {
+        wmsLegendWidget.legendContainer.removeChild(
+            wmsLegendWidget.legendContainer.firstChild
+        );
+    }
+
     if (
         Object.keys(layersObj).length !== 0 &&
         layersObj.constructor === Object
@@ -336,6 +346,7 @@ function loadCapasFromProyecto() {
                 const labelElement = document.createElement('label');
 
                 listItemElement.id = 'li_' + value['idcapa'];
+                listItemElement.classList.add('mb-3');
                 listItemElement.appendChild(divElement);
 
                 divElement.classList.add('custom-control'); //agregue clase a div
