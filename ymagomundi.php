@@ -335,8 +335,8 @@ $(document).ready(function(){
                     <br>
                     <div class="btn-group grupo1" role="group">
                         <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
-                        <button type="button" class="btn btn-light" title="Guardar coordenadas" onclick="activarInformacion('guardar_coordenada')" id="btnActivarBusquedaCoor_guardar"><span class="icon-floppy-disk text-secondary small" id="btnActivarBusquedaCoor2_guardar"></span></button>
-                        <button type="button" class="btn btn-light" title="Ver mis marcadores" onclick="activarInformacion('ver_coordenada')" id="btnActivarBusquedaCoor_ver"><span class="icon-pushpin text-secondary small" id="btnActivarBusquedaCoor2_ver"></span></button>
+                        <button type="button" class="btn btn-light" title="Marcadores de lugares" onclick="activarInformacion('guardar_coordenada')" id="btnActivarBusquedaCoor_guardar"><span class="icon-floppy-disk text-secondary small" id="btnActivarBusquedaCoor2_guardar"></span></button>
+                        <button type="button" class="btn btn-light" title="Ver mis marcadores" onclick="activarInformacion('ver_coordenada')" id="btnActivarBusquedaCoor_ver"><span class="icon-location text-secondary small" id="btnActivarBusquedaCoor2_ver"></span></button>
                     </div>
                     <!--
                     <br>
@@ -957,7 +957,7 @@ $i_item=1;
                         case "ver_coordenada":
                         if (activoCoordenada_ver == false) {
                             activoCoordenada_ver = true; //cambiando el valor de la variable
-                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-pushpin text-light small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-location text-light small"; //alterando las propiedades del span dentro del boton
                             document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
                             document.getElementById("contenedorResultadoMarcadores").style.display = "block";
                             ver_marcadores();
@@ -966,7 +966,7 @@ $i_item=1;
                         } //fin if
                         else {
                             activoCoordenada_ver = false; //cambiando el valor de la variable
-                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-pushpin text-secondary small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-location text-secondary small"; //alterando las propiedades del span dentro del boton
                             document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
                             document.getElementById("contenedorResultadoMarcadores").style.display = "none";
                             cerrar_marcadores();    
