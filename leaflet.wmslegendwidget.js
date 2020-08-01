@@ -20,6 +20,7 @@ L.Control.WMSLegendWidget = L.Control.extend({
         );
         this.containerTitle.textContent = 'Simbología';
         this.svg = L.DomUtil.create('svg', iconClassName, this.container);
+        this.svg.atl = 'Simbología';
         this.legendContainer = L.DomUtil.create(
             'div',
             legendContainerClassName,
