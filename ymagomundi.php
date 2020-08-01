@@ -510,7 +510,7 @@ $(document).ready(function(){
             <!--fin GUARDAR COORDENADAS-->
 
             <div class="container" id="contenedorCoordenadas_guardar" style="width:40%; display:none">
-                <div class="bg-white shadow p-3 mb-5 bg-white rounded">
+                <div class="bg-white shadow p-3 mb-5 rounded">
                     <div class="form-group">
                         <label for="campoMarcador">Nombre de marcador</label>
                         <input id="campoMarcador" type="text" placeholder="Nombre de marcador" aria-describedby="button-addon5" class="form-control">
@@ -528,7 +528,7 @@ $(document).ready(function(){
                         
                     <div class="form-group">
                         <button id="btn_guardar_coordenada_guardar" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas('<?php echo $miUsuario?>')"><span class="icon-floppy-disk"></span> Guardar</button>
-                        <button id="btn_borrar_coordenada_guardar" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada_guardar()"><span class="icon-cross"></span> Cancelar</button>
+                        <button id="btn_borrar_coordenada_guardar" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada_guardar()"><span class="icon-cross"></span> Borrar</button>
                         <div class="float-right"><button id="btn_buscar_coordenada_guardar" class="btn btn-primary" title="Rectificar Coordenadas" onclick="buscarCoordenada_guardar()"><span class="icon-location"></span>Rectificar</button></div>
                     </div>
                 </div>
@@ -538,8 +538,8 @@ $(document).ready(function(){
 
 
             <!--Contenedor VER MARCADORES-->
-            <div id="contenedorResultadoMarcadores" style="display:none">
-                <div class="contenedorMarcadores" id="contenedor_lista_marcadores" >
+            <div class="container-fluid" id="contenedorResultadoMarcadores" style="display:none" >
+                <div class="float-right mr-5 bg-white shadow rounded mt-2 contenedorMarcadores" id="contenedor_lista_marcadores" style="width:320px;" >
                     Marcadores
                 </div>
             </div>

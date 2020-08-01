@@ -40,12 +40,20 @@ if($accion=='ver'){
     $resultadoMarcador = pg_query($conexion,$verMarcador);
 
     if(!$resultadoMarcador){
-        echo "<center><span><b>No hay marcadores</b></span></center>";
+        echo "<center><span><b>No hay marcadores</b></span></center>
+        
+        ";
     }
     else{    
     ?>
-    <center><h5>Marcadores</h5></center>
-    <div class="container ">
+    <div class="card">
+        <div class="card-header bg-white">
+            Marcadores
+            <button type="button" class="close" aria-label="Close" onclick="activarInformacion('ver_coordenada')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div><!--fin card-header-->
+        <div class="card-body">        
     <?php
     $i=1;
     while ($filaCampoMarcador = pg_fetch_assoc($resultadoMarcador))
@@ -54,12 +62,12 @@ if($accion=='ver'){
         $latitud_marcador = $filaCampoMarcador['latitud'];
         $longitud_marcador = $filaCampoMarcador['longitud'];
     ?>
-            <div class="row" onmouseover="this.style.background='#eeeeee';" onmouseout="this.style.background=''">
+            <div class="row my-2" onmouseover="this.style.background='#eeeeee';" onmouseout="this.style.background=''">
                 <div class="col-9">
-                    <a href="#" class="text-dark" onclick="buscar_coordenada_lista('<?php echo $titulo_marcador; ?>','<?php echo $latitud_marcador; ?>','<?php echo $longitud_marcador; ?>')"> <span class="icon-pushpin text-secondary"></span> <?php echo '<b>'.$i.'.</b> '.$titulo_marcador;?></a>
+                    <a href="#" class="text-dark card-text" onclick="buscar_coordenada_lista('<?php echo $titulo_marcador; ?>','<?php echo $latitud_marcador; ?>','<?php echo $longitud_marcador; ?>')"> <span class="icon-location text-secondary"></span> <?php echo '<b>'.$i.'.</b> '.$titulo_marcador;?></a>
                 </div>
                 <div class="col-3">
-                <a href="#" class="text-dark" onclick="borrar_coordenada_lista('<?php echo $titulo_marcador; ?>')"> <span class="icon-bin text-danger"></span></a>
+                <a href="#" class="text-dark float-right" onclick="borrar_coordenada_lista('<?php echo $titulo_marcador; ?>')"> <span class="icon-bin text-danger"></span></a>
                 </div>
             </div>
     <?php
@@ -67,7 +75,8 @@ if($accion=='ver'){
     }//fin while
     }//fin else
     ?>
-    </div>
+        </div><!--fin card-body-->
+    </div><!--fin card-->
     <?php
 }//fin if ver
 
