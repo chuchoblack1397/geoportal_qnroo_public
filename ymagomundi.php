@@ -324,11 +324,12 @@ $(document).ready(function(){
 
                 <div id="contenedorBotonesAcciones">
                     <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light" title="Inicio" onclick="activarInformacion('inicio')" id="btnActivarInicio1"><span class="icon-home text-secondary small" id="btnActivarInicio2"></span></button>
                         <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar barra de busqueda" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
-                        <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
+                        <!--<button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>-->
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>                        
                     </div>
@@ -864,6 +865,12 @@ $i_item=1;
 
                 function activarInformacion(opcionBtn) { //funcion para evaluar el click del boton para el onMapClick
                     switch (opcionBtn) {
+
+
+                        case "inicio":
+                            var zoom = 13;
+                            map.setView({lat: 18.5276, lng: -88.2963},zoom);
+                            break;
 
                         case "informacion":
                             if (activoInformacion == false) {
