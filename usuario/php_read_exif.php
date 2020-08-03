@@ -11,8 +11,8 @@ $nota = $_POST['nota'];
 
 /* Location */
 $imageFileType = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-$location = dirname(__FILE__, 2) . "/geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
 $locationBD = "geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
+$location = dirname(__FILE__, 2) . "/$locationBD";
 $uploadOk = 1;
 
 /* Valid Extensions */
