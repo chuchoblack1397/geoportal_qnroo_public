@@ -1,4 +1,4 @@
- <form id="formAgregarCapa">
+ <form id="formAgregarUsuario">
                       <h3>
                         Añadir nuevo usuario
                       </h3>

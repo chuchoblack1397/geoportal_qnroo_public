@@ -223,3 +223,44 @@
     </form>
   </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_informacion" tabindex="-1" role="dialog" aria-labelledby="modal_informacionLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_informacionLabel">Acerca de IDT-OPB</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-justify">
+
+        El <b>Portal geoespacial de la Infraestructura de Datos Territoriales del Catastro del Municipio de Othón P. Blanco (IDT-OPB)</b>, 
+          es una herramienta colaborativa de datos geoespaciales, 
+          construida con visión del territorio para gestionar datos 
+          e información a través de mapas que integra imágenes aéreas de 
+          muy alta definición, datos puntuales, datos estadísticos e 
+          información catastral municipal, para su visualización y análisis, apoyados 
+          con otras herramientas y funcionalidades, para facilitar la labor de ubicar,
+          analizar y administrar diversos procesos y agilizar la comunicación interna
+            y externa de la información, de una manera rápida, ágil y segura.
+
+        </p>
+        <p class="text-justify">
+
+        La <b>IDT-OPB</b>, fue realizada gracias al apoyo de <b>MCITI</b> en la administración
+          municipal 2018-2021 del municipio de <i>Othón P. Blanco</i>, como 
+          un elemento estratégico de la gestión municipal.
+
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

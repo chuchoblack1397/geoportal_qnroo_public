@@ -77,7 +77,7 @@ function editarUsuario(){
     }
 
 
-    var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
+        var seccionModalUser=document.getElementById("cuerpoModalEditarUsuario");
         var rutaUpdate="usuario="+txt_usuarioUser+"&nombre="+txt_nombreUser+"&ap="+txt_apUser+"&am="+txt_amUser+"&puesto="+txt_puestoUser+"&privilegio="+txt_privilegioUser+"&correo="+txt_correoUser;
         //var rutaUpdate="usuario="+txt_usuarioUser;
         $.ajax({
@@ -96,6 +96,11 @@ function editarUsuario(){
                 $('#loader_usuarios_modal').hide();//ocultar LOADER
                 $('#btn_cerrarModalUsuario').click();//dando click al boton cerrar del modal para que se oculte
                 ajax_ver_usuarios();//actualizando lista de usuarios
+                swal(
+                    'COMPLETADO!',
+                    'El usuario se ha actualizado con éxito',
+                    'success'
+                );
             },
             error: function()
             {
@@ -105,3 +110,158 @@ function editarUsuario(){
     
     
 }
+
+
+function cambiar_password_modal(usuario,userRoot){
+    console.log("cargando modal password");
+
+    var cargando_modal_pass=document.getElementById("cuerpoModal_cambiar_password");
+    console.log("obteniendo id modal_pass");
+
+    var ruta_modal_password="usuario="+usuario;
+
+    if(usuario == userRoot){
+        swal({
+            title: "¡CUIDADO!",
+            text: "Estás a punto de cambiar tu contraseña de administrador. ¿Estás seguro de hacerlo?. Al cambiarla se cerrará tu sesión",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url:"php_modal_editar_password.php",
+                    type:"POST",
+                    data: ruta_modal_password,
+                    beforeSend:function(){
+                        $('#btn_cerrarModalUsuario').click();//dando click al boton cerrar del modal para que se oculte
+                        $('#loader_pass_modal').show();//mostrar LOADER
+                    },
+                    success: function(res){
+                        cargando_modal_pass.innerHTML=res;
+                        $('#loader_pass_modal').hide();//ocultar LOADER
+                    },
+                    error: function(){
+                        alert( "Error con el servidor" );
+                    } 
+                });//fin ajax
+            }//fin if
+            else{
+                $('#btn_cerrarModalPassoword').click();
+            }
+            });
+    }//fin if
+    else{
+        $.ajax({
+            url:"php_modal_editar_password.php",
+            type:"POST",
+            data: ruta_modal_password,
+            beforeSend:function(){
+                $('#btn_cerrarModalUsuario').click();//dando click al boton cerrar del modal para que se oculte
+                $('#loader_pass_modal').show();//mostrar LOADER
+            },
+            success: function(res){
+                cargando_modal_pass.innerHTML=res;
+                $('#loader_pass_modal').hide();//ocultar LOADER
+            },
+            error: function(){
+                alert( "Error con el servidor" );
+            } 
+        });//fin ajax
+    }
+    
+}//fin funcion cambiar_password_modal
+
+function cambiar_password(usuario,userRoot){
+    console.log("Cambiando password");
+
+    var usuario_actual = usuario;
+    var usuario_root = userRoot;
+
+    console.log("Actual: "+usuario_actual+" | Root: "+usuario_root);
+
+    var passNueva = document.getElementById("passNueva").value;
+    var passConfirmar = document.getElementById("passConfirmar").value;
+
+    passNueva = passNueva.trim();
+    passConfirmar = passConfirmar.trim();
+
+    if((passNueva=="") || (passConfirmar==""))
+    {
+        swal('Faltan campos', 'Por favor rellena todos los campos', 'info');
+        return;
+    }//fin if
+
+    if(passNueva != passConfirmar)
+    {
+        swal('Ups', 'La confirmacion no coincide', 'info');
+        return;
+    }//fin if
+
+    var ruta_password="usuario="+usuario+"&passNueva="+passNueva;
+
+
+    swal({
+        title: "Advertencia",
+        text: "Estás a punto de cambiar una contraseña. ¿Estás seguro de hacerlo?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:"php_cambiar_password.php",
+                type:"POST",
+                data: ruta_password,
+                beforeSend:function(){
+                    $('#loader_pass_modal').show();//mostrar LOADER
+                },
+                success: function(res){
+                    $('#loader_pass_modal').hide();//ocultar LOADER
+                    if(res == "ok")
+                    {
+                        $('#btn_cerrarModalPassoword').click();
+                        if(usuario == userRoot){
+                            swal({
+                                title: "Perfecto",
+                                text: "Se han actualizado tu contraseña",
+                                icon: "success",
+                                buttons: true,
+                                dangerMode: true,
+                                })
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        location.href ="../cerrarSesion.php";
+                                    
+                                    } else {
+                                        location.href ="../cerrarSesion.php";
+                                    }
+                                });
+                            }
+                            else{
+                                swal('Perfecto', 'Se ha actualizado la contraseña', 'success');
+                            }
+                        
+                        
+                    }
+                    if(res == "error")
+                    {
+                        swal('Error', 'No se realizaron los cambios', 'error');
+                        $("#passNueva").val('');
+                        $("#passConfirmar").val('');
+                    }
+                    if(res == "repetida")
+                    {
+                        swal('¿?', 'La contraseña ya existe, intenta de nuevo', 'info');
+                    }
+                },
+                error: function(){
+                    alert( "Error con el servidor" );
+                } 
+            });//fin ajax
+        }//fin if
+        });
+
+}//fin funcion cambiar_password

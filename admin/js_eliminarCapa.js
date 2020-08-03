@@ -1,19 +1,19 @@
 console.log("Dentro de archivo JS_Eliminar Capa");
 
 function eliminarCapa(){//funcion para obtener valores de campos y eliminarlos
-     console.info("-------------Dentro de la funcion CLICK eliminar------------");
-     
-     var cadenaCapas = '';
-     var contador = 0;
-     var size=0;
-     
-     
-         $('#formid input[type=checkbox]').each(function(){
-             if (this.checked) {
+    console.info("-------------Dentro de la funcion CLICK eliminar------------");
+    
+    var cadenaCapas = '';
+    var contador = 0;
+    var size=0;
+
+
+        $('#formid input[type=checkbox]').each(function(){
+            if (this.checked) {
                 size=size+1;//obteniendo el tamaño del arreglo de checkbox
-             }//fin if
+            }//fin if
         });
-     
+
         $('#formid input[type=checkbox]').each(function(){
             if (this.checked) {
                 
@@ -44,13 +44,26 @@ function eliminarCapa(){//funcion para obtener valores de campos y eliminarlos
 
 ////////////////////// FUNCION AJAX PARA ENVIAR DATOS ///////////////////////////
 function enviarDatosEliminar(ruta){
-    $.ajax({
-        url:'eliminarCapa.php',
-        type:'POST',
-        data: ruta,
-        success: function(res){
-          $('#respuesta').html(res);
-      }
-      });
+
+    swal({
+        title: "Espera!",
+        text: "¿Estas seguro que deseas eliminar capa(s)?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:'php_eliminarCapa.php',
+                type:'POST',
+                data: ruta,
+                success: function(res){
+                $('#respuesta').html(res);
+                }
+                });
+        } 
+        
+        });
 }
 ////////////////////// fin FUNCION AJAX PARA ENVIAR DATOS ////////////////////////

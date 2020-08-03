@@ -77,6 +77,8 @@ if (password_verify($miContra, $pass)) {
             $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
             $aMaterno = $datoUsuarioPrivilegio['apellidomaternousuario'];
 
+            $foto = $datoUsuarioPrivilegio['foto_perfil'];
+
             $nombreCompleto = $nombre . ' ' . $aPaterno . ' ' . $aMaterno;
 
             $_SESSION['usuarioPrivilegio'] = $privilegio; //asignando el privilegio a la variable de session
@@ -182,10 +184,11 @@ if (password_verify($miContra, $pass)) {
             <link rel="stylesheet" href="css/css_controlDibujarPoligonos.css">
             <link rel="stylesheet" href="css/css_barraFiltro.css">
             <link rel="stylesheet" href="css/estiloResultadoFiltro.css">
+            <link rel="stylesheet" href="leaflet.wmslegendwidget.css">
 
 
 
-            <link rel="stylesheet" href="css/side/side.css">
+            
 
             <!--links editBar-->
             <link rel="stylesheet" href="css/leaflet-geoman.css" />
@@ -268,25 +271,34 @@ $(document).ready(function(){
 
 
             <div class="bg-light" id="controlMenuPanel">
+                
+                <div class="mt-2 ml-3">
                 <!--btnAdmin-->
                 <?php
                 if ($_SESSION['usuarioPrivilegio'] == "administrador" || $_SESSION['rol_capa_r'] == "true" || $_SESSION['rol_mapa_r'] == "true" || $_SESSION['rol_usuario_r'] == "true" || $_SESSION['rol_rol_r'] == "true") {
                 ?>
                     <!--<button id="btnEntrarAdmin" onclick="location.href='admin/admin.php'">-->
-                    <button id="btnEntrarAdmin" onclick="window.open('admin/admin.php','_blank')">
+                    <button id="btnEntrarAdmin" class="btn_admin_perfil" onclick="window.open('admin/admin.php','_blank')" title="Perfil de administrador">
                         <span class="icon-cog"></span>
                     </button>
                 <?php
                 }
                 ?>
+                <button id="btnEntrarPerfil" class="btn_admin_perfil" onclick="window.open('usuario/perfil.php','_blank')" title="Perfil de usuario">
+                        <span class="icon-user"></span>
+                </button>
+                <button id="btnEntrarPerfil" class="btn_admin_perfil" data-toggle="modal" data-target="#modal_informacion" title="Acerca de IDT-OPB">
+                        <span class="icon-info"></span>
+                </button>
                 <!--fin btnAdmin-->
+                </div>
                 <button id="btnCerrarMenu">
                     <span class="icon-cross"></span>
                 </button>
                 <input type="checkbox" name="" id="botonCerrarControl" checked>
                 <label for="botonCerrarControl" id="botonCerrarControl_label">
-                    <</label> <div id="avatar" class="baseControlPanel">
-                        <img src="https://cdn2.iconfinder.com/data/icons/website-icons/512/User_Avatar-512.png" alt="">
+                    </label> <div id="avatar" class="baseControlPanel">
+                    <img src="<?php if($foto != ''){ echo 'usuario/imagenes/'.$foto;}else{ ?> img/default.png <?php } ?>" alt="">
                         <p><?php echo $nombreCompleto; ?></p>
                         <a href="cerrarSesion.php">Cerrar sesión</a>
             </div>
@@ -310,16 +322,22 @@ $(document).ready(function(){
             <!--linea-->
             <div id="contendorControles">
 
-                <div id="contenedorBotonesAcciones">
+                <div id="contenedorBotonesAcciones" class="sticky-top bg-light rounded">
                     <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light" title="Inicio" onclick="activarInformacion('inicio')" id="btnActivarInicio1"><span class="icon-home text-secondary small" id="btnActivarInicio2"></span></button>
                         <button type="button" class="btn btn-light" title="Informaci&oacute;n de capa" onclick="activarInformacion('informacion')" id="btnActivarInfo1"><span class="icon-info text-secondary small" id="btnActivarInfo2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar barra de busqueda" onclick="activarInformacion('busqueda')" id="btnActivarBusqueda1"><span class="icon-filter text-secondary small" id="btnActivarBusqueda2"></span></button>
-                        <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
                         <button type="button" class="btn btn-light" title="Activar swipe" onclick="activarInformacion('swipe')" id="btnActivarSwipe1"><span class="text-secondary small" id="btnActivarSwipe2"><img id="cambio-swipe" src="css/side/Recurso1.png" class="icono-swipe" alt="Activar Swipe"></button>
                         <span class="text-secondary mr-1 ml-1">|</span>
-                        <button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>
+                        <!--<button type="button" class="btn btn-light" title="Ver todas las leyendas" onclick="activarInformacion('leyenda')" id="btnActivarLeyenda1"><span class="icon-eye-plus text-secondary small" id="btnActivarLeyenda2"></span></button>-->
                         <button type="button" class="btn btn-light" title="Herramienta de medici&oacute;n" onclick="activarInformacion('medicion')" id="btnActivarMedi1"><span class="icon-wrench text-secondary small" id="btnActivarMedi2"></span></button>
                         <button type="button" class="btn btn-light" title="Herramienta de &aacute;reas y trazos" onclick="activarInformacion('areaTrazo')" id="btnActivarArea1"><span class="icon-paint-format text-secondary small" id="btnActivarArea2"></span></button>                        
+                    </div>
+                    <br>
+                    <div class="btn-group grupo1" role="group">
+                        <button type="button" class="btn btn-light" title="Busqueda por coordenadas" onclick="activarInformacion('coordenada')" id="btnActivarBusquedaCoor"><span class="icon-compass2 text-secondary small" id="btnActivarBusquedaCoor2"></span></button>
+                        <button type="button" class="btn btn-light" title="Marcadores de lugares" onclick="activarInformacion('guardar_coordenada')" id="btnActivarBusquedaCoor_guardar"><span class="icon-floppy-disk text-secondary small" id="btnActivarBusquedaCoor2_guardar"></span></button>
+                        <button type="button" class="btn btn-light" title="Ver mis marcadores" onclick="activarInformacion('ver_coordenada')" id="btnActivarBusquedaCoor_ver"><span class="icon-location text-secondary small" id="btnActivarBusquedaCoor2_ver"></span></button>
                     </div>
                     <!--
                     <br>
@@ -425,36 +443,7 @@ $(document).ready(function(){
                     </div>
                 </div>
 
-                <!--contenidoCapaz-->
-                <button class="accordion" style="display:none">Capas de datos territoriales: </button>
-                <div id="contenidoCapas" class="panel" style="display:none">
-                    <ul class="list-unstyled" id="listaCapa">
-                        <?php
-                        foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                        ?>
-                            <li id="<?php echo $campo['idcapa']; ?>">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" id="chk_<?php echo $campo['idcapa']; ?>" class="custom-control-input" name="chkGrupo" value="<?php echo $campo['idcapa']; ?>">
-                                    <label for="chk_<?php echo $campo['idcapa']; ?>" class="custom-control-label"><?php echo $campo['titulocapa']; ?></label><br>
-                                    <div id="div_btn_<?php echo $campo['idcapa']; ?>" class="btn-group" role="group">
-                                        <button id="btn_leyenda_<?php echo $campo['idcapa']; ?>" type="button" class="btn btn-light" title="Ver Leyenda" onclick="activarLeyendas('<?php echo $campo['idcapa']; ?>')"><span id="icon_btn_leyenda_<?php echo $campo['idcapa']; ?>" class="icon-eye text-secondary small"></span></button>
-                                        <!--<button type="button" class="btn btn-light"  title="Editar capa"><span class="icon-pencil2 text-secondary small"></span></button>
-                                                <button type="button" class="btn btn-light"  title="Borrar capa"><span class="icon-bin text-secondary small"></span></button>-->
 
-
-                                    </div>
-                                </div>
-
-                            </li>
-
-                        <?php
-                        } //fin foreach
-
-                        ?>
-                    </ul>
-                    <!--fin ul capaz-->
-                </div>
-                <!--fin div capaz-->
 
             </div>
             <!--fin div contendorControles-->
@@ -513,13 +502,48 @@ $(document).ready(function(){
                         
                     <div class="input-group-append">
                         <button id="btn_buscar_coordenada" class="btn btn-primary mr-2" title="Buscar Coordenadas" onclick="buscarCoordenada()"><i class="icon-filter"></i></button>
-                        <button id="btn_borrar_coordenada" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
+                        <button id="btn_borrar_coordenada" class="btn btn-danger mr-2" title="Borrar busqueda" onclick="borrarCoordenada()"><i class="icon-cross"></i></button>
                     </div>
                 </div>
-
             </div>
 
-            <!--fin BUSQUEDA COORDENADAS-->
+            <!--fin GUARDAR COORDENADAS-->
+
+            <div class="container" id="contenedorCoordenadas_guardar" style="width:40%; display:none">
+                <div class="bg-white shadow p-3 mb-5 rounded">
+                    <div class="form-group">
+                        <label for="campoMarcador">Nombre de marcador</label>
+                        <input id="campoMarcador" type="text" placeholder="Nombre de marcador" aria-describedby="button-addon5" class="form-control">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="campoLatitud_guardar">Latitud</label>
+                            <input id="campoLatitud_guardar" type="search" placeholder="Latitud" aria-describedby="button-addon5" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="campoLongitud_guardar">Longitud</label>
+                            <input id="campoLongitud_guardar" type="search" placeholder="Longitud" aria-describedby="button-addon5" class="form-control">
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <button id="btn_guardar_coordenada_guardar" class="btn btn-success" title="Guardar Coordenadas" onclick="guardarCoordenadas('<?php echo $miUsuario?>')"><span class="icon-floppy-disk"></span> Guardar</button>
+                        <button id="btn_borrar_coordenada_guardar" class="btn btn-danger" title="Borrar busqueda" onclick="borrarCoordenada_guardar()"><span class="icon-cross"></span> Borrar</button>
+                        <div class="float-right"><button id="btn_buscar_coordenada_guardar" class="btn btn-primary" title="Rectificar Coordenadas" onclick="buscarCoordenada_guardar()"><span class="icon-location"></span>Rectificar</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--fin GUARDAR COORDENADAS-->
+
+
+            <!--Contenedor VER MARCADORES-->
+            <div class="container-fluid" id="contenedorResultadoMarcadores" style="display:none" >
+                <div class="float-right mr-5 bg-white shadow rounded mt-2 contenedorMarcadores" id="contenedor_lista_marcadores" style="width:320px;" >
+                    Marcadores
+                </div>
+            </div>
+            <!--fin Contenedor VER MARCADORES-->
 
 
             <!--Inicio Selector de capas para el swipe -->
@@ -535,10 +559,12 @@ $(document).ready(function(){
                         <option value="grayscale">OpenStreetMap Grises</option>
                         <option value="googleSat">Google Sat&eacute;lite</option>
                         <?php
+$i_item=1;
                         foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                         ?>
-                            <option value="<?php echo $campo['idcapa']; ?>"><?php echo $campo['titulocapa']; ?></option>
+                            <option value="capa_<?php echo $i_item; ?>"><?php echo $campo['titulocapa']; ?></option>
                         <?php
+                        $i_item = $i_item+1;
                         } //fin foreach
                         ?>
 
@@ -551,10 +577,12 @@ $(document).ready(function(){
                         <option value="grayscale">OpenStreetMap Grises</option>
                         <option value="googleSat">Google Sat&eacute;lite</option>
                         <?php
+$i_item=1;
                         foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                         ?>
-                            <option value="<?php echo $campo['idcapa']; ?>"><?php echo $campo['titulocapa']; ?></option>
+                            <option value="capa_<?php echo $i_item; ?>"><?php echo $campo['titulocapa']; ?></option>
                         <?php
+                        $i_item=$i_item+1;
                         } //fin foreach
                         ?>
 
@@ -573,23 +601,6 @@ $(document).ready(function(){
 
 
             <!--Fin selector de capas para el swipe -->
-
-
-
-
-            <!--contenedor iframes LEYENDAS NUEVO-->
-            <div id="contenedorIframeLeyendasNuevo">
-                <?php
-                foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                ?>
-                    <div id="img_leyenda_<?php echo $campo['idcapa']; ?>" class="contenedorImg" style="display:none">
-                        <img src="<?php echo $campo['leyenda']; ?>">
-                    </div>
-                <?php
-                } //fin foreach
-                ?>
-            </div>
-            <!--fin contenedor iframes LEYENDAS -->
 
             <!--Contenedor resultados de filtro-->
             <div id="contenedorResultadoFiltro" style="display:none;">
@@ -620,9 +631,9 @@ $(document).ready(function(){
 
 
             <!--fin codigo de la ventana emergente-->
-            <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap.bundle.min.js"></script>
             <script src="js/bootstrap-input-spinner.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
 
             <script>
                 var atribuciones = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -687,6 +698,8 @@ $(document).ready(function(){
                     //layers: [osm,googleSat]
                 });
 
+
+
                 const infoToggler = document.getElementById("btnActivarInfo1");
 
                 /*var control_side = L.control.sideBySide(osm,googleSat);
@@ -707,13 +720,15 @@ $(document).ready(function(){
                 });
                 //---fin cambiar el cursor en el mapa
 
+
+                //----capas----
                 <?php
 
                 ///////////////////////////////////////////////////////////////////////////
-
+$i_item=1;
                 foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
                 ?>
-                    var <?php echo $campo['idcapa']; ?> = L.tileLayer.wms("<?php echo $campo['urlcapa']; ?>", {
+                    var capa_<?php echo $i_item; ?> = L.tileLayer.wms("<?php echo $campo['urlcapa']; ?>", {
                         layers: '<?php echo $campo['layer']; ?>',
                         format: '<?php echo $campo['formato']; ?>',
                         transparent: <?php echo $campo['transparencia']; ?>,
@@ -736,52 +751,9 @@ $(document).ready(function(){
                     });
 
                 <?php
-                } //fin foreach
-
-                foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                ?>
-                    var chkBoxControl_<?php echo $campo['idcapa']; ?> = document.getElementById('chk_<?php echo $campo['idcapa']; ?>');
-                    chkBoxControl_<?php echo $campo['idcapa']; ?>.addEventListener("change", validaChkBoxControl, false);
-                <?php
+                $i_item = $i_item+1;
                 } //fin foreach
                 ?>
-
-                function validaChkBoxControl() { //funcion para evaluar el boton chkbox
-                    <?php
-                    foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                    ?>
-                        var checked_chkBoxControl_<?php echo $campo['idcapa']; ?> = chkBoxControl_<?php echo $campo['idcapa']; ?>.checked;
-                    <?php
-                    } //fin foreach
-                    ?>
-
-                    <?php
-                    foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                    ?>
-                        if (checked_chkBoxControl_<?php echo $campo['idcapa']; ?>) {
-                            console.log("<?php echo $campo['idcapa']; ?>");
-                            map.addLayer(<?php echo $campo['idcapa']; ?>);
-                            document.getElementById('btn_leyenda_<?php echo $campo['idcapa']; ?>').disabled = false;
-                        } //fin if
-                        else {
-                            console.log("No-<?php echo $campo['idcapa']; ?>");
-                            map.removeLayer(<?php echo $campo['idcapa']; ?>);
-                            document.getElementById('btn_leyenda_<?php echo $campo['idcapa']; ?>').disabled = true;
-                            document.getElementById('img_leyenda_<?php echo $campo['idcapa']; ?>').style.display = "none";
-                            document.getElementById('icon_btn_leyenda_<?php echo $campo['idcapa']; ?>').className = "icon-eye text-secondary small";
-
-                        } //fin else
-                    <?php
-                    } //fin foreach
-                    ?>
-
-
-
-                } //fin funcion validaChkBoxControl
-
-                window.onload = validaChkBoxControl(); //al cargar la pagina va a validar el boton chekbox
-
-                //----fin Capaz----
                 //-------------fin Capas-------------
 
                 //L.control.layers(baseLayers, overlays).addTo(map);//asginacion de control de capaz por defecto
@@ -882,6 +854,8 @@ $(document).ready(function(){
                 var activoInformacion = false; //inicializando variable
                 var activoBusqueda = false; //inicializando variable
                 var activoCoordenada = false; //inicializando variable
+                var activoCoordenada_guardar = false; //inicializando variable
+                var activoCoordenada_ver = false; //inicializando variable
                 var activoLeyenda = false; //inicializando variable
                 var activoMedicion = false; //inicializando variable
                 var activoAreaTrazo = false; //inicializando variable
@@ -891,6 +865,12 @@ $(document).ready(function(){
 
                 function activarInformacion(opcionBtn) { //funcion para evaluar el click del boton para el onMapClick
                     switch (opcionBtn) {
+
+
+                        case "inicio":
+                            var zoom = 13;
+                            map.setView({lat: 18.5276, lng: -88.2963},zoom);
+                            break;
 
                         case "informacion":
                             if (activoInformacion == false) {
@@ -943,6 +923,44 @@ $(document).ready(function(){
 
                             } //fin else
                             break;
+
+                        case "guardar_coordenada":
+                        if (activoCoordenada_guardar == false) {
+                            activoCoordenada_guardar = true; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_guardar").className = "icon-floppy-disk text-light small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_guardar").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorCoordenadas_guardar").style.display = "block";
+                            
+
+                        } //fin if
+                        else {
+                            activoCoordenada_guardar = false; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_guardar").className = "icon-floppy-disk text-secondary small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_guardar").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorCoordenadas_guardar").style.display = "none";    
+
+                        } //fin else
+                        break;
+
+                        case "ver_coordenada":
+                        if (activoCoordenada_ver == false) {
+                            activoCoordenada_ver = true; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-location text-light small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-success"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorResultadoMarcadores").style.display = "block";
+                            ver_marcadores();
+                            
+
+                        } //fin if
+                        else {
+                            activoCoordenada_ver = false; //cambiando el valor de la variable
+                            document.getElementById("btnActivarBusquedaCoor2_ver").className = "icon-location text-secondary small"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("btnActivarBusquedaCoor_ver").className = "btn btn-light"; //alterando las propiedades del span dentro del boton
+                            document.getElementById("contenedorResultadoMarcadores").style.display = "none";
+                            cerrar_marcadores();    
+
+                        } //fin else
+                        break;
 
                         case "swipe": //activamos y desactivamos swipe
 
@@ -1094,22 +1112,6 @@ $(document).ready(function(){
                 } //fin subfuncion
                 //fin FUNCION VALIDAR CHECKBOX DE INFORMACION DE CAPA
 
-                //FUNCION VER LEYENDA DE CAPA
-                function activarLeyendas(idLeyenda) {
-                    var divImg = document.getElementById('img_leyenda_' + idLeyenda);
-
-                    if (divImg.style.display == "block") {
-                        divImg.style.display = "none";
-
-                        document.getElementById('icon_btn_leyenda_' + idLeyenda).className = "icon-eye text-secondary small";
-                    } else {
-                        divImg.style.display = "block";
-                        document.getElementById('icon_btn_leyenda_' + idLeyenda).className = "icon-eye text-primary small";
-                    }
-
-                }
-                //fin FUNCION VER LEYENDA DE CAPA
-
                 var popup = L.popup({
                     maxWidth: 1000,
                     className: 'popup'
@@ -1122,22 +1124,6 @@ $(document).ready(function(){
                         var cadenaLayers = [];
                         var i = 0;
                         var urlWMS = "";
-                        <?php
-
-                        foreach ($arregloCapas as $clave => $campo) { //obteniendo datos de Arreglo con datos de BD
-                        ?>
-                            var ck_layer_<?php echo $campo['idcapa']; ?> = document.getElementById('chk_<?php echo $campo['idcapa']; ?>');
-                            if (ck_layer_<?php echo $campo['idcapa']; ?>.checked == true) {
-                                cadenaLayers[i] = '<?php echo $campo['layer']; ?>';
-                                urlWMS = '<?php echo $campo['urlcapa']; ?>';
-                                i = i + 1;
-                            } //fin if
-                            urlWMS = '<?php echo $campo['urlcapa']; ?>';
-                        <?php
-                        } //fin foreach //
-                        ?>
-
-                        console.log('CADENA: ' + cadenaLayers);
 
                         var latlngStr = '(' + e.latlng.lat.toFixed(4) + ', ' + e.latlng.lng.toFixed(4) + ')';
                         var latitud = e.latlng.lat.toFixed(4);
@@ -1152,14 +1138,7 @@ $(document).ready(function(){
                         //var URL = 'http://74.208.210.103:8990/geos/pievi/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=pievi:vap_e12_sexo&QUERY_LAYERS=pievi:vap_e12_sexo&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
 
                         //-----------FIN PRUEBAS---------------------------------------------------------
-                        if (cadenaLayers != "") {
-
-                            var htmlPopup = "<div class='tituloPopup'><b>Atributos descriptivos</b></div><div class='coordenadasPopup'><span>Latitud:" + latitud + "</span><span>Longitud:" + longitud + "</span></div><div class='contenidoPopup'> <iframe class='mb-2' src=" + URL + " id='miFrame'width='500px' height='200px'></iframe><br><b><a onclick='recargarPopup()' class='text-primary p-2' id='btnActualizar' onmouseover='hover()' onmouseout='nohover()' ><span class='icon-loop2 mr-1'></span>Actualizar</a></b></div>";
-                            popup.setLatLng(e.latlng);
-                            popup.setContent(htmlPopup);
-                            map.openPopup(popup);
-
-                        } //fin if cadena
+                    
                     } //fin if
                 } //fin onMapClick
 
@@ -1250,6 +1229,8 @@ $(document).ready(function(){
                     return null;
                 };
 
+//var arregloMarcadores = [];
+
                 // Object created - bind popup to layer, add to feature group
                 map.on(L.Draw.Event.CREATED, function(event) {
                     var layer = event.layer;
@@ -1258,7 +1239,68 @@ $(document).ready(function(){
                         layer.bindPopup(content);
                     }
                     featureGroup.addLayer(layer);
+/*
+                    var type = event.layerType;
+                    if (type === 'marker') {
+                        var markador = prompt("Marcador:", "");
+                        layer.bindPopup(markador+" "+content); 
+                        
+                        if (layer instanceof L.Marker) {
+                            var miMarker = layer.getLatLng();
+                            var lat = miMarker.lat;
+                            var long = miMarker.lng;
+                            console.log(markador+"-"+lat+ ":" + long);
+                            
+                            arregloMarcadores.push({marcador: markador, latitud: lat, longitud: long});
+                            console.log(arregloMarcadores);
+                            map.panTo([miMarker.lat, miMarker.lng]);
+                            /*var obj = new Object();
+                            obj.marcador = markador;
+                            obj.latitud = lat;
+                            obj.longitud = long;
+                            */
+                            //var sCadena = JSON.stringify(arregloMarcadores);
+                            //var sCadena = JSON.parse(obj);
+                            //console.log(sCadena);
+
+                           // }//fin if L.Marker
+                       // }//fin if type
+                      //  featureGroup.addLayer(layer);
+
+                        /*
+                        var nombreMarker = markador;
+
+                        var shapes = getShapes(nombreMarker,featureGroup); 
+                        var json = layer.toGeoJSON();
+                        console.log("shapes:",json); 
+                        var shape_for_db = JSON.stringify(json.geometry.coordinates); 
+                        console.log("shapes json:",shape_for_db); */
+                        /*console.log("shapes:",shapes);
+                        var shape_for_db = JSON.stringify(shapes.marker); 
+                        console.log("shapes json:",shape_for_db);
+                        var parseJson = JSON.parse(shape_for_db);
+                        console.log("shapes parseJson:",parseJson);*/
+
+
                 });
+
+            /* function getShapes(nombreMarker ,featureGroup) { 
+                    
+                    var shapes = []; 
+                    shapes["marker"] = []; 
+                    featureGroup.eachLayer(function (layer) { 
+                if (layer instanceof L.Marker) { 
+                    var miMarker = layer.getLatLng();
+                    //shapes["marker"].push(miMarker); 
+                    map.panTo([miMarker.lat, miMarker.lng]);
+                    //console.log(miMarker.lng + " : " + miMarker.lat);
+                    shapes["marker"].push([nombreMarker,miMarker.lat,miMarker.lng]); 
+                }//fin if 
+                }); 
+                return shapes; 
+                }; */
+
+
 
                 // Object(s) edited - update popups
                 map.on(L.Draw.Event.EDITED, function(event) {
@@ -1274,8 +1316,9 @@ $(document).ready(function(){
                 //FIN METODO PARA CONTROL DE FIGURAS Y SU AREA/////
             </script>
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
             <script src="leaflet.wms.js"></script>
+            <script src="leaflet.wmslegendwidget.js"></script>
             <script src="controlPanelOpciones.js"></script>
             <script src="controlPanel.js"></script>
             <script src="busquedaDatosCapas.js"></script>

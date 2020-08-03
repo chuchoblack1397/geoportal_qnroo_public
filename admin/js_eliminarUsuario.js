@@ -76,12 +76,12 @@ function archivo(){
         e.preventDefault();
         var form = $(this).parents('form');
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            title: "Espera",
+            text: "¿Seguro que quieres continuar?",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Si",
             closeOnConfirm: false
         }, function(isConfirm){
             if (isConfirm) form.submit();

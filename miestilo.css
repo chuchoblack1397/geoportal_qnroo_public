@@ -54,17 +54,20 @@
     border-radius: 10px;
 }
 
-#btnEntrarAdmin {
-    position: absolute;
+.btn_admin_perfil {
+    /*position: absolute;*/
     left: 20px;
     top: 10px;
     background: rgba(0, 0, 0, 0%);
     border-style: none;
     border-radius: 3px;
     color: #aaa;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     font-size: 30px;
+}
+.btn_admin_perfil:hover{
+    background: rgba(0, 0, 0, 20%);
 }
 
 #btnCerrarMenu {
@@ -128,7 +131,7 @@
     margin: 10px;
     width: 25%;
     border-radius: 50%;
-    background: #232323;
+    /*background: #232323;*/
 }
 
 #avatar a {

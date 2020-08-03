@@ -244,7 +244,18 @@
                         const tableData = document.createElement('td');
 
                         tableHeader.textContent = val;
-                        tableData.textContent = value['properties'][val];
+                        if (
+                            typeof value['properties'][val] === 'string' &&
+                            value['properties'][val].includes('http')
+                        ) {
+                            const link = document.createElement('a');
+                            link.href = value['properties'][val];
+                            link.textContent = value['properties'][val];
+                            link.target = '_blank';
+                            tableData.appendChild(link);
+                        } else {
+                            tableData.textContent = value['properties'][val];
+                        }
 
                         tableRow.appendChild(tableHeader);
                         tableRow.appendChild(tableData);
@@ -319,7 +330,7 @@
         defaultWmsParams: {
             service: 'WMS',
             request: 'GetMap',
-            version: '1.3.0',
+            version: '1.1.0',
             layers: '',
             styles: '',
             format: 'image/jpeg',
@@ -468,6 +479,7 @@
             request = new XMLHttpRequest();
         request.onreadystatechange = change;
         request.open('GET', url);
+        //request.withCredentials = true;
         request.send();
         function change() {
             if (request.readyState === 4) {

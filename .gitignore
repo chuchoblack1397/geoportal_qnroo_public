@@ -6,4 +6,6 @@ fragmentos/conexionPostgres.php
 fragmentos/pgconnect.php
 
 /vendor
+
+usuario/fotografias_georreferenciadas/*.*
 admin/conexion1.php

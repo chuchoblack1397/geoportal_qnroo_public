@@ -213,6 +213,10 @@ function repetido() {
     }
 }
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 const selectProyecto = document.getElementById('selectProyecto');
 
 function loadSelectProyectos() {
@@ -248,18 +252,18 @@ function loadSelectProyectos() {
 
 loadSelectProyectos();
 
-var wmsOptions = {
+const wmsUrl = 'http://opb.geoportal.mx:8990/gs216/opb/wms';
+const wmsOptions = {
     transparent: true,
     format: 'image/png',
     maxZoom: 22,
     info_format: 'application/json',
 };
-var source = L.WMS.source(
-    'http://opb.geoportal.mx:8990/gs216/opb/wms',
-    wmsOptions
-);
+let source = L.WMS.source(wmsUrl, wmsOptions);
 let layersObj = {};
 let layersOrder = [];
+
+const wmsLegendWidget = L.wmsLegendWidget();
 
 function toggleLayer() {
     if (
@@ -267,14 +271,16 @@ function toggleLayer() {
         layersObj.constructor === Object
     ) {
         const layer = layersObj[this.id];
+
         if (this.checked === true && !map.hasLayer(layer)) {
             layer.addTo(map);
+            wmsLegendWidget.addLegend(layer);
         } else if (this.checked !== true && map.hasLayer(layer)) {
             layer.remove();
+            wmsLegendWidget.removeLegend(layer);
         }
     }
 }
-
 const listaCapasFromProyecto = document.getElementById(
     'listaCapasFromProyecto'
 );
@@ -294,6 +300,12 @@ function loadCapasFromProyecto() {
 
     while (listaCapasFromProyecto.firstChild) {
         listaCapasFromProyecto.removeChild(listaCapasFromProyecto.firstChild);
+    }
+
+    while (wmsLegendWidget.legendContainer.firstChild) {
+        wmsLegendWidget.legendContainer.removeChild(
+            wmsLegendWidget.legendContainer.firstChild
+        );
     }
 
     if (
@@ -331,13 +343,9 @@ function loadCapasFromProyecto() {
                 const divElement = document.createElement('div');
                 const inputElement = document.createElement('input');
                 const labelElement = document.createElement('label');
-                const breakElement = document.createElement('br');
-                const divLeyendElement = document.createElement('div');
-                const btnElement = document.createElement('button');
-                const spanElement = document.createElement('span');
 
-                //listItemElement.classList.add('px-3');
                 listItemElement.id = 'li_' + value['idcapa'];
+                listItemElement.classList.add('mb-3');
                 listItemElement.appendChild(divElement);
 
                 divElement.classList.add('custom-control'); //agregue clase a div
@@ -345,37 +353,6 @@ function loadCapasFromProyecto() {
 
                 divElement.appendChild(inputElement);
                 divElement.appendChild(labelElement);
-                divElement.appendChild(breakElement);
-                divElement.appendChild(divLeyendElement);
-
-                divLeyendElement.id = 'div_btn_' + value['idcapa'];
-                divLeyendElement.classList.add('btn-group');
-                divLeyendElement.role = 'group';
-
-                btnElement.id = 'btn_leyenda_' + value['idcapa'];
-                btnElement.type = 'button';
-                btnElement.classList.add('btn');
-                btnElement.classList.add('btn-light');
-                //btnElement.title = 'Ver Leyenda';
-                btnElement.title = 'Actualizar con Excel';//title boton excel
-                
-                //funcion para activar atributos de las leyendas
-                /*btnElement.setAttribute(
-                    'onclick',
-                    "activarLeyendas('" + value['idcapa'] + "')"
-                );*/
-
-                //btnElement.disabled = true; //desabilitar boton de excel  
-
-                //spanElement.id = 'icon_btn_leyenda_' + value['idcapa'];
-                spanElement.id = 'icon_btn_excel_' + value['idcapa'];//id boton de excel
-                //spanElement.classList.add('icon-eye');
-                spanElement.classList.add('icon-file-excel');//icono excel
-                spanElement.classList.add('text-secondary');
-                spanElement.classList.add('small');
-
-                divLeyendElement.appendChild(btnElement);
-                btnElement.appendChild(spanElement);
 
                 inputElement.type = 'checkbox';
                 inputElement.id = value['idcapa']; //agregue chk
@@ -385,15 +362,24 @@ function loadCapasFromProyecto() {
 
                 labelElement.htmlFor = value['idcapa'];
                 labelElement.classList.add('custom-control-label');
-                //labelElement.htmlContent = value['titulocapa'];
                 labelElement.innerHTML = value['titulocapa'];
-
-                //listItemElement.appendChild(inputElement);
-                //listItemElement.appendChild(labelElement);
 
                 listaCapasFromProyecto.appendChild(listItemElement);
 
                 inputElement.addEventListener('change', toggleLayer);
+
+                const legendURL = new URL(wmsUrl);
+                const params = new URLSearchParams({
+                    service: 'WMS',
+                    version: '1.3',
+                    request: 'GetLegendGraphic',
+                    format: 'image/png',
+                    layer: value['layer'],
+                    transparent: true,
+                    sld_version: '1.1.0',
+                    style: '',
+                });
+                legendURL.search = params.toString();
 
                 layersObj[value['idcapa']] = source.getLayer(value['layer']);
                 const titulo = new DOMParser().parseFromString(
@@ -402,6 +388,8 @@ function loadCapasFromProyecto() {
                 ).body.textContent;
                 layersObj[value['idcapa']].tituloCapa = titulo;
                 layersObj[value['idcapa']].zIndex = parseInt(value['zindex']);
+                layersObj[value['idcapa']].leyenda = legendURL.href;
+                layersObj[value['idcapa']].idcapa = value['idcapa'];
             });
 
             delete layersObj.length;
