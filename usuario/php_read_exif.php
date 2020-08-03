@@ -11,9 +11,9 @@ $nota = $_POST['nota'];
 
 /* Location */
 $imageFileType = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-$location = "fotografias_georreferenciadas/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
+$location = dirname(__FILE__, 2) . "/geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
+$locationBD = "geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
 $uploadOk = 1;
-
 
 /* Valid Extensions */
 $valid_extensions = array("jpg", "jpeg", "png");
@@ -36,7 +36,7 @@ if ($uploadOk == 0) {
         // Obtener timestamp de exif
         $exifTs = getTimeStamp($location);
         // Obtuvo coordenadas
-        $data = (object) ['id_foto' => date('YmdHis', strtotime($exifTs)) . '_' . date('YmdHis'), 'nombre' => $usuario_session . '_' . date('Ymd_His'), 'notas' => $nota, 'url_path' => 'usuario/' . $location, 'datime_exi' => $exifTs, 'datime_upl' => date('Y-m-d H:i:s'), 'usuario' => $usuario_session, 'lat' => $fileGPS[0], 'lon' => $fileGPS[1]];
+        $data = (object) ['id_foto' => date('YmdHis', strtotime($exifTs)) . '_' . date('YmdHis'), 'nombre' => $usuario_session . '_' . date('Ymd_His'), 'notas' => $nota, 'url_path' => $locationBD, 'datime_exi' => $exifTs, 'datime_upl' => date('Y-m-d H:i:s'), 'usuario' => $usuario_session, 'lat' => $fileGPS[0], 'lon' => $fileGPS[1]];
 
         $query = "INSERT INTO opb_fotos_dgc_4326u(id_foto, nombre, notas, url_path, datime_exi, datime_upl, usuario, geom) VALUES ('$data->id_foto', '$data->nombre', '$data->notas', '$data->url_path', '$data->datime_exi', '$data->datime_upl', '$data->usuario', 
         ST_SetSRID(ST_MakePoint($data->lon, $data->lat),4326))";
