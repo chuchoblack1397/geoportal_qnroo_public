@@ -7,4 +7,4 @@ fragmentos/pgconnect.php
 
 /vendor
 
-usuario/fotografias_georreferenciadas/*.*
+geofotos/*.*
