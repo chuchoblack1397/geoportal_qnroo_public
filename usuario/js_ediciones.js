@@ -283,7 +283,7 @@ function subirImagen() {
                 'progress-bar progress-bar-striped bg-success'
             );
             if (response != 0) {
-                //console.log(response);
+                console.log(response);
                 if (response == 3) {
                     swal(
                         'Perfecto',

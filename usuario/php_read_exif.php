@@ -11,9 +11,12 @@ $nota = $_POST['nota'];
 
 /* Location */
 $imageFileType = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-$locationBD = "geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
-$location = dirname(__FILE__, 2) . "/$locationBD";
+$location = "/geofotos/" . $usuario_session . '_' . date('Ymd_His') . '.' . $imageFileType;
+$locationBD = dirname((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", 2) . $location;
 $uploadOk = 1;
+$exifFile = dirname(__FILE__, 2) . $location;
+// echo $location;
+// return;
 
 /* Valid Extensions */
 $valid_extensions = array("jpg", "jpeg", "png");
@@ -26,15 +29,15 @@ if ($uploadOk == 0) {
     echo 0;
 } else {
     /* Upload file */
-    if (move_uploaded_file($_FILES['file']['tmp_name'], $location)) {
-        $fileGPS = f_getCoord($location);
+    if (move_uploaded_file($_FILES['file']['tmp_name'],  $exifFile)) {
+        $fileGPS = f_getCoord($exifFile);
         if (!$fileGPS) {
-            unlink($location);
+            unlink($exifFile);
             echo 2;
             return;
         }
         // Obtener timestamp de exif
-        $exifTs = getTimeStamp($location);
+        $exifTs = getTimeStamp($exifFile);
         // Obtuvo coordenadas
         $data = (object) ['id_foto' => date('YmdHis', strtotime($exifTs)) . '_' . date('YmdHis'), 'nombre' => $usuario_session . '_' . date('Ymd_His'), 'notas' => $nota, 'url_path' => $locationBD, 'datime_exi' => $exifTs, 'datime_upl' => date('Y-m-d H:i:s'), 'usuario' => $usuario_session, 'lat' => $fileGPS[0], 'lon' => $fileGPS[1]];
 
@@ -77,10 +80,6 @@ function f_getCoord($v_currFileLoc)
 {
     //Read the file's exif data
     $exif = exif_read_data($v_currFileLoc);
-
-    if (array_key_exists('GPSTimeStamp', $exif)) {
-        $exifTs = $exif['GPSTimeStamp'];
-    }
     //Check that the wanted data exists
     if (array_key_exists('GPSLongitude', $exif) && array_key_exists('GPSLatitude', $exif)) {
         //If the data exists, generate the coordinates into an array
