@@ -1,7 +1,7 @@
 <?php
 // En versiones de PHP anteriores a la 4.1.0, debería utilizarse $HTTP_POST_FILES en lugar
 // de $_FILES.
-include 'conexion1.php';
+include '../conexion.php';
 $tblname = $_POST['capa-nombre'];
 $SRID =$_POST['srid'];
 
