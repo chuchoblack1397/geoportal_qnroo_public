@@ -1,16 +1,35 @@
 <script type="text/javascript"> 
-            function cargando(){
-               /* swal({
+function cargando(){
+                Swal.fire({
         title: "Subiendo!",
         text: "Preparando archivo, no recargue la pagina",
-        icon: "success",
+     
+        onBeforeOpen: () => {
+          Swal.showLoading()
+        }
        
-      });*/
+      });
       $('#loader_zip').show();//mostrar LOADER
 } 
+
+
+function cargando2(){
+                Swal.fire({
+        title: "Actualizando Datos!",
+        text: "Por favor, no recargue la pagina",
+     
+        onBeforeOpen: () => {
+          Swal.showLoading()
+        }
+       
+      });
+      $('#loader_zip').show();//mostrar LOADER
+} 
+
+
 function resultadoOk(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Exito!",
         text: "El archivo se ha subido correctamente, Descomprimiendo",
         icon: "success",
@@ -21,10 +40,10 @@ function resultadoOk(){
 } 
 function resultadoErrorCmd(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Error!",
         text: "Ha ocurrido un error en el servidor",
-        icon: "warning",
+        icon: "error",
        
       });
       
@@ -32,43 +51,72 @@ function resultadoErrorCmd(){
 } 
 function resultadoExitoCmd(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
-        title: "Exito!",
-        text: "La capa se ha subido correctamente",
-        icon: "success",
-       
-      });
+  Swal.fire({
+  title: 'Exito',
+  text: "La capa se ha subido correctamente!",
+  icon: 'success',
+  showCancelButton: false,
+
+  confirmButtonText: 'Cerrar'
+}).then((result) => {
+  if (result.value) {
+   $("#subir_archivo").load("seccion_subir_archivo.php");
+  }
+})
 
 
 } 
 
 
 function Existen(){
-  $('#loader_zip').hide();//mostrar LOADER
-    swal({
-      html:true,
-        title: "Archivos Correctos!",
-        text: "dbf : ✓\nprj : ✓\nshp : ✓\nshx : ✓",
-        icon: "success",
-       
-      });
+      let timerInterval
+Swal.fire({
+  title: 'Archivos Correctos',
+  icon:'success',
+  html: 'dbf : <i class="icon-checkmark"></i><br>prj : <i class="icon-checkmark"></i><br>shx : <i class="icon-checkmark"></i><br>shp : <i class="icon-checkmark"></i>',
+  timer: 2000,
+  timerProgressBar: true,
+  onBeforeOpen: () => {
+    Swal.showLoading()
+    timerInterval = setInterval(() => {
+      const content = Swal.getContent()
+      if (content) {
+        const b = content.querySelector('b')
+        if (b) {
+          b.textContent = Swal.getTimerLeft()
+        }
+      }
+    }, 100)
+  },
+  onClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+   cargando2();
+  }
+})
+
+
+
 
 } 
 
 
 function resultadoErrorFalta(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Error!",
         text: "Archivos Faltantes",
-        icon: "warning",
+        icon: "error",
        
       });
 
 }
 function resultadoExtraccionCorrecta(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Exito!",
         text: "Extraccion correcta , escribiendo en la base de datos",
         icon: "success",
@@ -81,10 +129,10 @@ function resultadoExtraccionCorrecta(){
 
 function resultadoErrorExtraccion(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Error!",
         text: "No se pudo extraer el archivo",
-        icon: "warning",
+        icon: "error",
        
       });
 } 
@@ -92,10 +140,10 @@ function resultadoErrorExtraccion(){
 
 function resultadoErrorExt(){
   $('#loader_zip').hide();//mostrar LOADER
-    swal({
+  Swal.fire({
         title: "Error!",
         text: "Archivos faltantes o error de extencion.",
-        icon: "warning",
+        icon: "error",
        
       });
 } 
@@ -104,18 +152,19 @@ function resultadoErrorExt(){
 
 
    function swalE(){
-    swal({
+    Swal.fire({
   title: "Aviso",
   text: "Esta accion no se puede deshacer.",
   icon: "warning",
   buttons: true,
   dangerMode: true,
+  showCancelButton: true,
 })
 .then((willDelete) => {
   if (willDelete) {
     $('#formulario').submit();
   } else {
-    swal("Your imaginary file is safe!");
+    swal("Accion Cancelada Correctamente");
   }
 });
    }
@@ -126,7 +175,7 @@ function validateForm() {
   var y = document.forms["formulario"]["srid"].value;
   var z = document.forms["formulario"]["fichero_usuario"].value;
   if (x == "" || y == ""||z=="") {
-    swal({
+    Swal.fire({
   title: "Aviso",
   text: "No puede haber campos vacios.",
   icon: "warning",
@@ -136,21 +185,21 @@ function validateForm() {
     return false;
   } 
   
-   swal({
-  title: "Aviso",
-  text: "Esta accion no se puede deshacer.",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
+    Swal.fire({
+  title: 'Advertencia?',
+  text: "Esta accion no se puede deshacer!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  cancelButtonText:'Cancelar',
+  confirmButtonText: 'Continuar'
+}).then((result) => {
+  if (result.value) {
     cargando();
     $('#formulario').submit();
-  } else {
-    swal("Your imaginary file is safe!");
   }
-});
+})
   
 }
 
@@ -175,7 +224,7 @@ function validateForm() {
     <label for="srid" class="col-sm-2 col-form-label">Ingrese SRID</label>
    
     <div class="col-sm-10">
-    <input type="text"  class="form-control" name="srid" id="srid" >
+    <input type="number"  class="form-control" name="srid" id="srid" >
     <span id="info_capaCapa" class="small text-info"> El SRID debe ser un número válido en el índice EPSG 2016.</span><br>
     </div>
     </div>
