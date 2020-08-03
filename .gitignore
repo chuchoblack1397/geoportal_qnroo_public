@@ -6,5 +6,3 @@ fragmentos/conexionPostgres.php
 fragmentos/pgconnect.php
 
 /vendor
-
-geofotos/*.*
