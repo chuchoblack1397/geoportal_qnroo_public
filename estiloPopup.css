@@ -39,18 +39,26 @@
     font-size: 0.75rem;
 }
 
+.popup__container {
+    width: 400px;
+    padding-right: 1.5rem;
+}
+
 .popup__table {
     font-size: 0.8rem;
-    width: 399px;
 }
 
 .popup__table th {
     border-right: 3px solid rgba(0, 0, 0, 0.03);
     padding: 0.5rem;
+    width: 30%;
+    overflow-wrap: anywhere;
 }
 
 .popup__table td {
     padding: 0.5rem;
+    width: 70%;
+    overflow-wrap: anywhere;
 }
 
 .popup__header {
