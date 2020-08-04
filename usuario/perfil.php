@@ -44,7 +44,7 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                         <img src="imagenes/default.png" class="card-img p-4" alt="Foto de perfil" id="foto_perfil">
                         <br>
                         <center>
-                            <label for="cargaImagen" class="btn btn-link btn-sm text-danger">
+                            <label for="cargaImagen" class="btn btn-link btn-sm text-danger" onMouseOver="this.style.cursor='pointer'">
                                 <span class="icon-pencil"></span> Cambiar imagen
                             </label>
                             <input type="file" class="custom-file-input" id="cargaImagen" style="display:none" name="file" accept="image/png, image/jpeg">
@@ -157,7 +157,8 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
             const formData = new FormData();
             formData.append('file',file);
 
-            $.ajax({
+            if(imagen != ''){
+                $.ajax({
                 url: 'enviarImagen.php',
                 type: 'POST',
                 data: formData,
@@ -171,6 +172,12 @@ if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPrivilegio']))
                     document.getElementById('foto_perfil').src="imagenes/"+data;
                 }
             });
+            }else{
+                console.log("cancelando cambiar imagen");
+                return;
+            }
+
+            
         });
         
         </script>
