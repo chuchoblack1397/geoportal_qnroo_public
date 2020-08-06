@@ -38,13 +38,17 @@ if ($varSession == null || $varSession = "") {
     <div class="container contLogin">
     <div class="row">
       <div class="col m-5 p-4">
+        <div class="container"  style="width:80%">
           <center>
               <img src="img/images.png" alt="" class="mb-4" style="width:40%">
             </center>
             <center>
               <h4>Portal geoespacial de la Infraestructura de Datos Territoriales del Municipio de Oth&oacute;n P. Blanco</h4>
             </center>
+        </div>
+          
             <br>
+            <div class="container" style="width:80%">
             <form method="POST" action="ymagomundi.php">
               <div class="form-group" style="width:100%">
                 <label for="campUsuario">Usuario:</label>
@@ -60,6 +64,8 @@ if ($varSession == null || $varSession = "") {
             <center>
               <h6 class="mt-3">Ver. 1.07.17</h6>
             </center>
+            </div>
+            
       </div>
       <div class="col my-5 p-4">
         <div class="card shadow">
