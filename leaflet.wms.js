@@ -181,6 +181,7 @@
                     "<iframe src='" +
                     url +
                     "' style='border:none;width:500px;height:200px'>";
+                return result;
             }
             const data = JSON.parse(result);
             const divMain = document.createElement('div');
@@ -190,47 +191,64 @@
                 divMain.textContent =
                     'No se encontró información acerca de este punto.';
             } else {
+                const divHeader = document.createElement('div');
+                const coordsPopup = document.createElement('div');
+                const coordLat = document.createElement('span');
+                const coordLong = document.createElement('span');
+                const titlePopup = document.createElement('div');
+                const dataContainer = document.createElement('div');
+                const footer = document.createElement('div');
+                const zoomIn = document.createElement('div');
+
+                coordsPopup.appendChild(coordLat);
+                coordsPopup.appendChild(coordLong);
+                divHeader.appendChild(titlePopup);
+                divHeader.appendChild(coordsPopup);
+                divMain.appendChild(divHeader);
+                divMain.appendChild(dataContainer);
+                footer.appendChild(zoomIn);
+
+                divHeader.classList.add('popup__header');
+                titlePopup.classList.add('tituloPopup');
+                coordsPopup.classList.add('coordenadasPopup');
+                dataContainer.classList.add('popup__data');
+                footer.classList.add('popup__footer');
+
+                titlePopup.textContent = 'Atributos descriptivos';
+                coordLat.textContent = `Lat: ${latlng.lat.toFixed(6)}`;
+                coordLong.textContent = `Long: ${latlng.lng.toFixed(6)}`;
+
+                const featureCount = data['features'].length;
+
                 data['features'].forEach((value, index) => {
                     const layerId = value['id'];
                     const [layerName, featureNo] = layerId.split(
                         /\.(?=[^\.]+$)/
                     );
 
-                    const divHeader = document.createElement('div');
-                    const titlePopup = document.createElement('div');
-                    const coordsPopup = document.createElement('div');
                     const titleLayer = document.createElement('h6');
-                    const coordLat = document.createElement('span');
-                    const coordLong = document.createElement('span');
                     const table = document.createElement('table');
                     const tableBody = document.createElement('tbody');
+                    const tableContainer = document.createElement('div');
 
-                    coordsPopup.appendChild(coordLat);
-                    coordsPopup.appendChild(coordLong);
-                    divHeader.appendChild(titlePopup);
-                    divHeader.appendChild(coordsPopup);
-                    divMain.appendChild(divHeader);
-                    divMain.appendChild(titleLayer);
-                    divMain.appendChild(table);
                     table.appendChild(tableBody);
+                    tableContainer.appendChild(titleLayer);
+                    tableContainer.appendChild(table);
+                    dataContainer.appendChild(tableContainer);
 
                     table.classList.add(
                         'table',
                         'table-striped',
                         'popup__table'
                     );
-                    divHeader.classList.add('popup__header');
-                    titlePopup.classList.add('tituloPopup');
-                    coordsPopup.classList.add('coordenadasPopup');
-                    titleLayer.classList.add('popup__title');
 
-                    titlePopup.textContent = 'Atributos descriptivos';
-                    coordLat.textContent = `Lat: ${latlng.lat.toFixed(6)}`;
-                    coordLong.textContent = `Long: ${latlng.lng.toFixed(6)}`;
-                    // console.log(latlng);
-                    // coordsPopup.textContent = `Lat: ${latlng.lat.toFixed(
-                    //     6
-                    // )} Long: ${latlng.lng.toFixed(6)}`;
+                    titleLayer.classList.add('popup__title');
+                    tableContainer.classList.add('popup__feature');
+                    tableContainer.id = 'popupData' + (index + 1).toString();
+
+                    if (index > 0) {
+                        tableContainer.classList.add('d-none');
+                    }
 
                     Object.values(layersObj).some((val, ind) => {
                         if (val['_name'].includes(layerName)) {
@@ -259,20 +277,141 @@
 
                         tableRow.appendChild(tableHeader);
                         tableRow.appendChild(tableData);
-
                         tableBody.appendChild(tableRow);
                     });
                 });
+
+                if (featureCount > 1) {
+                    const nextBtn = document.createElement('btn');
+                    const nextBtnIcon = document.createElement('span');
+                    const prevBtn = document.createElement('btn');
+                    const prevBtnIcon = document.createElement('span');
+                    const pagination = document.createElement('div');
+                    const paginationLabel = document.createElement('div');
+                    const currentPage = document.createElement('span');
+                    const pageCount = document.createElement('span');
+
+                    prevBtn.classList.add('btn', 'btn-light', 'disabled');
+                    prevBtnIcon.classList.add('icon-arrow-left');
+                    nextBtn.classList.add('btn', 'btn-light');
+                    nextBtnIcon.classList.add('icon-arrow-right');
+                    pagination.classList.add('popup__footer-pag');
+                    paginationLabel.classList.add('popup__footer-pag-label');
+
+                    prevBtn.addEventListener('click', this.prevFeature);
+                    nextBtn.addEventListener('click', this.nextFeature);
+
+                    prevBtn.id = 'popupPrevBtn';
+                    nextBtn.id = 'popupNextBtn';
+                    currentPage.id = 'currentPage';
+                    pageCount.id = 'pageCount';
+
+                    currentPage.setAttribute('data-currentpage', 1);
+                    pageCount.setAttribute('data-pagecount', featureCount);
+
+                    currentPage.textContent = '1';
+                    pageCount.textContent = ' de ' + featureCount.toString();
+
+                    prevBtn.appendChild(prevBtnIcon);
+                    nextBtn.appendChild(nextBtnIcon);
+                    paginationLabel.appendChild(currentPage);
+                    paginationLabel.appendChild(pageCount);
+                    pagination.appendChild(prevBtn);
+                    pagination.appendChild(paginationLabel);
+                    pagination.appendChild(nextBtn);
+                    footer.appendChild(pagination);
+                }
+
+                divMain.appendChild(footer);
             }
 
             return divMain;
+        },
+        nextFeature: function () {
+            const dataContainer = document.getElementsByClassName(
+                'popup__data'
+            )[0];
+            const currentPage = document.getElementById('currentPage');
+            const pageCount = document.getElementById('pageCount');
+            const prevBtn = document.getElementById('popupPrevBtn');
+            const nextBtn = document.getElementById('popupNextBtn');
+
+            const currentPageValue = parseInt(
+                currentPage.attributes['data-currentpage'].value
+            );
+            const pageCountValue = parseInt(
+                pageCount.attributes['data-pagecount'].value
+            );
+
+            if (currentPageValue + 1 <= pageCountValue) {
+                const query = `#popupData${currentPageValue}`;
+                const nextQuery = `#popupData${currentPageValue + 1}`;
+                const currentTable = dataContainer.querySelector(query);
+                const nextTable = dataContainer.querySelector(nextQuery);
+
+                if (prevBtn.classList.contains('disabled')) {
+                    prevBtn.classList.remove('disabled');
+                }
+
+                currentTable.classList.add('d-none');
+                nextTable.classList.remove('d-none');
+
+                currentPage.attributes['data-currentpage'].value =
+                    currentPageValue + 1;
+                currentPage.textContent =
+                    currentPage.attributes['data-currentpage'].value;
+
+                if (currentPageValue + 1 === pageCountValue) {
+                    nextBtn.classList.add('disabled');
+                }
+            }
+        },
+        prevFeature: function () {
+            const dataContainer = document.getElementsByClassName(
+                'popup__data'
+            )[0];
+            const currentPage = document.getElementById('currentPage');
+            const pageCount = document.getElementById('pageCount');
+            const prevBtn = document.getElementById('popupPrevBtn');
+            const nextBtn = document.getElementById('popupNextBtn');
+
+            const currentPageValue = parseInt(
+                currentPage.attributes['data-currentpage'].value
+            );
+            const pageCountValue = parseInt(
+                pageCount.attributes['data-pagecount'].value
+            );
+
+            if (currentPageValue - 1 > 0) {
+                const query = `#popupData${currentPageValue}`;
+                const prevQuery = `#popupData${currentPageValue - 1}`;
+                const currentTable = dataContainer.querySelector(query);
+                const prevTable = dataContainer.querySelector(prevQuery);
+
+                if (nextBtn.classList.contains('disabled')) {
+                    nextBtn.classList.remove('disabled');
+                }
+
+                currentTable.classList.add('d-none');
+                prevTable.classList.remove('d-none');
+
+                currentPage.attributes['data-currentpage'].value =
+                    currentPageValue - 1;
+                currentPage.textContent =
+                    currentPage.attributes['data-currentpage'].value;
+
+                if (currentPageValue - 1 === 1) {
+                    prevBtn.classList.add('disabled');
+                }
+            }
         },
         showFeatureInfo: function (latlng, info) {
             if (!this._map) {
                 return;
             }
             this._map.openPopup(info, latlng, {
-                maxWidth: 413,
+                maxWidth: 400,
+                minWidth: 400,
                 maxHeight: 340,
             });
         },
@@ -335,7 +474,7 @@
             styles: '',
             format: 'image/jpeg',
             transparent: false,
-            feature_count: 1,
+            feature_count: 50,
         },
         options: {
             crs: null,

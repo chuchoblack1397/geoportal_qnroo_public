@@ -41,7 +41,6 @@
 
 .popup__container {
     width: 400px;
-    padding-right: 1.5rem;
 }
 
 .popup__table {
@@ -68,6 +67,41 @@
     left: 0px;
 }
 
+.popup__footer {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    justify-content: space-between;
+    height: 2.5rem;
+    align-items: center;
+}
+
+.popup__footer [class^='icon-'],
+.popup__footer [class*=' icon-'] {
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.popup__footer-pag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.popup__footer-pag btn {
+    padding: 6px 3px;
+}
+
+.popup__footer-pag-label {
+    margin: 0 3px;
+}
+
 .popup__title {
     font-weight: bold;
 }
@@ -77,6 +111,18 @@
     border-bottom: none;
     overflow-x: hidden;
     margin-top: 0;
+}
+
+.leaflet-popup-scrolled .popup__container {
+    padding-right: 0.5rem;
+    width: 384px;
+}
+
+.leaflet-popup-content {
+    max-height: 341px;
+    margin-top: 6px;
+    margin-bottom: 2.4rem;
+    overflow-y: auto;
 }
 
 .leaflet-popup-content-wrapper {
