@@ -2,15 +2,15 @@
 session_start();
 
 if (isset($_POST['campUsuario']) && isset($_POST['campoContra'])) { //asignando los valores obtenidos del login para las variables de session
-    echo "<script>console.log('Recibiendo datos de POST');</script>";
+    //echo "<script>console.log('Recibiendo datos de POST');</script>";
 
     $_SESSION['usuarioSession'] = $_POST['campUsuario'];
     $_SESSION['usuarioPass'] = $_POST['campoContra'];
-    echo "<script>console.log('Asignando datos a SESSION');</script>";
+    //echo "<script>console.log('Asignando datos a SESSION');</script>";
 }
 
 if (isset($_SESSION['usuarioSession']) && isset($_SESSION['usuarioPass'])) { //verificando si existe una session iniciada
-    echo "<script>console.log('Validando SESSION');</script>";
+    //echo "<script>console.log('Validando SESSION');</script>";
 
     include 'conexion.php';
 
@@ -26,17 +26,15 @@ $resultadoPass= pg_query($conexion,$validarPass);
 if(!$resultadoPass) {
     echo 'Consulta de usuario Fallida';
     exit();
-   } 
-   else {
-      echo "<script>console.log('Consulta de usuario correcta');</script>";
-   }
+    } 
+
 
         if($row=pg_num_rows($resultadoPass) > 0){//comprueba si existe el usuario
-            echo "<script>console.log('Se encontro Usuario');</script>";
+            //echo "<script>console.log('Se encontro Usuario');</script>";
             
             while ($UserPass = pg_fetch_assoc($resultadoPass))
             {
-                echo "<script>console.log('DENTRO DEL WHILE');</script>";
+                //echo "<script>console.log('DENTRO DEL WHILE');</script>";
                 $pass = $UserPass['pass'];           
             }//fin while
         }
@@ -63,15 +61,13 @@ if (password_verify($miContra, $pass)) {
     if (!$resultado) {
         echo 'Consulta de usuario Fallida';
         exit();
-    } else {
-        echo "<script>console.log('Consulta de usuario correcta');</script>";
-    } //fin if error resultado
+    }
 
     if ($row = pg_num_rows($resultado) > 0) { //comprueba si existe el usuario
-        echo "<script>console.log('Se encontro Usuario');</script>";
+       // echo "<script>console.log('Se encontro Usuario');</script>";
 
         while ($datoUsuarioPrivilegio = pg_fetch_assoc($resultado)) { //obteniendo el dato del privilegio
-            echo "<script>console.log('DENTRO DEL WHILE');</script>";
+           // echo "<script>console.log('DENTRO DEL WHILE');</script>";
             $privilegio = $datoUsuarioPrivilegio['privilegio']; //asigna el valor del campo 'privilegio' a una variable normal
             $nombre = $datoUsuarioPrivilegio['nombreusuario'];
             $aPaterno = $datoUsuarioPrivilegio['apellidopaternousuario'];
@@ -82,7 +78,7 @@ if (password_verify($miContra, $pass)) {
             $nombreCompleto = $nombre . ' ' . $aPaterno . ' ' . $aMaterno;
 
             $_SESSION['usuarioPrivilegio'] = $privilegio; //asignando el privilegio a la variable de session
-            echo "<script>console.log('Hola " . $nombre . ", eres: " . $privilegio . "');</script>";
+            //echo "<script>console.log('Hola " . $nombre . ", eres: " . $privilegio . "');</script>";
 
             //asignacion de los roles a variables de session para mayor accesibilidad
             $_SESSION['rol_usuario_c'] = $datoUsuarioPrivilegio['usuario_crear']; //agregar
@@ -113,16 +109,16 @@ if (password_verify($miContra, $pass)) {
 
 
 
-        //--ARREGLO PARA LOS DATOS DE LAS CAPAS
-        /*
- # Este metodo que se emplea aquí solamente sirve para
- # realizar una sola vez la consulta a la base de datos
- # de los datos completos de las capas, ya que en este
- # codigo constantemente se estan rellenando etiquetas y
- # variables de JS con dichos datos, así evitamos llamar
- # muchas veces la conexion y dejamos todo dentro de un
- # ARREGLO el cual se reutiliza.
- */
+//--ARREGLO PARA LOS DATOS DE LAS CAPAS
+/*
+# Este metodo que se emplea aquí solamente sirve para
+# realizar una sola vez la consulta a la base de datos
+# de los datos completos de las capas, ya que en este
+# codigo constantemente se estan rellenando etiquetas y
+# variables de JS con dichos datos, así evitamos llamar
+# muchas veces la conexion y dejamos todo dentro de un
+# ARREGLO el cual se reutiliza.
+*/
 
         if ($privilegio == 'administrador') {
             $consultaCapas = "SELECT capas.*, ordencapas.zindex FROM capas INNER JOIN ordencapas ON capas.idcapa = ordencapas.idcapa ORDER BY ordencapas.zindex DESC"; //consulta general
@@ -136,13 +132,11 @@ if (password_verify($miContra, $pass)) {
         if (!$resultadoCapas) {
             echo 'Consulta de resultadoCapas Fallida';
             exit();
-        } else {
-            echo "<script>console.log('Consulta de resultadoCapas correcta');</script>";
-        } //fin if error resultadoCapas
+        }
 
 
         while ($filaCapa = pg_fetch_assoc($resultadoCapas)) { //obteniendo capas de BD
-            echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";
+            //echo "<script>console.log('DENTRO DEL WHILE filaCapa');</script>";
             $arregloCapas[] = $filaCapa; //agregando los valores de la BD al arreglo
         } //fin while
         /*
