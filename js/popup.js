@@ -1,4 +1,4 @@
-var botonAbrir = document.getElementById('subirCapa'),
+/*var botonAbrir = document.getElementById('subirCapa'),
     overlay= document.getElementById('overlay'),
     popup =document.getElementById('popup');
     botonCerrar =document.getElementById('btn-cerrar-popup');
@@ -15,7 +15,7 @@ botonCerrar.addEventListener('click', function(){
     overlay.classList.remove('active');
     popup.classList.remove('active');
 })
-
+*/
 
 /*
 function cargando(){
